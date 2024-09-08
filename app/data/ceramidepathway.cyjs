@@ -1,0 +1,2528 @@
+{
+  "format_version" : "1.0",
+  "generated_by" : "cytoscape-3.10.0",
+  "target_cytoscapejs_version" : "~2.1",
+  "data" : {
+    "shared_name" : "Network(1)",
+    "name" : "Network(1)",
+    "SUID" : 51687,
+    "__Annotations" : [ "" ],
+    "selected" : true
+  },
+  "elements" : {
+    "nodes" : [ {
+      "data" : {
+        "id" : "60361",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 18",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 18",
+        "Ensembl_ID" : "",
+        "SUID" : 60361,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -772.3715110031136,
+        "y" : -442.24842702277897
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59880",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 13",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 13",
+        "Ensembl_ID" : "",
+        "SUID" : 59880,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1180.4239308066317,
+        "y" : -358.0486505034973
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59874",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 2",
+        "Ensembl_ID" : "",
+        "SUID" : 59874,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1182.4911756886006,
+        "y" : 111.7836490135568
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59832",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 6",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 6",
+        "Ensembl_ID" : "",
+        "SUID" : 59832,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -937.4993548517596,
+        "y" : -50.61982027825535
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59829",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 4",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 4",
+        "Ensembl_ID" : "",
+        "SUID" : 59829,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -937.6842371049761,
+        "y" : 59.53152187837176
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59826",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 5",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 5",
+        "Ensembl_ID" : "",
+        "SUID" : 59826,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -937.8691193581923,
+        "y" : 1.6323068569296595
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59782",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 10",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 10",
+        "Ensembl_ID" : "",
+        "SUID" : 59782,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -935.98675672944,
+        "y" : -244.3174653425818
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59768",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 11",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 11",
+        "Ensembl_ID" : "",
+        "SUID" : 59768,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -937.4993548517598,
+        "y" : -189.8132110722118
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59754",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 9",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 9",
+        "Ensembl_ID" : "",
+        "SUID" : 59754,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -939.0119529740795,
+        "y" : -301.6620336043749
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59731",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 1",
+        "Ensembl_ID" : "",
+        "SUID" : 59731,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -826.1533756487528,
+        "y" : 321.0374351715994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59711",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 21",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 21",
+        "Ensembl_ID" : "",
+        "SUID" : 59711,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -85.86704966181715,
+        "y" : -408.69424405568736
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59691",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 32",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 32",
+        "Ensembl_ID" : "",
+        "SUID" : 59691,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 842.8395980096204,
+        "y" : 226.348298648013
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51860",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "UGCG",
+        "Label_size" : 30,
+        "shared_name" : "UGCG",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000028381.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(UGCG).png",
+        "name" : "UGCG",
+        "Ensembl_ID" : "ENSMUSG00000028381",
+        "SUID" : 51860,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -128.31694440868472,
+        "y" : 98.3709826174738
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51858",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "UGT8a",
+        "Label_size" : 30,
+        "shared_name" : "UGT8a",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000032854.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(UGT8a).png",
+        "name" : "UGT8a",
+        "Ensembl_ID" : "ENSMUSG00000032854",
+        "SUID" : 51858,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -838.4846509098612,
+        "y" : -520.2093054254817
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51856",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "St3gal3",
+        "Label_size" : 30,
+        "shared_name" : "St3gal3",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000028538.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(St3gal3).png",
+        "name" : "St3gal3",
+        "Ensembl_ID" : "ENSMUSG00000028538",
+        "SUID" : 51856,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 918.0,
+        "y" : 227.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51854",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "St3gal2",
+        "Label_size" : 30,
+        "shared_name" : "St3gal2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000031749.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(St3gal2).png",
+        "name" : "St3gal2",
+        "Ensembl_ID" : "ENSMUSG00000031749",
+        "SUID" : 51854,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 1066.0,
+        "y" : 227.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51852",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 30",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 30",
+        "Ensembl_ID" : "",
+        "SUID" : 51852,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 712.2568469936117,
+        "y" : 30.87794773775253
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51850",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "GM2",
+        "Label_size" : 30,
+        "shared_name" : "GM2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=GM2.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(GM2).png",
+        "name" : "GM2",
+        "Ensembl_ID" : "",
+        "SUID" : 51850,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 710.8013297662593,
+        "y" : -58.53729771875898
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51848",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "ACER3",
+        "Label_size" : 30,
+        "shared_name" : "ACER3",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000030760.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(ACER3).png",
+        "name" : "ACER3",
+        "Ensembl_ID" : "ENSMUSG00000030760",
+        "SUID" : 51848,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -28.602905499490483,
+        "y" : -410.3040365280741
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51846",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "ACER2",
+        "Label_size" : 30,
+        "shared_name" : "ACER2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000038007.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(ACER2).png",
+        "name" : "ACER2",
+        "Ensembl_ID" : "ENSMUSG00000038007",
+        "SUID" : 51846,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -27.350146993003058,
+        "y" : -558.8546303570583
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51844",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "ACER1",
+        "Label_size" : 30,
+        "shared_name" : "ACER1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000045019.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(ACER1).png",
+        "name" : "ACER1",
+        "Ensembl_ID" : "ENSMUSG00000045019",
+        "SUID" : 51844,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -27.768898554351985,
+        "y" : -702.0171272343605
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51842",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "ASAH2",
+        "Label_size" : 30,
+        "shared_name" : "ASAH2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000024887.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(ASAH2).png",
+        "name" : "ASAH2",
+        "Ensembl_ID" : "ENSMUSG00000024887",
+        "SUID" : 51842,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 121.93133234060159,
+        "y" : -410.56913517883123
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51840",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "CerS6",
+        "Label_size" : 30,
+        "shared_name" : "CerS6",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000027035.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(CerS6).png",
+        "name" : "CerS6",
+        "Ensembl_ID" : "ENSMUSG00000027035",
+        "SUID" : 51840,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -454.0,
+        "y" : 393.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51838",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "CerS3",
+        "Label_size" : 30,
+        "shared_name" : "CerS3",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000030510.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(CerS3).png",
+        "name" : "CerS3",
+        "Ensembl_ID" : "ENSMUSG00000030510",
+        "SUID" : 51838,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -901.0,
+        "y" : 394.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51836",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "CerS5",
+        "Label_size" : 30,
+        "shared_name" : "CerS5",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000023021.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(CerS5).png",
+        "name" : "CerS5",
+        "Ensembl_ID" : "ENSMUSG00000023021",
+        "SUID" : 51836,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -604.0,
+        "y" : 395.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51834",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "CerS4",
+        "Label_size" : 30,
+        "shared_name" : "CerS4",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000008206.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Cers4).png",
+        "name" : "CerS4",
+        "Ensembl_ID" : "ENSMUSG00000008206",
+        "SUID" : 51834,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -754.0,
+        "y" : 396.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51832",
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "CerS1",
+        "Label_size" : 30,
+        "shared_name" : "CerS1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000087408.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Cers1).png",
+        "name" : "CerS1",
+        "Ensembl_ID" : "ENSMUSG00000087408",
+        "SUID" : 51832,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1193.0,
+        "y" : 393.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51830",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "DHSph",
+        "Label_size" : 30,
+        "shared_name" : "DHSph",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=DHSph.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(DHSph).png",
+        "name" : "DHSph",
+        "Ensembl_ID" : "",
+        "SUID" : 51830,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1037.0,
+        "y" : -127.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51828",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "HexCer_HS",
+        "Label_size" : 30,
+        "shared_name" : "HexCer_HS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=HexCer_HS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(HexCer_HS).png",
+        "name" : "HexCer_HS",
+        "Ensembl_ID" : "",
+        "SUID" : 51828,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 51.0,
+        "y" : -6.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51826",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "SHexCer",
+        "Label_size" : 30,
+        "shared_name" : "SHexCer",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=SHexCer.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(SHexCer).png",
+        "name" : "SHexCer",
+        "Ensembl_ID" : "",
+        "SUID" : 51826,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 374.0,
+        "y" : -5.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51824",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "GM1",
+        "Label_size" : 30,
+        "shared_name" : "GM1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=GM1.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(GM1).png",
+        "name" : "GM1",
+        "Ensembl_ID" : "",
+        "SUID" : 51824,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 712.0,
+        "y" : 134.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51822",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Cer_NDS",
+        "Label_size" : 30,
+        "shared_name" : "Cer_NDS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Cer_NDS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Cer_NDS).png",
+        "name" : "Cer_NDS",
+        "Ensembl_ID" : "",
+        "SUID" : 51822,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -633.0,
+        "y" : -246.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51820",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 28",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 28",
+        "Ensembl_ID" : "",
+        "SUID" : 51820,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 537.4846159314478,
+        "y" : -248.25741099855094
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51818",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "St3gal5",
+        "Label_size" : 30,
+        "shared_name" : "St3gal5",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000056091.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(St3gal5).png",
+        "name" : "St3gal5",
+        "Ensembl_ID" : "ENSMUSG00000056091",
+        "SUID" : 51818,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 536.1206531286184,
+        "y" : -422.89211563760074
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51816",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 31",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 31",
+        "Ensembl_ID" : "",
+        "SUID" : 51816,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 715.7134520976327,
+        "y" : 224.83570052569328
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51814",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 29",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 29",
+        "Ensembl_ID" : "",
+        "SUID" : 51814,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 711.0171129468636,
+        "y" : -158.08177102153573
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51812",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 26",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 26",
+        "Ensembl_ID" : "",
+        "SUID" : 51812,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 205.8461959794227,
+        "y" : -128.45541144886855
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51810",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 20",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 20",
+        "Ensembl_ID" : "",
+        "SUID" : 51810,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -245.28290671112362,
+        "y" : -381.4074033568216
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51808",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 19",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 19",
+        "Ensembl_ID" : "",
+        "SUID" : 51808,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -351.640839725702,
+        "y" : -380.60267525686004
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51806",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 17",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 17",
+        "Ensembl_ID" : "",
+        "SUID" : 51806,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -634.2277691381489,
+        "y" : -379.7197200680567
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51804",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 27",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 27",
+        "Ensembl_ID" : "",
+        "SUID" : 51804,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 207.30374036030787,
+        "y" : -248.03144762034643
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51802",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : " ",
+        "Label_size" : 1,
+        "shared_name" : "Node 24",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 24",
+        "Ensembl_ID" : "",
+        "SUID" : 51802,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -129.7286610550886,
+        "y" : 234.4914630047503
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51800",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "HexCer_AP",
+        "Label_size" : 30,
+        "shared_name" : "HexCer_AP",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=HexCer_AP.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(HexCer_AP).png",
+        "name" : "HexCer_AP",
+        "Ensembl_ID" : "",
+        "SUID" : 51800,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 53.0,
+        "y" : 236.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51798",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "B4galt5",
+        "Label_size" : 30,
+        "shared_name" : "B4galt5",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000017929.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(B4galt5).png",
+        "name" : "B4galt5",
+        "Ensembl_ID" : "ENSMUSG00000017929",
+        "SUID" : 51798,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 299.71569534150717,
+        "y" : -417.0840363882634
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51794",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "Gal3st1",
+        "Label_size" : 30,
+        "shared_name" : "Gal3st1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000049721.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Gal3st1).png",
+        "name" : "Gal3st1",
+        "Ensembl_ID" : "ENSMUSG00000049721",
+        "SUID" : 51794,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 207.8254163374965,
+        "y" : 109.52609444387052
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51792",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Cer_AS",
+        "Label_size" : 30,
+        "shared_name" : "Cer_AS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Cer_AS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Cer_AS).png",
+        "name" : "Cer_AS",
+        "Ensembl_ID" : "",
+        "SUID" : 51792,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -290.0,
+        "y" : -3.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51790",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 22",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 22",
+        "Ensembl_ID" : "",
+        "SUID" : 51790,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -132.25481786636925,
+        "y" : -250.48009122993926
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51788",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "UGT8a",
+        "Label_size" : 30,
+        "shared_name" : "UGT8a",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000032854.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(UGT8a).png",
+        "name" : "UGT8a",
+        "Ensembl_ID" : "ENSMUSG00000032854",
+        "SUID" : 51788,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -131.58652339306036,
+        "y" : -128.9895133819647
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51786",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 14",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 14",
+        "Ensembl_ID" : "",
+        "SUID" : 51786,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -467.2544855814592,
+        "y" : 117.53585173280345
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51784",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Sph",
+        "Label_size" : 30,
+        "shared_name" : "Sph",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Sph.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Sph).png",
+        "name" : "Sph",
+        "Ensembl_ID" : "",
+        "SUID" : 51784,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -195.0,
+        "y" : -540.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51782",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 15",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 15",
+        "Ensembl_ID" : "",
+        "SUID" : 51782,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -464.9905742180447,
+        "y" : -7.607705371300975
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51780",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "GM3",
+        "Label_size" : 30,
+        "shared_name" : "GM3",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=GM3.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(GM3).png",
+        "name" : "GM3",
+        "Ensembl_ID" : "",
+        "SUID" : 51780,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 710.0,
+        "y" : -249.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51778",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 16",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 16",
+        "Ensembl_ID" : "",
+        "SUID" : 51778,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -463.4940895638944,
+        "y" : -249.3506164628149
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51776",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Cer_NS",
+        "Label_size" : 30,
+        "shared_name" : "Cer_NS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Cer_NS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Cer_NS).png",
+        "name" : "Cer_NS",
+        "Ensembl_ID" : "",
+        "SUID" : 51776,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -290.0,
+        "y" : -246.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51774",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 7",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 7",
+        "Ensembl_ID" : "",
+        "SUID" : 51774,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -827.9922261951708,
+        "y" : 2.887864566243465
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51772",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "SGMS1",
+        "Label_size" : 30,
+        "shared_name" : "SGMS1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000040451.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(SGMS1).png",
+        "name" : "SGMS1",
+        "Ensembl_ID" : "ENSMUSG00000040451",
+        "SUID" : 51772,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -478.3970198679425,
+        "y" : -376.4290322995306
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51770",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 8",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 8",
+        "Ensembl_ID" : "",
+        "SUID" : 51770,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -826.7933659354836,
+        "y" : -243.76281858293285
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51768",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "DEGS2",
+        "Label_size" : 30,
+        "shared_name" : "DEGS2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000021263.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(DEGS2).png",
+        "name" : "DEGS2",
+        "Ensembl_ID" : "ENSMUSG00000021263",
+        "SUID" : 51768,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -636.4474900692869,
+        "y" : 229.24947575028722
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51764",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "DEGS1",
+        "Label_size" : 30,
+        "shared_name" : "DEGS1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000038633.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(DEGS1).png",
+        "name" : "DEGS1",
+        "Ensembl_ID" : "ENSMUSG00000038633",
+        "SUID" : 51764,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -464.5168443455404,
+        "y" : -132.41313881546006
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51760",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 3",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 3",
+        "Ensembl_ID" : "",
+        "SUID" : 51760,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1181.129760559344,
+        "y" : -132.5450208053768
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51758",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "CerS2",
+        "Label_size" : 30,
+        "shared_name" : "CerS2",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000015714.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(CerS2).png",
+        "name" : "CerS2",
+        "Ensembl_ID" : "ENSMUSG00000015714",
+        "SUID" : 51758,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1046.0,
+        "y" : 395.45683602223994
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51756",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "FA2H",
+        "Label_size" : 30,
+        "shared_name" : "FA2H",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000033579.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(FA2H).png",
+        "name" : "FA2H",
+        "Ensembl_ID" : "ENSMUSG00000033579",
+        "SUID" : 51756,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1337.0106724152988,
+        "y" : -132.149749673229
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51754",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "2OH-FA",
+        "Label_size" : 30,
+        "shared_name" : "2OH-FA",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=2OH-FA.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(2OH-FA).png",
+        "name" : "2OH-FA",
+        "Ensembl_ID" : "",
+        "SUID" : 51754,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1036.0,
+        "y" : 113.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51752",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Cer_AP",
+        "Label_size" : 30,
+        "shared_name" : "Cer_AP",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Cer_AP.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Cer_AP).png",
+        "name" : "Cer_AP",
+        "Ensembl_ID" : "",
+        "SUID" : 51752,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -288.0,
+        "y" : 235.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51750",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Cer_ADS",
+        "Label_size" : 30,
+        "shared_name" : "Cer_ADS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Cer_ADS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Cer_ADS).png",
+        "name" : "Cer_ADS",
+        "Ensembl_ID" : "",
+        "SUID" : 51750,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -638.0,
+        "y" : -4.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51748",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "SM",
+        "Label_size" : 30,
+        "shared_name" : "SM",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=SM.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(SM).png",
+        "name" : "SM",
+        "Ensembl_ID" : "",
+        "SUID" : 51748,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -424.0,
+        "y" : -538.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51746",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "HexCer_NS",
+        "Label_size" : 30,
+        "shared_name" : "HexCer_NS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=HexCer_NS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(HexCer_NS).png",
+        "name" : "HexCer_NS",
+        "Ensembl_ID" : "",
+        "SUID" : 51746,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 50.0,
+        "y" : -247.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51437",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "B3galt4",
+        "Label_size" : 30,
+        "shared_name" : "B3galt4",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000067370.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(B3galt4).png",
+        "name" : "B3galt4",
+        "Ensembl_ID" : "ENSMUSG00000067370",
+        "SUID" : 51437,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 925.982401222997,
+        "y" : 31.398956004524972
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51435",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "B4galnt1",
+        "Label_size" : 30,
+        "shared_name" : "B4galnt1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000006731.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(B4galnt1).png",
+        "name" : "B4galnt1",
+        "Ensembl_ID" : "ENSMUSG00000006731",
+        "SUID" : 51435,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 925.3093465824652,
+        "y" : -158.82396183751564
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51738",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "FA",
+        "Label_size" : 30,
+        "shared_name" : "FA",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=FA.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(FA).png",
+        "name" : "FA",
+        "Ensembl_ID" : "",
+        "SUID" : 51738,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -1042.0,
+        "y" : -361.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51736",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "AHexCer",
+        "Label_size" : 30,
+        "shared_name" : "AHexCer",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=AHexCer.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(AHexCer).png",
+        "name" : "AHexCer",
+        "Ensembl_ID" : "",
+        "SUID" : 51736,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 372.0,
+        "y" : 251.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51734",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "GD1a",
+        "Label_size" : 30,
+        "shared_name" : "GD1a",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=GD1a.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(GD1a).png",
+        "name" : "GD1a",
+        "Ensembl_ID" : "",
+        "SUID" : 51734,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 713.0,
+        "y" : 329.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51732",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "HexCer_NDS",
+        "Label_size" : 30,
+        "shared_name" : "HexCer_NDS",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=HexCer_NDS.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(HexCer_NDS).png",
+        "name" : "HexCer_NDS",
+        "Ensembl_ID" : "",
+        "SUID" : 51732,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -633.0,
+        "y" : -524.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51730",
+        "NumChildren" : 2,
+        "Shape" : "",
+        "Fillcolor" : "",
+        "Color" : "",
+        "label" : "Hex2Cer",
+        "Label_size" : 30,
+        "shared_name" : "Hex2Cer",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Hex2Cer.svg",
+        "NumDescendents" : 2,
+        "pathpng" : "http://localhost:9000/png?str2=(Hex2Cer).png",
+        "name" : "Hex2Cer",
+        "Ensembl_ID" : "",
+        "SUID" : 51730,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 373.0,
+        "y" : -247.0
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51728",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "UGCG",
+        "Label_size" : 30,
+        "shared_name" : "UGCG",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000028381.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(UGCG).png",
+        "name" : "UGCG",
+        "Ensembl_ID" : "ENSMUSG00000028381",
+        "SUID" : 51728,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : -837.0,
+        "y" : -369.48940274874997
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51726",
+        "Shape" : "Rectangle",
+        "Fillcolor" : "#ffffff",
+        "Color" : "Black",
+        "label" : "ASAH1",
+        "Label_size" : 30,
+        "shared_name" : "ASAH1",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=ENSMUSG00000031591.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(ASAH1).png",
+        "name" : "ASAH1",
+        "Ensembl_ID" : "ENSMUSG00000031591",
+        "SUID" : 51726,
+        "Height" : 140,
+        "Width" : 140,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 123.47956988670943,
+        "y" : -559.1189983803392
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51716",
+        "Shape" : "Ellipse",
+        "Fillcolor" : "#ffffff",
+        "Color" : "",
+        "label" : "",
+        "Label_size" : 1,
+        "shared_name" : "Node 25",
+        "LabelFont" : "",
+        "path" : "http://localhost:9000/plot?str1=Node1.svg",
+        "pathpng" : "http://localhost:9000/png?str2=(Node1).png",
+        "name" : "Node 25",
+        "Ensembl_ID" : "",
+        "SUID" : 51716,
+        "Height" : 1,
+        "Width" : 1,
+        "selected" : false
+      },
+      "position" : {
+        "x" : 206.57790990647788,
+        "y" : -4.027725702126798
+      },
+      "selected" : false
+    } ],
+    "edges" : [ {
+      "data" : {
+        "id" : "60367",
+        "source" : "60361",
+        "target" : "51806",
+        "shared_name" : "Node 17 (interacts with) Node 17",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 17 (interacts with) Node 17",
+        "interaction" : "interacts with",
+        "SUID" : 60367,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59899",
+        "source" : "59880",
+        "target" : "59874",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59899,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59905",
+        "source" : "59874",
+        "target" : "51754",
+        "shared_name" : "Node 1 (interacts with) 2OH-FA",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) 2OH-FA",
+        "interaction" : "interacts with",
+        "SUID" : 59905,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59862",
+        "source" : "59832",
+        "target" : "59826",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59862,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59856",
+        "source" : "59829",
+        "target" : "59826",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59856,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59868",
+        "source" : "59826",
+        "target" : "51750",
+        "shared_name" : "Node 1 (interacts with) Cer_ADS",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Cer_ADS",
+        "interaction" : "interacts with",
+        "SUID" : 59868,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59812",
+        "source" : "59782",
+        "target" : "51822",
+        "shared_name" : "Node 1 (interacts with) Cer_NDS",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Cer_NDS",
+        "interaction" : "interacts with",
+        "SUID" : 59812,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59806",
+        "source" : "59768",
+        "target" : "59782",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59806,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59794",
+        "source" : "59754",
+        "target" : "59782",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59794,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59743",
+        "source" : "59731",
+        "target" : "51770",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59743,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59737",
+        "source" : "59731",
+        "target" : "51774",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59737,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59725",
+        "source" : "59711",
+        "target" : "51810",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59725,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59705",
+        "source" : "59691",
+        "target" : "51816",
+        "shared_name" : "Node 1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Node 1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59705,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51942",
+        "source" : "51850",
+        "target" : "51824",
+        "shared_name" : "GM2 (interacts with) GM1",
+        "shared_interaction" : "interacts with",
+        "name" : "GM2 (interacts with) GM1",
+        "interaction" : "interacts with",
+        "SUID" : 51942,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59844",
+        "source" : "51830",
+        "target" : "59832",
+        "shared_name" : "DHSph (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "DHSph (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59844,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59800",
+        "source" : "51830",
+        "target" : "59768",
+        "shared_name" : "DHSph (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "DHSph (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59800,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51938",
+        "source" : "51828",
+        "target" : "51736",
+        "shared_name" : "HexCer_HS (interacts with) AHexCer",
+        "shared_interaction" : "interacts with",
+        "name" : "HexCer_HS (interacts with) AHexCer",
+        "interaction" : "interacts with",
+        "SUID" : 51938,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51936",
+        "source" : "51828",
+        "target" : "51826",
+        "shared_name" : "HexCer_HS (interacts with) SHexCer",
+        "shared_interaction" : "interacts with",
+        "name" : "HexCer_HS (interacts with) SHexCer",
+        "interaction" : "interacts with",
+        "SUID" : 51936,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51934",
+        "source" : "51824",
+        "target" : "51734",
+        "shared_name" : "GM1 (interacts with) GD1a",
+        "shared_interaction" : "interacts with",
+        "name" : "GM1 (interacts with) GD1a",
+        "interaction" : "interacts with",
+        "SUID" : 51934,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51932",
+        "source" : "51822",
+        "target" : "51776",
+        "shared_name" : "Cer_NDS (interacts with) Cer_NS",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_NDS (interacts with) Cer_NS",
+        "interaction" : "interacts with",
+        "SUID" : 51932,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51930",
+        "source" : "51822",
+        "target" : "51732",
+        "shared_name" : "Cer_NDS (interacts with) HexCer_NDS",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_NDS (interacts with) HexCer_NDS",
+        "interaction" : "interacts with",
+        "SUID" : 51930,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51928",
+        "source" : "51818",
+        "target" : "51820",
+        "shared_name" : "St3gal5 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "St3gal5 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51928,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51926",
+        "source" : "51798",
+        "target" : "51804",
+        "shared_name" : "B4galt5 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "B4galt5 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51926,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51924",
+        "source" : "51794",
+        "target" : "51812",
+        "shared_name" : "Gal3st1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Gal3st1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51924,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51922",
+        "source" : "51794",
+        "target" : "51716",
+        "shared_name" : "Gal3st1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "Gal3st1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51922,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51920",
+        "source" : "51792",
+        "target" : "51828",
+        "shared_name" : "Cer_AS (interacts with) HexCer_HS",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_AS (interacts with) HexCer_HS",
+        "interaction" : "interacts with",
+        "SUID" : 51920,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51918",
+        "source" : "51788",
+        "target" : "51790",
+        "shared_name" : "UGT8a (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "UGT8a (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51918,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51914",
+        "source" : "51788",
+        "target" : "51802",
+        "shared_name" : "UGT8a (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "UGT8a (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51914,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51912",
+        "source" : "51780",
+        "target" : "51850",
+        "shared_name" : "GM3 (interacts with) GM2",
+        "shared_interaction" : "interacts with",
+        "name" : "GM3 (interacts with) GM2",
+        "interaction" : "interacts with",
+        "SUID" : 51912,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51910",
+        "source" : "51776",
+        "target" : "51784",
+        "shared_name" : "Cer_NS (interacts with) Sph",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_NS (interacts with) Sph",
+        "interaction" : "interacts with",
+        "SUID" : 51910,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51908",
+        "source" : "51776",
+        "target" : "51746",
+        "shared_name" : "Cer_NS (interacts with) HexCer_NS",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_NS (interacts with) HexCer_NS",
+        "interaction" : "interacts with",
+        "SUID" : 51908,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51906",
+        "source" : "51776",
+        "target" : "51748",
+        "shared_name" : "Cer_NS (interacts with) SM",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_NS (interacts with) SM",
+        "interaction" : "interacts with",
+        "SUID" : 51906,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51904",
+        "source" : "51772",
+        "target" : "51808",
+        "shared_name" : "SMS (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "SMS (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51904,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51902",
+        "source" : "51768",
+        "target" : "51786",
+        "shared_name" : "DEGS2 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "DEGS2 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51902,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51898",
+        "source" : "51764",
+        "target" : "51778",
+        "shared_name" : "DEGS1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "DEGS1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51898,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51896",
+        "source" : "51764",
+        "target" : "51782",
+        "shared_name" : "DEGS1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "DEGS1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51896,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51892",
+        "source" : "51756",
+        "target" : "51760",
+        "shared_name" : "FA2H (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "FA2H (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51892,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59850",
+        "source" : "51754",
+        "target" : "59829",
+        "shared_name" : "2OH-FA (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "2OH-FA (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59850,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51890",
+        "source" : "51752",
+        "target" : "51800",
+        "shared_name" : "Cer_AP (interacts with) HexCer_AP",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_AP (interacts with) HexCer_AP",
+        "interaction" : "interacts with",
+        "SUID" : 51890,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51888",
+        "source" : "51750",
+        "target" : "51752",
+        "shared_name" : "Cer_ADS (interacts with) Cer_AP",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_ADS (interacts with) Cer_AP",
+        "interaction" : "interacts with",
+        "SUID" : 51888,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51886",
+        "source" : "51750",
+        "target" : "51792",
+        "shared_name" : "Cer_ADS (interacts with) Cer_AS",
+        "shared_interaction" : "interacts with",
+        "name" : "Cer_ADS (interacts with) Cer_AS",
+        "interaction" : "interacts with",
+        "SUID" : 51886,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51884",
+        "source" : "51746",
+        "target" : "51730",
+        "shared_name" : "HexCer_NS (interacts with) Hex2Cer",
+        "shared_interaction" : "interacts with",
+        "name" : "HexCer_NS (interacts with) Hex2Cer",
+        "interaction" : "interacts with",
+        "SUID" : 51884,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51882",
+        "source" : "51746",
+        "target" : "51826",
+        "shared_name" : "HexCer_NS (interacts with) SHexCer",
+        "shared_interaction" : "interacts with",
+        "name" : "HexCer_NS (interacts with) SHexCer",
+        "interaction" : "interacts with",
+        "SUID" : 51882,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51880",
+        "source" : "51437",
+        "target" : "51852",
+        "shared_name" : "B3galt4 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "B3galt4 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51880,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51878",
+        "source" : "51435",
+        "target" : "51814",
+        "shared_name" : "B4galnt1 (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "B4galnt1 (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 51878,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59893",
+        "source" : "51738",
+        "target" : "59880",
+        "shared_name" : "FA (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "FA (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59893,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "59788",
+        "source" : "51738",
+        "target" : "59754",
+        "shared_name" : "FA (interacts with) Node 1",
+        "shared_interaction" : "interacts with",
+        "name" : "FA (interacts with) Node 1",
+        "interaction" : "interacts with",
+        "SUID" : 59788,
+        "selected" : false
+      },
+      "selected" : false
+    }, {
+      "data" : {
+        "id" : "51872",
+        "source" : "51730",
+        "target" : "51780",
+        "shared_name" : "Hex2Cer (interacts with) GM3",
+        "shared_interaction" : "interacts with",
+        "name" : "Hex2Cer (interacts with) GM3",
+        "interaction" : "interacts with",
+        "SUID" : 51872,
+        "selected" : false
+      },
+      "selected" : false
+    } ]
+  }
+}
