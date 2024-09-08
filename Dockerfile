@@ -1,4 +1,3 @@
-## ベースイメージとしてrocker/r-verを使用
 FROM bioconductor/bioconductor_docker:RELEASE_3_19
 
 # Update apt-get and install necessary libraries
@@ -17,10 +16,6 @@ RUN R -e "source('https://install-github.me/dreamRs/esquisse')"
 # Install plumber and cyjshiny
 RUN R -e "install.packages(c('plumber','cyjShiny','svglite'))"
 
-
-# 作業ディレクトリを設定
-
-# Rスクリプトをコンテナにコピー
 COPY ./app/ui.R /srv/app/
 COPY ./app/server.R /srv/app/
 COPY ./app/plumber.R /srv/app/
@@ -29,12 +24,10 @@ COPY ./app/data /srv/app/pathwaymap/
 COPY ./app/svg /srv/app/svg/
 COPY ./app/www /srv/app/www/
 COPY ./scripts/start.sh /usr/local/bin/start.sh
-# スクリプトを実行するためのデフォルトコマンド
+
 RUN chmod +x /usr/local/bin/start.sh
 
-# ポートを公開
 EXPOSE 9000
 EXPOSE 1028
 
-# コンテナ起動時にシェルスクリプトを実行
 CMD ["sh", "/usr/local/bin/start.sh"]
