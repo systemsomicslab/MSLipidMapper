@@ -36,8 +36,7 @@ docker run --rm -p 1028:1028 -p 9000:9000 MSDIAL2Cytoscape
 
 ### Step 4: Run MSDIAL2Cytoscape in your browser
 
-Open your browser and paste `http://localhost:1028`. Then, enjoy the
-analysis!
+Open your browser and paste `http://localhost:1028`. 
 
 ## Code of Conduct
 
