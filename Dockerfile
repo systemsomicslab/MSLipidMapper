@@ -28,6 +28,6 @@ COPY ./scripts/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 9000
-EXPOSE 1028
+EXPOSE 7860
 
 CMD ["sh", "/usr/local/bin/start.sh"]
