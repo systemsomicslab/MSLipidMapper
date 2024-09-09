@@ -15,7 +15,7 @@ Key features include:
 - Simple file upload interface for MS-DIAL alignment results
 - Integration of sample metadata for enhanced analysis
 - Interactive visualizations for exploring lipid species across samples
-- Customizable generation of pathway analysis diagrams
+- Customizable generation of pathway analysis diagrams with Cytoscape desktop app
 
 
 
