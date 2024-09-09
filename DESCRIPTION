@@ -17,5 +17,28 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)
+Imports:
+    plumber,
+    shinyAce,
+    shinythemes,
+    openintro,
+    ggprism,
+    ggbeeswarm,
+    shinyFiles,
+    shinyBS,
+    shinyjs,
+    shinydashboard,
+    shinyWidgets,
+    svglite,
+    pheatmap,
+    ggeasy,
+    ggtext,
+    shinyjqui,
+    tidyverse,
+    gprofiler2,
+    colourpicker,
+    shinydashboardPlus,
+    cyjShiny,
+    esquisse
 URL: https://github.com/hadley/monthApp
 BugReports: https://github.com/hadley/monthApp/issues
