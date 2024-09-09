@@ -12,10 +12,10 @@ msdial2cytoscape for lipidomics is designed to facilitate the analysis of non-ta
 
 Key features include:
 
--Simple file upload interface for MS-DIAL alignment results
--Integration of sample metadata for enhanced analysis
--Interactive visualizations for exploring lipid species across samples
--Customizable plots for publication purposes
+- Simple file upload interface for MS-DIAL alignment results
+- Integration of sample metadata for enhanced analysis
+- Interactive visualizations for exploring lipid species across samples
+- Customizable plots for publication purposes
 
 
 
