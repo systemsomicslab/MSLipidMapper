@@ -1,4 +1,4 @@
-# msdial2cytoscape for lipidomics
+# msdial2cytoscape4lipidomics
 
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -19,7 +19,7 @@ Key features include:
 
 
 
-## Run msdial2cytoscape for lipidomics locally
+## Run msdial2cytoscape4lipidomics locally
 
 ### Step 1: Clone this repository
 
@@ -32,7 +32,7 @@ git clone "https://github.com/systemsomicslab/msdial2cytoscape-for-lipidomics.gi
 ### Step 2: Bulid Docker image
 
 ``` bash
-docker build -t msdial2cytoscape-for-lipidomics .
+docker build -t msdial2cytoscape4lipidomics .
 ```
 
 ### Step 3: Run Docker image
@@ -40,7 +40,7 @@ docker build -t msdial2cytoscape-for-lipidomics .
 Run the container on your terminal once it has been bulied.
 
 ``` bash
-docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape-for-lipidomics
+docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape4lipidomics
 ```
 
 ### Step 4: Run msdial2cytoscape for lipidomics in your browser
