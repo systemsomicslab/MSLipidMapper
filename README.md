@@ -19,7 +19,7 @@ msdial2cytoscape for lipidomics
 Open the terminal and run:
 
 ``` bash
-git clone "https://github.com/takakioka/msdial2cytoscape-for-lipidomics"
+git clone "https://github.com/takakioka/msdial2cytoscape-for-lipidomics.git"
 ```
 
 ### Step 2: Bulid Docker image
