@@ -25,7 +25,7 @@ git clone "https://github.com/takakioka/msdial2cytoscape-for-lipidomics.git"
 ### Step 2: Bulid Docker image
 
 ``` bash
-docker build -t MSDIAL2Cytoscape .
+docker build -t msdial2cytoscape-for-lipidomics .
 ```
 
 ### Step 3: Run Docker image
@@ -33,7 +33,7 @@ docker build -t MSDIAL2Cytoscape .
 Run the container on your terminal once it has been bulied.
 
 ``` bash
-docker run --rm -p 1028:1028 -p 9000:9000 MSDIAL2Cytoscape
+docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape-for-lipidomics
 ```
 
 ### Step 4: Run MSDIAL2Cytoscape in your browser
