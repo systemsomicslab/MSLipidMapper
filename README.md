@@ -36,7 +36,7 @@ Run the container on your terminal once it has been bulied.
 docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape-for-lipidomics
 ```
 
-### Step 4: Run MSDIAL2Cytoscape in your browser
+### Step 4: Run msdial2cytoscape for lipidomics in your browser
 
 Open your browser and paste `http://localhost:1028`. 
 
