@@ -12,7 +12,7 @@ msdial2cytoscape for lipidomics
 
 
 
-## Run MSDIAL2Cytoscape locally
+## Run msdial2cytoscape for lipidomics locally
 
 ### Step 1: Clone this repository
 
@@ -42,8 +42,5 @@ Open your browser and paste `http://localhost:1028`.
 
 ## Code of Conduct
 
-Please note that the MSDIAL2Cytoscape project is released with a [Contributor
-Code of
 
-By contributing to this project, you agree to abide by its terms.
 
