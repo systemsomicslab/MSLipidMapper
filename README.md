@@ -1,4 +1,4 @@
-# MSDIAL2Cytoscape for lipidomics
+# msdial2cytoscape for lipidomics
 
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,7 +8,7 @@
 
 ## Overview
 
-MSDIAL2Cytoscape for lipidomics
+msdial2cytoscape for lipidomics
 
 
 
