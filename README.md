@@ -61,9 +61,9 @@ In msdial2cytoscape4lipidomics, you can provide sample metadata separately using
 
 Please ensure that the metadata file follows these guidelines:
 
-Sample IDs must be listed in rows, and they should match those in the alignment table or data frame.
-Sample attributes (e.g., group, treatment condition, time points) should be listed in columns.
-The file format must be CSV.
+- Sample IDs must be listed in rows, and they should match those in the alignment table or data frame.
+- Sample attributes (e.g., group, treatment condition, time points) should be listed in columns.
+- The file format must be CSV.
 Using a metadata file allows you to incorporate additional information about each sample, enabling more comprehensive analysis in Cytoscape. Examples of the metadata file format can be found in the inst/examples folder.
 
 ## Load data files
