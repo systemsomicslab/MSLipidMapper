@@ -70,7 +70,6 @@ Using a metadata file allows you to incorporate additional information about eac
 
 ## Load data files
 ![Data upload](inst/www/DataUpload.png?raw=true "Data upload")
-
 1. Select the data file format.
 2. Load your data files.
 3. (optional) You can also upload metadata files and transcriptome data if needed.
