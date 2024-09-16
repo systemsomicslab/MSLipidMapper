@@ -89,4 +89,13 @@ The Side Bar provides functions for variable selection, adjusting plot aesthetic
 ![Plot dialog](inst/www/PlotDialog.png?raw=true "Plot dialog")
 In the Plot tab, you can view the figures used for pathway analysis by clicking the Mapping Option button located at the bottom of the sidebar. Once the dialog appears, you can proceed to pathway analysis by pressing the Pathway mapping button.
 
+## Pathway Analysis
+![Patheay analysis](inst/www/PathwayAnalysis.png?raw=true "Pathway analysis")
+The Pathway analysis tab consists of two main sections: the Pathway Analysis Panel and the Plot Panel for the selected lipid class. 
+First, select the metabolic pathway you want to display from the sidebar on the left, and press the Pathway Analysis button. This will project the selected pathway onto the Pathway Analysis Panel.
+
+You can select lipid class nodes on the metabolic pathway and press the blue button on the Plot Panel to display a detailed plot for the lipid class. The plot will show the values of lipid molecules belonging to the selected lipid class, and a heatmap at the bottom will display the z-scores of those lipid molecules.
+
+Additionally, you can switch the plot tab to the Correlation Analysis Plot Tab and select two nodes on the metabolic pathway by holding Ctrl to display a correlation plot between them.
+
 
