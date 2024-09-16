@@ -48,13 +48,15 @@ docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape4lipidomics
 Open your browser and paste `http://localhost:1028`. 
 
 ## Prepare input files
-msdial2cytoscape4lipidomics does not accept raw data input. It is highly recommended to use the alignment table processed by MS-DIAL. This application utilizes the alignment table from MS-DIAL to visualize lipidomics data in Cytoscape.
+msdial2cytoscape4lipidomics does not accept raw data input. It is highly recommended to use the alignment table processed by MS-DIAL5. This application utilizes the alignment table from MS-DIAL to visualize lipidomics data in Cytoscape.
 
-Additionally, we support a data frame format where lipid molecules are arranged in columns, and sample IDs are placed in rows. In this format, the second row must contain metadata about the samples. This ensures that essential sample information is included for proper analysis and visualization.
+Additionally, we support a data frame format where lipid molecules are arranged in columns, and sample IDs are placed in rows. In this format, the second row must contain metadata about the samples. 
+
+Furthermore, you need to prepare a CSV file that maps lipid molecules to their respective lipid classes. This file should have lipid names in the first column and their corresponding lipid classes in the second column. 
 
 The file format must be CSV.
 
-Examples of supported data formats can be found in the inst/examples folder. Please prepare either the alignment table exported from MS-DIAL or the data frame format mentioned above, ensuring that sample metadata is included in the second row, for use in Cytoscape visualization.
+Examples of supported data formats can be found in the inst/examples folder.
 
 ### Metadata file
 In msdial2cytoscape4lipidomics, you can provide sample metadata separately using a CSV file. This metadata file offers detailed information about each sample, which is essential for visualization and analysis in Cytoscape.
@@ -69,14 +71,13 @@ Using a metadata file allows you to incorporate additional information about eac
 ## Load data files
 ![File Import](inst/www/file_import.png?raw=true "File import")
 
-1. Enter a unique project name.
-2. Set the error margin of your mass spectrometer in parts per million (ppm).
-3. Set the m/z missing values percentage threshold. This is how many samples are allowed to be missing each m/z value without it being filtered out.
-4. Select input data files
- * 4a. (optional) Input a regex string to to adjust peaklist names to metadata sample names - the match is removed from each name.
- * 4b. Upload your metadata and positive and negative mode m/z peak files.
-5. Click on the arrow to merge peak data and metadata and convert them to a format that will serve as the input for the analyses.
-6. Once step 5 is completed (green tick mark), continue to the [Data normalization](#data-normalization) step.
+1. Select the data file format.
+2. Load your data files.
+3. (optional) You can also upload metadata files and transcriptome data if needed.
+4. Enter a unique project name.
+5. Click the "Submit" button to metabolite data and metadata, converting them into a format suitable for analysis.
+Once step 4 is completed and , navigate to the Plot Data tab to continue.
+
 
 
 
