@@ -69,7 +69,7 @@ Please ensure that the metadata file follows these guidelines:
 Using a metadata file allows you to incorporate additional information about each sample, enabling more comprehensive analysis in Cytoscape. Examples of the metadata file format can be found in the inst/examples folder.
 
 ## Load data files
-![File Import](inst/www/file_import.png?raw=true "File import")
+![Data upload](inst/www/DataUpload.png?raw=true "Data upload")
 
 1. Select the data file format.
 2. Load your data files.
