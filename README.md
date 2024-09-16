@@ -19,7 +19,7 @@ Key features include:
 
 
 
-## Run msdial2cytoscape4lipidomics locally
+# Run msdial2cytoscape4lipidomics locally
 
 ### Step 1: Clone this repository
 
@@ -47,7 +47,24 @@ docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape4lipidomics
 
 Open your browser and paste `http://localhost:1028`. 
 
-## Code of Conduct
+# Prepare input files
+## m/z peak files
+MetaboShiny does not accept raw peak data. We suggest using either XCMS (with the MetaboAnalyst export option) or another method of choice such as MSnbase. You can find examples of three different accepted data formats (MetaboAnalyst-like, MetaboShiny native and Metabolights) in the [inst/examples](./inst/examples) folder.
+
+## Metadata file
+MetaboShiny, unless using the MetaboAnalyst format, requires an additional metadata table. This should minimally have a 'sample' column that contains the same sample identifiers used in the peak table files, an 'individual' column (since multiple samples can come from one individual in time series data) and at least one column on experimental group or something alike. Examples of metadata formats are also present in the [inst/examples](./inst/examples) folder.
+
+# Load data files
+![File Import](inst/www/file_import.png?raw=true "File import")
+
+1. Enter a unique project name.
+2. Set the error margin of your mass spectrometer in parts per million (ppm).
+3. Set the m/z missing values percentage threshold. This is how many samples are allowed to be missing each m/z value without it being filtered out.
+4. Select input data files
+ * 4a. (optional) Input a regex string to to adjust peaklist names to metadata sample names - the match is removed from each name.
+ * 4b. Upload your metadata and positive and negative mode m/z peak files.
+5. Click on the arrow to merge peak data and metadata and convert them to a format that will serve as the input for the analyses.
+6. Once step 5 is completed (green tick mark), continue to the [Data normalization](#data-normalization) step.
 
 
 
