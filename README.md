@@ -19,7 +19,7 @@ Key features include:
 
 
 
-# Run msdial2cytoscape4lipidomics locally
+## Run msdial2cytoscape4lipidomics locally
 
 ### Step 1: Clone this repository
 
@@ -47,14 +47,26 @@ docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape4lipidomics
 
 Open your browser and paste `http://localhost:1028`. 
 
-# Prepare input files
-## m/z peak files
-MetaboShiny does not accept raw peak data. We suggest using either XCMS (with the MetaboAnalyst export option) or another method of choice such as MSnbase. You can find examples of three different accepted data formats (MetaboAnalyst-like, MetaboShiny native and Metabolights) in the [inst/examples](./inst/examples) folder.
+## Prepare input files
+msdial2cytoscape4lipidomics does not accept raw data input. It is highly recommended to use the alignment table processed by MS-DIAL. This application utilizes the alignment table from MS-DIAL to visualize lipidomics data in Cytoscape.
 
-## Metadata file
-MetaboShiny, unless using the MetaboAnalyst format, requires an additional metadata table. This should minimally have a 'sample' column that contains the same sample identifiers used in the peak table files, an 'individual' column (since multiple samples can come from one individual in time series data) and at least one column on experimental group or something alike. Examples of metadata formats are also present in the [inst/examples](./inst/examples) folder.
+Additionally, we support a data frame format where lipid molecules are arranged in columns, and sample IDs are placed in rows. In this format, the second row must contain metadata about the samples. This ensures that essential sample information is included for proper analysis and visualization.
 
-# Load data files
+The file format must be CSV.
+
+Examples of supported data formats can be found in the inst/examples folder. Please prepare either the alignment table exported from MS-DIAL or the data frame format mentioned above, ensuring that sample metadata is included in the second row, for use in Cytoscape visualization.
+
+### Metadata file
+In msdial2cytoscape4lipidomics, you can provide sample metadata separately using a CSV file. This metadata file offers detailed information about each sample, which is essential for visualization and analysis in Cytoscape.
+
+Please ensure that the metadata file follows these guidelines:
+
+Sample IDs must be listed in rows, and they should match those in the alignment table or data frame.
+Sample attributes (e.g., group, treatment condition, time points) should be listed in columns.
+The file format must be CSV.
+Using a metadata file allows you to incorporate additional information about each sample, enabling more comprehensive analysis in Cytoscape. Examples of the metadata file format can be found in the inst/examples folder.
+
+## Load data files
 ![File Import](inst/www/file_import.png?raw=true "File import")
 
 1. Enter a unique project name.
