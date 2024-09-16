@@ -78,7 +78,7 @@ Using a metadata file allows you to incorporate additional information about eac
 Once step 4 is completed and , navigate to the Plot Data tab to continue.
 
 ## Data Plot
-![Data upload](inst/www/DataUpload.png?raw=true "Data upload")
+![Data plot](inst/www/DataPlot.png?raw=true "Data plot")
 The Plot Data tab consists of two main sections: the Data Plot Panel and the Side Bar.
 
 The Data Plot Panel displays a plot showing the average values for each lipid class and another plot showing the values of lipid molecules belonging to the selected lipid class.
