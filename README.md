@@ -98,4 +98,5 @@ You can select lipid class nodes on the metabolic pathway and press the blue but
 
 Additionally, you can switch the plot tab to the Correlation Analysis Plot Tab and select two nodes on the metabolic pathway by holding Ctrl to display a correlation plot between them.
 
-
+## Creating Pathway Analysis Figures
+From the left sidebar of the Pathway Analysis tab, you can export .cyjs files and style.yaml files for use in the Cytoscape desktop app. Using Cytoscape desktop app, you can load these files to edit the pathway analysis results and create figures in SVG or PDF format.
