@@ -85,4 +85,7 @@ The Data Plot Panel displays a plot showing the average values for each lipid cl
  
 The Side Bar provides functions for variable selection, adjusting plot aesthetics, changing the order of the x-axis, modifying the colors of sample classes, and generating figures for pathway analysis. 
 
+## Generating Figures for Pathway Analysis
+![Plot dialog](inst/www/PlotDialog.png?raw=true "Plot dialog")
+In the Plot tab, you can view the figures used for pathway analysis by clicking the Mapping Option button located at the bottom of the sidebar. Once the dialog appears, you can proceed to pathway analysis by pressing the Pathway Analysis button.
 
