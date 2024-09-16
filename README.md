@@ -56,7 +56,7 @@ Furthermore, you need to prepare a CSV file that maps lipid molecules to their r
 
 The file format must be CSV.
 
-Examples of supported data formats can be found in the inst/examples folder.
+Examples of supported data formats can be found in the inst/examples folder.The exampls data used in this application consists of lipidome and transcriptome data from aging mouse studies(Nature Aging 4, 709–726 (2024)).
 
 ### Metadata file
 In msdial2cytoscape4lipidomics, you can provide sample metadata separately using a CSV file. This metadata file offers detailed information about each sample, which is essential for visualization and analysis in Cytoscape.
