@@ -40,7 +40,7 @@ docker build -t msdial2cytoscape4lipidomics .
 Run the container on your terminal once it has been bulied.
 
 ``` bash
-docker run --rm -p 1028:1028 -p 9000:9000 msdial2cytoscape4lipidomics
+docker run --rm -p 7860:7860 -p 9000:9000 msdial2cytoscape4lipidomics
 ```
 
 ### Step 4: Run msdial2cytoscape for lipidomics in your browser
