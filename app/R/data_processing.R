@@ -25,13 +25,13 @@ Metabolite_duplicate_check <- function(data){
   # Find rows with max 'Fill %' for each 'Metabolite name'
   check_duplicates <- peaktable %>%
     group_by(`Metabolite name`) %>%
-    slice(which.max(`Fill %`)) %>%
-    ungroup()
+	    slice_max(`Fill %`,n=1) %>%
+        ungroup()
   
   id <- check_duplicates$rowname
   datav2 <- peaktable %>%
     filter(rowname %in% c(id, 1:5)) %>%
-    select(-rowname)
+    dplyr::select(-rowname)
   colnames(datav2) <- originalcolnum
   return(datav2)
 }
