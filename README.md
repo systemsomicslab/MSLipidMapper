@@ -45,7 +45,7 @@ docker run --rm -p 7860:7860 -p 9000:9000 msdial2cytoscape4lipidomics
 
 ### Step 4: Run msdial2cytoscape for lipidomics in your browser
 
-Open your browser and paste `http://localhost:1028`. 
+Open your browser and paste `http://localhost:7860`. 
 
 ## Prepare input files
 msdial2cytoscape4lipidomics does not accept raw data input. It is highly recommended to use the alignment table processed by MS-DIAL5. This application utilizes the alignment table from MS-DIAL to visualize lipidomics data in Cytoscape.
