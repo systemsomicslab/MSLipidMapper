@@ -1,8 +1,4 @@
 ﻿LbmClass,Categories,AcylChain,AlkylChain,SphingoChain,ExtraAcylChain,TotalChain
-Undefined,Undefined,0,0,0,0,0
-Others,Others,0,0,0,0,0
-Unknown,Unknown,0,0,0,0,0
-SPLASH,SPLASH,0,0,0,0,0
 FA,Fatty acyls,1,0,0,0,1
 FAHFA,Fatty acyls,1,0,0,1,1
 OxFA,Fatty acyls,1,0,0,0,1
@@ -11,7 +7,6 @@ NAE,Fatty acyls,1,0,0,0,1
 NAGly,Fatty acyls,1,0,0,1,1
 NAGlySer,Fatty acyls,1,0,0,1,1
 NAOrn,Fatty acyls,1,0,0,1,1
-NAPhe,Fatty acyls,1,0,0,1,1
 NATau,Fatty acyls,1,0,0,1,1
 PA,Glycerophospholipids,2,0,0,0,2
 PC,Glycerophospholipids,2,0,0,0,2
@@ -19,7 +14,6 @@ PE,Glycerophospholipids,2,0,0,0,2
 PG,Glycerophospholipids,2,0,0,0,2
 PI,Glycerophospholipids,2,0,0,0,2
 PS,Glycerophospholipids,2,0,0,0,2
-PT,Glycerophospholipids,2,0,0,0,2
 BMP,Glycerophospholipids,2,0,0,0,2
 HBMP,Glycerophospholipids,3,0,0,0,3
 EtherPC,Glycerophospholipids,1,1,0,0,2
@@ -27,7 +21,6 @@ EtherPE,Glycerophospholipids,1,1,0,0,2
 EtherPI,Glycerophospholipids,1,1,0,0,2
 EtherPS,Glycerophospholipids,1,1,0,0,2
 EtherPG,Glycerophospholipids,1,1,0,0,2
-OxPA,Glycerophospholipids,2,0,0,0,2
 OxPC,Glycerophospholipids,2,0,0,0,2
 OxPS,Glycerophospholipids,2,0,0,0,2
 OxPE,Glycerophospholipids,2,0,0,0,2
@@ -43,12 +36,9 @@ LPI,Glycerophospholipids,1,0,0,0,1
 LPG,Glycerophospholipids,1,0,0,0,1
 PMeOH,Glycerophospholipids,2,0,0,0,2
 PEtOH,Glycerophospholipids,2,0,0,0,2
-PBtOH,Glycerophospholipids,2,0,0,0,2
 EtherLPC,Glycerophospholipids,0,1,0,0,1
 EtherLPE,Glycerophospholipids,0,1,0,0,1
 EtherLPG,Glycerophospholipids,0,1,0,0,1
-EtherLPS,Glycerophospholipids,0,1,0,0,1
-EtherLPI,Glycerophospholipids,0,1,0,0,1
 LNAPE,Glycerophospholipids,2,0,0,0,2
 LNAPS,Glycerophospholipids,2,0,0,0,2
 MLCL,Glycerophospholipids,3,0,0,0,3
@@ -83,7 +73,6 @@ Cer_ADS,Sphingolipids,1,0,1,0,2
 Cer_AS,Sphingolipids,1,0,1,0,2
 Cer_BDS,Sphingolipids,1,0,1,0,2
 Cer_BS,Sphingolipids,1,0,1,0,2
-Cer_OS,Sphingolipids,1,0,1,0,2
 Cer_EODS,Sphingolipids,1,0,1,1,2
 Cer_EOS,Sphingolipids,1,0,1,1,2
 Cer_NDS,Sphingolipids,1,0,1,0,2
@@ -93,7 +82,6 @@ Cer_AP,Sphingolipids,1,0,1,0,2
 Cer_EBDS,Sphingolipids,1,0,1,1,2
 Cer_HS,Sphingolipids,1,0,1,0,2
 Cer_HDS,Sphingolipids,1,0,1,0,2
-Cer_NDOS,Sphingolipids,1,0,1,0,2
 HexCer_NS,Sphingolipids,1,0,1,0,2
 HexCer_NDS,Sphingolipids,1,0,1,0,2
 HexCer_AP,Sphingolipids,1,0,1,0,2
@@ -134,22 +122,8 @@ AHexCAS,Sterol Lipids,1,0,0,0,1
 AHexCS,Sterol Lipids,1,0,0,0,1
 AHexSIS,Sterol Lipids,1,0,0,0,1
 AHexSTS,Sterol Lipids,1,0,0,0,1
-SPE,Unknown,0,0,0,0,0
 SHex,Sterol Lipids,0,0,0,0,0
-SPEHex,Unknown,0,0,0,0,0
-SPGHex,Unknown,0,0,0,0,0
-CSLPHex,Unknown,1,0,0,0,1
-BRSLPHex,Unknown,1,0,0,0,1
-CASLPHex,Unknown,1,0,0,0,1
-SISLPHex,Unknown,1,0,0,0,1
-STSLPHex,Unknown,1,0,0,0,1
-CSPHex,Unknown,2,0,0,0,2
-BRSPHex,Unknown,2,0,0,0,2
-CASPHex,Unknown,2,0,0,0,2
-SISPHex,Unknown,2,0,0,0,2
-STSPHex,Unknown,2,0,0,0,2
 SSulfate,Sterol Lipids,0,0,0,0,0
-BAHex,Sterol Lipids,0,0,0,0,0
 BASulfate,Sterol Lipids,0,0,0,0,0
 LCAE,Sterol Lipids,1,0,0,0,1
 KLCAE,Sterol Lipids,1,0,0,0,1
@@ -174,4 +148,3 @@ GQ1b,Sphingolipids,2,0,0,0,2
 GT1b,Sphingolipids,2,0,0,0,2
 NGcGM3,Sphingolipids,2,0,0,0,2
 ST,Sterol Lipids,0,0,0,0,0
-WE,Unknown,2,0,0,0,2
