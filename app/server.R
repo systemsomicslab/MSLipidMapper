@@ -1,5 +1,5 @@
 server <- function(input, output,session) {
-  options(shiny.maxRequestSize=150*1024^2)
+  options(shiny.maxRequestSize=150*1024^100)
   originaldir <- reactiveValues(datapath = getwd()) # directry of shiny R script
   global <- reactiveValues(datapath = getwd()) # directory of file path in lipidomics tab
   col = reactiveValues(col = col)
