@@ -1,0 +1,2 @@
+shiny::runApp(appDir = getwd())
+
