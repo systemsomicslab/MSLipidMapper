@@ -35,7 +35,7 @@ git clone "https://github.com/systemsomicslab/msdial2cytoscape-for-lipidomics.gi
 docker build -t msdial2cytoscape4lipidomics .
 ```
 
-### Step 3: Run Docker image
+### Step 3: Run Docker container
 
 Run the container on your terminal once it has been bulied.
 
