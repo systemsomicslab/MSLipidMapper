@@ -32,7 +32,7 @@ git clone "https://github.com/systemsomicslab/MSLipidMapper.git"
 ### Step 2: Bulid Docker image
 
 ``` bash
-docker build -t MSLipidMapper .
+docker build -t mslipidmapper .
 ```
 
 ### Step 3: Run Docker container
@@ -40,7 +40,7 @@ docker build -t MSLipidMapper .
 Run the container on your terminal once it has been bulied.
 
 ``` bash
-docker run --rm -p 7860:7860 -p 9000:9000 MSLipidMapper
+docker run --rm -p 7860:7860 -p 9000:9000 mslipidmapper
 ```
 
 ### Step 4: Run MSLipidMapper for lipidomics in your browser
