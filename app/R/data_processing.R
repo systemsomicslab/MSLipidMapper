@@ -22,10 +22,10 @@ Metabolite_duplicate_check <- function(data){
     setNames(peaktable[5,]) %>%
     rownames_to_column()
   
-  # Find rows with max 'Fill %' for each 'Metabolite name'
   check_duplicates <- peaktable %>%
     group_by(`Metabolite name`) %>%
 	    slice_max(`Fill %`,n=1) %>%
+		slice_max(`S/N average`,n=1) %>%
         ungroup()
   
   id <- check_duplicates$rowname
@@ -166,9 +166,9 @@ convert_msdial_export_to_lipid_class_dataframe <- function(data) {
     mutate(mean = mean(value)) %>%
     ungroup() %>%
     distinct(name, Ontology, .keep_all = TRUE) %>%
-    select(-c("Metabolite name", value)) %>%
+    dplyr::select(-c("Metabolite name", value)) %>%
     pivot_wider(values_from = mean, names_from = Ontology)
-  return(list(lipidtable,sample_info))
+  return(list(lipidtable,sample_info,lipid_info))
 }
 
 ##' Converting alignment file to expression data of lipid molecules
@@ -231,14 +231,14 @@ lipidmeancalforgroupnode <- function(data, metadata, selectclass) {
   lipid_data_classmean <- processed_data[[1]]
   sampleinfo <- processed_data[[2]]
   lipid_data_lipidclassmean <- pivot_longer(lipid_data_classmean, cols = -c(1:2)) %>%
-    select(`Metabolite name`, Ontology, name, value) %>%
+    dplyr::select(`Metabolite name`, Ontology, name, value) %>%
     inner_join(metadata, by = "name") %>%
-    select(`Metabolite name`,Ontology ,selectclass, name, value) %>%
+    dplyr::select(`Metabolite name`,Ontology ,selectclass, name, value) %>%
     group_by(`Metabolite name`, across(all_of(selectclass))) %>%
     mutate(mean = mean(value)) %>%
     ungroup() %>%
     distinct(`Metabolite name`,across(all_of(selectclass)), .keep_all = TRUE) %>%
-    select(`Metabolite name`, Ontology, selectclass, mean) %>%
+    dplyr::select(`Metabolite name`, Ontology, selectclass, mean) %>%
     pivot_wider(names_from = selectclass, values_from = mean)
   return(lipid_data_lipidclassmean)
 }
@@ -260,7 +260,7 @@ processSampleInRows <- function(originaldata, session, input) {
       mutate(mean = mean(value)) %>%
       ungroup() %>%
       distinct(name, Ontology, .keep_all = TRUE) %>%
-      select(1, 2, 5, 6) %>%
+      dplyr::select(1, 2, 5, 6) %>%
       pivot_wider(names_from = "Ontology", values_from = "mean")
     data <- inner_join(metadata, data, by = c("name" = "name"))
   } else {
@@ -272,7 +272,7 @@ processSampleInRows <- function(originaldata, session, input) {
       mutate(mean = mean(value)) %>%
       ungroup() %>%
       distinct(name, Ontology, .keep_all = TRUE) %>%
-      select(1, 5, 6) %>%
+      dplyr::select(1, 5, 6) %>%
       pivot_wider(names_from = "Ontology", values_from = "mean")
     data <- inner_join(metadata, data, by = c("name" = "name"))
   }
@@ -288,15 +288,16 @@ processMSDIALExport <- function(originaldata, session, input) {
   metadata <- inner_join(tablelist[[2]], metadata, by = c("name"))
   data <- inner_join(metadata, data, by = c("name" = "name"))
   metainfocol <- ncol(metadata)
-  print(data)
+  lipid_info <- tablelist[[3]]
   } else {
   tablelist <- originaldata %>% convert_msdial_export_to_lipid_class_dataframe()
   data <- tablelist[[1]]
   metadata <- tablelist[[2]]
   metainfocol <- ncol(metadata)
   data <- inner_join(metadata, data, by = c("name" = "name"))
+  lipid_info <- tablelist[[3]]
   }
-  return(list(data,metadata))
+  return(list(data,metadata,lipid_info))
 }
 
 processMSDIALExporttomoldata <- function(originaldata, session, input) {

@@ -9,9 +9,15 @@ RUN apt-get update \
 
 # Install R packages
 # Install R packages
-RUN R -e "install.packages(c('shinyjqui','BiocManager','remotes', 'devtools', 'shiny','shinyscreenshot', 'readr', 'shinyAce', 'ggplot2', 'dplyr', 'shinythemes', 'openintro', 'plotly', 'DT', 'ggprism', 'ggbeeswarm', 'shinyFiles', 'stringr', 'shinyBS', 'shinydashboard', 'shinyWidgets', 'tidyr', 'pheatmap', 'grid', 'gridExtra', 'ggeasy', 'ggtext', 'colorspace', 'shinyjqui', 'tidyverse', 'gprofiler2', 'colourpicker', 'shinydashboardPlus', 'jsonlite', 'reshape2'))"
+RUN R -e "install.packages(c('khroma','ggthemes','igraph','data.table','topOnto.LION.db','topOnto','RSQLite','ggrepel','shinyjqui','BiocManager','bslib','rstatix','ggpubr','remotes', 'devtools', 'shiny','shinyscreenshot', 'readr', 'shinyAce', 'ggplot2', 'dplyr', 'shinythemes', 'openintro', 'plotly', 'DT', 'ggprism', 'ggbeeswarm', 'shinyFiles', 'stringr', 'shinyBS', 'shinydashboard', 'shinyWidgets', 'tidyr', 'pheatmap', 'grid', 'gridExtra', 'ggeasy', 'ggtext', 'colorspace', 'shinyjqui', 'tidyverse', 'gprofiler2', 'colourpicker', 'shinydashboardPlus', 'jsonlite', 'reshape2','shinyalert'))"
 RUN R -e 'BiocManager::install("graph")'
 RUN R -e "source('https://install-github.me/dreamRs/esquisse')"
+
+RUN R -e "install.packages('devtools', repos = 'http://cran.rstudio.com')"
+RUN R -e "install.packages('ggplot2', repos = 'http://cran.rstudio.com')"
+RUN R -e "devtools::install_github('martijnmolenaar/topOnto')"
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/RSQLite/RSQLite_0.11.4.tar.gz', repos = NULL, type = 'source')"
+RUN R -e "devtools::install_github('martijnmolenaar/topOnto.LION2.db/topOnto.LION.db')"
 
 # Install plumber and cyjshiny
 RUN R -e "install.packages(c('plumber','cyjShiny','svglite'))"

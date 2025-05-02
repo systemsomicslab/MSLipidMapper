@@ -20,7 +20,7 @@
         "nodefont" : "",
         "label" : "LNAPE",
         "shared_name" : "LNAPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LNAPE",
         "path" : "http://localhost:9000/plot?str1=LNAPE.svg",
@@ -32,7 +32,8 @@
         "Height" : 140.0,
         "id_original" : "2184",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4571.532206803347,
@@ -48,7 +49,7 @@
         "nodefont" : "",
         "label" : "NAPE",
         "shared_name" : "NAPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "NAPE",
         "path" : "http://localhost:9000/plot?str1=NAPE.svg",
@@ -60,7 +61,8 @@
         "Height" : 140.0,
         "id_original" : "2232",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4574.13085641179,
@@ -76,7 +78,7 @@
         "nodefont" : "",
         "label" : "TG_EST",
         "shared_name" : "TG_EST",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "TG_EST",
         "path" : "http://localhost:9000/plot?str1=TG_EST.svg",
@@ -88,7 +90,8 @@
         "Height" : 140.0,
         "id_original" : "2235",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2466.2999675213428,
@@ -104,7 +107,7 @@
         "nodefont" : "",
         "label" : "DGMG",
         "shared_name" : "DGMG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DGMG",
         "path" : "http://localhost:9000/plot?str1=DGMG.svg",
@@ -116,7 +119,8 @@
         "Height" : 140.0,
         "id_original" : "2238",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2462.374660495501,
@@ -132,7 +136,7 @@
         "nodefont" : "",
         "label" : "MGMG",
         "shared_name" : "MGMG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "MGMG",
         "path" : "http://localhost:9000/plot?str1=MGMG.svg",
@@ -144,7 +148,8 @@
         "Height" : 140.0,
         "id_original" : "2241",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2671.154271968736,
@@ -160,7 +165,7 @@
         "nodefont" : "",
         "label" : "NGcGN3",
         "shared_name" : "NGcGN3",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "NGcGN3",
         "path" : "http://localhost:9000/plot?str1=NGcGN3.svg",
@@ -172,7 +177,8 @@
         "Height" : 140.0,
         "id_original" : "2244",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1227.509683453937,
@@ -188,7 +194,7 @@
         "nodefont" : "",
         "label" : "GD1a",
         "shared_name" : "GD1a",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GD1a",
         "path" : "http://localhost:9000/plot?str1=GD1a.svg",
@@ -200,7 +206,8 @@
         "Height" : 140.0,
         "id_original" : "2247",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 297.5765189732732,
@@ -216,7 +223,7 @@
         "nodefont" : "",
         "label" : "GQ1b",
         "shared_name" : "GQ1b",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GQ1b",
         "path" : "http://localhost:9000/plot?str1=GQ1b.svg",
@@ -228,7 +235,8 @@
         "Height" : 140.0,
         "id_original" : "2250",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 75.4950564813061,
@@ -244,7 +252,7 @@
         "nodefont" : "",
         "label" : "GT1b",
         "shared_name" : "GT1b",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GT1b",
         "path" : "http://localhost:9000/plot?str1=GT1b.svg",
@@ -256,7 +264,8 @@
         "Height" : 140.0,
         "id_original" : "2253",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 302.36477845990976,
@@ -272,7 +281,7 @@
         "nodefont" : "",
         "label" : "GD1b",
         "shared_name" : "GD1b",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GD1b",
         "path" : "http://localhost:9000/plot?str1=GD1b.svg",
@@ -284,7 +293,8 @@
         "Height" : 140.0,
         "id_original" : "2256",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 527.1563336256756,
@@ -300,7 +310,7 @@
         "nodefont" : "",
         "label" : "GM1",
         "shared_name" : "GM1",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GM1",
         "path" : "http://localhost:9000/plot?str1=GM1.svg",
@@ -312,7 +322,8 @@
         "Height" : 140.0,
         "id_original" : "2259",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 532.5504633689939,
@@ -328,7 +339,7 @@
         "nodefont" : "",
         "label" : "GM2",
         "shared_name" : "GM2",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GM2",
         "path" : "http://localhost:9000/plot?str1=GM2.svg",
@@ -340,7 +351,8 @@
         "Height" : 140.0,
         "id_original" : "2262",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 758.6286301818316,
@@ -356,7 +368,7 @@
         "nodefont" : "",
         "label" : "GD2",
         "shared_name" : "GD2",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GD2",
         "path" : "http://localhost:9000/plot?str1=GD2.svg",
@@ -368,7 +380,8 @@
         "Height" : 140.0,
         "id_original" : "2265",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 754.5712318593452,
@@ -384,7 +397,7 @@
         "nodefont" : "",
         "label" : "GD3",
         "shared_name" : "GD3",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GD3",
         "path" : "http://localhost:9000/plot?str1=GD3.svg",
@@ -396,7 +409,8 @@
         "Height" : 140.0,
         "id_original" : "2268",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1000.2557409975369,
@@ -412,7 +426,7 @@
         "nodefont" : "",
         "label" : "EtherLPI",
         "shared_name" : "EtherLPI",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherLPI",
         "path" : "http://localhost:9000/plot?str1=EtherLPI.svg",
@@ -424,7 +438,8 @@
         "Height" : 140.0,
         "id_original" : "2271",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3531.5325577105327,
@@ -440,7 +455,7 @@
         "nodefont" : "",
         "label" : "EtherLPS",
         "shared_name" : "EtherLPS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherLPS",
         "path" : "http://localhost:9000/plot?str1=EtherLPS.svg",
@@ -452,7 +467,8 @@
         "Height" : 140.0,
         "id_original" : "2274",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3793.8833754619695,
@@ -468,10 +484,10 @@
         "nodefont" : "",
         "label" : "OxPA",
         "shared_name" : "OxPA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPA",
-        "path" : "http://localhost:9000/plot?str1=OxPA.svg",
+        "path" : "http://upload.wikimedia.org/wikipedia/commons/b/b4/High_above_the_Cloud_the_Sun_Stays_the_Same.jpg",
         "NumDescendents" : 2.0,
         "Bordercolor" : "",
         "pathpng" : "http://localhost:9000/png?str2=(OxPA).png",
@@ -480,7 +496,8 @@
         "Height" : 140.0,
         "id_original" : "2277",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3259.798600531463,
@@ -496,7 +513,7 @@
         "nodefont" : "",
         "label" : "ASM",
         "shared_name" : "ASM",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "ASM",
         "path" : "http://localhost:9000/plot?str1=ASM.svg",
@@ -508,7 +525,8 @@
         "Height" : 140.0,
         "id_original" : "2280",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1615.8293012898757,
@@ -523,7 +541,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Palmitoyl-CoA",
         "shared_name" : "Palmitoyl-CoA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Palmitoyl-CoA",
         "path" : "http://localhost:9000/plot?str1=Palmitoyl-CoA.svg",
@@ -535,7 +553,8 @@
         "Height" : 60.0,
         "id_original" : "2283",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2075.445,
@@ -550,7 +569,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Others",
         "shared_name" : "Others",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Others",
         "path" : "http://localhost:9000/plot?str1=Others.svg",
@@ -562,7 +581,8 @@
         "Height" : 60.0,
         "id_original" : "2289",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2910.979,
@@ -577,7 +597,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "LacCer",
         "shared_name" : "LacCer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "LacCer",
         "path" : "http://localhost:9000/plot?str1=LacCer.svg",
@@ -589,7 +609,8 @@
         "Height" : 60.0,
         "id_original" : "2292",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 997.8800424030869,
@@ -604,7 +625,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Acyl-CoA",
         "shared_name" : "Acyl-CoA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Acyl-CoA",
         "path" : "http://localhost:9000/plot?str1=Acyl-CoA.svg",
@@ -616,7 +637,8 @@
         "Height" : 60.0,
         "id_original" : "2295",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2440.446,
@@ -631,7 +653,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Acetyl-CoA",
         "shared_name" : "Acetyl-CoA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Acetyl-CoA",
         "path" : "http://localhost:9000/plot?str1=Acetyl-CoA.svg",
@@ -643,7 +665,8 @@
         "Height" : 60.0,
         "id_original" : "2298",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2075.445,
@@ -658,7 +681,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Serine",
         "shared_name" : "Serine",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Serine",
         "path" : "http://localhost:9000/plot?str1=Serine.svg",
@@ -670,7 +693,8 @@
         "Height" : 60.0,
         "id_original" : "2301",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1833.573,
@@ -685,7 +709,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "G3P",
         "shared_name" : "G3P",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "G3P",
         "path" : "http://localhost:9000/plot?str1=G3P.svg",
@@ -697,7 +721,8 @@
         "Height" : 60.0,
         "id_original" : "2304",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2810.974,
@@ -712,7 +737,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Inositol",
         "shared_name" : "Inositol",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Inositol",
         "path" : "http://localhost:9000/plot?str1=Inositol.svg",
@@ -724,7 +749,8 @@
         "Height" : 60.0,
         "id_original" : "2307",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3461.577,
@@ -739,7 +765,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "CDP_DAG",
         "shared_name" : "CDP_DAG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "CDP_DAG",
         "path" : "http://localhost:9000/plot?str1=CDP_DAG.svg",
@@ -751,7 +777,8 @@
         "Height" : 60.0,
         "id_original" : "2310",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3457.5678901506058,
@@ -766,7 +793,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Serine",
         "shared_name" : "Serine",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Serine",
         "path" : "http://localhost:9000/plot?str1=Serine.svg",
@@ -778,7 +805,8 @@
         "Height" : 60.0,
         "id_original" : "2313",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3975.273,
@@ -793,7 +821,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "DHAP",
         "shared_name" : "DHAP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "DHAP",
         "path" : "http://localhost:9000/plot?str1=DHAP.svg",
@@ -805,7 +833,8 @@
         "Height" : 60.0,
         "id_original" : "2316",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2580.974,
@@ -820,7 +849,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Vitamines",
         "shared_name" : "Vitamines",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Vitamines",
         "path" : "http://localhost:9000/plot?str1=Vitamines.svg",
@@ -832,7 +861,8 @@
         "Height" : 60.0,
         "id_original" : "2319",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4319.487,
@@ -847,7 +877,7 @@
         "nodefont" : "0,0,0,255; Dialog,1,20",
         "label" : "Sterols",
         "shared_name" : "Sterols",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "text",
         "shared_name" : "Sterols",
         "path" : "http://localhost:9000/plot?str1=Sterols.svg",
@@ -859,7 +889,8 @@
         "Height" : 140.0,
         "id_original" : "2322",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 326.624,
@@ -885,7 +916,8 @@
         "Height" : 2.0,
         "id_original" : "2325",
         "Width" : 2.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2761.026296232834,
@@ -907,7 +939,8 @@
         "SUID" : 692,
         "zlevel" : -1.0,
         "id_original" : "2328",
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2441.0,
@@ -933,7 +966,8 @@
         "Height" : 2.0,
         "id_original" : "2331",
         "Width" : 2.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2748.8970254791325,
@@ -959,7 +993,8 @@
         "Height" : 2.0,
         "id_original" : "2334",
         "Width" : 2.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3905.1706571126642,
@@ -985,7 +1020,8 @@
         "Height" : 2.0,
         "id_original" : "2337",
         "Width" : 2.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3537.9126307904044,
@@ -1011,7 +1047,8 @@
         "Height" : 2.0,
         "id_original" : "2340",
         "Width" : 2.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1833.9999980724617,
@@ -1027,7 +1064,7 @@
         "nodefont" : "",
         "label" : "EtherLPE",
         "shared_name" : "EtherLPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherLPE",
         "path" : "http://localhost:9000/plot?str1=EtherLPE.svg",
@@ -1040,7 +1077,8 @@
         "Height" : 140.0,
         "id_original" : "2343",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3387.0,
@@ -1056,7 +1094,7 @@
         "nodefont" : "",
         "label" : "EtherOxPE",
         "shared_name" : "EtherOxPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherOxPE",
         "path" : "http://localhost:9000/plot?str1=EtherOxPE.svg",
@@ -1068,7 +1106,8 @@
         "Height" : 140.0,
         "id_original" : "2349",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3162.0,
@@ -1084,7 +1123,7 @@
         "nodefont" : "",
         "label" : "EtherPS",
         "shared_name" : "EtherPS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherPS",
         "path" : "http://localhost:9000/plot?str1=EtherPS.svg",
@@ -1096,7 +1135,8 @@
         "Height" : 140.0,
         "id_original" : "2352",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3552.0,
@@ -1112,7 +1152,7 @@
         "nodefont" : "",
         "label" : "EtherPE",
         "shared_name" : "EtherPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherPE",
         "path" : "http://localhost:9000/plot?str1=EtherPE.svg",
@@ -1125,7 +1165,8 @@
         "Height" : 140.0,
         "id_original" : "2355",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3288.0,
@@ -1141,7 +1182,7 @@
         "nodefont" : "",
         "label" : "EtherLPC",
         "shared_name" : "EtherLPC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherLPC",
         "path" : "http://localhost:9000/plot?str1=EtherLPC.svg",
@@ -1153,7 +1194,8 @@
         "Height" : 140.0,
         "id_original" : "2358",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2929.9255268928864,
@@ -1169,7 +1211,7 @@
         "nodefont" : "",
         "label" : "EtherOxPC",
         "shared_name" : "EtherOxPC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherOxPC",
         "path" : "http://localhost:9000/plot?str1=EtherOxPC.svg",
@@ -1181,7 +1223,8 @@
         "Height" : 140.0,
         "id_original" : "2361",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2681.0,
@@ -1197,7 +1240,7 @@
         "nodefont" : "",
         "label" : "EtherPC",
         "shared_name" : "EtherPC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherPC",
         "path" : "http://localhost:9000/plot?str1=EtherPC.svg",
@@ -1210,7 +1253,8 @@
         "Height" : 140.0,
         "id_original" : "2364",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2930.0,
@@ -1226,7 +1270,7 @@
         "nodefont" : "",
         "label" : "EtherSMGDG",
         "shared_name" : "EtherSMGDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherSMGDG",
         "path" : "http://localhost:9000/plot?str1=EtherSMGDG.svg",
@@ -1238,7 +1282,8 @@
         "Height" : 140.0,
         "id_original" : "2367",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2532.0,
@@ -1254,7 +1299,7 @@
         "nodefont" : "",
         "label" : "EtherMG",
         "shared_name" : "EtherMG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherMG",
         "path" : "http://localhost:9000/plot?str1=EtherMG.svg",
@@ -1266,7 +1311,8 @@
         "Height" : 140.0,
         "id_original" : "2370",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2528.0,
@@ -1282,7 +1328,7 @@
         "nodefont" : "",
         "label" : "EtherTG",
         "shared_name" : "EtherTG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherTG",
         "path" : "http://localhost:9000/plot?str1=EtherTG.svg",
@@ -1295,7 +1341,8 @@
         "Height" : 140.0,
         "id_original" : "2373",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2530.0,
@@ -1311,7 +1358,7 @@
         "nodefont" : "",
         "label" : "EtherDG",
         "shared_name" : "EtherDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherDG",
         "path" : "http://localhost:9000/plot?str1=EtherDG.svg",
@@ -1324,7 +1371,8 @@
         "Height" : 140.0,
         "id_original" : "2376",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2932.0,
@@ -1340,7 +1388,7 @@
         "nodefont" : "",
         "label" : "EtherLPG",
         "shared_name" : "EtherLPG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherLPG",
         "path" : "http://localhost:9000/plot?str1=EtherLPG.svg",
@@ -1352,7 +1400,8 @@
         "Height" : 140.0,
         "id_original" : "2379",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3526.0,
@@ -1368,7 +1417,7 @@
         "nodefont" : "",
         "label" : "EtherPG",
         "shared_name" : "EtherPG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherPG",
         "path" : "http://localhost:9000/plot?str1=EtherPG.svg",
@@ -1380,7 +1429,8 @@
         "Height" : 140.0,
         "id_original" : "2382",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3257.0,
@@ -1396,7 +1446,7 @@
         "nodefont" : "",
         "label" : "EtherPI",
         "shared_name" : "EtherPI",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherPI",
         "path" : "http://localhost:9000/plot?str1=EtherPI.svg",
@@ -1408,7 +1458,8 @@
         "Height" : 140.0,
         "id_original" : "2385",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3268.0,
@@ -1424,7 +1475,7 @@
         "nodefont" : "",
         "label" : "EtherPA",
         "shared_name" : "EtherPA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherPA",
         "path" : "http://localhost:9000/plot?str1=EtherPA.svg",
@@ -1436,7 +1487,8 @@
         "Height" : 140.0,
         "id_original" : "2388",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2932.0,
@@ -1452,7 +1504,7 @@
         "nodefont" : "",
         "label" : "CAR",
         "shared_name" : "CAR",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CAR",
         "path" : "http://localhost:9000/plot?str1=CAR.svg",
@@ -1465,7 +1517,8 @@
         "Height" : 140.0,
         "id_original" : "2391",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2256.0,
@@ -1481,7 +1534,7 @@
         "nodefont" : "",
         "label" : "CE",
         "shared_name" : "CE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CE",
         "path" : "http://localhost:9000/plot?str1=CE.svg",
@@ -1494,7 +1547,8 @@
         "Height" : 140.0,
         "id_original" : "2394",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2251.0,
@@ -1510,7 +1564,7 @@
         "nodefont" : "",
         "label" : "AHexCS",
         "shared_name" : "AHexCS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "AHexCS",
         "path" : "http://localhost:9000/plot?str1=AHexCS.svg",
@@ -1522,7 +1576,8 @@
         "Height" : 140.0,
         "id_original" : "2397",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2254.0,
@@ -1538,7 +1593,7 @@
         "nodefont" : "",
         "label" : "CSPHex",
         "shared_name" : "CSPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CSPHex",
         "path" : "http://localhost:9000/plot?str1=CSPHex.svg",
@@ -1550,7 +1605,8 @@
         "Height" : 140.0,
         "id_original" : "2400",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2445.0,
@@ -1566,7 +1622,7 @@
         "nodefont" : "",
         "label" : "CSLPHex",
         "shared_name" : "CSLPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CSLPHex",
         "path" : "http://localhost:9000/plot?str1=CSLPHex.svg",
@@ -1578,7 +1634,8 @@
         "Height" : 140.0,
         "id_original" : "2403",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2640.0,
@@ -1594,7 +1651,7 @@
         "nodefont" : "",
         "label" : "LPA",
         "shared_name" : "LPA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LPA",
         "path" : "http://localhost:9000/plot?str1=LPA.svg",
@@ -1606,7 +1663,8 @@
         "Height" : 140.0,
         "id_original" : "2406",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2936.0,
@@ -1622,7 +1680,7 @@
         "nodefont" : "",
         "label" : "PA",
         "shared_name" : "PA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PA",
         "path" : "http://localhost:9000/plot?str1=PA.svg",
@@ -1634,7 +1692,8 @@
         "Height" : 140.0,
         "id_original" : "2409",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3079.0,
@@ -1650,7 +1709,7 @@
         "nodefont" : "",
         "label" : "LPC",
         "shared_name" : "LPC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LPC",
         "path" : "http://localhost:9000/plot?str1=LPC.svg",
@@ -1663,7 +1722,8 @@
         "Height" : 140.0,
         "id_original" : "2412",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4666.03268167174,
@@ -1679,7 +1739,7 @@
         "nodefont" : "",
         "label" : "LNAPS",
         "shared_name" : "LNAPS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LNAPS",
         "path" : "http://localhost:9000/plot?str1=LNAPS.svg",
@@ -1691,7 +1751,8 @@
         "Height" : 140.0,
         "id_original" : "2415",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4465.0,
@@ -1707,7 +1768,7 @@
         "nodefont" : "",
         "label" : "LPS",
         "shared_name" : "LPS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LPS",
         "path" : "http://localhost:9000/plot?str1=LPS.svg",
@@ -1719,7 +1780,8 @@
         "Height" : 140.0,
         "id_original" : "2418",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4218.0,
@@ -1735,7 +1797,7 @@
         "nodefont" : "",
         "label" : "OxPS",
         "shared_name" : "OxPS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPS",
         "path" : "http://localhost:9000/plot?str1=OxPS.svg",
@@ -1747,7 +1809,8 @@
         "Height" : 140.0,
         "id_original" : "2421",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4461.0,
@@ -1763,7 +1826,7 @@
         "nodefont" : "",
         "label" : "PS",
         "shared_name" : "PS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PS",
         "path" : "http://localhost:9000/plot?str1=PS.svg",
@@ -1776,7 +1839,8 @@
         "Height" : 140.0,
         "id_original" : "2424",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4221.0,
@@ -1792,7 +1856,7 @@
         "nodefont" : "",
         "label" : "LPI",
         "shared_name" : "LPI",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LPI",
         "path" : "http://localhost:9000/plot?str1=LPI.svg",
@@ -1804,7 +1868,8 @@
         "Height" : 140.0,
         "id_original" : "2427",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3871.0,
@@ -1820,7 +1885,7 @@
         "nodefont" : "",
         "label" : "OxPI",
         "shared_name" : "OxPI",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPI",
         "path" : "http://localhost:9000/plot?str1=OxPI.svg",
@@ -1832,7 +1897,8 @@
         "Height" : 140.0,
         "id_original" : "2430",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3652.0,
@@ -1848,7 +1914,7 @@
         "nodefont" : "",
         "label" : "PI",
         "shared_name" : "PI",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PI",
         "path" : "http://localhost:9000/plot?str1=PI.svg",
@@ -1861,7 +1927,8 @@
         "Height" : 140.0,
         "id_original" : "2433",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3654.0,
@@ -1877,7 +1944,7 @@
         "nodefont" : "",
         "label" : "OxPE",
         "shared_name" : "OxPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPE",
         "path" : "http://localhost:9000/plot?str1=OxPE.svg",
@@ -1890,7 +1957,8 @@
         "Height" : 140.0,
         "id_original" : "2436",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3977.0,
@@ -1906,7 +1974,7 @@
         "nodefont" : "",
         "label" : "PE",
         "shared_name" : "PE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PE",
         "path" : "http://localhost:9000/plot?str1=PE.svg",
@@ -1919,7 +1987,8 @@
         "Height" : 140.0,
         "id_original" : "2439",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4223.0,
@@ -1935,7 +2004,7 @@
         "nodefont" : "",
         "label" : "LPE",
         "shared_name" : "LPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LPE",
         "path" : "http://localhost:9000/plot?str1=LPE.svg",
@@ -1948,7 +2017,8 @@
         "Height" : 140.0,
         "id_original" : "2442",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3982.0,
@@ -1964,7 +2034,7 @@
         "nodefont" : "",
         "label" : "LNAPE",
         "shared_name" : "LNAPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LNAPE",
         "path" : "http://localhost:9000/plot?str1=LNAPE.svg",
@@ -1977,7 +2047,8 @@
         "Height" : 140.0,
         "id_original" : "2445",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3983.0,
@@ -1993,7 +2064,7 @@
         "nodefont" : "",
         "label" : "HBMP",
         "shared_name" : "HBMP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HBMP",
         "path" : "http://localhost:9000/plot?str1=HBMP.svg",
@@ -2006,7 +2077,8 @@
         "Height" : 140.0,
         "id_original" : "2448",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3727.0,
@@ -2022,7 +2094,7 @@
         "nodefont" : "",
         "label" : "BMP",
         "shared_name" : "BMP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BMP",
         "path" : "http://localhost:9000/plot?str1=BMP.svg",
@@ -2035,7 +2107,8 @@
         "Height" : 140.0,
         "id_original" : "2451",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3501.0,
@@ -2051,7 +2124,7 @@
         "nodefont" : "",
         "label" : "LPG",
         "shared_name" : "LPG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LPG",
         "path" : "http://localhost:9000/plot?str1=LPG.svg",
@@ -2063,7 +2136,8 @@
         "Height" : 140.0,
         "id_original" : "2454",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3501.0,
@@ -2079,7 +2153,7 @@
         "nodefont" : "",
         "label" : "PG",
         "shared_name" : "PG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PG",
         "path" : "http://localhost:9000/plot?str1=PG.svg",
@@ -2092,7 +2166,8 @@
         "Height" : 140.0,
         "id_original" : "2457",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3201.0,
@@ -2108,7 +2183,7 @@
         "nodefont" : "",
         "label" : "OxPG",
         "shared_name" : "OxPG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPG",
         "path" : "http://localhost:9000/plot?str1=OxPG.svg",
@@ -2120,7 +2195,8 @@
         "Height" : 140.0,
         "id_original" : "2460",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3204.0,
@@ -2136,7 +2212,7 @@
         "nodefont" : "",
         "label" : "CL",
         "shared_name" : "CL",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CL",
         "path" : "http://localhost:9000/plot?str1=CL.svg",
@@ -2149,7 +2225,8 @@
         "Height" : 140.0,
         "id_original" : "2463",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2989.0,
@@ -2165,7 +2242,7 @@
         "nodefont" : "",
         "label" : "MLCL",
         "shared_name" : "MLCL",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "MLCL",
         "path" : "http://localhost:9000/plot?str1=MLCL.svg",
@@ -2177,7 +2254,8 @@
         "Height" : 140.0,
         "id_original" : "2466",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2988.0,
@@ -2193,7 +2271,7 @@
         "nodefont" : "",
         "label" : "DLCL",
         "shared_name" : "DLCL",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DLCL",
         "path" : "http://localhost:9000/plot?str1=DLCL.svg",
@@ -2205,7 +2283,8 @@
         "Height" : 140.0,
         "id_original" : "2469",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3209.0,
@@ -2221,7 +2300,7 @@
         "nodefont" : "",
         "label" : "TG",
         "shared_name" : "TG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "TG",
         "path" : "http://localhost:9000/plot?str1=TG.svg",
@@ -2234,7 +2313,8 @@
         "Height" : 140.0,
         "id_original" : "2472",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2672.0,
@@ -2250,7 +2330,7 @@
         "nodefont" : "",
         "label" : "OxTG",
         "shared_name" : "OxTG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxTG",
         "path" : "http://localhost:9000/plot?str1=OxTG.svg",
@@ -2262,7 +2342,8 @@
         "Height" : 140.0,
         "id_original" : "2475",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2462.0,
@@ -2278,7 +2359,7 @@
         "nodefont" : "",
         "label" : "FA",
         "shared_name" : "FA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "FA",
         "path" : "http://localhost:9000/plot?str1=FA.svg",
@@ -2291,7 +2372,8 @@
         "Height" : 140.0,
         "id_original" : "2478",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2086.0,
@@ -2307,7 +2389,7 @@
         "nodefont" : "",
         "label" : "OxFA",
         "shared_name" : "OxFA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxFA",
         "path" : "http://localhost:9000/plot?str1=OxFA.svg",
@@ -2320,7 +2402,8 @@
         "Height" : 140.0,
         "id_original" : "2481",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1835.0,
@@ -2336,7 +2419,7 @@
         "nodefont" : "",
         "label" : "DMPE",
         "shared_name" : "DMPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DMPE",
         "path" : "http://localhost:9000/plot?str1=DMPE.svg",
@@ -2348,7 +2431,8 @@
         "Height" : 140.0,
         "id_original" : "2484",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4226.0,
@@ -2364,7 +2448,7 @@
         "nodefont" : "",
         "label" : "MMPE",
         "shared_name" : "MMPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "MMPE",
         "path" : "http://localhost:9000/plot?str1=MMPE.svg",
@@ -2376,7 +2460,8 @@
         "Height" : 140.0,
         "id_original" : "2487",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4465.0,
@@ -2392,7 +2477,7 @@
         "nodefont" : "",
         "label" : "PC",
         "shared_name" : "PC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PC",
         "path" : "http://localhost:9000/plot?str1=PC.svg",
@@ -2405,7 +2490,8 @@
         "Height" : 140.0,
         "id_original" : "2490",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4656.245112538053,
@@ -2421,7 +2507,7 @@
         "nodefont" : "",
         "label" : "OxPC",
         "shared_name" : "OxPC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPC",
         "path" : "http://localhost:9000/plot?str1=OxPC.svg",
@@ -2433,7 +2519,8 @@
         "Height" : 140.0,
         "id_original" : "2493",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4662.125246298771,
@@ -2449,7 +2536,7 @@
         "nodefont" : "",
         "label" : "SMGDG",
         "shared_name" : "SMGDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SMGDG",
         "path" : "http://localhost:9000/plot?str1=SMGDG.svg",
@@ -2461,7 +2548,8 @@
         "Height" : 140.0,
         "id_original" : "2496",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2928.6074712103677,
@@ -2477,7 +2565,7 @@
         "nodefont" : "",
         "label" : "DG",
         "shared_name" : "DG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DG",
         "path" : "http://localhost:9000/plot?str1=DG.svg",
@@ -2490,7 +2578,8 @@
         "Height" : 140.0,
         "id_original" : "2499",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2662.6209483634384,
@@ -2506,7 +2595,7 @@
         "nodefont" : "",
         "label" : "MG",
         "shared_name" : "MG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "MG",
         "path" : "http://localhost:9000/plot?str1=MG.svg",
@@ -2519,7 +2608,8 @@
         "Height" : 140.0,
         "id_original" : "2502",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2670.0,
@@ -2535,7 +2625,7 @@
         "nodefont" : "",
         "label" : "FAHFATG",
         "shared_name" : "FAHFATG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "FAHFATG",
         "path" : "http://localhost:9000/plot?str1=FAHFATG.svg",
@@ -2547,7 +2637,8 @@
         "Height" : 140.0,
         "id_original" : "2505",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2401.536394848942,
@@ -2563,7 +2654,7 @@
         "nodefont" : "",
         "label" : "FAHFA",
         "shared_name" : "FAHFA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "FAHFA",
         "path" : "http://localhost:9000/plot?str1=FAHFA.svg",
@@ -2575,7 +2666,8 @@
         "Height" : 140.0,
         "id_original" : "2508",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2089.0,
@@ -2591,7 +2683,7 @@
         "nodefont" : "",
         "label" : "NAOm",
         "shared_name" : "NAOm",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "NAOm",
         "path" : "http://localhost:9000/plot?str1=NAOm.svg",
@@ -2603,7 +2695,8 @@
         "Height" : 140.0,
         "id_original" : "2511",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2268.0,
@@ -2619,7 +2712,7 @@
         "nodefont" : "",
         "label" : "NAGlySer",
         "shared_name" : "NAGlySer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "NAGlySer",
         "path" : "http://localhost:9000/plot?str1=NAGlySer.svg",
@@ -2631,7 +2724,8 @@
         "Height" : 140.0,
         "id_original" : "2514",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2084.0,
@@ -2647,7 +2741,7 @@
         "nodefont" : "",
         "label" : "NAGly",
         "shared_name" : "NAGly",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "NAGly",
         "path" : "http://localhost:9000/plot?str1=NAGly.svg",
@@ -2659,7 +2753,8 @@
         "Height" : 140.0,
         "id_original" : "2517",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1895.0,
@@ -2675,7 +2770,7 @@
         "nodefont" : "",
         "label" : "VAE",
         "shared_name" : "VAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "VAE",
         "path" : "http://localhost:9000/plot?str1=VAE.svg",
@@ -2687,7 +2782,8 @@
         "Height" : 140.0,
         "id_original" : "2520",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4324.0,
@@ -2703,7 +2799,7 @@
         "nodefont" : "",
         "label" : "SL",
         "shared_name" : "SL",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SL",
         "path" : "http://localhost:9000/plot?str1=SL.svg",
@@ -2715,7 +2811,8 @@
         "Height" : 140.0,
         "id_original" : "2523",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3964.0,
@@ -2731,7 +2828,7 @@
         "nodefont" : "",
         "label" : "DGGA",
         "shared_name" : "DGGA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DGGA",
         "path" : "http://localhost:9000/plot?str1=DGGA.svg",
@@ -2743,7 +2840,8 @@
         "Height" : 140.0,
         "id_original" : "2526",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3769.0,
@@ -2759,7 +2857,7 @@
         "nodefont" : "",
         "label" : "ADGGA",
         "shared_name" : "ADGGA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "ADGGA",
         "path" : "http://localhost:9000/plot?str1=ADGGA.svg",
@@ -2771,7 +2869,8 @@
         "Height" : 140.0,
         "id_original" : "2529",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3772.0,
@@ -2787,7 +2886,7 @@
         "nodefont" : "",
         "label" : "Vitamin",
         "shared_name" : "Vitamin",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Vitamin",
         "path" : "http://localhost:9000/plot?str1=Vitamin.svg",
@@ -2799,7 +2898,8 @@
         "Height" : 140.0,
         "id_original" : "2532",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 4325.0,
@@ -2815,7 +2915,7 @@
         "nodefont" : "",
         "label" : "DGTS",
         "shared_name" : "DGTS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DGTS",
         "path" : "http://localhost:9000/plot?str1=DGTS.svg",
@@ -2827,7 +2927,8 @@
         "Height" : 140.0,
         "id_original" : "2535",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3565.0,
@@ -2843,7 +2944,7 @@
         "nodefont" : "",
         "label" : "LDGTS",
         "shared_name" : "LDGTS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LDGTS",
         "path" : "http://localhost:9000/plot?str1=LDGTS.svg",
@@ -2855,7 +2956,8 @@
         "Height" : 140.0,
         "id_original" : "2538",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3567.0,
@@ -2871,7 +2973,7 @@
         "nodefont" : "",
         "label" : "PEtOH",
         "shared_name" : "PEtOH",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PEtOH",
         "path" : "http://localhost:9000/plot?str1=PEtOH.svg",
@@ -2884,7 +2986,8 @@
         "Height" : 140.0,
         "id_original" : "2541",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3567.0,
@@ -2900,7 +3003,7 @@
         "nodefont" : "",
         "label" : "MIPC",
         "shared_name" : "MIPC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "MIPC",
         "path" : "http://localhost:9000/plot?str1=MIPC.svg",
@@ -2912,7 +3015,8 @@
         "Height" : 140.0,
         "id_original" : "2544",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3967.0,
@@ -2928,7 +3032,7 @@
         "nodefont" : "",
         "label" : "Ac4PIM2",
         "shared_name" : "Ac4PIM2",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Ac4PIM2",
         "path" : "http://localhost:9000/plot?str1=Ac4PIM2.svg",
@@ -2940,7 +3044,8 @@
         "Height" : 140.0,
         "id_original" : "2547",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3766.0,
@@ -2956,7 +3061,7 @@
         "nodefont" : "",
         "label" : "Ac3PIM2",
         "shared_name" : "Ac3PIM2",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Ac3PIM2",
         "path" : "http://localhost:9000/plot?str1=Ac3PIM2.svg",
@@ -2968,7 +3073,8 @@
         "Height" : 140.0,
         "id_original" : "2550",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3562.0,
@@ -2984,7 +3090,7 @@
         "nodefont" : "",
         "label" : "DGCC",
         "shared_name" : "DGCC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DGCC",
         "path" : "http://localhost:9000/plot?str1=DGCC.svg",
@@ -2996,7 +3102,8 @@
         "Height" : 140.0,
         "id_original" : "2553",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3347.0,
@@ -3012,7 +3119,7 @@
         "nodefont" : "",
         "label" : "LDGCC",
         "shared_name" : "LDGCC",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LDGCC",
         "path" : "http://localhost:9000/plot?str1=LDGCC.svg",
@@ -3024,7 +3131,8 @@
         "Height" : 140.0,
         "id_original" : "2556",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3344.0,
@@ -3040,7 +3148,7 @@
         "nodefont" : "",
         "label" : "PMeOH",
         "shared_name" : "PMeOH",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PMeOH",
         "path" : "http://localhost:9000/plot?str1=PMeOH.svg",
@@ -3052,7 +3160,8 @@
         "Height" : 140.0,
         "id_original" : "2559",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3345.0,
@@ -3068,7 +3177,7 @@
         "nodefont" : "",
         "label" : "Ac2PIM2",
         "shared_name" : "Ac2PIM2",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Ac2PIM2",
         "path" : "http://localhost:9000/plot?str1=Ac2PIM2.svg",
@@ -3080,7 +3189,8 @@
         "Height" : 140.0,
         "id_original" : "2562",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3341.0,
@@ -3096,7 +3206,7 @@
         "nodefont" : "",
         "label" : "DGDG",
         "shared_name" : "DGDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DGDG",
         "path" : "http://localhost:9000/plot?str1=DGDG.svg",
@@ -3108,7 +3218,8 @@
         "Height" : 140.0,
         "id_original" : "2565",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3131.0,
@@ -3124,7 +3235,7 @@
         "nodefont" : "",
         "label" : "EtherDGDG",
         "shared_name" : "EtherDGDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherDGDG",
         "path" : "http://localhost:9000/plot?str1=EtherDGDG.svg",
@@ -3136,7 +3247,8 @@
         "Height" : 140.0,
         "id_original" : "2568",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3129.0,
@@ -3152,7 +3264,7 @@
         "nodefont" : "",
         "label" : "CoQ",
         "shared_name" : "CoQ",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CoQ",
         "path" : "http://localhost:9000/plot?str1=CoQ.svg",
@@ -3165,7 +3277,8 @@
         "Height" : 140.0,
         "id_original" : "2571",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3132.0,
@@ -3181,7 +3294,7 @@
         "nodefont" : "",
         "label" : "Ac2PIM1",
         "shared_name" : "Ac2PIM1",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Ac2PIM1",
         "path" : "http://localhost:9000/plot?str1=Ac2PIM1.svg",
@@ -3193,7 +3306,8 @@
         "Height" : 140.0,
         "id_original" : "2574",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 3127.0,
@@ -3209,7 +3323,7 @@
         "nodefont" : "",
         "label" : "MGDG",
         "shared_name" : "MGDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "MGDG",
         "path" : "http://localhost:9000/plot?str1=MGDG.svg",
@@ -3222,7 +3336,8 @@
         "Height" : 140.0,
         "id_original" : "2577",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2927.0,
@@ -3238,7 +3353,7 @@
         "nodefont" : "",
         "label" : "EtherMGDG",
         "shared_name" : "EtherMGDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EtherMGDG",
         "path" : "http://localhost:9000/plot?str1=EtherMGDG.svg",
@@ -3250,7 +3365,8 @@
         "Height" : 140.0,
         "id_original" : "2580",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2929.0,
@@ -3266,7 +3382,7 @@
         "nodefont" : "",
         "label" : "SQDG",
         "shared_name" : "SQDG",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SQDG",
         "path" : "http://localhost:9000/plot?str1=SQDG.svg",
@@ -3278,7 +3394,8 @@
         "Height" : 140.0,
         "id_original" : "2583",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2922.0,
@@ -3294,7 +3411,7 @@
         "nodefont" : "",
         "label" : "LipidA",
         "shared_name" : "LipidA",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LipidA",
         "path" : "http://localhost:9000/plot?str1=LipidA.svg",
@@ -3306,7 +3423,8 @@
         "Height" : 140.0,
         "id_original" : "2586",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2923.0,
@@ -3322,7 +3440,7 @@
         "nodefont" : "",
         "label" : "BileAcid",
         "shared_name" : "BileAcid",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BileAcid",
         "path" : "http://localhost:9000/plot?str1=BileAcid.svg",
@@ -3334,7 +3452,8 @@
         "Height" : 140.0,
         "id_original" : "2589",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2051.0,
@@ -3350,7 +3469,7 @@
         "nodefont" : "",
         "label" : "LCAE",
         "shared_name" : "LCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "LCAE",
         "path" : "http://localhost:9000/plot?str1=LCAE.svg",
@@ -3362,7 +3481,8 @@
         "Height" : 140.0,
         "id_original" : "2592",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2302.0,
@@ -3378,7 +3498,7 @@
         "nodefont" : "",
         "label" : "GLCAE",
         "shared_name" : "GLCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GLCAE",
         "path" : "http://localhost:9000/plot?str1=GLCAE.svg",
@@ -3390,7 +3510,8 @@
         "Height" : 140.0,
         "id_original" : "2595",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2384.0,
@@ -3406,7 +3527,7 @@
         "nodefont" : "",
         "label" : "TLCAE",
         "shared_name" : "TLCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "TLCAE",
         "path" : "http://localhost:9000/plot?str1=TLCAE.svg",
@@ -3418,7 +3539,8 @@
         "Height" : 140.0,
         "id_original" : "2598",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2346.0,
@@ -3434,7 +3556,7 @@
         "nodefont" : "",
         "label" : "KLCAE",
         "shared_name" : "KLCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "KLCAE",
         "path" : "http://localhost:9000/plot?str1=KLCAE.svg",
@@ -3446,7 +3568,8 @@
         "Height" : 140.0,
         "id_original" : "2601",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2162.0,
@@ -3462,7 +3585,7 @@
         "nodefont" : "",
         "label" : "KDCAE",
         "shared_name" : "KDCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "KDCAE",
         "path" : "http://localhost:9000/plot?str1=KDCAE.svg",
@@ -3474,7 +3597,8 @@
         "Height" : 140.0,
         "id_original" : "2604",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1919.0,
@@ -3490,7 +3614,7 @@
         "nodefont" : "",
         "label" : "TDCAE",
         "shared_name" : "TDCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "TDCAE",
         "path" : "http://localhost:9000/plot?str1=TDCAE.svg",
@@ -3502,7 +3626,8 @@
         "Height" : 140.0,
         "id_original" : "2607",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1743.0,
@@ -3518,7 +3643,7 @@
         "nodefont" : "",
         "label" : "GDCAE",
         "shared_name" : "GDCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GDCAE",
         "path" : "http://localhost:9000/plot?str1=GDCAE.svg",
@@ -3530,7 +3655,8 @@
         "Height" : 140.0,
         "id_original" : "2610",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1695.0,
@@ -3546,7 +3672,7 @@
         "nodefont" : "",
         "label" : "DCAE",
         "shared_name" : "DCAE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DCAE",
         "path" : "http://localhost:9000/plot?str1=DCAE.svg",
@@ -3558,7 +3684,8 @@
         "Height" : 140.0,
         "id_original" : "2613",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1780.0,
@@ -3574,7 +3701,7 @@
         "nodefont" : "",
         "label" : "BASulfate",
         "shared_name" : "BASulfate",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BASulfate",
         "path" : "http://localhost:9000/plot?str1=BASulfate.svg",
@@ -3586,7 +3713,8 @@
         "Height" : 140.0,
         "id_original" : "2616",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1939.0,
@@ -3602,7 +3730,7 @@
         "nodefont" : "",
         "label" : "BAHex",
         "shared_name" : "BAHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BAHex",
         "path" : "http://localhost:9000/plot?str1=BAHex.svg",
@@ -3614,7 +3742,8 @@
         "Height" : 140.0,
         "id_original" : "2619",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1746.0,
@@ -3630,7 +3759,7 @@
         "nodefont" : "",
         "label" : "HexCer_HDS",
         "shared_name" : "HexCer_HDS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_HDS",
         "path" : "http://localhost:9000/plot?str1=HexCer_HDS.svg",
@@ -3642,7 +3771,8 @@
         "Height" : 140.0,
         "id_original" : "2622",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1390.0,
@@ -3658,7 +3788,7 @@
         "nodefont" : "",
         "label" : "Cer_EBDS",
         "shared_name" : "Cer_EBDS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_EBDS",
         "path" : "http://localhost:9000/plot?str1=Cer_EBDS.svg",
@@ -3670,7 +3800,8 @@
         "Height" : 140.0,
         "id_original" : "2625",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1701.0,
@@ -3686,7 +3817,7 @@
         "nodefont" : "",
         "label" : "Cer_BDS",
         "shared_name" : "Cer_BDS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_BDS",
         "path" : "http://localhost:9000/plot?str1=Cer_BDS.svg",
@@ -3698,7 +3829,8 @@
         "Height" : 140.0,
         "id_original" : "2628",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1507.0,
@@ -3714,7 +3846,7 @@
         "nodefont" : "",
         "label" : "Cer_ADS",
         "shared_name" : "Cer_ADS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_ADS",
         "path" : "http://localhost:9000/plot?str1=Cer_ADS.svg",
@@ -3726,7 +3858,8 @@
         "Height" : 140.0,
         "id_original" : "2631",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1298.0,
@@ -3742,7 +3875,7 @@
         "nodefont" : "",
         "label" : "HexCer_NDS",
         "shared_name" : "HexCer_NDS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_NDS",
         "path" : "http://localhost:9000/plot?str1=HexCer_NDS.svg",
@@ -3755,7 +3888,8 @@
         "Height" : 140.0,
         "id_original" : "2634",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 712.0,
@@ -3771,7 +3905,7 @@
         "nodefont" : "",
         "label" : "Cer_NDS",
         "shared_name" : "Cer_NDS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_NDS",
         "path" : "http://localhost:9000/plot?str1=Cer_NDS.svg",
@@ -3784,7 +3918,8 @@
         "Height" : 140.0,
         "id_original" : "2637",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 938.0,
@@ -3800,7 +3935,7 @@
         "nodefont" : "",
         "label" : "Cer_EODS",
         "shared_name" : "Cer_EODS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_EODS",
         "path" : "http://localhost:9000/plot?str1=Cer_EODS.svg",
@@ -3812,7 +3947,8 @@
         "Height" : 140.0,
         "id_original" : "2640",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 711.0,
@@ -3828,7 +3964,7 @@
         "nodefont" : "",
         "label" : "Cer_HDS",
         "shared_name" : "Cer_HDS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_HDS",
         "path" : "http://localhost:9000/plot?str1=Cer_HDS.svg",
@@ -3840,7 +3976,8 @@
         "Height" : 140.0,
         "id_original" : "2643",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 942.0,
@@ -3856,7 +3993,7 @@
         "nodefont" : "",
         "label" : "3-Ketosphinganine",
         "shared_name" : "3-Ketosphinganine",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "3-Ketosphinganine",
         "path" : "http://localhost:9000/plot?str1=3-Ketosphinganine.svg",
@@ -3868,7 +4005,8 @@
         "Height" : 140.0,
         "id_original" : "2646",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1595.0,
@@ -3884,7 +4022,7 @@
         "nodefont" : "",
         "label" : "DHSph",
         "shared_name" : "DHSph",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DHSph",
         "path" : "http://localhost:9000/plot?str1=DHSph.svg",
@@ -3896,7 +4034,8 @@
         "Height" : 140.0,
         "id_original" : "2649",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1297.0,
@@ -3912,7 +4051,7 @@
         "nodefont" : "",
         "label" : "CerP",
         "shared_name" : "CerP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CerP",
         "path" : "http://localhost:9000/plot?str1=CerP.svg",
@@ -3924,7 +4063,8 @@
         "Height" : 140.0,
         "id_original" : "2652",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1598.0,
@@ -3940,7 +4080,7 @@
         "nodefont" : "",
         "label" : "PE_Cer",
         "shared_name" : "PE_Cer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PE_Cer",
         "path" : "http://localhost:9000/plot?str1=PE_Cer.svg",
@@ -3952,7 +4092,8 @@
         "Height" : 140.0,
         "id_original" : "2655",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1601.0,
@@ -3968,7 +4109,7 @@
         "nodefont" : "",
         "label" : "Cer_NS",
         "shared_name" : "Cer_NS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_NS",
         "path" : "http://localhost:9000/plot?str1=Cer_NS.svg",
@@ -3981,7 +4122,8 @@
         "Height" : 140.0,
         "id_original" : "2658",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1290.0,
@@ -3997,7 +4139,7 @@
         "nodefont" : "",
         "label" : "PI-Cer",
         "shared_name" : "PI-Cer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PI-Cer",
         "path" : "http://localhost:9000/plot?str1=PI_Cer.svg",
@@ -4009,7 +4151,8 @@
         "Height" : 140.0,
         "id_original" : "2661",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1604.0,
@@ -4025,7 +4168,7 @@
         "nodefont" : "",
         "label" : "SM",
         "shared_name" : "SM",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SM",
         "path" : "http://localhost:9000/plot?str1=SM.svg",
@@ -4038,7 +4181,8 @@
         "Height" : 140.0,
         "id_original" : "2664",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1384.0,
@@ -4054,7 +4198,7 @@
         "nodefont" : "",
         "label" : "HexCer_NS",
         "shared_name" : "HexCer_NS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_NS",
         "path" : "http://localhost:9000/plot?str1=HexCer_NS.svg",
@@ -4067,7 +4211,8 @@
         "Height" : 140.0,
         "id_original" : "2667",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 998.0,
@@ -4083,7 +4228,7 @@
         "nodefont" : "",
         "label" : "AHexCer",
         "shared_name" : "AHexCer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "AHexCer",
         "path" : "http://localhost:9000/plot?str1=AHexCer.svg",
@@ -4095,7 +4240,8 @@
         "Height" : 140.0,
         "id_original" : "2670",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 758.0,
@@ -4111,7 +4257,7 @@
         "nodefont" : "",
         "label" : "SHexCer",
         "shared_name" : "SHexCer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SHexCer",
         "path" : "http://localhost:9000/plot?str1=SHexCer.svg",
@@ -4123,7 +4269,8 @@
         "Height" : 140.0,
         "id_original" : "2673",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1194.1409640573734,
@@ -4139,7 +4286,7 @@
         "nodefont" : "",
         "label" : "Hex2Cer",
         "shared_name" : "Hex2Cer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Hex2Cer",
         "path" : "http://localhost:9000/plot?str1=Hex2Cer.svg",
@@ -4152,7 +4299,8 @@
         "Height" : 140.0,
         "id_original" : "2676",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 754.0,
@@ -4168,7 +4316,7 @@
         "nodefont" : "",
         "label" : "GM3",
         "shared_name" : "GM3",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "GM3",
         "path" : "http://localhost:9000/plot?str1=GM3.svg",
@@ -4181,7 +4329,8 @@
         "Height" : 140.0,
         "id_original" : "2679",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1000.0,
@@ -4197,7 +4346,7 @@
         "nodefont" : "",
         "label" : "Hex3Cer",
         "shared_name" : "Hex3Cer",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Hex3Cer",
         "path" : "http://localhost:9000/plot?str1=Hex3Cer.svg",
@@ -4209,7 +4358,8 @@
         "Height" : 140.0,
         "id_original" : "2682",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 532.1170588524391,
@@ -4225,7 +4375,7 @@
         "nodefont" : "",
         "label" : "Cer_NP",
         "shared_name" : "Cer_NP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_NP",
         "path" : "http://localhost:9000/plot?str1=Cer_NP.svg",
@@ -4238,7 +4388,8 @@
         "Height" : 140.0,
         "id_original" : "2685",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 942.0,
@@ -4254,7 +4405,7 @@
         "nodefont" : "",
         "label" : "HexCer_NP",
         "shared_name" : "HexCer_NP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_NP",
         "path" : "http://localhost:9000/plot?str1=HexCer_NP.svg",
@@ -4266,7 +4417,8 @@
         "Height" : 140.0,
         "id_original" : "2688",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 938.0,
@@ -4282,7 +4434,7 @@
         "nodefont" : "",
         "label" : "PhytoSph",
         "shared_name" : "PhytoSph",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "PhytoSph",
         "path" : "http://localhost:9000/plot?str1=PhytoSph.svg",
@@ -4294,7 +4446,8 @@
         "Height" : 140.0,
         "id_original" : "2691",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 703.0,
@@ -4310,7 +4463,7 @@
         "nodefont" : "",
         "label" : "Cer_AP",
         "shared_name" : "Cer_AP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_AP",
         "path" : "http://localhost:9000/plot?str1=Cer_AP.svg",
@@ -4323,7 +4476,8 @@
         "Height" : 140.0,
         "id_original" : "2694",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 443.0,
@@ -4339,7 +4493,7 @@
         "nodefont" : "",
         "label" : "HexCer_AP",
         "shared_name" : "HexCer_AP",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_AP",
         "path" : "http://localhost:9000/plot?str1=HexCer_AP.svg",
@@ -4351,7 +4505,8 @@
         "Height" : 140.0,
         "id_original" : "2697",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 196.0,
@@ -4367,7 +4522,7 @@
         "nodefont" : "",
         "label" : "Cer_HS",
         "shared_name" : "Cer_HS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_HS",
         "path" : "http://localhost:9000/plot?str1=Cer_HS.svg",
@@ -4379,7 +4534,8 @@
         "Height" : 140.0,
         "id_original" : "2700",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 702.0,
@@ -4395,7 +4551,7 @@
         "nodefont" : "",
         "label" : "Sph",
         "shared_name" : "Sph",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Sph",
         "path" : "http://localhost:9000/plot?str1=Sph.svg",
@@ -4407,7 +4563,8 @@
         "Height" : 140.0,
         "id_original" : "2703",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 704.0,
@@ -4423,7 +4580,7 @@
         "nodefont" : "",
         "label" : "Cer_EOS",
         "shared_name" : "Cer_EOS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_EOS",
         "path" : "http://localhost:9000/plot?str1=Cer_EOS.svg",
@@ -4435,7 +4592,8 @@
         "Height" : 140.0,
         "id_original" : "2706",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 441.0,
@@ -4451,7 +4609,7 @@
         "nodefont" : "",
         "label" : "HexCer_EOS",
         "shared_name" : "HexCer_EOS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_EOS",
         "path" : "http://localhost:9000/plot?str1=HexCer_EOS.svg",
@@ -4463,7 +4621,8 @@
         "Height" : 140.0,
         "id_original" : "2709",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 197.0,
@@ -4479,7 +4638,7 @@
         "nodefont" : "",
         "label" : "Cer_AS",
         "shared_name" : "Cer_AS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_AS",
         "path" : "http://localhost:9000/plot?str1=Cer_AS.svg",
@@ -4491,7 +4650,8 @@
         "Height" : 140.0,
         "id_original" : "2712",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 445.0,
@@ -4507,7 +4667,7 @@
         "nodefont" : "",
         "label" : "Cer_BS",
         "shared_name" : "Cer_BS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cer_BS",
         "path" : "http://localhost:9000/plot?str1=Cer_BS.svg",
@@ -4519,7 +4679,8 @@
         "Height" : 140.0,
         "id_original" : "2715",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 446.0,
@@ -4535,7 +4696,7 @@
         "nodefont" : "",
         "label" : "HexCer_HS",
         "shared_name" : "HexCer_HS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "HexCer_HS",
         "path" : "http://localhost:9000/plot?str1=HexCer_HS.svg",
@@ -4547,7 +4708,8 @@
         "Height" : 140.0,
         "id_original" : "2718",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 192.0,
@@ -4563,7 +4725,7 @@
         "nodefont" : "",
         "label" : "BRS",
         "shared_name" : "BRS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BRS",
         "path" : "http://localhost:9000/plot?str1=BRS.svg",
@@ -4575,7 +4737,8 @@
         "Height" : 140.0,
         "id_original" : "2721",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 548.0,
@@ -4591,7 +4754,7 @@
         "nodefont" : "",
         "label" : "BRSE",
         "shared_name" : "BRSE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BRSE",
         "path" : "http://localhost:9000/plot?str1=BRSE.svg",
@@ -4603,7 +4766,8 @@
         "Height" : 140.0,
         "id_original" : "2724",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 328.0,
@@ -4619,7 +4783,7 @@
         "nodefont" : "",
         "label" : "AHexBRS",
         "shared_name" : "AHexBRS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "AHexBRS",
         "path" : "http://localhost:9000/plot?str1=AHexBRS.svg",
@@ -4631,7 +4795,8 @@
         "Height" : 140.0,
         "id_original" : "2727",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 328.0,
@@ -4647,7 +4812,7 @@
         "nodefont" : "",
         "label" : "BRSPHex",
         "shared_name" : "BRSPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BRSPHex",
         "path" : "http://localhost:9000/plot?str1=BRSPHex.svg",
@@ -4659,7 +4824,8 @@
         "Height" : 140.0,
         "id_original" : "2730",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 547.0,
@@ -4675,7 +4841,7 @@
         "nodefont" : "",
         "label" : "BRSLPHex",
         "shared_name" : "BRSLPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "BRSLPHex",
         "path" : "http://localhost:9000/plot?str1=BRSLPHex.svg",
@@ -4687,7 +4853,8 @@
         "Height" : 140.0,
         "id_original" : "2733",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 759.0,
@@ -4703,7 +4870,7 @@
         "nodefont" : "",
         "label" : "CAS",
         "shared_name" : "CAS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CAS",
         "path" : "http://localhost:9000/plot?str1=CAS.svg",
@@ -4715,7 +4882,8 @@
         "Height" : 140.0,
         "id_original" : "2736",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 553.0,
@@ -4731,7 +4899,7 @@
         "nodefont" : "",
         "label" : "CASE",
         "shared_name" : "CASE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CASE",
         "path" : "http://localhost:9000/plot?str1=CASE.svg",
@@ -4743,7 +4911,8 @@
         "Height" : 140.0,
         "id_original" : "2739",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 323.0,
@@ -4759,7 +4928,7 @@
         "nodefont" : "",
         "label" : "AHexCAS",
         "shared_name" : "AHexCAS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "AHexCAS",
         "path" : "http://localhost:9000/plot?str1=AHexCAS.svg",
@@ -4771,7 +4940,8 @@
         "Height" : 140.0,
         "id_original" : "2742",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 322.0,
@@ -4787,7 +4957,7 @@
         "nodefont" : "",
         "label" : "CASPHex",
         "shared_name" : "CASPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CASPHex",
         "path" : "http://localhost:9000/plot?str1=CASPHex.svg",
@@ -4799,7 +4969,8 @@
         "Height" : 140.0,
         "id_original" : "2745",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 552.0,
@@ -4815,7 +4986,7 @@
         "nodefont" : "",
         "label" : "CASLPHex",
         "shared_name" : "CASLPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "CASLPHex",
         "path" : "http://localhost:9000/plot?str1=CASLPHex.svg",
@@ -4827,7 +4998,8 @@
         "Height" : 140.0,
         "id_original" : "2748",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 765.0,
@@ -4843,7 +5015,7 @@
         "nodefont" : "",
         "label" : "SIS",
         "shared_name" : "SIS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SIS",
         "path" : "http://localhost:9000/plot?str1=SIS.svg",
@@ -4855,7 +5027,8 @@
         "Height" : 140.0,
         "id_original" : "2751",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 550.0,
@@ -4871,7 +5044,7 @@
         "nodefont" : "",
         "label" : "SISE",
         "shared_name" : "SISE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SISE",
         "path" : "http://localhost:9000/plot?str1=SISE.svg",
@@ -4884,7 +5057,8 @@
         "Height" : 140.0,
         "id_original" : "2754",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 320.0,
@@ -4900,7 +5074,7 @@
         "nodefont" : "",
         "label" : "AHexSIS",
         "shared_name" : "AHexSIS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "AHexSIS",
         "path" : "http://localhost:9000/plot?str1=AHexSIS.svg",
@@ -4912,7 +5086,8 @@
         "Height" : 140.0,
         "id_original" : "2757",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 315.0,
@@ -4928,7 +5103,7 @@
         "nodefont" : "",
         "label" : "SISPHex",
         "shared_name" : "SISPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SISPHex",
         "path" : "http://localhost:9000/plot?str1=SISPHex.svg",
@@ -4940,7 +5115,8 @@
         "Height" : 140.0,
         "id_original" : "2760",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 554.0,
@@ -4956,7 +5132,7 @@
         "nodefont" : "",
         "label" : "SISLPHex",
         "shared_name" : "SISLPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SISLPHex",
         "path" : "http://localhost:9000/plot?str1=SISLPHex.svg",
@@ -4968,7 +5144,8 @@
         "Height" : 140.0,
         "id_original" : "2763",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 773.0,
@@ -4984,7 +5161,7 @@
         "nodefont" : "",
         "label" : "SHex",
         "shared_name" : "SHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SHex",
         "path" : "http://localhost:9000/plot?str1=SHex.svg",
@@ -4996,7 +5173,8 @@
         "Height" : 140.0,
         "id_original" : "2766",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1066.0,
@@ -5012,7 +5190,7 @@
         "nodefont" : "",
         "label" : "SSulfate",
         "shared_name" : "SSulfate",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SSulfate",
         "path" : "http://localhost:9000/plot?str1=SSulfate.svg",
@@ -5025,7 +5203,8 @@
         "Height" : 140.0,
         "id_original" : "2769",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1256.0,
@@ -5041,7 +5220,7 @@
         "nodefont" : "",
         "label" : "SPE",
         "shared_name" : "SPE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SPE",
         "path" : "http://localhost:9000/plot?str1=SPE.svg",
@@ -5053,7 +5232,8 @@
         "Height" : 140.0,
         "id_original" : "2772",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 992.0,
@@ -5069,7 +5249,7 @@
         "nodefont" : "",
         "label" : "SPEHex",
         "shared_name" : "SPEHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SPEHex",
         "path" : "http://localhost:9000/plot?str1=SPEHex.svg",
@@ -5081,7 +5261,8 @@
         "Height" : 140.0,
         "id_original" : "2775",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1177.0,
@@ -5097,7 +5278,7 @@
         "nodefont" : "",
         "label" : "SPGHex",
         "shared_name" : "SPGHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "SPGHex",
         "path" : "http://localhost:9000/plot?str1=SPGHex.svg",
@@ -5109,7 +5290,8 @@
         "Height" : 140.0,
         "id_original" : "2778",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1370.0,
@@ -5125,7 +5307,7 @@
         "nodefont" : "",
         "label" : "EGS",
         "shared_name" : "EGS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EGS",
         "path" : "http://localhost:9000/plot?str1=EGS.svg",
@@ -5137,7 +5319,8 @@
         "Height" : 140.0,
         "id_original" : "2781",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1063.0,
@@ -5153,7 +5336,7 @@
         "nodefont" : "",
         "label" : "EGSE",
         "shared_name" : "EGSE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "EGSE",
         "path" : "http://localhost:9000/plot?str1=EGSE.svg",
@@ -5165,7 +5348,8 @@
         "Height" : 140.0,
         "id_original" : "2784",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1299.0,
@@ -5181,7 +5365,7 @@
         "nodefont" : "",
         "label" : "DEGS",
         "shared_name" : "DEGS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DEGS",
         "path" : "http://localhost:9000/plot?str1=DEGS.svg",
@@ -5193,7 +5377,8 @@
         "Height" : 140.0,
         "id_original" : "2787",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1065.0,
@@ -5209,7 +5394,7 @@
         "nodefont" : "",
         "label" : "DEGSE",
         "shared_name" : "DEGSE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DEGSE",
         "path" : "http://localhost:9000/plot?str1=DEGSE.svg",
@@ -5221,7 +5406,8 @@
         "Height" : 140.0,
         "id_original" : "2790",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1302.0,
@@ -5237,7 +5423,7 @@
         "nodefont" : "",
         "label" : "DSMS",
         "shared_name" : "DSMS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DSMS",
         "path" : "http://localhost:9000/plot?str1=DSMS.svg",
@@ -5249,7 +5435,8 @@
         "Height" : 140.0,
         "id_original" : "2793",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1063.0,
@@ -5265,7 +5452,7 @@
         "nodefont" : "",
         "label" : "DSMSE",
         "shared_name" : "DSMSE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "DSMSE",
         "path" : "http://localhost:9000/plot?str1=DSMSE.svg",
@@ -5277,7 +5464,8 @@
         "Height" : 140.0,
         "id_original" : "2796",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1305.0,
@@ -5293,7 +5481,7 @@
         "nodefont" : "",
         "label" : "STS",
         "shared_name" : "STS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "STS",
         "path" : "http://localhost:9000/plot?str1=STS.svg",
@@ -5305,7 +5493,8 @@
         "Height" : 140.0,
         "id_original" : "2799",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1233.0,
@@ -5321,7 +5510,7 @@
         "nodefont" : "",
         "label" : "STSE",
         "shared_name" : "STSE",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "STSE",
         "path" : "http://localhost:9000/plot?str1=STSE.svg",
@@ -5333,7 +5522,8 @@
         "Height" : 140.0,
         "id_original" : "2802",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1021.0,
@@ -5349,7 +5539,7 @@
         "nodefont" : "",
         "label" : "AHexSTS",
         "shared_name" : "AHexSTS",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "AHexSTS",
         "path" : "http://localhost:9000/plot?str1=AHexSTS.svg",
@@ -5361,7 +5551,8 @@
         "Height" : 140.0,
         "id_original" : "2805",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1017.0,
@@ -5377,7 +5568,7 @@
         "nodefont" : "",
         "label" : "STSPHex",
         "shared_name" : "STSPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "STSPHex",
         "path" : "http://localhost:9000/plot?str1=STSPHex.svg",
@@ -5389,7 +5580,8 @@
         "Height" : 140.0,
         "id_original" : "2808",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1232.0,
@@ -5405,7 +5597,7 @@
         "nodefont" : "",
         "label" : "STSLPHex",
         "shared_name" : "STSLPHex",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "STSLPHex",
         "path" : "http://localhost:9000/plot?str1=STSLPHex.svg",
@@ -5417,7 +5609,8 @@
         "Height" : 140.0,
         "id_original" : "2811",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1429.0,
@@ -5433,7 +5626,7 @@
         "nodefont" : "",
         "label" : "Cholesterol",
         "shared_name" : "Cholesterol",
-        "Label_size" : 50.0,
+        "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "Cholesterol",
         "path" : "http://localhost:9000/plot?str1=Cholesterol.svg",
@@ -5445,7 +5638,8 @@
         "Height" : 140.0,
         "id_original" : "2814",
         "Width" : 140.0,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 2642.0,

@@ -12,12 +12,12 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
 	colnames(metadata)[1] <- "name"
     lipid <- data %>% pivot_longer(cols = -c(1:2),names_to = "Metabolite name") %>%  
       inner_join(metadata,by = c("name","Class")) %>% 
-      select(c(paste(input$w,"",sep=""),`Metabolite name`,name,value)) %>%
+      dplyr::select(c(paste(input$w,"",sep=""),`Metabolite name`,name,value)) %>%
       group_by_at(c("Metabolite name",input$w)) %>%
       mutate(mean = mean(value)) %>%
       ungroup() %>%
       distinct(`Metabolite name`,!!as.symbol(input$w),.keep_all = T) %>%
-      select(c(1,2,5)) %>%
+      dplyr::select(c(1,2,5)) %>%
       pivot_wider(names_from = paste(input$w,"",sep=""),values_from = mean)
     lipidont <- read.csv(input$ontfile$datapath,check.names = F)
     lipid <- inner_join(lipidont,lipid,by =c("lipid" = "Metabolite name"))
@@ -64,7 +64,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       
       monoacyl$acyl <- unlist(acyllist)
       #
-      targetmonoacyllipid <- monoacyl %>% filter(acyl %in% targetmonoacylchain) %>% select(-c(acyl))
+      targetmonoacyllipid <- monoacyl %>% filter(acyl %in% targetmonoacylchain) %>% dplyr::select(-c(acyl))
     }
     else{
       targetmonoacyllipid <- monoacyl
@@ -76,7 +76,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(LbmClass))
+      d <- dplyr::select(d,-c(LbmClass))
       n <- nrow(d)
       BreaksList <- seq(-2,2, by = 0.5)
       height <- n*0.9
@@ -141,16 +141,16 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       # if(input$sn == T){
       #   targetdiacyllipid$acyl1 <- paste(targetdiacyllipid$LbmClass," ",targetdiacyllipid$acyl1," (sn-1)",sep ="")
       #   targetdiacyllipid$acyl2 <- paste(targetdiacyllipid$LbmClass," ",targetdiacyllipid$acyl2," (sn-2)",sep ="")
-      #   targetdiacyllipid <- targetdiacyllipid %>% select( `Metabolite name`,LbmClass,acyl1,acyl2,everything()) %>% pivot_longer(cols = -c(1:4)) %>% group_by(name,acyl1) %>% mutate(mean1 = mean(value)) %>% ungroup() %>% group_by(name,acyl2) %>% mutate(mean2 = mean(value)) %>% ungroup()
-      #   sn1 <- select(targetdiacyllipid,c(LbmClass,name,acyl1,mean1)) %>% distinct(name,acyl1,.keep_all = T)
+      #   targetdiacyllipid <- targetdiacyllipid %>% dplyr::select( `Metabolite name`,LbmClass,acyl1,acyl2,everything()) %>% pivot_longer(cols = -c(1:4)) %>% group_by(name,acyl1) %>% mutate(mean1 = mean(value)) %>% ungroup() %>% group_by(name,acyl2) %>% mutate(mean2 = mean(value)) %>% ungroup()
+      #   sn1 <- dplyr::select(targetdiacyllipid,c(LbmClass,name,acyl1,mean1)) %>% distinct(name,acyl1,.keep_all = T)
       #   colnames(sn1) <- c("LbmClass","name","Metabolite name","value")
-      #   sn2 <- select(targetdiacyllipid,c(LbmClass,name,acyl2,mean2))%>% distinct(name,acyl2,.keep_all = T)
+      #   sn2 <- dplyr::select(targetdiacyllipid,c(LbmClass,name,acyl2,mean2))%>% distinct(name,acyl2,.keep_all = T)
       #   colnames(sn2) <- c("LbmClass","name","Metabolite name","value")
       #   diacyl <- rbind(sn1,sn2) %>% pivot_wider(names_from = "name",values_from = "value") #%>% data.frame()
       # }
       
       
-      diacyl <- targetdiacyllipid %>% select(-c(acyl1,acyl2))
+      diacyl <- targetdiacyllipid %>% dplyr::select(-c(acyl1,acyl2))
       
     }
     else{}
@@ -158,7 +158,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       BreaksList <- seq(-2,2, by = 0.5)
       # print(d)
       n <- nrow(d)
@@ -210,16 +210,16 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       # if(input$sn == T){
       #   targetdiacyllipid$acyl1 <- paste(targetdiacyllipid$LbmClass," ",targetdiacyllipid$acyl1," (sn-1)",sep ="")
       #   targetdiacyllipid$acyl2 <- paste(targetdiacyllipid$LbmClass," ",targetdiacyllipid$acyl2," (sn-2)",sep ="")
-      #   targetdiacyllipid <- targetdiacyllipid %>% select( `Metabolite name`,LbmClass,acyl1,acyl2,everything()) %>% pivot_longer(cols = -c(1:4)) %>% group_by(name,acyl1) %>% mutate(mean1 = mean(value)) %>% ungroup() %>% group_by(name,acyl2) %>% mutate(mean2 = mean(value)) %>% ungroup()
-      #   sn1 <- select(targetdiacyllipid,c(LbmClass,name,acyl1,mean1)) %>% distinct(name,acyl1,.keep_all = T)
+      #   targetdiacyllipid <- targetdiacyllipid %>% dplyr::select( `Metabolite name`,LbmClass,acyl1,acyl2,everything()) %>% pivot_longer(cols = -c(1:4)) %>% group_by(name,acyl1) %>% mutate(mean1 = mean(value)) %>% ungroup() %>% group_by(name,acyl2) %>% mutate(mean2 = mean(value)) %>% ungroup()
+      #   sn1 <- dplyr::select(targetdiacyllipid,c(LbmClass,name,acyl1,mean1)) %>% distinct(name,acyl1,.keep_all = T)
       #   colnames(sn1) <- c("LbmClass","name","Metabolite name","value")
-      #   sn2 <- select(targetdiacyllipid,c(LbmClass,name,acyl2,mean2))%>% distinct(name,acyl2,.keep_all = T)
+      #   sn2 <- dplyr::select(targetdiacyllipid,c(LbmClass,name,acyl2,mean2))%>% distinct(name,acyl2,.keep_all = T)
       #   colnames(sn2) <- c("LbmClass","name","Metabolite name","value")
       #   diacyl <- rbind(sn1,sn2) %>% pivot_wider(names_from = "name",values_from = "value") #%>% data.frame()
       # }
       
       
-      diacyl <- targetdiacyllipid %>% select(-c(acyl1,acyl2))
+      diacyl <- targetdiacyllipid %>% dplyr::select(-c(acyl1,acyl2))
       
     }
     else{}
@@ -229,7 +229,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       
       BreaksList <- seq(-2,2, by = 0.5)
       n <- nrow(d)
@@ -300,16 +300,16 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       # if(input$sn == T){
       #   targetdiacyllipid$acyl1 <- paste(targetdiacyllipid$LbmClass," C",targetdiacyllipid$acyl1,sep ="")
       #   targetdiacyllipid$acyl2 <- paste(targetdiacyllipid$LbmClass," C",targetdiacyllipid$acyl2,sep ="")
-      #   targetdiacyllipid <- targetdiacyllipid %>% select( `Metabolite name`,LbmClass,acyl1,acyl2,everything()) %>% pivot_longer(cols = -c(1:4)) %>% group_by(name,acyl1) %>% mutate(mean1 = mean(value)) %>% ungroup() %>% group_by(name,acyl2) %>% mutate(mean2 = mean(value)) %>% ungroup()
-      #   sn1 <- select(targetdiacyllipid,c(LbmClass,name,acyl1,mean1)) %>% distinct(name,acyl1,.keep_all = T)
+      #   targetdiacyllipid <- targetdiacyllipid %>% dplyr::select( `Metabolite name`,LbmClass,acyl1,acyl2,everything()) %>% pivot_longer(cols = -c(1:4)) %>% group_by(name,acyl1) %>% mutate(mean1 = mean(value)) %>% ungroup() %>% group_by(name,acyl2) %>% mutate(mean2 = mean(value)) %>% ungroup()
+      #   sn1 <- dplyr::select(targetdiacyllipid,c(LbmClass,name,acyl1,mean1)) %>% distinct(name,acyl1,.keep_all = T)
       #   colnames(sn1) <- c("LbmClass","name","Metabolite name","value")
-      #   sn2 <- select(targetdiacyllipid,c(LbmClass,name,acyl2,mean2))%>% distinct(name,acyl2,.keep_all = T)
+      #   sn2 <- dplyr::select(targetdiacyllipid,c(LbmClass,name,acyl2,mean2))%>% distinct(name,acyl2,.keep_all = T)
       #   colnames(sn2) <- c("LbmClass","name","Metabolite name","value")
       #   diacyl <- sn2 %>% pivot_wider(names_from = "name",values_from = "value")
       # }
       
       
-      diacyl <- targetdiacyllipid %>% select(-c(acyl1,acyl2))
+      diacyl <- targetdiacyllipid %>% dplyr::select(-c(acyl1,acyl2))
       
       
     }
@@ -321,7 +321,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       n <- nrow(d)
       BreaksList <- seq(-2,2, by = 0.5)
       n <- nrow(d)
@@ -364,13 +364,13 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       }
       
       diacyl$acyl1 <- unlist(acyl1list)
-      targetdiacyllipid <- diacyl %>%  filter(acyl1 %in% targetnacylchain) %>% select(-c(Categories))
+      targetdiacyllipid <- diacyl %>%  filter(acyl1 %in% targetnacylchain) %>% dplyr::select(-c(Categories))
       
       targetlipidclass <- unique(targetdiacyllipid$LbmClass)
       
       
       
-      diacyl <- targetdiacyllipid %>% select(-c(acyl1))
+      diacyl <- targetdiacyllipid %>% dplyr::select(-c(acyl1))
       
       
       
@@ -384,7 +384,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       n <- nrow(d)
       BreaksList <- seq(-2,2, by = 0.5)
       n <- nrow(d)
@@ -420,13 +420,13 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       }
       
       diacyl$acyl1 <- unlist(acyl1list)
-      targetdiacyllipid <- diacyl %>%  filter(acyl1 %in% targetnacylchain) %>% select(-c(Categories))
+      targetdiacyllipid <- diacyl %>%  filter(acyl1 %in% targetnacylchain) %>% dplyr::select(-c(Categories))
       targetlipidclass <- unique(targetdiacyllipid$LbmClass)
       
       namelist <- list()
       pathlist <- list()
       
-      diacyl <- targetdiacyllipid %>% select(-c(acyl1))
+      diacyl <- targetdiacyllipid %>% dplyr::select(-c(acyl1))
       
       
       
@@ -439,7 +439,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       n <- nrow(d)
       BreaksList <- seq(-2,2, by = 0.5)
       n <- nrow(d)
@@ -505,7 +505,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
       Triacyl$acyl2 <- unlist(acyllist2)
       Triacyl$acyl3 <- unlist(acyllist3)
       
-      targettriacyllipid <- Triacyl %>% filter(acyl1 %in% targettriacylchain, acyl2 %in% targettriacylchain,acyl3 %in% targettriacylchain) %>% select(-c(acyl1,acyl2,acyl3,Categories))
+      targettriacyllipid <- Triacyl %>% filter(acyl1 %in% targettriacylchain, acyl2 %in% targettriacylchain,acyl3 %in% targettriacylchain) %>% dplyr::select(-c(acyl1,acyl2,acyl3,Categories))
     }
     else{
       targettriacyllipid <- Triacyl
@@ -516,7 +516,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       BreaksList <- seq(-2,2, by = 0.5)
       n <- nrow(d)
       height <- n/10*3
@@ -544,7 +544,7 @@ groupnodeheatmap <- function(lipidclassproperties,data,metadata,class,levels,inp
     if(length(Lipidclassdata$LbmClass) != 0){
       d <- Lipidclassdata
       rowname <- as.matrix((d$`Metabolite name`))
-      d <- d <- select(d,-c(`Metabolite name`,LbmClass))
+      d <- d <- dplyr::select(d,-c(`Metabolite name`,LbmClass))
       n <- nrow(d)
       BreaksList <- seq(-2,2, by = 0.5)
       n <- nrow(d)

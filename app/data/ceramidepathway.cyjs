@@ -15,7 +15,7 @@
         "id" : "60361",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 18",
@@ -27,7 +27,8 @@
         "SUID" : 60361,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -772.3715110031136,
@@ -39,7 +40,7 @@
         "id" : "59880",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 13",
@@ -51,7 +52,8 @@
         "SUID" : 59880,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1180.4239308066317,
@@ -63,7 +65,7 @@
         "id" : "59874",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 2",
@@ -75,7 +77,8 @@
         "SUID" : 59874,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1182.4911756886006,
@@ -87,7 +90,7 @@
         "id" : "59832",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 6",
@@ -99,7 +102,8 @@
         "SUID" : 59832,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -937.4993548517596,
@@ -111,7 +115,7 @@
         "id" : "59829",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 4",
@@ -123,7 +127,8 @@
         "SUID" : 59829,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -937.6842371049761,
@@ -135,7 +140,7 @@
         "id" : "59826",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 5",
@@ -147,7 +152,8 @@
         "SUID" : 59826,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -937.8691193581923,
@@ -159,7 +165,7 @@
         "id" : "59782",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 10",
@@ -171,7 +177,8 @@
         "SUID" : 59782,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -935.98675672944,
@@ -183,7 +190,7 @@
         "id" : "59768",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 11",
@@ -195,7 +202,8 @@
         "SUID" : 59768,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -937.4993548517598,
@@ -207,7 +215,7 @@
         "id" : "59754",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 9",
@@ -219,7 +227,8 @@
         "SUID" : 59754,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -939.0119529740795,
@@ -231,7 +240,7 @@
         "id" : "59731",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 1",
@@ -243,7 +252,8 @@
         "SUID" : 59731,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -826.1533756487528,
@@ -255,7 +265,7 @@
         "id" : "59711",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 21",
@@ -267,7 +277,8 @@
         "SUID" : 59711,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -85.86704966181715,
@@ -279,7 +290,7 @@
         "id" : "59691",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 32",
@@ -291,7 +302,8 @@
         "SUID" : 59691,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 842.8395980096204,
@@ -304,7 +316,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "UGCG",
+        "label" : "Ugcg",
         "Label_size" : 30,
         "shared_name" : "UGCG",
         "LabelFont" : "",
@@ -315,7 +327,8 @@
         "SUID" : 51860,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -128.31694440868472,
@@ -328,7 +341,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "UGT8a",
+        "label" : "Ugt8a",
         "Label_size" : 30,
         "shared_name" : "UGT8a",
         "LabelFont" : "",
@@ -339,7 +352,8 @@
         "SUID" : 51858,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -838.4846509098612,
@@ -351,7 +365,7 @@
         "id" : "51856",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Black",
         "label" : "St3gal3",
         "Label_size" : 30,
         "shared_name" : "St3gal3",
@@ -363,7 +377,8 @@
         "SUID" : 51856,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 918.0,
@@ -387,7 +402,8 @@
         "SUID" : 51854,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 1066.0,
@@ -399,7 +415,7 @@
         "id" : "51852",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 30",
@@ -411,7 +427,8 @@
         "SUID" : 51852,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 712.2568469936117,
@@ -423,7 +440,7 @@
         "id" : "51850",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "GM2",
         "Label_size" : 30,
         "shared_name" : "GM2",
@@ -435,7 +452,8 @@
         "SUID" : 51850,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 710.8013297662593,
@@ -447,8 +465,8 @@
         "id" : "51848",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
-        "label" : "ACER3",
+        "Color" : "Black",
+        "label" : "Acer3",
         "Label_size" : 30,
         "shared_name" : "ACER3",
         "LabelFont" : "",
@@ -459,7 +477,8 @@
         "SUID" : 51848,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -28.602905499490483,
@@ -472,7 +491,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "ACER2",
+        "label" : "Acer2",
         "Label_size" : 30,
         "shared_name" : "ACER2",
         "LabelFont" : "",
@@ -483,7 +502,8 @@
         "SUID" : 51846,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -27.350146993003058,
@@ -495,8 +515,8 @@
         "id" : "51844",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
-        "label" : "ACER1",
+        "Color" : "Black",
+        "label" : "Acer1",
         "Label_size" : 30,
         "shared_name" : "ACER1",
         "LabelFont" : "",
@@ -507,7 +527,8 @@
         "SUID" : 51844,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -27.768898554351985,
@@ -519,8 +540,8 @@
         "id" : "51842",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
-        "label" : "ASAH2",
+        "Color" : "Black",
+        "label" : "Asah2",
         "Label_size" : 30,
         "shared_name" : "ASAH2",
         "LabelFont" : "",
@@ -531,7 +552,8 @@
         "SUID" : 51842,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 121.93133234060159,
@@ -543,7 +565,7 @@
         "id" : "51840",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Black",
         "label" : "CerS6",
         "Label_size" : 30,
         "shared_name" : "CerS6",
@@ -555,7 +577,8 @@
         "SUID" : 51840,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -454.0,
@@ -567,7 +590,7 @@
         "id" : "51838",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Black",
         "label" : "CerS3",
         "Label_size" : 30,
         "shared_name" : "CerS3",
@@ -579,7 +602,8 @@
         "SUID" : 51838,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -901.0,
@@ -591,7 +615,7 @@
         "id" : "51836",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Black",
         "label" : "CerS5",
         "Label_size" : 30,
         "shared_name" : "CerS5",
@@ -603,7 +627,8 @@
         "SUID" : 51836,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -604.0,
@@ -615,7 +640,7 @@
         "id" : "51834",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Black",
         "label" : "CerS4",
         "Label_size" : 30,
         "shared_name" : "CerS4",
@@ -627,7 +652,8 @@
         "SUID" : 51834,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -754.0,
@@ -639,7 +665,7 @@
         "id" : "51832",
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Black",
         "label" : "CerS1",
         "Label_size" : 30,
         "shared_name" : "CerS1",
@@ -651,7 +677,8 @@
         "SUID" : 51832,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1193.0,
@@ -664,7 +691,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "DHSph",
         "Label_size" : 30,
         "shared_name" : "DHSph",
@@ -677,7 +704,8 @@
         "SUID" : 51830,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1037.0,
@@ -690,7 +718,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "HexCer_HS",
         "Label_size" : 30,
         "shared_name" : "HexCer_HS",
@@ -703,7 +731,8 @@
         "SUID" : 51828,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 51.0,
@@ -716,7 +745,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "SHexCer",
         "Label_size" : 30,
         "shared_name" : "SHexCer",
@@ -729,7 +758,8 @@
         "SUID" : 51826,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 374.0,
@@ -742,7 +772,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "GM1",
         "Label_size" : 30,
         "shared_name" : "GM1",
@@ -755,7 +785,8 @@
         "SUID" : 51824,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 712.0,
@@ -768,7 +799,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Cer_NDS",
         "Label_size" : 30,
         "shared_name" : "Cer_NDS",
@@ -781,7 +812,8 @@
         "SUID" : 51822,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -633.0,
@@ -793,7 +825,7 @@
         "id" : "51820",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 28",
@@ -805,7 +837,8 @@
         "SUID" : 51820,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 537.4846159314478,
@@ -829,7 +862,8 @@
         "SUID" : 51818,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 536.1206531286184,
@@ -841,7 +875,7 @@
         "id" : "51816",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 31",
@@ -853,7 +887,8 @@
         "SUID" : 51816,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 715.7134520976327,
@@ -865,7 +900,7 @@
         "id" : "51814",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 29",
@@ -877,7 +912,8 @@
         "SUID" : 51814,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 711.0171129468636,
@@ -889,7 +925,7 @@
         "id" : "51812",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 26",
@@ -901,7 +937,8 @@
         "SUID" : 51812,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 205.8461959794227,
@@ -913,7 +950,7 @@
         "id" : "51810",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 20",
@@ -925,7 +962,8 @@
         "SUID" : 51810,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -245.28290671112362,
@@ -937,7 +975,7 @@
         "id" : "51808",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 19",
@@ -949,7 +987,8 @@
         "SUID" : 51808,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -351.640839725702,
@@ -961,7 +1000,7 @@
         "id" : "51806",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 17",
@@ -973,7 +1012,8 @@
         "SUID" : 51806,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -634.2277691381489,
@@ -985,7 +1025,7 @@
         "id" : "51804",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 27",
@@ -997,7 +1037,8 @@
         "SUID" : 51804,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 207.30374036030787,
@@ -1009,7 +1050,7 @@
         "id" : "51802",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : " ",
         "Label_size" : 1,
         "shared_name" : "Node 24",
@@ -1021,7 +1062,8 @@
         "SUID" : 51802,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -129.7286610550886,
@@ -1034,7 +1076,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "HexCer_AP",
         "Label_size" : 30,
         "shared_name" : "HexCer_AP",
@@ -1047,7 +1089,8 @@
         "SUID" : 51800,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 53.0,
@@ -1071,7 +1114,8 @@
         "SUID" : 51798,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 299.71569534150717,
@@ -1095,7 +1139,8 @@
         "SUID" : 51794,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 207.8254163374965,
@@ -1108,7 +1153,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Cer_AS",
         "Label_size" : 30,
         "shared_name" : "Cer_AS",
@@ -1121,7 +1166,8 @@
         "SUID" : 51792,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -290.0,
@@ -1133,7 +1179,7 @@
         "id" : "51790",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 22",
@@ -1145,7 +1191,8 @@
         "SUID" : 51790,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -132.25481786636925,
@@ -1158,7 +1205,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "UGT8a",
+        "label" : "Ugt8a",
         "Label_size" : 30,
         "shared_name" : "UGT8a",
         "LabelFont" : "",
@@ -1169,7 +1216,8 @@
         "SUID" : 51788,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -131.58652339306036,
@@ -1181,7 +1229,7 @@
         "id" : "51786",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 14",
@@ -1193,7 +1241,8 @@
         "SUID" : 51786,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -467.2544855814592,
@@ -1206,7 +1255,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Sph",
         "Label_size" : 30,
         "shared_name" : "Sph",
@@ -1219,7 +1268,8 @@
         "SUID" : 51784,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -195.0,
@@ -1231,7 +1281,7 @@
         "id" : "51782",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 15",
@@ -1243,7 +1293,8 @@
         "SUID" : 51782,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -464.9905742180447,
@@ -1256,7 +1307,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "GM3",
         "Label_size" : 30,
         "shared_name" : "GM3",
@@ -1269,7 +1320,8 @@
         "SUID" : 51780,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 710.0,
@@ -1281,7 +1333,7 @@
         "id" : "51778",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 16",
@@ -1293,7 +1345,8 @@
         "SUID" : 51778,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -463.4940895638944,
@@ -1306,7 +1359,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Cer_NS",
         "Label_size" : 30,
         "shared_name" : "Cer_NS",
@@ -1319,7 +1372,8 @@
         "SUID" : 51776,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -290.0,
@@ -1331,7 +1385,7 @@
         "id" : "51774",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 7",
@@ -1343,7 +1397,8 @@
         "SUID" : 51774,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -827.9922261951708,
@@ -1356,7 +1411,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "SGMS1",
+        "label" : "Sgms1",
         "Label_size" : 30,
         "shared_name" : "SGMS1",
         "LabelFont" : "",
@@ -1367,7 +1422,8 @@
         "SUID" : 51772,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -478.3970198679425,
@@ -1379,7 +1435,7 @@
         "id" : "51770",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 8",
@@ -1391,7 +1447,8 @@
         "SUID" : 51770,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -826.7933659354836,
@@ -1404,7 +1461,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "DEGS2",
+        "label" : "Degs2",
         "Label_size" : 30,
         "shared_name" : "DEGS2",
         "LabelFont" : "",
@@ -1415,7 +1472,8 @@
         "SUID" : 51768,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -636.4474900692869,
@@ -1428,7 +1486,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "DEGS1",
+        "label" : "Degs1",
         "Label_size" : 30,
         "shared_name" : "DEGS1",
         "LabelFont" : "",
@@ -1439,7 +1497,8 @@
         "SUID" : 51764,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -464.5168443455404,
@@ -1451,7 +1510,7 @@
         "id" : "51760",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 3",
@@ -1463,7 +1522,8 @@
         "SUID" : 51760,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1181.129760559344,
@@ -1487,7 +1547,8 @@
         "SUID" : 51758,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1046.0,
@@ -1500,7 +1561,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "FA2H",
+        "label" : "Fa2h",
         "Label_size" : 30,
         "shared_name" : "FA2H",
         "LabelFont" : "",
@@ -1511,7 +1572,8 @@
         "SUID" : 51756,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1337.0106724152988,
@@ -1524,7 +1586,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "2OH-FA",
         "Label_size" : 30,
         "shared_name" : "2OH-FA",
@@ -1537,7 +1599,8 @@
         "SUID" : 51754,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1036.0,
@@ -1550,7 +1613,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Cer_AP",
         "Label_size" : 30,
         "shared_name" : "Cer_AP",
@@ -1563,7 +1626,8 @@
         "SUID" : 51752,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -288.0,
@@ -1576,7 +1640,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Cer_ADS",
         "Label_size" : 30,
         "shared_name" : "Cer_ADS",
@@ -1589,7 +1653,8 @@
         "SUID" : 51750,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -638.0,
@@ -1602,7 +1667,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "SM",
         "Label_size" : 30,
         "shared_name" : "SM",
@@ -1615,7 +1680,8 @@
         "SUID" : 51748,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -424.0,
@@ -1628,7 +1694,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "HexCer_NS",
         "Label_size" : 30,
         "shared_name" : "HexCer_NS",
@@ -1641,7 +1707,8 @@
         "SUID" : 51746,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 50.0,
@@ -1665,7 +1732,8 @@
         "SUID" : 51437,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 925.982401222997,
@@ -1689,7 +1757,8 @@
         "SUID" : 51435,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 925.3093465824652,
@@ -1702,7 +1771,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "FA",
         "Label_size" : 30,
         "shared_name" : "FA",
@@ -1715,7 +1784,8 @@
         "SUID" : 51738,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -1042.0,
@@ -1728,7 +1798,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "AHexCer",
         "Label_size" : 30,
         "shared_name" : "AHexCer",
@@ -1741,7 +1811,8 @@
         "SUID" : 51736,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 372.0,
@@ -1754,7 +1825,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "GD1a",
         "Label_size" : 30,
         "shared_name" : "GD1a",
@@ -1767,7 +1838,8 @@
         "SUID" : 51734,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 713.0,
@@ -1780,7 +1852,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "HexCer_NDS",
         "Label_size" : 30,
         "shared_name" : "HexCer_NDS",
@@ -1793,7 +1865,8 @@
         "SUID" : 51732,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -633.0,
@@ -1806,7 +1879,7 @@
         "NumChildren" : 2,
         "Shape" : "",
         "Fillcolor" : "",
-        "Color" : "",
+        "Color" : "Blue",
         "label" : "Hex2Cer",
         "Label_size" : 30,
         "shared_name" : "Hex2Cer",
@@ -1819,7 +1892,8 @@
         "SUID" : 51730,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 373.0,
@@ -1832,7 +1906,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "UGCG",
+        "label" : "Ugcg",
         "Label_size" : 30,
         "shared_name" : "UGCG",
         "LabelFont" : "",
@@ -1843,7 +1917,8 @@
         "SUID" : 51728,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : -837.0,
@@ -1856,7 +1931,7 @@
         "Shape" : "Rectangle",
         "Fillcolor" : "#ffffff",
         "Color" : "Black",
-        "label" : "ASAH1",
+        "label" : "Asah1",
         "Label_size" : 30,
         "shared_name" : "ASAH1",
         "LabelFont" : "",
@@ -1867,7 +1942,8 @@
         "SUID" : 51726,
         "Height" : 140,
         "Width" : 140,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 123.47956988670943,
@@ -1879,7 +1955,7 @@
         "id" : "51716",
         "Shape" : "Ellipse",
         "Fillcolor" : "#ffffff",
-        "Color" : "",
+        "Color" : "gray",
         "label" : "",
         "Label_size" : 1,
         "shared_name" : "Node 25",
@@ -1891,7 +1967,8 @@
         "SUID" : 51716,
         "Height" : 1,
         "Width" : 1,
-        "selected" : false
+        "selected" : false,
+		"BorderWidth" : 1
       },
       "position" : {
         "x" : 206.57790990647788,
