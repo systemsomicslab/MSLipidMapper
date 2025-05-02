@@ -1,4 +1,4 @@
-# msdial2cytoscape4lipidomics
+# MSLipidMapper
 
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -19,20 +19,20 @@ Key features include:
 
 
 
-## Run msdial2cytoscape4lipidomics locally
+## Run MSLipidMapper locally
 
 ### Step 1: Clone this repository
 
 Open the terminal and run:
 
 ``` bash
-git clone "https://github.com/systemsomicslab/msdial2cytoscape-for-lipidomics.git"
+git clone "https://github.com/systemsomicslab/MSLipidMapper.git"
 ```
 
 ### Step 2: Bulid Docker image
 
 ``` bash
-docker build -t msdial2cytoscape4lipidomics .
+docker build -t mslipidmapper .
 ```
 
 ### Step 3: Run Docker image
@@ -40,15 +40,15 @@ docker build -t msdial2cytoscape4lipidomics .
 Run the container on your terminal once it has been bulied.
 
 ``` bash
-docker run --rm -p 7860:7860 -p 9000:9000 msdial2cytoscape4lipidomics
+docker run --rm -p 7860:7860 -p 9000:9000 mslipidmapper
 ```
 
-### Step 4: Run msdial2cytoscape for lipidomics in your browser
+### Step 4: Run mslipidmapper for lipidomics in your browser
 
 Open your browser and paste `http://localhost:7860`. 
 
 ## Prepare input files
-msdial2cytoscape4lipidomics does not accept raw data input. It is highly recommended to use the alignment table processed by MS-DIAL5. This application utilizes the alignment table from MS-DIAL to visualize lipidomics data in Cytoscape.
+MSLipidMapper does not accept raw data input. It is highly recommended to use the alignment table processed by MS-DIAL5. This application utilizes the alignment table from MS-DIAL to visualize lipidomics data in Cytoscape.
 
 Additionally, we support a data frame format where lipid molecules are arranged in columns, and sample IDs are placed in rows. In this format, the second row must contain metadata about the samples. 
 
@@ -59,7 +59,7 @@ The file format must be CSV.
 Examples of supported data formats can be found in the inst/examples folder.The exampls data used in this application consists of lipidome and transcriptome data from aging mouse studies(Nature Aging 4, 709–726 (2024)).
 
 ### Metadata file
-In msdial2cytoscape4lipidomics, you can provide sample metadata separately using a CSV file. This metadata file offers detailed information about each sample, which is essential for visualization and analysis in Cytoscape.
+In MSLipidMapper, you can provide sample metadata separately using a CSV file. This metadata file offers detailed information about each sample, which is essential for visualization and analysis in Cytoscape.
 
 Please ensure that the metadata file follows these guidelines:
 
