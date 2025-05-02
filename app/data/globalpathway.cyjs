@@ -487,7 +487,7 @@
         "Label_size" : 25.0,
         "type" : "",
         "shared_name" : "OxPA",
-        "path" : "http://upload.wikimedia.org/wikipedia/commons/b/b4/High_above_the_Cloud_the_Sun_Stays_the_Same.jpg",
+        "path" : "http://localhost:9000/plot?str1=OxPA.svg",
         "NumDescendents" : 2.0,
         "Bordercolor" : "",
         "pathpng" : "http://localhost:9000/png?str2=(OxPA).png",
