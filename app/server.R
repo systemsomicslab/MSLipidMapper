@@ -1,5 +1,9 @@
 server <- function(input, output,session) {
   options(shiny.maxRequestSize=150*1024^100)
+   session$onSessionEnded(function() {
+    cat("セッション終了：アプリを停止します\n")
+    q("no")  # Rごと終了 → コンテナも終了（--rmなら自動削除）
+  })
   originaldir <- reactiveValues(datapath = getwd()) # directry of shiny R script
   global <- reactiveValues(datapath = getwd()) # directory of file path in lipidomics tab
   col = reactiveValues(col = col)

@@ -34,7 +34,7 @@ cors <- function(req, res) {
 #* @get /plot
 #* @arg str1
 function(str1) {
-  thefolder <- "/srv/app/svg/"
+  thefolder <- here("svg/")
   svg_file_path <- paste(thefolder,str1,sep = "")
   if(file.exists(svg_file_path) == TRUE){
   readBin(svg_file_path, "raw", file.info(svg_file_path)$size)}

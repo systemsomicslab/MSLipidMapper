@@ -8,7 +8,7 @@ source("./modules/ui_modules.R")
 source("./modules/20191008 LIONweb functions.R")
 
 shinyUI(
-  fluidPage(
+  fixedPage(
   titlePanel("MSLipidMapper"),
   useShinyjs(),
   # Create tabsetPanel with 3 tabs
@@ -262,101 +262,71 @@ shinyUI(
       )
     ),
     tabPanel(
-      "Data Analysis",
-      fluidPage(
-        # フレックスボックスでレイアウトを作成
-        tags$div(
-          style = "display: flex; width: 100%; height: calc(100vh - 80px);",
-          
-          # サイドバー領域
-          tags$div(
-            style = "flex: 0 0 400px; background-color: #f8f9fa; border-right: 1px solid #dee2e6; padding: 15px; overflow-y: auto;",
-            createCustomSidebar("y", "w", "z", "alpha", "size", "Fontsize", "levels", "pvaluecheck", "q")
-          ),
-          
-          # メイン領域
-          tags$div(
-            style = "flex: 1; position: relative; padding: 20px; overflow: hidden;",
-            
-            # First plot
-            jqui_draggable(
-              jqui_resizable(
-                div(style = "width: 600px; position: absolute; left: 10px; top: 20px;",
-                    wellPanel(
-                      style = "border: 2px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                      plotOutput("plottest", width = "100%", height = "600px")
-                    )
-                ),
-                options = list(
-                  handles = "e, w",
-                  minWidth = 200,
-                  maxWidth = 2000,
-                  grid = 50,
-                  animate = FALSE
+  "Data Analysis",
+  fixedPage(  # ← fluidPage から fixedPage に変更
+    tags$div(
+      style = "
+        display: flex; 
+        flex-wrap: nowrap;
+        min-width: 1280px;
+        height: calc(100vh - 80px); 
+        overflow-x: auto;
+      ",
+      
+      # サイドバー領域
+      tags$div(
+        style = "
+          flex: 0 0 350px; 
+          background-color: #f8f9fa; 
+          border-right: 1px solid #dee2e6; 
+          padding: 15px; 
+          overflow-y: auto;
+        ",
+        createCustomSidebar("y", "w", "z", "alpha", "size", "Fontsize", "levels", "pvaluecheck", "q")
+      ),
+      
+      # メイン領域
+      tags$div(
+        style = "flex: 1; position: relative; padding: 20px; overflow: hidden; min-width: 900px;",
+        
+        jqui_draggable(
+          jqui_resizable(
+            div(style = "width: 600px; position: absolute; left: 10px; top: 20px;",
+                wellPanel(
+                  style = "border: 2px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
+                  plotOutput("plottest", width = "100%", height = "600px")
                 )
-              ),
-              options = list(
-                grid = c(50, 50),
-                containment = "parent",
-                snap = TRUE,
-                snapTolerance = 20
-              )
-            ),
-            
-            # Stats results
-            jqui_draggable(
-              jqui_resizable(
-                div(style = "width: 600px; position: absolute; left: 10px; top: 700px;",
-                    wellPanel(
-                      style = "border: 2px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                      verbatimTextOutput("stat_results"),
-                      tableOutput("summary_stats")
-                    )
-                ),
-                options = list(
-                  handles = "e, w",
-                  minWidth = 200,
-                  maxWidth = 2000,
-                  grid = 50,
-                  animate = FALSE
+            )
+          )
+        ),
+        
+        jqui_draggable(
+          jqui_resizable(
+            div(style = "width: 600px; position: absolute; left: 10px; top: 700px;",
+                wellPanel(
+                  style = "border: 2px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
+                  verbatimTextOutput("stat_results"),
+                  tableOutput("summary_stats")
                 )
-              ),
-              options = list(
-                grid = c(50, 50),
-                containment = "parent",
-                snap = TRUE,
-                snapTolerance = 20
-              )
-            ),
-            
-            # Second plot
-            jqui_draggable(
-              jqui_resizable(
-                div(style = "width: 600px; position: absolute; left: 700px; top: 20px;",
-                    wellPanel(
-                      style = "border: 2px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                      plotOutput("plottest2", width = "100%", height = "600px")
-                    )
-                ),
-                options = list(
-                  handles = "e, w",
-                  minWidth = 200,
-                  maxWidth = 2000,
-                  grid = 50,
-                  animate = FALSE
+            )
+          )
+        ),
+        
+        jqui_draggable(
+          jqui_resizable(
+            div(style = "width: 600px; position: absolute; left: 700px; top: 20px;",
+                wellPanel(
+                  style = "border: 2px solid #ddd; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
+                  plotOutput("plottest2", width = "100%", height = "600px")
                 )
-              ),
-              options = list(
-                grid = c(50, 50),
-                containment = "parent",
-                snap = TRUE,
-                snapTolerance = 20
-              )
             )
           )
         )
       )
-    ),
+    )
+  )
+)
+,
     
     # Tab 4 - Network Visualization with added ggplot figures
     tabPanel(

@@ -9,7 +9,7 @@ RUN apt-get update \
 
 # Install R packages
 # Install R packages
-RUN R -e "install.packages(c('khroma','ggthemes','igraph','data.table','topOnto.LION.db','topOnto','RSQLite','ggrepel','shinyjqui','BiocManager','bslib','rstatix','ggpubr','remotes', 'devtools', 'shiny','shinyscreenshot', 'readr', 'shinyAce', 'ggplot2', 'dplyr', 'shinythemes', 'openintro', 'plotly', 'DT', 'ggprism', 'ggbeeswarm', 'shinyFiles', 'stringr', 'shinyBS', 'shinydashboard', 'shinyWidgets', 'tidyr', 'pheatmap', 'grid', 'gridExtra', 'ggeasy', 'ggtext', 'colorspace', 'shinyjqui', 'tidyverse', 'gprofiler2', 'colourpicker', 'shinydashboardPlus', 'jsonlite', 'reshape2','shinyalert'))"
+RUN R -e "install.packages(c('khroma','ggthemes','igraph','data.table','topOnto.LION.db','topOnto','RSQLite','ggrepel','shinyjqui','BiocManager','bslib','rstatix','ggpubr','remotes', 'devtools', 'shiny','shinyscreenshot', 'readr', 'shinyAce', 'ggplot2', 'dplyr', 'shinythemes', 'openintro', 'plotly', 'DT', 'ggprism', 'ggbeeswarm', 'shinyFiles', 'stringr', 'shinyBS', 'shinydashboard', 'shinyWidgets', 'tidyr', 'pheatmap', 'grid', 'gridExtra', 'ggeasy', 'ggtext', 'colorspace', 'shinyjqui', 'tidyverse', 'gprofiler2', 'colourpicker', 'shinydashboardPlus', 'jsonlite', 'reshape2','shinyalert','here'))"
 RUN R -e 'BiocManager::install("graph")'
 RUN R -e "source('https://install-github.me/dreamRs/esquisse')"
 
