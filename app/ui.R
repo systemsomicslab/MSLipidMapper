@@ -9,6 +9,25 @@ source("./modules/20191008 LIONweb functions.R")
 
 shinyUI(
   fixedPage(
+   tags$head(
+      tags$style(HTML("
+        .container, .container-fluid {
+          max-width: 5000px !important;
+          min-width: 3000px !important;
+          font-size: 16px;
+        }
+        body {
+          zoom: 1.1;
+        }
+        .form-control {
+          font-size: 16px;
+        }
+        .btn {
+          font-size: 16px;
+          padding: 8px 16px;
+        }
+      "))
+    ),
   titlePanel("MSLipidMapper"),
   useShinyjs(),
   # Create tabsetPanel with 3 tabs
@@ -261,7 +280,7 @@ shinyUI(
         )
       )
     ),
-    tabPanel(
+tabPanel(
   "Data Analysis",
   fixedPage(  # ← fluidPage から fixedPage に変更
     tags$div(
@@ -331,7 +350,7 @@ shinyUI(
     # Tab 4 - Network Visualization with added ggplot figures
     tabPanel(
       "Network Visualization",
-      fluidPage(
+      fixedPage(
         sidebarLayout(
           sidebarPanel(
             h4("Pathway projection"),
@@ -397,7 +416,7 @@ shinyUI(
             ),
             
             # New section for ggplot visualizations
-fluidPage(
+fixedPage(
   tabsetPanel(
     id = "mainTabset",
     tabPanel("Lipidomics Analysis", 
