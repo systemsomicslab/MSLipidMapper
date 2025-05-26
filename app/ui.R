@@ -351,8 +351,32 @@ tabPanel(
     tabPanel(
       "Network Visualization",
       fixedPage(
+	  tags$head(
+    tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"),
+    tags$style(HTML("
+      html, body {
+        height: 100%;
+		width: 90%;
+        margin: 0;
+      }
+      #mainContent {
+        display: flex;
+        flex-direction: column;
+        height: 2000px;  /* 全体の高さ */
+        border-left: 1px solid #ddd;
+      }
+      #bottomPanel {
+        background-color: #e0e0ff;
+        height: 800px;  /* 固定サイズ */
+        overflow: auto;
+        padding: 10px;
+        flex-shrink: 0;
+      }
+    "))
+  ),
         sidebarLayout(
           sidebarPanel(
+		  width = 2,  # 小さめに
             h4("Pathway projection"),
             selectInput("pathwaytype", "Select Pathway Type:",
                         choices = c("Global pathway", 
@@ -403,20 +427,16 @@ tabPanel(
             actionButton("highlight_significant", "Apply Random Colors", class = "btn-primary"),
             actionButton("reset_colors", "Reset Colors", class = "btn-warning"),
             
-            # New controls for ggplot visualization
-            width = 2
           ),
           
           mainPanel(
-            width = 10,
+		  width = 6,
             # Network visualization
-            div(
-              style = "margin-bottom: 30px;",  # Add space between network and plots
-              tags$div(id = "cy", style = "height:600px; border:1px solid #ccc;")
-            ),
-            
+            div(id = "mainContent",
+              div(id = "cy", style = "height:600px; border:1px solid #ccc;"),
+			  div(id = "bottomPanel",
             # New section for ggplot visualizations
-fixedPage(
+fluidPage(
   tabsetPanel(
     id = "mainTabset",
     tabPanel("Lipidomics Analysis", 
@@ -427,7 +447,7 @@ fixedPage(
           div(
             # 元の2つのパネルを含むコンテナ
             fluidRow(
-              column(4, 
+              column(2, 
                 div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
                   h4("Lipid species expression", style = "text-align: center;"),
                   plotOutput("corselect2", height = "400px"),
@@ -439,7 +459,7 @@ fixedPage(
                   )
                 )
               ),
-              column(8, 
+              column(4, 
                 div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
                   h4("Heatmap", style = "text-align: center;"),
                   plotOutput("heatmap", height = "400px"),
@@ -628,180 +648,42 @@ fixedPage(
           )
         )
       )
-    ),
-    
-    # 新しいメインタブ
-    tabPanel("Advanced Tools", 
-      # 2つ目のタブセットパネル全体をここに移動
-      tabsetPanel(
-        # 1つ目のタブ
-        tabPanel("Advanced Analysis", 
-          div(
-            fluidRow(
-              column(4, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("総合分析", style = "text-align: center;"),
-                  tabsetPanel(id = "leftTabs",
-                    tabPanel("グラフ", 
-                    ),
-                    tabPanel("情報", 
-                    )
-                  )
-                )
-              ),
-              column(8, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("総合分析", style = "text-align: center;"),
-                  DT::dataTableOutput("resultsTable2"),
-                  downloadButton("downloadResults2", "Download Results as CSV")
-                )
-              )
-            )
-          )
-        ),
-        
-        # 2つ目のタブ
-        tabPanel("Batch Processing",
-          div(
-            fluidRow(
-              column(4, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("バッチ処理設定", style = "text-align: center;"),
-                  fileInput("batchFile", "バッチファイル:",
-                         accept = c(".zip", ".xlsx")),
-                  checkboxInput("batchParallel", "並列処理を使用", value = TRUE),
-                  sliderInput(
-                    inputId = "batchCores",
-                    label = "使用コア数",
-                    min = 1,
-                    max = 8,
-                    value = 4
-                  )
-                )
-              ),
-              column(8, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("バッチ処理状況", style = "text-align: center;"),
-                  verbatimTextOutput("batchLog"),
-                  # ここでshinyWidgetsのprogressBarを使用
-                  # 使えない場合はshinyのprogressBarを使用するか、別の方法で進捗を表示
-                  # progressBar(id = "batchProgress", value = 0),
-                  # 代替として：
-                  div(
-                    style = "width: 100%; margin: 10px 0;",
-                    div(
-                      id = "batchProgress",
-                      style = "width: 0%; height: 20px; background-color: #4CAF50; text-align: center; line-height: 20px; color: white; border-radius: 3px;"
-                    )
-                  ),
-                  actionButton("startBatchButton", "バッチ処理開始", class = "btn-primary"),
-                  actionButton("stopBatchButton", "処理中止", class = "btn-danger")
-                )
-              )
-            ),
-            fluidRow(
-              column(12,
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("バッチ処理結果", style = "text-align: center;"),
-                  DT::dataTableOutput("batchResults"),
-                  downloadButton("downloadBatchResults", "結果ダウンロード")
-                )
-              )
-            )
-          )
-        ),
-        
-        # 3つ目のタブ
-        tabPanel("Report Generation",
-          div(fluidRow(
-              column(4, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("レポート設定", style = "text-align: center;"),
-                  textInput("reportTitle", "レポートタイトル", value = "分析レポート"),
-                  textInput("reportAuthor", "著者名", value = ""),
-                  dateInput("reportDate", "レポート日付", value = Sys.Date()),
-                  selectInput(
-                    inputId = "reportFormat",
-                    label = "出力形式",
-                    choices = c("PDF", "HTML", "Word"),
-                    selected = "PDF"
-                  ),
-                  checkboxInput("includeCode", "Rコードを含める", value = FALSE)
-                )
-              ),
-              column(8, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("レポートプレビュー", style = "text-align: center;"),
-                  
-                  # タブセットパネルをネスト
-                  tabsetPanel(
-                    tabPanel("構成", 
-                      verbatimTextOutput("reportStructure")
-                    ),
-                    tabPanel("プレビュー", 
-                      htmlOutput("reportPreview")
-                    )
-                  ),
-                  
-                  actionButton("generateReportButton", "レポート生成", class = "btn-success"),
-                  downloadButton("downloadReport", "レポートダウンロード")
-                )
-              )
-            )
-          )
-        )
-      )
-    ),
-    
-    # ここに新しいメインタブをさらに追加することができます
-    tabPanel("Experimental Features",
-      tabsetPanel(
-        tabPanel("実験機能1", 
-          div(
-            fluidRow(
-              column(12, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("実験的な機能1", style = "text-align: center;"),
-                  plotOutput("expPlot1", height = "300px"),
-                  p("この機能は開発中です。将来のバージョンで機能が拡張される予定です。")
-                )
-              )
-            )
-          )
-        ),
-        tabPanel("実験機能2", 
-          div(
-            fluidRow(
-              column(12, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("実験的な機能2", style = "text-align: center;"),
-                  plotOutput("expPlot2", height = "300px"),
-                  p("この機能は開発中です。将来のバージョンで機能が拡張される予定です。")
-                )
-              )
-            )
-          )
-        ),
-        tabPanel("実験機能3", 
-          div(
-            fluidRow(
-              column(12, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("実験的な機能3", style = "text-align: center;"),
-                  plotOutput("expPlot3", height = "300px"),
-                  p("この機能は開発中です。将来のバージョンで機能が拡張される予定です。")
-                )
-              )
-            )
-          )
-        )
-      )
-    )
+    )  
   )
-),
+))),
             
-            # 隠しダウンロードリンク
-            tags$a(id = "download-link", style = "display:none;"),
+            tags$script(HTML("
+    document.addEventListener('DOMContentLoaded', function () {
+      const top = document.getElementById('cy');
+      const bottom = document.getElementById('bottomPanel');
+
+      const gutter = document.createElement('div');
+      gutter.style.height = '8px';
+      gutter.style.cursor = 'row-resize';
+      gutter.style.background = '#ccc';
+
+      top.parentNode.insertBefore(gutter, bottom);
+
+      let isDragging = false;
+
+      gutter.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        document.body.style.cursor = 'row-resize';
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const containerTop = top.parentNode.getBoundingClientRect().top;
+        const newHeight = e.clientY - containerTop;
+        top.style.height = newHeight + 'px';
+      });
+
+      document.addEventListener('mouseup', function() {
+        isDragging = false;
+        document.body.style.cursor = 'default';
+      });
+    });
+  ")),
             
             tags$head(
               tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"),
@@ -809,10 +691,14 @@ fixedPage(
               tags$style(HTML("
               #cy {
                 width: 100%;
-                height: 800px;
+				overflow: auto;
+				padding: 10px;
                 position: relative;
-                border: 1px solid #ddd;
-                border-radius: 4px;
+				background-color: #f8f9fa;
+				border: 1px solid #dee2e6;
+				border-radius: 10px;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				margin-top: 10px;
               }
               
               /* ツールチップのスタイル */
