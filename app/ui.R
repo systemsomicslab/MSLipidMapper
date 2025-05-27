@@ -1144,7 +1144,12 @@ function showEdgeTooltip(event) {
 
               // 元のコードに加えて、ツールチップ用のイベントリスナーを追加
               initTooltip();
-              
+              Shiny.addCustomMessageHandler('deleteSelectedNodes', function(_) {
+        if (cy) {
+          const selected = cy.$(':selected');
+          selected.remove();
+        }
+      });
               // ノードとエッジのマウスオーバーイベント
               cy.on('mouseover', 'node', showNodeTooltip);
               cy.on('mouseover', 'edge', showEdgeTooltip);
@@ -1217,12 +1222,7 @@ function showEdgeTooltip(event) {
               return color;
             }
 			  // 削除ボタンによるノード削除
-      Shiny.addCustomMessageHandler('deleteSelectedNodes', function(_) {
-        if (cy) {
-          const selected = cy.$(':selected');
-          selected.remove();
-        }
-      });
+      
             
             // ネットワークをエクスポートする関数
 function exportNetwork(format, filename, scale) {

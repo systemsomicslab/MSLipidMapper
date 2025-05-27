@@ -18,6 +18,7 @@ server <- function(input, output,session) {
     },
     contentType = "application/zip"
   )
+
   observeEvent(input$filetype,{
     if(input$filetype =="Sample in rows"){
       shinyjs::show("ontfile")
@@ -722,6 +723,10 @@ if (length(decreased_node_ids) > 0) {
     showNotification("Reset all node colors", type = "message")
   })
   
+  observeEvent(input$delete_node, {
+  session$sendCustomMessage("deleteSelectedNodes", list())
+})
+
   output$node_relationship <- renderPrint({
     if (is.null(input$selected_elements) || 
         length(input$selected_elements$nodes) != 2) {
@@ -1034,18 +1039,4 @@ observe({
       })
 	  
     } )})
-  # Download demo data
-  output$downloadData <- downloadHandler(
-    filename = function() {
-      "demo_data.zip"
-    },
-    content = function(file) {
-      # In a real application, you would have the demo data file available
-      # For now, we'll just create a placeholder
-      # file.copy("www/demo_data.zip", file)
-      
-      # This is a placeholder for the actual file copy
-      writeLines("This is demo data", con = file)
-    }
-  )
 }

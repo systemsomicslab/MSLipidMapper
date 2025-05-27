@@ -31,6 +31,8 @@ COPY ./app/svg /srv/app/svg/
 COPY ./app/www /srv/app/www/
 COPY ./scripts/start.sh /usr/local/bin/start.sh
 
+RUN chmod -R 777 /srv/app 
+
 RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 9000
