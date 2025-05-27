@@ -419,7 +419,7 @@ tabPanel(
         border-left: 1px solid #ddd;
       }
       #bottomPanel {
-        background-color: #e0e0ff;
+        background-color: #f8f9fa;
         height: 800px;  /* 固定サイズ */
         overflow: auto;
         padding: 10px;
