@@ -10,25 +10,78 @@ source("./modules/20191008 LIONweb functions.R")
 shinyUI(
   fixedPage(
    tags$head(
-      tags$style(HTML("
-        .container, .container-fluid {
+	  tags$style(HTML(" 
+		.container, .container-fluid {
           max-width: 5000px !important;
           min-width: 3000px !important;
           font-size: 16px;
-        }
-        body {
-          zoom: 1.1;
-        }
-        .form-control {
+        }	  
+      body {
+        background-color: #f8f5f2;
+        color: #333333;
+		zoom: 1.1;
+      }
+      .navbar-default {
+        background-color: #2c3e50;
+        border-color: #2c3e50;
+      }
+      .navbar-default .navbar-brand,
+      .navbar-default .navbar-nav > li > a {
+        color: #ffffff;
+      }
+      .navbar-default .navbar-nav > li > a:hover {
+        background-color: #1a2733;
+      }
+      .sidebar-panel {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-right: 1px solid #ccc;
+        height: 100%;
+      }
+      .network-panel {
+        background-color: #fdfdfd;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 500px;
+        margin-bottom: 20px;
+        color: #333333;
+      }
+      .legend-box {
+        background-color: #f5f5f5;
+        border-left: 4px solid #2c3e50;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-bottom: 15px;
+        color: #333333;
+      }
+       .btn-primary, .btn-warning {
+        background-color: #3c6e71;
+        border-color: #3c6e71;
+        color: #ffffff;
+      }
+	  .form-control {
           font-size: 16px;
         }
         .btn {
           font-size: 16px;
           padding: 8px 16px;
         }
-      "))
+		.custom-navbar {
+  background-color: #2b3e50;
+  border-bottom: 1px solid #2b3e50;
+  margin-bottom: 15px;
+}
+
+    "))
     ),
-  titlePanel("MSLipidMapper"),
+  tags$div(
+  class = "custom-navbar",
+  tags$div(
+    style = "padding: 10px 20px; font-size: 20px; color: white;",
+    "MSLipidMapper"
+  )
+),
   useShinyjs(),
   # Create tabsetPanel with 3 tabs
   waiter::useWaiter(),
@@ -422,6 +475,7 @@ tabPanel(
             hr(),
             
             # ランダムなノード色変更セクション
+			actionButton("delete_node", "選択ノードを削除", icon = icon("trash")),
             h4("Random Node Colors"),
             numericInput("num_nodes", "Number of nodes to change:", 5, min = 1, max = 50),
             actionButton("highlight_significant", "Apply Random Colors", class = "btn-primary"),
@@ -433,8 +487,15 @@ tabPanel(
 		  width = 6,
             # Network visualization
             div(id = "mainContent",
-              div(id = "cy", style = "height:600px; border:1px solid #ccc;"),
-			  div(id = "bottomPanel",
+              div(id = "cy",
+			  div(id = "legend-overlay",
+      h5("Legend"),
+      tags$ul(
+		tags$li(HTML("<span style='display:inline-block;width:14px;height:14px;border:2px solid blue;margin-right:6px;'></span>Lipid")),
+		tags$li(HTML("<span style='display:inline-block;width:14px;height:14px;border:2px solid black;margin-right:6px;'></span>Gene"))
+
+      )), style = "height:600px;"),
+			  div(id = "bottomPanel",style = "border: 2px solid #2c3e50;",
             # New section for ggplot visualizations
 fluidPage(
   tabsetPanel(
@@ -695,11 +756,33 @@ fluidPage(
 				padding: 10px;
                 position: relative;
 				background-color: #f8f9fa;
-				border: 1px solid #dee2e6;
-				border-radius: 10px;
-				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				border: 2px solid #2c3e50;
+				border-radius: 18px;
+				box-shadow: 0 8px 20px rgba(44, 62, 80, 0.2);
 				margin-top: 10px;
               }
+			  #legend-overlay {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				z-index: 10;
+				background-color: #ffffffdd;
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 10px;
+				font-size: 13px;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				}
+
+			 #legend-overlay ul {
+			list-style: none;
+			padding-left: 0;
+			margin-bottom: 0;
+			}
+
+			#legend-overlay li {
+			margin-bottom: 4px;
+			}
               
               /* ツールチップのスタイル */
               .cy-tooltip {
@@ -1133,6 +1216,13 @@ function showEdgeTooltip(event) {
               }
               return color;
             }
+			  // 削除ボタンによるノード削除
+      Shiny.addCustomMessageHandler('deleteSelectedNodes', function(_) {
+        if (cy) {
+          const selected = cy.$(':selected');
+          selected.remove();
+        }
+      });
             
             // ネットワークをエクスポートする関数
 function exportNetwork(format, filename, scale) {
