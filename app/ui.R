@@ -10,6 +10,7 @@ source("./modules/20191008 LIONweb functions.R")
 shinyUI(
   fixedPage(
    tags$head(
+   tags$link(rel = "shortcut icon", href = "favicon.ico"),
 	  tags$style(HTML(" 
 		.container, .container-fluid {
           max-width: 5000px !important;
@@ -79,6 +80,11 @@ shinyUI(
   class = "custom-navbar",
   tags$div(
     style = "padding: 10px 20px; font-size: 20px; color: white;",
+	tags$img(
+    src = "MSLipidMapper-icon.png",  # www フォルダにある画像ファイル
+    height = "30px",       # 高さ指定（必要に応じて調整）
+    style = "margin-right: 10px;"  # テキストとの余白
+  ),
     "MSLipidMapper"
   )
 ),
@@ -401,248 +407,216 @@ tabPanel(
 ,
     
     # Tab 4 - Network Visualization with added ggplot figures
+# Tab 4 - Network Visualization with added ggplot figures
     tabPanel(
       "Network Visualization",
       fixedPage(
 	  tags$head(
     tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"),
     tags$style(HTML("
-      html, body {
-        height: 100%;
-		width: 90%;
+      body {
         margin: 0;
-      }
-      #mainContent {
-        display: flex;
-        flex-direction: column;
-        height: 2000px;  /* 全体の高さ */
-        border-left: 1px solid #ddd;
-      }
-      #bottomPanel {
+        padding: 0;
         background-color: #f8f9fa;
-        height: 800px;  /* 固定サイズ */
-        overflow: auto;
-        padding: 10px;
-        flex-shrink: 0;
+        font-family: 'Segoe UI', sans-serif;
       }
+      .toolbar {
+        background-color: #e9ecef;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+      #mainSplit {
+        display: flex;
+        height: calc(100vh - 130px);
+      }
+      #cy {
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        border-right: 1px solid #ccc;
+        overflow: auto;
+      }
+      .gutter {
+        background-color: #ccc;
+        cursor: col-resize;
+        width: 8px;
+        height: 100%;
+      }
+      #rightPanel {
+        width: 300px;
+        padding: 10px;
+        background-color: #ffffff;
+        overflow-y: auto;
+      }
+      .filter-panel {
+        background-color: #f0f4f8;
+        padding: 15px;
+        margin: 0 10px 10px 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+	  .floating-panel {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        width: 800px;
+        height: 600px;
+        background: #ffffff;
+        border: 2px solid #2c3e50;
+        padding: 0;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        display: none;
+        overflow: auto;
+        resize: both;
+        min-width: 300px;
+        min-height: 200px;
+      }
+
+      .floating-panel.fullscreen {
+        display: block;
+      }
+
+      .floating-header {
+        cursor: move;
+        background-color: #2c3e50;
+        color: white;
+        padding: 8px 12px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .floating-body {
+        padding: 15px;
+        overflow: auto;
+        height: calc(100% - 45px);
+        min-width: 700px;
+      }
+
+      .overlay-toggle {
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+    ")),
+    tags$script(HTML("
+      document.addEventListener('DOMContentLoaded', function () {
+        Split(['#cy', '#rightPanel'], {
+          direction: 'horizontal',
+          sizes: [70, 30],
+          minSize: [200, 200],
+          gutterSize: 8,
+          elementStyle: function (dimension, size, gutterSize) {
+            return { 'width': 'calc(' + size + '% - ' + gutterSize + 'px)' };
+          },
+          gutterStyle: function () {
+            return { 'width': '8px' };
+          }
+        });
+      });
     "))
   ),
-        sidebarLayout(
-          sidebarPanel(
-		  width = 2,  # 小さめに
-            h4("Pathway projection"),
-            selectInput("pathwaytype", "Select Pathway Type:",
-                        choices = c("Global pathway", 
-                                    "Ceramide pathway",
-                                    "Remodeling pathway"),
-                        selected = "Global pathway"),
-            
-            hr(),
-            
-            # ツールチップ設定セクション（新規追加）
-            h4("Tooltip Settings"),
-            checkboxInput("showTooltips", "Show Tooltips", value = TRUE),
-            hr(),
-            
-            # エクスポート機能
-            h4("Export Network"),
-            fluidRow(
-              column(6, selectInput("export_format", "Format:", 
-                                    choices = c("PNG" = "png", "JPG" = "jpg", "SVG" = "svg", "PDF" = "pdf"),
-                                    selected = "png")),
-              column(6, numericInput("export_scale", "Scale:", 2, min = 1, max = 10, step = 0.5))
-            ),
-            fluidRow(
-              column(12, textInput("export_filename", "Filename:", "network_export"))
-            ),
-            actionButton("export_btn", "Export Network", class = "btn-success btn-block"),
-            br(),
-            downloadButton("exportCYJS", "Export CYJS", class = "btn-block"),
-            downloadButton("exportStyles", "Export styles.xml", class = "btn-block"),
-            hr(),
-            
-            # Selection information panel
-            h4("Selected Elements Information"),
-            verbatimTextOutput("selection_info"),
-            
-            # Node relationship information
-            conditionalPanel(
-              condition = "input.selected_nodes && input.selected_nodes.length == 2",
-              h4("Node Relationship"),
-              verbatimTextOutput("node_relationship")
-            ),
-            
-            hr(),
-            
-            # ランダムなノード色変更セクション
-			actionButton("delete_node", "選択ノードを削除", icon = icon("trash")),
-            h4("Random Node Colors"),
-            numericInput("num_nodes", "Number of nodes to change:", 5, min = 1, max = 50),
-            actionButton("highlight_significant", "Apply Random Colors", class = "btn-primary"),
-            actionButton("reset_colors", "Reset Colors", class = "btn-warning"),
-            
-          ),
-          
-          mainPanel(
-		  width = 6,
-            # Network visualization
-            div(id = "mainContent",
-              div(id = "cy",
+  	  div(class = "toolbar",
+    fluidRow(
+      column(2, actionButton("btn_filter_name", "Filter on lipid name", class = "btn btn-primary btn-sm btn-block")),
+      column(2, actionButton("btn_filter_class", "Filter on classification", class = "btn btn-primary btn-sm btn-block")),
+      column(2, actionButton("btn_filter_species", "Filter on species", class = "btn btn-primary btn-sm btn-block"))
+    )
+  ),
+    uiOutput("filter_ui"),
+
+  div(id = "mainSplit",
+    div(id = "cy",
 			  div(id = "legend-overlay",
       h5("Legend"),
       tags$ul(
 		tags$li(HTML("<span style='display:inline-block;width:14px;height:14px;border:2px solid blue;margin-right:6px;'></span>Lipid")),
 		tags$li(HTML("<span style='display:inline-block;width:14px;height:14px;border:2px solid black;margin-right:6px;'></span>Gene"))
 
-      )), style = "height:600px;"),
-			  div(id = "bottomPanel",style = "border: 2px solid #2c3e50;",
-            # New section for ggplot visualizations
-fluidPage(
-  tabsetPanel(
-    id = "mainTabset",
-    tabPanel("Lipidomics Analysis", 
-      # 最初のタブセットパネル全体をここに移動
-      tabsetPanel(
-        # 最初のタブ - 現在の可視化パネル
-        tabPanel("Visualization", 
-          div(
-            # 元の2つのパネルを含むコンテナ
-            fluidRow(
-              column(2, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("Lipid species expression", style = "text-align: center;"),
-                  plotOutput("corselect2", height = "400px"),
-                  selectInput(
-                    inputId = "selectmol",
-                    label = "Select molecule to display",
-                    choices = c(" "),
-                    selected = " "
-                  )
-                )
-              ),
-              column(4, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("Heatmap", style = "text-align: center;"),
-                  plotOutput("heatmap", height = "400px"),
-                  checkboxInput(inputId = "acylfilter", label = "Filtering common acylchains (16:0, 16:1, 18:0, 18:1, 18:2, 18:3, 20:3, 20:4, 20:5, 22:4, 22:5, 22:6)", value = TRUE),
-                  checkboxInput(inputId = "sn", label = "sn", value = FALSE)
-                )
-              )
-            )
-          )
-        ),
-        
-        # 2つ目のタブ - 新しい可視化パネル1
-        tabPanel("Corrlation",
-          div(
-            fluidRow(
-              column(4, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("グラフ1", style = "text-align: center;"),
-                  plotlyOutput("corselect", height = "400px"),
+      )), style = "height:800px;"),
+    div(id = "rightPanel",
+      verbatimTextOutput("info"),
+tabsetPanel(
+    id = "mainTabs",
+    
+    tabPanel("Lipid expression",
+      div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px;
+                   box-shadow: 0 1px 3px rgba(0,0,0,0.12); margin-bottom: 20px;
+                   width:600px; height:600px;",
+        h4("Lipid species expression", style = "text-align: center;"),
+        plotOutput("corselect2", height = "500px"),
+      selectInput(
+        inputId = "selectmol",
+        label = "Select molecule to display",
+        choices = c(" "),
+        selected = " "
+      )
+      )
+    ),
+    
+    tabPanel("corrlation plot",
+      div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12); width:600px; height:600px;",
+                  h4("corrlation plot", style = "text-align: center;"),
+                  plotlyOutput("corselect", height = "500px"),
                   selectInput(
                     inputId = "new_select1",
-                    label = "変数を選択",
+                    label = "select variables",
                     choices = c("変数1", "変数2", "変数3"),
                     selected = "変数1"
                   )
                 )
-              ),
-              column(6, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("グラフ2", style = "text-align: center;"),
-                  plotOutput("new_plot2", height = "400px"),
-                  sliderInput(
-                    inputId = "new_slider1",
-                    label = "パラメータ調整",
-                    min = 0,
-                    max = 100,
-                    value = 50
-                  )
-                )
-              )
-            )
-          )
-        ),
-        
-        # 3つ目のタブ - 新しい可視化パネル2
-        tabPanel("Enrichment",
-          div(
-            fluidRow(
-              column(4, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("総合分析", style = "text-align: center;"),
+    ),
+    
+    tabPanel("Volcano plot",
+      div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12); width:600px; height:600px;",
+                  h4("Volcano plot", style = "text-align: center;"),
                   actionButton("settingsButton", "Settings", class = "settings-button"),
                   actionButton("runAnalysisButton", "Run Analysis", class = "run-button"),
-                  tabsetPanel(id = "leftTabs",
-                    tabPanel("グラフ", 
-                      plotOutput("volcanoPlot", height = "400px")
-                    ),
-                    tabPanel("情報", 
-                      plotlyOutput("volcanoPlotly", height = "400px")
-                    )
-                  )
+				  plotOutput("volcanoPlot", height = "400px"),
+				  actionLink("toggle_other", "Result table"),
+				  actionLink("toggle_enrich", "Enrichment analysis"),
+				  actionButton("runLIONButton", "Run LION Enrichment",
+                             class = "btn-primary", width = "100%"),
+							 numericInput("lionPvalThreshold", "p-value threshold", value = 0.05),
+							 selectInput("enrichtarget", "Enrichment Direction", choices = c("Up", "Down"))
                 )
-              ),
-              column(8, 
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("総合分析", style = "text-align: center;"),
-                  DT::dataTableOutput("resultsTable"),
-                  downloadButton("downloadResults", "Download Results as CSV")
-                )
-              ),
-            ),
-            
+    )
+  ),
+  div(id = "enrich_wrapper", class = "floating-panel",
+        div(id = "enrich_wrapper_header", class = "floating-header",
+            "\ud83e\uddea Enrichment Analysis",
+            actionLink("close_enrich", "\u274c Close", style = "color:white;")
+        ),
+        div(id = "enrich_wrapper_body", class = "floating-body",
             fluidRow(
-              column(4,
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  # ボタンとNumeric Inputはタブの外側に配置し、どのタブからでもアクセス可能にする
-                  h4("統計情報コントロール", style = "text-align: center;"),
-                  
-                  # 横並びにするためのネストされたfluidRow
-                  fluidRow(
-                    column(6, # 幅を調整して2つのコントロールが横に並ぶようにする
-                      numericInput("lionPvalThreshold", "LION p-value Threshold:",
-                               value = 0.05, min = 0, max = 1, step = 0.01)
-                    ),
-                    column(6,
-                      selectInput(
-                              inputId = "enrichtarget",
-                              label = "target variable",
-                              choices = c("Up", "Down"),
-                              selected = "Up"
-                      )
-                    )
-                  ),
-                  
-                  # ボタンは全幅で配置
-                  div(style = "margin-top: 10px;",
-                    actionButton("runLIONButton", "Run LION Enrichment",
-                             class = "btn-primary", width = "100%")
-                  ),
-                  
-                  br(),
-                  
-                  # タブセットパネルを追加
-                  tabsetPanel(id = "leftTabsEnrich",
-                    tabPanel("グラフ", 
-                      plotOutput("enrichbarplot", height = "400px")
-                    ),
-                    tabPanel("情報", 
-                      plotlyOutput("enrich", height = "400px")
-                    )
-                  )
-                )
-              ),
-              column(8,
-                div(style = "border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin-top: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.12);",
-                  h4("統計情報2", style = "text-align: center;"),
-                  DT::dataTableOutput("enrichtable")
-                )
-              )
+              column(6,plotOutput("enrichbarplot")),
+			  column(6,DT::dataTableOutput("enrichtable"))
+			  
+            ),
+            hr(),
+            fluidRow(
+			  #column(4,actionButton("runLIONButton", "Run LION Enrichment",
+              #               class = "btn-primary", width = "100%")),
+              #column(4, numericInput("p_threshold", "p-value threshold", value = 0.05)),
+              #column(4, selectInput("direction", "Enrichment Direction", choices = c("Up", "Down")))
             )
-          ),
-          # Modal dialog for settings
+        )
+    ),
+    
+    # 別のパネル（例: Other Analysis）
+    div(id = "other_wrapper", class = "floating-panel",
+        div(id = "other_wrapper_header", class = "floating-header",
+            "\ud83d\udd2c Other Analysis",
+            actionLink("close_other", "\u274c Close", style = "color:white;")
+        ),
+        div(id = "other_wrapper_body", class = "floating-body",
+            DT::dataTableOutput("resultsTable"),
+            downloadButton("downloadResults", "Download Results as CSV")
+        )
+    )
+    ),
+	 # Modal dialog for settings
           bsModal(
             id = "settingsModal",
             title = "Analysis Settings",
@@ -706,12 +680,8 @@ fluidPage(
                     textInput("colorDown", "Down-regulated:", value = "#4B4BFF")
               )
             )
-          )
-        )
-      )
-    )  
-  )
-))),
+          ),
+
             
             tags$script(HTML("
     document.addEventListener('DOMContentLoaded', function () {
@@ -743,6 +713,56 @@ fluidPage(
         isDragging = false;
         document.body.style.cursor = 'default';
       });
+    });
+  ")),
+  tags$script(HTML("
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('toggle_enrich').onclick = function() {
+        document.getElementById('enrich_wrapper').classList.add('fullscreen');
+        setTimeout(() => {
+          Shiny.setInputValue('trigger_redraw_ENRICH', new Date().getTime());
+        }, 100);
+      };
+      document.getElementById('close_enrich').onclick = function() {
+        document.getElementById('enrich_wrapper').classList.remove('fullscreen');
+      };
+
+      document.getElementById('toggle_other').onclick = function() {
+        document.getElementById('other_wrapper').classList.add('fullscreen');
+        setTimeout(() => {
+          Shiny.setInputValue('trigger_redraw_DT', new Date().getTime());
+        }, 100);
+      };
+      document.getElementById('close_other').onclick = function() {
+        document.getElementById('other_wrapper').classList.remove('fullscreen');
+      };
+
+      function enableDrag(wrapperId, headerId) {
+        const wrapper = document.getElementById(wrapperId);
+        const header = document.getElementById(headerId);
+        let offsetX = 0, offsetY = 0, isDown = false;
+
+        header.addEventListener('mousedown', function(e) {
+          isDown = true;
+          offsetX = wrapper.offsetLeft - e.clientX;
+          offsetY = wrapper.offsetTop - e.clientY;
+          document.body.style.userSelect = 'none';
+        });
+
+        document.addEventListener('mouseup', function() {
+          isDown = false;
+          document.body.style.userSelect = '';
+        });
+
+        document.addEventListener('mousemove', function(e) {
+          if (!isDown) return;
+          wrapper.style.left = (e.clientX + offsetX) + 'px';
+          wrapper.style.top = (e.clientY + offsetY) + 'px';
+        });
+      }
+
+      enableDrag('enrich_wrapper', 'enrich_wrapper_header');
+      enableDrag('other_wrapper', 'other_wrapper_header');
     });
   ")),
             
@@ -1225,47 +1245,28 @@ function showEdgeTooltip(event) {
       
             
             // ネットワークをエクスポートする関数
-function exportNetwork(format, filename, scale) {
+function exportNetwork(filename) {
   if (!cy) return;
-  
-  // 形式に基づいてMIMEタイプを設定
-  let mimeType = 'image/png';
-  if (format === 'jpg') mimeType = 'image/jpeg';
-  else if (format === 'svg') mimeType = 'image/svg+xml';
-  else if (format === 'pdf') mimeType = 'application/pdf';
-  
+
+  const format = 'png'; // 固定
+  const mimeType = 'image/png';
+  const scale = 1; // 固定スケール
+
   try {
-    if (format === 'pdf') {
-      // PDFの場合はsvgを介してPDFを生成
-      const svgContent = cy.svg({scale: scale, full: true});
-      
-      // SVGをBlobに変換
-      const svgBlob = new Blob([svgContent], {type: 'image/svg+xml;charset=utf-8'});
-      
-      // PDFとして保存
-      saveAs(svgBlob, filename + '.pdf');
-    } else if (format === 'svg') {
-      // SVGの場合
-      const svgContent = cy.svg({scale: scale, full: true});
-      const svgBlob = new Blob([svgContent], {type: mimeType});
-      saveAs(svgBlob, filename + '.' + format);
-    } else {
-      // PNG, JPGの場合
-      const blob = cy.png({
-        output: 'blob',
-        bg: '#ffffff', // 背景色
-        scale: scale,
-        full: true
-      });
-      
-      // 直接Blobオブジェクトを保存
-      saveAs(blob, filename + '.' + format);
-    }
+    const blob = cy.png({
+      output: 'blob',
+      bg: '#ffffff',
+      scale: scale,
+      full: true
+    });
+
+    saveAs(blob, filename + '.png');
   } catch (e) {
     console.error('Export error:', e);
     alert('Error exporting image: ' + e.message);
   }
 }
+
             
             // 複数のノードの色をランダムに変更
 Shiny.addCustomMessageHandler('changeRandomNodeColors', function(message) {
@@ -1336,7 +1337,6 @@ Shiny.addCustomMessageHandler('changeRandomNodeColors', function(message) {
           )
         )
       )
-    )
   )
 )
 )

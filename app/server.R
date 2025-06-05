@@ -4,6 +4,71 @@ server <- function(input, output,session) {
     cat("セッション終了：アプリを停止します\n")
     q("no")  # Rごと終了 → コンテナも終了（--rmなら自動削除）
   })
+  filter_name_toggle <- reactiveVal(FALSE)
+  filter_class_toggle <- reactiveVal(FALSE)
+  filter_species_toggle <- reactiveVal(FALSE)
+
+  observeEvent(input$btn_filter_name, {
+    filter_name_toggle(!filter_name_toggle())
+    filter_class_toggle(FALSE)
+    filter_species_toggle(FALSE)
+  })
+
+  observeEvent(input$btn_filter_class, {
+    filter_class_toggle(!filter_class_toggle())
+    filter_name_toggle(FALSE)
+    filter_species_toggle(FALSE)
+  })
+
+  observeEvent(input$btn_filter_species, {
+    filter_species_toggle(!filter_species_toggle())
+    filter_name_toggle(FALSE)
+    filter_class_toggle(FALSE)
+  })
+
+
+  output$filter_ui <- renderUI({
+    if (filter_name_toggle()) {
+      return(div(class = "filter-panel",
+        h5("Filter the reactions on lipid name"),
+        fluidRow(
+          column(2, checkboxInput("showTooltips", "Show Tooltips", value = TRUE)),
+          column(10, selectInput("pathwaytype", "Select Pathway Type:",
+                        choices = c("Global pathway", 
+                                    "Ceramide pathway",
+                                    "Remodeling pathway"),
+                        selected = "Global pathway"))
+        )
+      ))
+    }
+
+    if (filter_class_toggle()) {
+      return(div(class = "filter-panel",
+        h5("Filter by lipid classification"),
+		fluidRow(
+              column(2, textInput("export_filename", "Filename:", "network_export")),
+			  column(2, actionButton("export_btn", "Export Network", class = "btn-success btn-block")),
+			  column(2, downloadButton("exportCYJS", "Export CYJS", class = "btn-block")),
+			  column(2, downloadButton("exportStyles", "Export styles.xml", class = "btn-block"))
+            )
+      ))
+    }
+
+    if (filter_species_toggle()) {
+      return(div(class = "filter-panel",
+        h5("Filter by species"),
+        fluidRow(
+          column(6, actionButton("delete_node", "選択ノードを削除", icon = icon("trash"))),
+          column(6, numericInput("num_nodes", "Number of nodes to change:", 5, min = 1, max = 50)),
+		  column(6, actionButton("reset_colors", "Reset Colors", class = "btn-warning")),
+		  column(6, actionButton("highlight_significant", "Apply Random Colors", class = "btn-primary"))
+        )
+      ))
+    }
+
+    return(NULL)
+  })
+  
   originaldir <- reactiveValues(datapath = getwd()) # directry of shiny R script
   global <- reactiveValues(datapath = getwd()) # directory of file path in lipidomics tab
   col = reactiveValues(col = col)
@@ -18,6 +83,13 @@ server <- function(input, output,session) {
     },
     contentType = "application/zip"
   )
+
+volcanoResults <- reactiveVal(
+  list(results = data.frame(
+    variable = character(), log2FoldChange = numeric(), pvalue = numeric(), pvalue_adj = numeric(), significance = character(),
+    mean_group1 = numeric(), mean_group2 = numeric()
+  ))
+)
 
   observeEvent(input$filetype,{
     if(input$filetype =="Sample in rows"){
@@ -383,8 +455,10 @@ if(!is.null(input$selected_elements)){
 	   if(!is.null(input$selected_elements)){
 	    selected <- input$selected_elements
         if(length(selected$nodes) == 2){
-		 cor_value <- cor(dataa[,selected$nodes[[1]]$data$label], dataa[,selected$nodes[[2]]$data$label],method = "spearman")
-         g <- ggplot(dataa,aes_string(selected$nodes[[1]]$data$label,selected$nodes[[2]]$data$label,fill = input$w,size = input$size))+geom_point(shape =21,color = "black")+
+		print(selected$nodes[[1]]$data$label)
+		print(selected$nodes[[2]]$data$label)
+		 cor_value <- cor(myData[,selected$nodes[[1]]$data$label], myData[,selected$nodes[[2]]$data$label],method = "spearman")
+         g <- ggplot(myData,aes_string(selected$nodes[[1]]$data$label,selected$nodes[[2]]$data$label,fill = input$w,size = input$size))+geom_point(shape =21,color = "black")+
          scale_fill_manual(values = unlist(col$col)) + ggtitle(paste("r = ",round(cor_value, 2))) + theme_classic() + theme(aspect.ratio = 1.0)
 	     plotly::ggplotly(g)
 		 }
@@ -590,7 +664,13 @@ if (length(decreased_node_ids) > 0) {
         )
       )
   })
-    
+  outputOptions(output, "resultsTable", suspendWhenHidden = FALSE)
+  observeEvent(input$trigger_redraw_DT, {
+  print("inputcheck")
+  print(input$trigger_redraw_DT)
+    DT::dataTableProxy("resultsTable") %>% DT::reloadData()
+  })
+     
 	output$downloadResults <- downloadHandler(
     filename = function() {
       paste("volcano_results_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".csv", sep = "")
@@ -629,7 +709,7 @@ if (length(decreased_node_ids) > 0) {
   
   
     lionResults <- eventReactive(input$runLIONButton, {
-    #req(volcanoResults())
+    req(targetVariables(),backgroundVariables())
 	sublist_ids <- strsplit(targetVariables(), "\n")[[1]] %>% convertLipidNames()
     background_ids <-strsplit(backgroundVariables(), "\n")[[1]] %>% convertLipidNames()
     # Prepare input data for LION
@@ -781,7 +861,14 @@ if (length(decreased_node_ids) > 0) {
           selector = "node:selected",
           css = list(
             "border-width" = "3px",
-            "border-color" = "#ff0000"
+            "border-color" = "data(Color)",
+			"height" = "700",
+            "width" = "700",
+			"font-size" = "70",
+			"text-valign" = "top",
+			"text-halign" = "center",
+			"text-margin-y" = "22",
+			"z-index" = "4"
           )
         ),
         list(
@@ -886,7 +973,6 @@ observeEvent(input$showTooltips, {
 # ontology結果が変更されたときにネットワークを更新するオブザーバーを追加
 observe({
   print("Checking if ontology data has changed...")
-  
   # 有効なontology結果がある場合のみ続行
   ont_data <- try(ontology_result(), silent = TRUE)
   if (inherits(ont_data, "try-error") || is.null(ont_data)) {
@@ -949,6 +1035,7 @@ observe({
 	volcanoResult <- inner_join(lipidont, volcanoResults()$results, by = "variable")
     lionResults()$enrichment_plot
   })
+ outputOptions(output, "enrichbarplot", suspendWhenHidden = FALSE)
  
     output$enrichtable <- DT::renderDataTable({
     req(lionResults())
@@ -961,6 +1048,13 @@ observe({
 					order = list(list(6, 'desc'))
                   ))
   })		
+  outputOptions(output, "enrichtable", suspendWhenHidden = FALSE)
+  
+
+
+  observeEvent(input$trigger_redraw_ENRICH, {
+    DT::dataTableProxy("enrichtable") %>% DT::reloadData()
+  })
 
         
       #Creating heatmap
