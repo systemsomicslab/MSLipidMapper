@@ -519,9 +519,9 @@ tabPanel(
   ),
   	  div(class = "toolbar",
     fluidRow(
-      column(2, actionButton("btn_filter_name", "Filter on lipid name", class = "btn btn-primary btn-sm btn-block")),
-      column(2, actionButton("btn_filter_class", "Filter on classification", class = "btn btn-primary btn-sm btn-block")),
-      column(2, actionButton("btn_filter_species", "Filter on species", class = "btn btn-primary btn-sm btn-block"))
+      column(2, actionButton("btn_filter_name", "Pathway mapping", class = "btn btn-primary btn-sm btn-block")),
+      column(2, actionButton("btn_filter_class", "Export", class = "btn btn-primary btn-sm btn-block")),
+      column(2, actionButton("btn_filter_species", "Edit", class = "btn btn-primary btn-sm btn-block"))
     )
   ),
     uiOutput("filter_ui"),
@@ -551,7 +551,8 @@ tabsetPanel(
         label = "Select molecule to display",
         choices = c(" "),
         selected = " "
-      )
+      ),
+	  actionLink("toggle_heatmap", "Heatmap"),
       )
     ),
     
@@ -614,7 +615,37 @@ tabsetPanel(
             DT::dataTableOutput("resultsTable"),
             downloadButton("downloadResults", "Download Results as CSV")
         )
+    ),
+	div(id = "heatmap_wrapper", class = "floating-panel",
+  div(id = "heatmap_wrapper_header", class = "floating-header",
+    "🔬 Heatmap",
+    actionLink("close_heatmap", "❌ Close", style = "color:white;")
+  ),
+  div(id = "heatmap_wrapper_body", class = "floating-body",
+    div(style = "display: flex; flex-direction: row; gap: 20px;",
+      # ヒートマップ表示
+      div(style = "height: 1000px",
+        plotOutput(outputId = "heatmap", height = "100%")
+      ),
+      # オプションボックス
+      div(style = "min-width: 200px; height: 250px; padding: 10px; border: 2px solid #444; border-radius: 6px; background-color: #f9f9f9;",
+        tags$h4("Options", style = "margin-top: 0;"),
+        
+        # acylfilter（ツールチップ付き）
+        div(title = "Filtering common acylchains: 16:0, 16:1, 18:0, 18:1, 18:2, 18:3, 20:3, 20:4, 20:5, 22:4, 22:5, 22:6",
+          checkboxInput("acylfilter", "Filter common acyl chains", value = TRUE)
+        ),
+        
+        # sn（そのまま）
+        checkboxInput("sn", "test", value = FALSE)
+      )
     )
+  )
+)
+
+
+
+	
     ),
 	 # Modal dialog for settings
           bsModal(
@@ -736,6 +767,12 @@ tabsetPanel(
       document.getElementById('close_other').onclick = function() {
         document.getElementById('other_wrapper').classList.remove('fullscreen');
       };
+	  document.getElementById('toggle_heatmap').onclick = function() {
+        document.getElementById('heatmap_wrapper').classList.add('fullscreen');
+      };
+      document.getElementById('close_heatmap').onclick = function() {
+        document.getElementById('heatmap_wrapper').classList.remove('fullscreen');
+      };
 
       function enableDrag(wrapperId, headerId) {
         const wrapper = document.getElementById(wrapperId);
@@ -763,6 +800,7 @@ tabsetPanel(
 
       enableDrag('enrich_wrapper', 'enrich_wrapper_header');
       enableDrag('other_wrapper', 'other_wrapper_header');
+	  enableDrag('heatmap_wrapper', 'heatmap_wrapper_header');
     });
   ")),
             

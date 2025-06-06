@@ -25,8 +25,7 @@ server <- function(input, output,session) {
     filter_name_toggle(FALSE)
     filter_class_toggle(FALSE)
   })
-
-
+ 
   output$filter_ui <- renderUI({
     if (filter_name_toggle()) {
       return(div(class = "filter-panel",
@@ -58,7 +57,7 @@ server <- function(input, output,session) {
       return(div(class = "filter-panel",
         h5("Filter by species"),
         fluidRow(
-          column(6, actionButton("delete_node", "選択ノードを削除", icon = icon("trash"))),
+          column(6, actionButton("delete_node", "Remove selected nodes", icon = icon("trash"))),
           column(6, numericInput("num_nodes", "Number of nodes to change:", 5, min = 1, max = 50)),
 		  column(6, actionButton("reset_colors", "Reset Colors", class = "btn-warning")),
 		  column(6, actionButton("highlight_significant", "Apply Random Colors", class = "btn-primary"))
@@ -1120,8 +1119,10 @@ observe({
 	     if(length(selected$nodes) != 0){	
             groupnodeheatmap(lipidclassproperties,originaldata,metadata,input$w,input$levels,selected$nodes[[1]]$data$label,input)
           }}
-        })
+        },height = 1000)
+		outputOptions(output, "heatmap", suspendWhenHidden = FALSE)
       })
+	   
 	  
     } )})
 }
