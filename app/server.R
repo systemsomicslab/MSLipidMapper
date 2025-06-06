@@ -455,8 +455,6 @@ if(!is.null(input$selected_elements)){
 	   if(!is.null(input$selected_elements)){
 	    selected <- input$selected_elements
         if(length(selected$nodes) == 2){
-		print(selected$nodes[[1]]$data$label)
-		print(selected$nodes[[2]]$data$label)
 		 cor_value <- cor(myData[,selected$nodes[[1]]$data$label], myData[,selected$nodes[[2]]$data$label],method = "spearman")
          g <- ggplot(myData,aes_string(selected$nodes[[1]]$data$label,selected$nodes[[2]]$data$label,fill = input$w,size = input$size))+geom_point(shape =21,color = "black")+
          scale_fill_manual(values = unlist(col$col)) + ggtitle(paste("r = ",round(cor_value, 2))) + theme_classic() + theme(aspect.ratio = 1.0)
@@ -861,14 +859,7 @@ if (length(decreased_node_ids) > 0) {
           selector = "node:selected",
           css = list(
             "border-width" = "3px",
-            "border-color" = "data(Color)",
-			"height" = "700",
-            "width" = "700",
-			"font-size" = "70",
-			"text-valign" = "top",
-			"text-halign" = "center",
-			"text-margin-y" = "22",
-			"z-index" = "4"
+            "border-color" = "red"
           )
         ),
         list(
