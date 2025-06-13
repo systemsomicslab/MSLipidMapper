@@ -71,6 +71,7 @@ server <- function(input, output,session) {
   originaldir <- reactiveValues(datapath = getwd()) # directry of shiny R script
   global <- reactiveValues(datapath = getwd()) # directory of file path in lipidomics tab
   col = reactiveValues(col = col)
+  plotTrigger <- reactiveVal(0)
   validation_status <- reactiveVal(FALSE)
   svg_path <- paste(getwd(),"/svg",sep = "")
   output$downloadData <- downloadHandler(
@@ -663,8 +664,6 @@ if (length(decreased_node_ids) > 0) {
   })
   outputOptions(output, "resultsTable", suspendWhenHidden = FALSE)
   observeEvent(input$trigger_redraw_DT, {
-  print("inputcheck")
-  print(input$trigger_redraw_DT)
     DT::dataTableProxy("resultsTable") %>% DT::reloadData()
   })
      
@@ -1019,12 +1018,16 @@ observe({
   )
     plotly::ggplotly(g, tooltip = "text")
   })
-    
+    observeEvent(input$trigger_redraw_ENRICH, {
+  plotTrigger(plotTrigger() + 1)  # ← これで再描画を強制
+})
+
 	output$enrichbarplot <- renderPlot({
     req(lionResults())
-	volcanoResult <- inner_join(lipidont, volcanoResults()$results, by = "variable")
+	plotTrigger()
+	#volcanoResult <- inner_join(lipidont, volcanoResults()$results, by = "variable")
     lionResults()$enrichment_plot
-  })
+  },height = 800)
  outputOptions(output, "enrichbarplot", suspendWhenHidden = FALSE)
  
     output$enrichtable <- DT::renderDataTable({

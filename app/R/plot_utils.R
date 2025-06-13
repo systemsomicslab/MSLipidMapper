@@ -69,11 +69,11 @@ perform_statistical_test <- function(data, comparisons, test_method, y_var, w_va
 
 create_boxplot <- function(data, x_var, y_var, col, alpha, size, xlab_text, ylab_text, ggtitle_text) {
   p <- ggplot(data) +
-     geom_boxplot(aes_string(x = x_var, y = y_var, fill = x_var),color = "black", lwd = 1, alpha = alpha) +
     ggbeeswarm::geom_beeswarm(aes_string(x = x_var, y = y_var, fill = x_var), dodge.width = 0.1,
                                cex = 0.1,
                                shape = 21,
                                size = size) +
+	geom_boxplot(aes_string(x = x_var, y = y_var, fill = x_var),color = "black", lwd = 1, alpha = alpha) +
 	xlab(xlab_text) +
     ylab(ylab_text) +
     ggtitle(paste(ggtitle_text, "", sep = "")) +
