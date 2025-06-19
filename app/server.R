@@ -739,6 +739,14 @@ if (length(decreased_node_ids) > 0) {
     result <- ontology_result()
     print("ontology_result was observed")
   })
+  	output$downloadenrichResults <- downloadHandler(
+    filename = function() {
+      paste("enrich_results_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".csv", sep = "")
+    },
+    content = function(file) {
+      write.csv(lionResults()$result_table , file, row.names = FALSE)
+    }
+  )
   
     
   # Original functionality for tab 3

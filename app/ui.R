@@ -592,11 +592,13 @@ tabsetPanel(
         div(id = "enrich_wrapper_body", class = "floating-body",
             fluidRow(
               column(6,plotOutput("enrichbarplot")),
-			  column(6,DT::dataTableOutput("enrichtable"))
+			  column(6,DT::dataTableOutput("enrichtable"),
+			  downloadButton("downloadenrichResults", "Download Results as CSV"))
 			  
             ),
             hr(),
             fluidRow(
+			
 			  #column(4,actionButton("runLIONButton", "Run LION Enrichment",
               #               class = "btn-primary", width = "100%")),
               #column(4, numericInput("p_threshold", "p-value threshold", value = 0.05)),
