@@ -183,18 +183,3 @@ Example inputs are provided under:
 - `inst/examples/`
 
 ---
-
-## README image note
-
-This line in README:
-
-```html
-<img src="docs/MSLipidMapper.png" ...>
-```
-
-means the image must exist at:
-
-- `docs/MSLipidMapper.png`
-
-(You can change the path if you store assets elsewhere.)
-
