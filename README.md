@@ -31,7 +31,7 @@ Windows users can start the application by simply double-clicking the provided `
 > **Important:** Docker Desktop must be started before running the batch file. The batch file uses `docker run` internally, so Docker must be available and running on your system.
 
 
-### Step 4: Run MSLipidMapper in your browser
+### Step 3: Run MSLipidMapper in your browser
 
 Open your browser and paste `http://localhost:3838`.
 
