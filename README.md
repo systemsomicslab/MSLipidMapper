@@ -1,7 +1,7 @@
 # MSLipidMapper
 
 <p align="center">
-  <img src="docs/screenshot.png" width="900" alt="MSLipidMapper">
+  <img src="docs/MSLipidMapper.png" width="900" alt="MSLipidMapper">
 </p>
 ## Overview
 
