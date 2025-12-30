@@ -77,20 +77,10 @@ The Data Plot Panel displays a plot showing the average values for each lipid cl
 
 The Side Bar provides functions for variable selection, adjusting plot aesthetics, changing the order of the x-axis, modifying the colors of sample classes, and generating figures for pathway analysis.
 
-## Generating Figures for Pathway Analysis
-
-In the Plot tab, you can view the figures used for pathway analysis by clicking the Mapping Option button located at the bottom of the sidebar. Once the dialog appears, you can proceed to pathway analysis by pressing the Pathway Mapping button.
-
 ## Pathway Analysis
 
 The Pathway Analysis tab consists of two main sections: the Pathway Analysis Panel and the Plot Panel for the selected lipid class.
 
 First, select the metabolic pathway you want to display from the sidebar on the left, and press the Pathway Analysis button. This will project the selected pathway onto the Pathway Analysis Panel.
 
-You can select lipid class nodes on the metabolic pathway and press the blue button on the Plot Panel to display a detailed plot for the lipid class. The plot will show the values of lipid molecules belonging to the selected lipid class, and a heatmap at the bottom will display the z-scores of those lipid molecules.
-
-Additionally, you can switch the plot tab to the Correlation Analysis Plot Tab and select two nodes on the metabolic pathway by holding Ctrl to display a correlation plot between them.
-
-## Creating Pathway Analysis Figures
-
-From the left sidebar of the Pathway Analysis tab, you can export `.cyjs` files and `style.yaml` files for use in the Cytoscape desktop app. Using the Cytoscape desktop app, you can load these files to edit the pathway analysis results and create figures in SVG or PDF format.
+You can select lipid class nodes on the metabolic pathway and press the blue button on the Plot Panel to display a detailed plot for the lipid class. The plot will show the values of lipid molecules belonging to the selected lipid class.
