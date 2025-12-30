@@ -21,30 +21,16 @@ Open the terminal and run:
 git clone "https://github.com/systemsomicslab/MSLipidMapper.git"
 ```
 
-### Step 2: Build Docker image
+### Step 2: Launch using batch file (Windows only)
 
-```bash
-docker build -t mslipidmapper .
-```
-
-### Step 3: Run Docker image
-
-Run the container on your terminal once it has been built.
-
-```bash
-docker run --rm -p 7860:7860 -p 9000:9000 mslipidmapper
-```
-
-### Optional: Launch using batch file (Windows only)
-
-Alternatively, Windows users can start the application by simply double-clicking the provided `MSLipidMapper.bat` file. This will automatically launch the application in your default web browser.
+Windows users can start the application by simply double-clicking the provided `MSLipidMapper.bat` file. This will automatically launch the application in your default web browser.
 
 > **Important:** Docker Desktop must be started before running the batch file. The batch file uses `docker run` internally, so Docker must be available and running on your system.
 
 
 ### Step 4: Run MSLipidMapper in your browser
 
-Open your browser and paste `http://localhost:7860`.
+Open your browser and paste `http://localhost:3838`.
 
 ## Prepare input files
 
