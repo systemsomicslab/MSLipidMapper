@@ -1,0 +1,127 @@
+defaults:
+  oxygen_detect_keywords: [";OH", "(OH)"]
+
+patterns:
+  - id: bile_acid
+    class_regex: "^BA$"
+    no_chain: true
+    priority: 200
+
+  - id: sterol_free
+    class_regex: "^ST$"
+    no_chain: true
+    priority: 210
+
+  - id: ngcgm3
+    class_regex: "^NGcGM3$"
+    no_chain: true
+    priority: 220
+
+  # --- ADDED: SPB has no acyl-chain info ---
+  - id: spb_no_chain
+    class_regex: "^SPB$"
+    no_chain: true
+    priority: 230
+
+  # --- ADDED: ASG drops sterol backbone (first token) ---
+  - id: asg_drop_sterol
+    class_regex: "^ASG$"
+    split: "auto"
+    detect_fa_suffix: true
+    detect_fa_tail: true        
+    exclude_first_chain: true
+    ignore_sum_only: true
+    priority: 195
+
+  - id: triglyceride
+    class_regex: "^TG$"
+    split: "auto"
+    drop_zero_chains: true
+    detect_fa_suffix: true
+    ignore_sum_only: true
+    priority: 200
+
+  - id: steryl_ester
+    class_regex: "^(SE|CASE|BRSE|SISE|STSE|EGSE|DEGSE|DSMSE)$"
+    split: "auto"
+    detect_fa_suffix: true
+    exclude_first_chain: true
+    ignore_sum_only: true
+    priority: 190
+
+  - id: gm3_mixed_notation
+    class_regex: "^GM3$"
+    split: "/"
+    split_mode: "literal"
+    detect_fa_suffix: true
+    exclude_first_chain: true
+    ignore_sum_only: true
+    priority: 185
+
+  - id: ceramide_force_drop_base
+    class_regex: "^(Cer|HexCer|AHexCer|ASHexCer|PE-Cer|SL|CerP|Hex3Cer|Hex2Cer|SHexCer|ASM|GM3|GD1a|GD1b|GD2|GD3|GM1|GT1b|SM)$"
+    split: "/"
+    split_mode: "literal"
+    detect_fa_suffix: true
+    exclude_first_chain: true
+    ignore_sum_only: true
+    priority: 180
+
+  - id: cer_subclass_force_drop_base
+    class_regex: "^Cer_.+$"
+    split: "/"
+    split_mode: "literal"
+    detect_fa_suffix: true
+    exclude_first_chain: true
+    ignore_sum_only: true
+    priority: 170
+
+  - id: lnape
+    class_regex: "^(LPE-N|LPS-N|LNAPE)$"
+    split: "auto"
+    detect_fa_suffix: true
+    priority: 150
+
+  - id: oxidized_fatty_acid
+    class_regex: "^OxFA$"
+    split: "auto"
+    priority: 130
+
+  - id: fatty_acid
+    class_regex: "^FA$"
+    split: "auto"
+    priority: 120
+
+  - id: acylcarnitine
+    class_regex: "^CAR$"
+    split: "auto"
+    priority: 110
+
+  - id: cholesteryl_ester
+    class_regex: "^CE$"
+    split: "auto"
+    priority: 110
+
+  - id: vae
+    class_regex: "^VAE$"
+    split: "auto"
+    priority: 105
+
+  - id: phospholipid
+    class_regex: "^(PA|PC|PE|PG|PI|PS|PT|LPA|LPC|LPE|LPG|LPI|LPS|NATau)$"
+    split: "auto"
+    drop_zero_chains: true
+    priority: 90
+
+  - id: glycerolipid
+    class_regex: "^(DG|MG|ADGGA|DGCC|DGGA|DGTS|LDGCC|LDGTS|DGDG|MGDG|SQDG|MGMG|SMGDG|BMP|HBMP|CL|DLCL|MLCL|Ac2PIM1|Ac2PIM2|Ac3PIM2|Ac4PIM2|PEtOH|PMeOH|DMPE|MMPE)$"
+    split: "auto"
+    priority: 70
+
+  - id: sphingolipid_generic
+    class_regex: "^(Cer|HexCer|SM|SHexCer|GM3|GD1a|GD1b|GD2|GD3|GM1|GQ1b|GT1b|NGcGM3|Hex2Cer|Hex3Cer|PE-Cer|SL|CerP|AHexCer|ASHexCer)$"
+    split: "/"
+    split_mode: "literal"
+    exclude_first_chain: false
+    ignore_sum_only: true
+    priority: 60
