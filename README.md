@@ -13,10 +13,10 @@ It converts uploaded tables into a project (SummarizedExperiment-based) and prov
 
 - Import lipidomics tables (MS-DIAL alignment table / Generic wide-format CSV)
 - Project structure based on `SummarizedExperiment`
-- Sample metadata editor (`sample_id`, `class`, `use`)
+- Sample metadata editor (`sample_id`, `class`)
 - Normalization workflow + download normalized data
 - Analysis panels (e.g., PCA / Heatmap / Volcano / Correlation; depends on build)
-- Cytoscape.js network/pathway viewer + export
+- Meatbolic pathway viewer + export
 
 ---
 
@@ -150,15 +150,6 @@ Depending on enabled modules, analysis may include:
 - Heatmap (class-level aggregation and/or molecule-level views)
 - Volcano / differential analysis
 - Correlation (lipid–lipid, lipid–gene if transcriptome is loaded)
-
-#### Log visualization offset rule
-
-When log visualization requires an offset (e.g., `log2(x + offset)`), MSLipidMapper uses:
-
-- `offset = (minimum positive value) / 2`
-
-This avoids `log(0)` while keeping the offset small relative to the data.
-
 ---
 
 ## Pathway analysis
