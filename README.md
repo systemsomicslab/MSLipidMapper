@@ -41,13 +41,13 @@ Windows users can start the app by double-clicking:
 
 ```bash
 docker build -t mslipidmapper .
-docker run --rm -p 3838:3838 -p 9000:9000 mslipidmapper
+docker run --rm -p 3838:3838 -p 7310:7310 mslipidmapper
 ```
 
 Open:
 
 - Shiny app: `http://localhost:3838`
-- (optional) Static server (node images etc.): `http://localhost:9000`
+- (optional) Static server (node images etc.): `http://localhost:7310`
 
 > If you see `address already in use`, the port is already occupied.  
 ---
