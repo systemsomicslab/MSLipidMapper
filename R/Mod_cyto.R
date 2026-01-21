@@ -235,7 +235,7 @@ mod_cyto_ui <- function(id) {
             shiny::numericInput(
               ns("hm_top_n"),
               "Heatmap: #molecules (top by abundance)",
-              value = 40, min = 5, max = 200, step = 5
+              value = 20, min = 5, max = 200, step = 5
             ),
             open = FALSE
           ),

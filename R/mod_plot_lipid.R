@@ -858,7 +858,8 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
           "Variable",
           open = TRUE,
           shiny::uiOutput(ns("class_ui")),
-          shiny::selectInput(ns("molecule_id"), "Molecule (in selected class)", choices = NULL)
+          shiny::selectInput(ns("molecule_id"), "Molecule (in selected class)", choices = NULL),
+		  shiny::tags$div(style = "height: 100px;")
         ),
         
         .cy_details(
