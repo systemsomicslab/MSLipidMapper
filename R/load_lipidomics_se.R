@@ -19,25 +19,37 @@ load_lipidomics_se <- function(csv_path,
                                header_rows = 5,
                                data_start_row = 6) {
   stopifnot(file.exists(csv_path))
-  
+
   # Step 1: read header to extract true column names and sample class labels
-  raw_header <- readr::read_csv(csv_path, col_names = FALSE, n_max = header_rows, show_col_types = FALSE)
+  raw_header <- readr::read_csv(
+    csv_path,
+    col_names = FALSE,
+    n_max = header_rows,
+    show_col_types = FALSE
+  )
   true_colnames <- as.character(unlist(raw_header[header_rows, ]))
-  sample_class_labels <- as.character(unlist(raw_header[1, (max(annotation_cols) + 1):length(true_colnames)]))
-  
+  sample_class_labels <- as.character(unlist(
+    raw_header[1, (max(annotation_cols) + 1):length(true_colnames)]
+  ))
+
   # Step 2: read full body and set proper colnames
-  df <- readr::read_csv(csv_path, skip = data_start_row - 1, col_names = FALSE, show_col_types = FALSE)
+  df <- readr::read_csv(
+    csv_path,
+    skip = data_start_row - 1,
+    col_names = FALSE,
+    show_col_types = FALSE
+  )
   colnames(df) <- true_colnames
-  
+
   # Step 3: split annotation (row-level) and assay (sample-level)
   row_data <- df[, annotation_cols, drop = FALSE]
   assay_data <- df[, -(annotation_cols), drop = FALSE]
-  
+
   # Step 4: coerce assay to numeric matrix
   assay_matrix <- as.matrix(data.frame(lapply(assay_data, function(x) suppressWarnings(as.numeric(x)))))
   sample_names <- colnames(df)[(max(annotation_cols) + 1):ncol(df)]
   colnames(assay_matrix) <- sample_names
-  
+
   # Step 5: build colData with sample class labels
   has_class <- length(sample_class_labels) == length(sample_names)
   col_data <- S4Vectors::DataFrame(
@@ -45,14 +57,19 @@ load_lipidomics_se <- function(csv_path,
     class     = if (has_class) sample_class_labels else rep(NA_character_, length(sample_names))
   )
   base::rownames(col_data) <- sample_names
-  
+
+  # Step 5.5: drop samples whose class is NA/blank (requested)
+  keep <- !is.na(col_data$class) & nzchar(trimws(as.character(col_data$class)))
+  col_data <- col_data[keep, , drop = FALSE]
+  assay_matrix <- assay_matrix[, keep, drop = FALSE]
+
   # Step 6: construct SE (keep all original row annotations)
   se <- SummarizedExperiment::SummarizedExperiment(
     assays  = list(abundance = assay_matrix),
     rowData = S4Vectors::DataFrame(row_data, check.names = FALSE),
     colData = col_data
   )
-  
+
   # Step 7: set rownames from a best-effort "Metabolite name" (fallbacks included)
   rn_source <- "Metabolite name"
   if (!rn_source %in% colnames(SummarizedExperiment::rowData(se))) {
@@ -61,7 +78,7 @@ load_lipidomics_se <- function(csv_path,
     rn_source <- if (length(hit)) hit else colnames(SummarizedExperiment::rowData(se))[1]
   }
   base::rownames(se) <- make.unique(as.character(SummarizedExperiment::rowData(se)[[rn_source]]))
-  
+
   # Ensure subclass is available from ontology
   rd <- SummarizedExperiment::rowData(se)
   if ("Ontology" %in% colnames(rd)) {
@@ -70,6 +87,8 @@ load_lipidomics_se <- function(csv_path,
     if (!"subclass" %in% colnames(rd)) rd$subclass <- "Unknown"
   }
   SummarizedExperiment::rowData(se) <- rd
-  
+
   se
 }
+
+
