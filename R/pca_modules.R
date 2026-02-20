@@ -246,5 +246,6 @@ plot_pca_loading_from_se <- function(
     ) +
     theme_classic(base_size = 15) +
     labs(title = plot_title, x = "Features", y = "Loading") +
-    coord_flip()
+    coord_flip()+
+	ggplot2::geom_hline(yintercept = 0, linetype = "dashed") 
 }

@@ -6,15 +6,8 @@
 # - Utility includes Ontology builder + Pathway editor
 # - Inline plumber static server (optional)
 #
-# Notes (local Docker use):
-# - api_host        : plumber listen address inside the container (use "0.0.0.0")
-# - api_public_host : hostname embedded into browser URL (use "localhost")
-# - rules_yaml_path : if NULL/empty, auto-resolve from env (MSLM_RULES_YAML),
-#                    then fall back to R/ folder (R/*.yml|*.yaml)
-#
-# IMPORTANT:
-# - Do NOT source in start.sh. Put all sourcing here (except sourcing this file itself).
-# - Do NOT use sys.source(encoding=...) because some R builds reject it.
+# FIX:
+# - SAFE icon wrapper to avoid startup failure due to invalid FontAwesome names
 # ============================================================
 
 #' Run MSLipidMapper dashboard app
@@ -60,11 +53,16 @@ run_mslipidmapper_app <- function(
     if (is.null(a) || (is.character(a) && length(a) == 0)) b else a
   }
 
+  # ---- SAFE icon wrapper (prevents app crash if icon name is unsupported) ---
+  .ic <- function(name, ...) {
+    tryCatch(
+      shiny::icon(name, ...),
+      error = function(e) shiny::icon("circle")
+    )
+  }
+
   # ============================================================
   # 0) Robust loader
-  #    - ReadLines(encoding=...) + parse + eval (expr-by-expr)
-  #    - Capture must-have functions as soon as they appear
-  #      (even if the file later rm() them)
   # ============================================================
 
   .debug_file <- function(f) {
@@ -99,17 +97,13 @@ run_mslipidmapper_app <- function(
 
     for (i in seq_along(exprs)) {
       ex <- exprs[[i]]
-
-      # Evaluate one expression
       tryCatch(
         eval(ex, envir = envir_eval),
         error = function(e) {
-          # add index info
           stop(sprintf("Error while evaluating expression #%d: %s", i, conditionMessage(e)), call. = FALSE)
         }
       )
 
-      # Capture must-have asap (even if later rm())
       if (length(must_have)) {
         for (nm in must_have) {
           if (!(nm %in% saved_names) && exists(nm, envir = envir_eval, mode = "function", inherits = FALSE)) {
@@ -117,10 +111,6 @@ run_mslipidmapper_app <- function(
             saved_names <- c(saved_names, nm)
             message("  [CAPTURE] ", nm, " (expr #", i, ")")
           }
-        }
-        if (length(saved_names) == length(must_have)) {
-          # already captured all; keep evaluating though (some files define other needed objects)
-          # (do not break)
         }
       }
     }
@@ -144,9 +134,9 @@ run_mslipidmapper_app <- function(
     saved <- list()
     saved_names <- character(0)
 
+    ok <- FALSE
     for (enc in encs) {
       ok <- tryCatch({
-        # eval in a temp env so we can inspect/copy safely
         tmp <- new.env(parent = globalenv())
         exprs <- .read_parse_exprs(f, enc = enc)
 
@@ -154,12 +144,10 @@ run_mslipidmapper_app <- function(
         saved <- cap$saved
         saved_names <- cap$saved_names
 
-        # copy ALL objects from tmp -> globalenv (normal behavior)
         for (nm in ls(tmp, all.names = TRUE)) {
           assign(nm, get(nm, envir = tmp, inherits = FALSE), envir = globalenv())
         }
 
-        # ensure must-have exists; if file rm() them, restore from saved
         if (!is.null(must_have) && length(must_have)) {
           for (nm in must_have) {
             if (!exists(nm, envir = globalenv(), mode = "function", inherits = FALSE) && !is.null(saved[[nm]])) {
@@ -208,7 +196,6 @@ run_mslipidmapper_app <- function(
   .load_app_sources <- function(dir = "R") {
     if (!dir.exists(dir)) stop("Directory not found: ", dir, call. = FALSE)
 
-    # (A) plot helpers FIRST (critical)
     helpers <- file.path(dir, "plot_helpers_lipid.R")
     must <- c(
       "plot_dot_se", "plot_box_se", "plot_violin_se",
@@ -216,33 +203,26 @@ run_mslipidmapper_app <- function(
     )
     .load_file_strict(helpers, must_have = must)
 
-    # (B) load the rest
     rfiles <- list.files(dir, pattern = "\\.R$", full.names = TRUE, ignore.case = TRUE)
     rfiles <- sort(normalizePath(rfiles, winslash = "/", mustWork = FALSE))
 
     exclude <- c(
       normalizePath(file.path(dir, "run_mslipidmapper_app.R"), winslash = "/", mustWork = FALSE),
       normalizePath(file.path(dir, "plot_helpers_lipid.R"), winslash = "/", mustWork = FALSE),
-      # 旧入口が残っている場合、二重読み込みや再sourceを避ける
       normalizePath(file.path(dir, "run_module.R"), winslash = "/", mustWork = FALSE)
     )
     rfiles <- rfiles[!rfiles %in% exclude]
 
-    for (f in rfiles) {
-      .load_file_strict(f)
-    }
+    for (f in rfiles) .load_file_strict(f)
 
-    # final guard
     miss2 <- must[!vapply(must, exists, logical(1),
                          envir = globalenv(), mode = "function", inherits = FALSE)]
-    if (length(miss2)) {
-      stop("After loading all R/ files, missing: ", paste(miss2, collapse = ", "), call. = FALSE)
-    }
+    if (length(miss2)) stop("After loading all R/ files, missing: ", paste(miss2, collapse = ", "), call. = FALSE)
+
     message("All plot helper functions are present.")
     invisible(TRUE)
   }
 
-  # ★ load all R/ here
   .load_app_sources("R")
 
   # ============================================================
@@ -256,10 +236,8 @@ run_mslipidmapper_app <- function(
       NA_character_
     }
 
-    # 1) argument
     cand <- path_in
 
-    # 2) env
     if (is.null(cand) || !nzchar(cand)) {
       envp <- Sys.getenv("MSLM_RULES_YAML", unset = "")
       if (nzchar(envp)) cand <- envp
@@ -268,7 +246,6 @@ run_mslipidmapper_app <- function(
     out <- norm_if_exists(cand)
     if (!is.na(out)) return(out)
 
-    # 3) fallback under R/
     candidates <- c(
       file.path("R", "lipid_rules.yaml"),
       file.path("R", "lipid_rules.yml"),
@@ -311,7 +288,6 @@ run_mslipidmapper_app <- function(
     }
   }
 
-  # ---- Box header helper -------------------------------------------------
   .boxTitleWithAdv <- function(title_text, btn_id) {
     shiny::div(
       style = "display:flex; align-items:center; width:100%; gap:8px;",
@@ -321,7 +297,7 @@ run_mslipidmapper_app <- function(
         shiny::actionButton(
           inputId = btn_id,
           label   = "Advanced",
-          icon    = shiny::icon("sliders-h"),
+          icon    = .ic("sliders-h"),
           class   = "btn btn-default btn-xs"
         )
       )
@@ -339,32 +315,34 @@ run_mslipidmapper_app <- function(
       shinydashboard::sidebarMenu(
         id = "tabs",
 
-        shinydashboard::menuItem("1. Upload",    tabName = "upload",    icon = shiny::icon("upload")),
-        shinydashboard::menuItem("2. Normalize", tabName = "normalize", icon = shiny::icon("sliders")),
+        shinydashboard::menuItem("1. Upload",    tabName = "upload",    icon = .ic("upload")),
+        shinydashboard::menuItem("2. Normalize", tabName = "normalize", icon = .ic("sliders")),
 
         shinydashboard::menuItem(
           "3. Analysis",
           tabName       = "analysis_home",
-          icon          = shiny::icon("chart-bar"),
+          icon          = .ic("chart-bar"),
           startExpanded = FALSE,
-          shinydashboard::menuSubItem("Analysis hub",     tabName = "analysis_home",       icon = shiny::icon("home")),
-          shinydashboard::menuSubItem("PCA",              tabName = "analysis_pca",        icon = shiny::icon("project-diagram")),
-          shinydashboard::menuSubItem("Feature",          tabName = "analysis_lipid_feat", icon = shiny::icon("chart-column")),
-          shinydashboard::menuSubItem("Heatmap",          tabName = "analysis_heatmap",    icon = shiny::icon("th")),
-          shinydashboard::menuSubItem("Correlation",      tabName = "analysis_cor",        icon = shiny::icon("chart-line")),
-          shinydashboard::menuSubItem("Volcano",          tabName = "analysis_volcano",    icon = shiny::icon("fire")),
-          shinydashboard::menuSubItem("Enrichment",       tabName = "analysis_enrich",     icon = shiny::icon("magnifying-glass")),
-          shinydashboard::menuSubItem("Pathway analysis", tabName = "analysis_network",    icon = shiny::icon("code-branch"))
+          shinydashboard::menuSubItem("Analysis hub",     tabName = "analysis_home",       icon = .ic("home")),
+          shinydashboard::menuSubItem("PCA",              tabName = "analysis_pca",        icon = .ic("project-diagram")),
+          shinydashboard::menuSubItem("OPLS-DA",          tabName = "analysis_oplsda",     icon = .ic("project-diagram")),
+          shinydashboard::menuSubItem("Feature",          tabName = "analysis_lipid_feat", icon = .ic("chart-column")),
+          shinydashboard::menuSubItem("Heatmap",          tabName = "analysis_heatmap",    icon = .ic("th")),
+          shinydashboard::menuSubItem("Correlation",      tabName = "analysis_cor",        icon = .ic("chart-line")),
+          shinydashboard::menuSubItem("Volcano",          tabName = "analysis_volcano",    icon = .ic("fire")),
+          shinydashboard::menuSubItem("Enrichment",       tabName = "analysis_enrich",     icon = .ic("magnifying-glass")),
+          shinydashboard::menuSubItem("Decoupled chains", tabName = "analysis_decoupled",  icon = .ic("shuffle")),
+          shinydashboard::menuSubItem("Pathway analysis", tabName = "analysis_network",    icon = .ic("code-branch"))
         ),
 
         shinydashboard::menuItem(
           "4. Utility",
           tabName       = "utility_home",
-          icon          = shiny::icon("tools"),
+          icon          = .ic("tools"),
           startExpanded = FALSE,
-          shinydashboard::menuSubItem("Utility hub",      tabName = "utility_home",     icon = shiny::icon("home")),
-          shinydashboard::menuSubItem("Ontology builder", tabName = "utility_ontology", icon = shiny::icon("table")),
-          shinydashboard::menuSubItem("Pathway editor",   tabName = "utility_pathway",  icon = shiny::icon("code-branch"))
+          shinydashboard::menuSubItem("Utility hub",      tabName = "utility_home",     icon = .ic("home")),
+          shinydashboard::menuSubItem("Ontology builder", tabName = "utility_ontology", icon = .ic("table")),
+          shinydashboard::menuSubItem("Pathway editor",   tabName = "utility_pathway",  icon = .ic("code-branch"))
         )
       )
     ),
@@ -448,7 +426,15 @@ run_mslipidmapper_app <- function(
               shinydashboard::box(
                 title = "PCA", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Run PCA for an overview of sample structure."),
-                shiny::actionButton("go_pca", "Go to PCA", width = "100%", icon = shiny::icon("project-diagram"))
+                shiny::actionButton("go_pca", "Go to PCA", width = "100%", icon = .ic("project-diagram"))
+              )
+            ),
+            shiny::column(
+              width = 3,
+              shinydashboard::box(
+                title = "OPLS-DA", width = 12, status = "primary", solidHeader = TRUE,
+                shiny::p("Discriminant analysis (OPLS-DA) and VIPs."),
+                shiny::actionButton("go_oplsda", "Go to OPLS-DA", width = "100%", icon = .ic("project-diagram"))
               )
             ),
             shiny::column(
@@ -456,7 +442,7 @@ run_mslipidmapper_app <- function(
               shinydashboard::box(
                 title = "Feature", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Visualize feature expression."),
-                shiny::actionButton("go_lipid_feat", "Go to Feature", width = "100%", icon = shiny::icon("chart-column"))
+                shiny::actionButton("go_lipid_feat", "Go to Feature", width = "100%", icon = .ic("chart-column"))
               )
             ),
             shiny::column(
@@ -464,15 +450,7 @@ run_mslipidmapper_app <- function(
               shinydashboard::box(
                 title = "Heatmap", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Class-level and molecule-level heatmaps."),
-                shiny::actionButton("go_hm", "Go to Heatmap", width = "100%", icon = shiny::icon("th"))
-              )
-            ),
-            shiny::column(
-              width = 3,
-              shinydashboard::box(
-                title = "Correlation", width = 12, status = "primary", solidHeader = TRUE,
-                shiny::p("Explore correlations."),
-                shiny::actionButton("go_cor", "Go to Correlation", width = "100%", icon = shiny::icon("chart-line"))
+                shiny::actionButton("go_hm", "Go to Heatmap", width = "100%", icon = .ic("th"))
               )
             )
           ),
@@ -480,9 +458,17 @@ run_mslipidmapper_app <- function(
             shiny::column(
               width = 3,
               shinydashboard::box(
+                title = "Correlation", width = 12, status = "primary", solidHeader = TRUE,
+                shiny::p("Explore correlations."),
+                shiny::actionButton("go_cor", "Go to Correlation", width = "100%", icon = .ic("chart-line"))
+              )
+            ),
+            shiny::column(
+              width = 3,
+              shinydashboard::box(
                 title = "Volcano", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Volcano plot."),
-                shiny::actionButton("go_volcano", "Go to Volcano", width = "100%", icon = shiny::icon("fire"))
+                shiny::actionButton("go_volcano", "Go to Volcano", width = "100%", icon = .ic("fire"))
               )
             ),
             shiny::column(
@@ -490,15 +476,25 @@ run_mslipidmapper_app <- function(
               shinydashboard::box(
                 title = "Enrichment", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("ORA enrichment for lipid class / acyl chains."),
-                shiny::actionButton("go_enrich", "Go to Enrichment", width = "100%", icon = shiny::icon("magnifying-glass"))
+                shiny::actionButton("go_enrich", "Go to Enrichment", width = "100%", icon = .ic("magnifying-glass"))
               )
             ),
             shiny::column(
               width = 3,
               shinydashboard::box(
+                title = "Decoupled chains", width = 12, status = "primary", solidHeader = TRUE,
+                shiny::p("Scatter panels for chain vs class total (decoupling)."),
+                shiny::actionButton("go_decoupled", "Go to Decoupled chains", width = "100%", icon = .ic("shuffle"))
+              )
+            )
+          ),
+          shiny::fluidRow(
+            shiny::column(
+              width = 3,
+              shinydashboard::box(
                 title = "Pathway analysis", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Exploring metabolic pathway."),
-                shiny::actionButton("go_net", "Go to Pathway analysis", width = "100%", icon = shiny::icon("code-branch"))
+                shiny::actionButton("go_net", "Go to Pathway analysis", width = "100%", icon = .ic("code-branch"))
               )
             )
           )
@@ -510,10 +506,20 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - PCA", "open_adv_pca"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_pca_generic_ui", "pca", title = "PCA")
+            )
+          )
+        ),
+
+        # ---------------- 3-B2. OPLS-DA tab ----------------
+        shinydashboard::tabItem(
+          tabName = "analysis_oplsda",
+          shiny::fluidRow(
+            shinydashboard::box(
+              title = .boxTitleWithAdv("Step 3: Analysis - OPLS-DA", "open_adv_oplsda"),
+              width = 12, status = "primary", solidHeader = TRUE,
+              maybe_ui("mod_oplsda_generic_ui", "opls", title = "OPLS-DA")
             )
           )
         ),
@@ -524,9 +530,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - Feature", "open_adv_feat"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_feature_generic_ui", "feat", title = "Feature")
             )
           )
@@ -538,9 +542,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - Heatmap", "open_adv_hm"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_heatmap_ui", "hm", title = "Heatmap")
             )
           )
@@ -552,9 +554,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - Correlation", "open_adv_cor"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_plot_cor_ui", "cor")
             )
           )
@@ -566,9 +566,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - Volcano", "open_adv_volcano"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_volcano_ui", "volc", title = "Volcano")
             )
           )
@@ -580,10 +578,20 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - Enrichment", "open_adv_enrich"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_lipid_enrich_ui", "enrich", title = "Enrichment")
+            )
+          )
+        ),
+
+        # ---------------- 3-F3. Decoupled chains tab (NEW) ----------------
+       shinydashboard::tabItem(
+          tabName = "analysis_decoupled",
+          shiny::fluidRow(
+            shinydashboard::box(
+              title = .boxTitleWithAdv("Step 3: Analysis - Decoupled chains", "open_adv_decoupled"),
+              width = 12, status = "primary", solidHeader = TRUE,
+              maybe_ui("mod_decoupled_chains_ui", "dc", title = "Decoupled chains")
             )
           )
         ),
@@ -594,9 +602,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = .boxTitleWithAdv("Step 3: Analysis - Pathway analysis", "open_adv_net"),
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_cyto_ui", "net")
             )
           )
@@ -617,22 +623,18 @@ run_mslipidmapper_app <- function(
               width = 3,
               shinydashboard::box(
                 title = "Ontology builder",
-                width = 12,
-                status = "primary",
-                solidHeader = TRUE,
-                shiny::p("Generate lipid ontology  (lipid name ??? subclass)."),
-                shiny::actionButton("go_util_ontology", "Go to Ontology builder", width = "100%", icon = shiny::icon("table"))
+                width = 12, status = "primary", solidHeader = TRUE,
+                shiny::p("Generate lipid ontology (lipid name -> subclass)."),
+                shiny::actionButton("go_util_ontology", "Go to Ontology builder", width = "100%", icon = .ic("table"))
               )
             ),
             shiny::column(
               width = 3,
               shinydashboard::box(
                 title = "Pathway editor",
-                width = 12,
-                status = "primary",
-                solidHeader = TRUE,
+                width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Edit Pathway map file (.cyjs export)."),
-                shiny::actionButton("go_util_pathway", "Go to Pathway editor", width = "100%", icon = shiny::icon("code-branch"))
+                shiny::actionButton("go_util_pathway", "Go to Pathway editor", width = "100%", icon = .ic("code-branch"))
               )
             )
           )
@@ -644,9 +646,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = "Step 4: Utility - Ontology builder",
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_utility_ontology_builder_ui", "util_ont", title = "Ontology builder")
             )
           )
@@ -658,9 +658,7 @@ run_mslipidmapper_app <- function(
           shiny::fluidRow(
             shinydashboard::box(
               title = "Step 4: Utility - Pathway editor",
-              width = 12,
-              status = "primary",
-              solidHeader = TRUE,
+              width = 12, status = "primary", solidHeader = TRUE,
               maybe_ui("mod_utility_pathway_editor_ui", "util_path", title = "Pathway editor")
             )
           )
@@ -717,13 +715,15 @@ run_mslipidmapper_app <- function(
     })
 
     # ---- Navigation buttons (hub cards) ----------------------------------
-    shiny::observeEvent(input$go_pca,           { shinydashboard::updateTabItems(session, "tabs", "analysis_pca") })
-    shiny::observeEvent(input$go_lipid_feat,    { shinydashboard::updateTabItems(session, "tabs", "analysis_lipid_feat") })
-    shiny::observeEvent(input$go_hm,            { shinydashboard::updateTabItems(session, "tabs", "analysis_heatmap") })
-    shiny::observeEvent(input$go_cor,           { shinydashboard::updateTabItems(session, "tabs", "analysis_cor") })
-    shiny::observeEvent(input$go_volcano,       { shinydashboard::updateTabItems(session, "tabs", "analysis_volcano") })
-    shiny::observeEvent(input$go_enrich,        { shinydashboard::updateTabItems(session, "tabs", "analysis_enrich") })
-    shiny::observeEvent(input$go_net,           { shinydashboard::updateTabItems(session, "tabs", "analysis_network") })
+    shiny::observeEvent(input$go_pca,       { shinydashboard::updateTabItems(session, "tabs", "analysis_pca") })
+    shiny::observeEvent(input$go_oplsda,    { shinydashboard::updateTabItems(session, "tabs", "analysis_oplsda") })
+    shiny::observeEvent(input$go_lipid_feat,{ shinydashboard::updateTabItems(session, "tabs", "analysis_lipid_feat") })
+    shiny::observeEvent(input$go_hm,        { shinydashboard::updateTabItems(session, "tabs", "analysis_heatmap") })
+    shiny::observeEvent(input$go_cor,       { shinydashboard::updateTabItems(session, "tabs", "analysis_cor") })
+    shiny::observeEvent(input$go_volcano,   { shinydashboard::updateTabItems(session, "tabs", "analysis_volcano") })
+    shiny::observeEvent(input$go_enrich,    { shinydashboard::updateTabItems(session, "tabs", "analysis_enrich") })
+    shiny::observeEvent(input$go_decoupled, { shinydashboard::updateTabItems(session, "tabs", "analysis_decoupled") })
+    shiny::observeEvent(input$go_net,       { shinydashboard::updateTabItems(session, "tabs", "analysis_network") })
     shiny::observeEvent(input$go_util_pathway,  { shinydashboard::updateTabItems(session, "tabs", "utility_pathway") })
     shiny::observeEvent(input$go_util_ontology, { shinydashboard::updateTabItems(session, "tabs", "utility_ontology") })
 
@@ -777,11 +777,13 @@ run_mslipidmapper_app <- function(
     # ---- Per-panel Advanced buttons --------------------------------------
     adv_btn_ids <- c(
       "open_adv_pca",
+      "open_adv_oplsda",
       "open_adv_feat",
       "open_adv_hm",
       "open_adv_cor",
       "open_adv_volcano",
       "open_adv_enrich",
+      "open_adv_decoupled",
       "open_adv_net"
     )
     if (!is.null(feat) && is.list(feat) && is.function(feat$open_adv)) {
@@ -796,6 +798,16 @@ run_mslipidmapper_app <- function(
     maybe_server(
       "mod_pca_generic_server",
       "pca",
+      se_lipid     = se_lipid_for_plot,
+      se_tx        = se_tx_for_plot,
+      assay        = "abundance",
+      adv_reactive = settings_reactive
+    )
+
+    # ---- OPLS-DA module --------------------------------------------------
+    maybe_server(
+      "mod_oplsda_generic_server",
+      "opls",
       se_lipid     = se_lipid_for_plot,
       se_tx        = se_tx_for_plot,
       assay        = "abundance",
@@ -837,24 +849,15 @@ run_mslipidmapper_app <- function(
       rules_yaml_path = rules_yaml_path2
     )
 
-    # ---- Pathway analysis (Network) module -------------------------------
-    demo_elements <- shiny::reactive({
-      list(
-        nodes = list(
-          list(data = list(id = "A", label = "PC", shared_name = "PC")),
-          list(data = list(id = "B", label = "PE",        shared_name = "PE")),
-          list(data = list(id = "C", label = "PI", shared_name = "PI")),
-          list(data = list(id = "D", label = "TG",        shared_name = "TG"))
-        ),
-        edges = list(
-          list(data = list(id = "e1", source = "A", target = "B")),
-          list(data = list(id = "e2", source = "B", target = "C")),
-          list(data = list(id = "e3", source = "A", target = "D")),
-          list(data = list(id = "e4", source = "D", target = "C"))
-        )
-      )
-    })
+    # ---- Decoupled chains module (NEW) ----------------------------------
+    maybe_server(
+      "mod_decoupled_chains_server",
+      "dc",
+      se_lipid     = se_lipid_for_plot,
+      adv_reactive = settings_reactive
+    )
 
+    # ---- Pathway analysis (Network) module -------------------------------
     maybe_server(
       "mod_cyto_server",
       "net",

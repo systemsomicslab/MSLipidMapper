@@ -24,10 +24,14 @@ RUN R -e "options(repos=c(CRAN='https://cloud.r-project.org')); \
             'ggplot2','ggpmisc','ggrepel','DT', \
             'svglite','plumber','rhandsontable','readr', \
             'xml2','colourpicker','rlang','forcats','tidyr','dplyr','UpSetR', \
-            'shiny','shinydashboard','shinybusy' \
+            'shiny','shinydashboard','shinybusy', \
+            'tibble','RColorBrewer','circlize','matrixStats', \
+            'patchwork' \
           )); \
-          BiocManager::install(c('SummarizedExperiment','ComplexHeatmap','clusterProfiler','rgoslin'), \
-            ask=FALSE, update=FALSE)"
+          BiocManager::install(c( \
+            'SummarizedExperiment','ComplexHeatmap','clusterProfiler','rgoslin', \
+            'ropls' \
+          ), ask=FALSE, update=FALSE)"
 
 # ---- App copy ----
 WORKDIR /srv/app
