@@ -125,27 +125,30 @@ prepare_opls_data_from_se <- function(
 # 4) Modeling
 # ----------------------------
 fit_oplsda <- function(
-    X, y,
-    predI = 1,
-    orthoI = NA,
-    scaleC = "standard",
-    crossvalI = 7,
-    permI = 50,
-    seed = 123
+  X, y,
+  predI = 1,
+  orthoI = NA,
+  scaleC = "standard",
+  crossvalI = 7,
+  permI = 50,
+  seed = 123
 ) {
   set.seed(seed)
 
-  # NOTE: ropls::opls does NOT have plotL in recent Bioconductor builds.
-  # Use fig.pdfC / info.txtC instead.  :contentReference[oaicite:2]{index=2}
+  n <- nrow(X)
+  cv <- suppressWarnings(as.integer(crossvalI))
+  if (is.na(cv) || cv < 2) cv <- 2L
+  if (cv > n) cv <- n 
+
+  if (n < 2) stop("Too few samples for OPLS-DA (need >=2).")
+
   ropls::opls(
     X, y,
     predI = predI,
     orthoI = orthoI,
     scaleC = scaleC,
-    crossvalI = crossvalI,
-    permI = permI,
-    fig.pdfC = "none",
-    info.txtC = "none"
+    crossvalI = cv,
+    permI = permI
   )
 }
 
@@ -453,3 +456,4 @@ run_oplsda_objects_from_se <- function(
     heatmap = hm
   )
 }
+
