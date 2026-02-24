@@ -136,10 +136,13 @@ fit_oplsda <- function(
   set.seed(seed)
 
   n <- nrow(X)
+
+  # ---- safe crossvalI ----
   cv <- suppressWarnings(as.integer(crossvalI))
   if (is.na(cv) || cv < 2) cv <- 2L
-  if (cv > n) cv <- n 
+  if (cv > n) cv <- n  # n未満なら下げる
 
+  # サンプルが2未満だとCV自体が成立しないので止める
   if (n < 2) stop("Too few samples for OPLS-DA (need >=2).")
 
   ropls::opls(
@@ -456,4 +459,3 @@ run_oplsda_objects_from_se <- function(
     heatmap = hm
   )
 }
-
