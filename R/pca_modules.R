@@ -249,3 +249,175 @@ plot_pca_loading_from_se <- function(
     coord_flip()+
 	ggplot2::geom_hline(yintercept = 0, linetype = "dashed") 
 }
+
+# ---------------------------
+# Heatmap for top-|loading| variables (PCA)
+# - Select top variables by absolute loadings on PC_k
+# - Row-wise Z-score with clipping (z_lim)
+# - Top annotation: Group (colData$class)
+# - Left annotation: Loading (signed)
+# ---------------------------
+make_pca_loading_heatmap_from_se <- function(
+    se,
+    pc_index        = 1,
+    assay_name      = "abundance",
+    exclude_classes = NULL,
+    label_col       = NULL,
+    topn_heat       = 25,
+    z_lim           = 2,
+    colors          = NULL
+) {
+  # Run PCA (same preprocessing as run_pca_se)
+  res  <- run_pca_se(
+    se = se,
+    assay_name = assay_name,
+    exclude_classes = exclude_classes
+  )
+  rpca <- res$rpca
+  cd   <- res$sample_info
+
+  if (!"class" %in% colnames(cd)) {
+    stop("colData(se) must contain a column named 'class' (grouping is fixed).")
+  }
+
+  pc_index <- as.integer(pc_index)
+  if (pc_index < 1) stop("pc_index must be >= 1.")
+  if (pc_index > ncol(rpca$rotation)) stop("pc_index exceeds the number of PCA components.")
+
+  # Rebuild PCA matrix X (samples x variables) identically to run_pca_se()
+  mat <- SummarizedExperiment::assay(se, assay_name)  # features x samples
+  cd0 <- SummarizedExperiment::colData(se)
+
+  keep <- rep(TRUE, ncol(mat))
+  if (!is.null(exclude_classes) && "class" %in% colnames(cd0)) {
+    keep <- keep & !(cd0[["class"]] %in% exclude_classes)
+  }
+  mat <- mat[, keep, drop = FALSE]
+  cd0 <- cd0[keep, , drop = FALSE]
+
+  X <- t(mat)  # samples x variables
+
+  X <- apply(X, 2, function(v) {
+    v[!is.finite(v)] <- NA
+    if (all(is.na(v))) return(rep(0, length(v)))
+    m <- mean(v, na.rm = TRUE)
+    v[is.na(v)] <- m
+    v
+  })
+
+  vars <- apply(X, 2, stats::var, na.rm = TRUE)
+  X    <- X[, vars > 0, drop = FALSE]
+
+  # Align X columns to rpca rotation rownames (should match, but keep safe)
+  rot_names <- rownames(rpca$rotation)
+  X <- X[, rot_names, drop = FALSE]
+
+  y <- factor(as.character(cd[["class"]]))
+
+  # ---- colors (named vector: class -> hex) ----
+  .norm_hex <- function(x) {
+    if (is.null(x) || !nzchar(x)) return(NA_character_)
+    x <- trimws(as.character(x))
+    if (!startsWith(x, "#")) x <- paste0("#", x)
+    if (!grepl("^#([A-Fa-f0-9]{6})$", x)) return(NA_character_)
+    toupper(x)
+  }
+  .make_default_palette <- function(levels_vec) {
+    lev <- as.character(levels_vec)
+    cols <- grDevices::hcl.colors(length(lev), palette = "Dark 3")
+    stats::setNames(cols, lev)
+  }
+  .align_colors <- function(levels_vec, colors_in = NULL) {
+    lev <- as.character(levels_vec)
+    cols_def <- .make_default_palette(lev)
+    if (is.null(colors_in) || !length(colors_in) || is.null(names(colors_in))) return(cols_def)
+
+    cols_in <- stats::setNames(vapply(colors_in, .norm_hex, character(1)), names(colors_in))
+    cols_in <- cols_in[is.finite(match(names(cols_in), names(cols_def)))]
+    cols_in <- cols_in[!is.na(cols_in)]
+
+    cols <- cols_def
+    hit  <- intersect(names(cols_in), names(cols))
+    if (length(hit)) cols[hit] <- cols_in[hit]
+    cols
+  }
+  cols <- .align_colors(levels(y), colors)
+
+  # ---- select top variables by abs(loadings) ----
+  loading <- rpca$rotation[, pc_index]
+  loading <- loading[is.finite(loading)]
+  if (!length(loading)) stop("No finite loadings available.")
+
+  topn_heat <- max(5L, as.integer(topn_heat))
+  ord <- order(abs(loading), decreasing = TRUE)
+  sel_ids <- names(loading)[head(ord, topn_heat)]
+
+  # Row labels (optional mapping)
+  sel_labels <- get_feature_labels_from_se(se = se, feature_ids = sel_ids, label_col = label_col)
+  sel_labels <- make.unique(as.character(sel_labels))
+
+  # ---- heatmap matrix: features x samples ----
+  mat2 <- t(X[, sel_ids, drop = FALSE])
+  rownames(mat2) <- sel_labels
+
+  # Row-wise Z-score + clip
+  row_z <- function(m) {
+    m2 <- m - rowMeans(m, na.rm = TRUE)
+    s  <- matrixStats::rowSds(m2, na.rm = TRUE)
+    s[s == 0 | !is.finite(s)] <- 1
+    m2 / s
+  }
+  mat_z <- row_z(mat2)
+
+  z_lim <- as.numeric(z_lim)
+  if (!is.finite(z_lim) || z_lim <= 0) z_lim <- 2
+  mat_z[mat_z >  z_lim] <-  z_lim
+  mat_z[mat_z < -z_lim] <- -z_lim
+
+  # Loading annotation (signed)
+  load_vec <- loading[sel_ids]
+  names(load_vec) <- sel_labels
+
+  load_min <- sprintf("%.4f", min(load_vec, na.rm = TRUE))
+  load_max <- sprintf("%.4f", max(load_vec, na.rm = TRUE))
+
+  maxabs <- max(abs(load_vec), na.rm = TRUE)
+  if (!is.finite(maxabs) || maxabs == 0) maxabs <- 1
+  col_load <- circlize::colorRamp2(c(-maxabs, 0, maxabs), c("blue4", "white", "#c30010"))
+
+  ha_left <- ComplexHeatmap::rowAnnotation(
+    Loading = ComplexHeatmap::anno_simple(load_vec, col = col_load, border = TRUE),
+    width = grid::unit(6, "mm")
+  )
+
+  ha_top <- ComplexHeatmap::HeatmapAnnotation(
+    Group = y,
+    col = list(Group = cols),
+    annotation_name_side = "left",
+    annotation_legend_param = list(title = "Group")
+  )
+
+  col_z <- circlize::colorRamp2(c(-z_lim, 0, z_lim), c("blue4", "#f7f7f7", "#c30010"))
+
+  ht <- ComplexHeatmap::Heatmap(
+    mat_z,
+    name = "Z",
+    col = col_z,
+    rect_gp = grid::gpar(col = "gray45", lwd = 0.5),
+    cluster_rows = FALSE,
+    cluster_columns = TRUE,
+    show_row_names = TRUE,
+    show_column_names = FALSE,
+    top_annotation = ha_top,
+    left_annotation = ha_left,
+    heatmap_legend_param = list(border = TRUE)
+  )
+
+  list(
+    ht = ht,
+    loading_min = load_min,
+    loading_max = load_max,
+    selected_feature_ids = sel_ids,
+    selected_labels = sel_labels
+  )
+}
