@@ -249,14 +249,6 @@ plot_pca_loading_from_se <- function(
     coord_flip()+
 	ggplot2::geom_hline(yintercept = 0, linetype = "dashed") 
 }
-
-# ---------------------------
-# Heatmap for top-|loading| variables (PCA)
-# - Select top variables by absolute loadings on PC_k
-# - Row-wise Z-score with clipping (z_lim)
-# - Top annotation: Group (colData$class)
-# - Left annotation: Loading (signed)
-# ---------------------------
 make_pca_loading_heatmap_from_se <- function(
     se,
     pc_index        = 1,
@@ -267,7 +259,6 @@ make_pca_loading_heatmap_from_se <- function(
     z_lim           = 2,
     colors          = NULL
 ) {
-  # Run PCA (same preprocessing as run_pca_se)
   res  <- run_pca_se(
     se = se,
     assay_name = assay_name,
@@ -284,8 +275,7 @@ make_pca_loading_heatmap_from_se <- function(
   if (pc_index < 1) stop("pc_index must be >= 1.")
   if (pc_index > ncol(rpca$rotation)) stop("pc_index exceeds the number of PCA components.")
 
-  # Rebuild PCA matrix X (samples x variables) identically to run_pca_se()
-  mat <- SummarizedExperiment::assay(se, assay_name)  # features x samples
+  mat <- SummarizedExperiment::assay(se, assay_name)
   cd0 <- SummarizedExperiment::colData(se)
 
   keep <- rep(TRUE, ncol(mat))
@@ -295,7 +285,7 @@ make_pca_loading_heatmap_from_se <- function(
   mat <- mat[, keep, drop = FALSE]
   cd0 <- cd0[keep, , drop = FALSE]
 
-  X <- t(mat)  # samples x variables
+  X <- t(mat)
 
   X <- apply(X, 2, function(v) {
     v[!is.finite(v)] <- NA
@@ -308,13 +298,11 @@ make_pca_loading_heatmap_from_se <- function(
   vars <- apply(X, 2, stats::var, na.rm = TRUE)
   X    <- X[, vars > 0, drop = FALSE]
 
-  # Align X columns to rpca rotation rownames (should match, but keep safe)
   rot_names <- rownames(rpca$rotation)
   X <- X[, rot_names, drop = FALSE]
 
   y <- factor(as.character(cd[["class"]]))
 
-  # ---- colors (named vector: class -> hex) ----
   .norm_hex <- function(x) {
     if (is.null(x) || !nzchar(x)) return(NA_character_)
     x <- trimws(as.character(x))
@@ -343,7 +331,6 @@ make_pca_loading_heatmap_from_se <- function(
   }
   cols <- .align_colors(levels(y), colors)
 
-  # ---- select top variables by abs(loadings) ----
   loading <- rpca$rotation[, pc_index]
   loading <- loading[is.finite(loading)]
   if (!length(loading)) stop("No finite loadings available.")
@@ -352,15 +339,12 @@ make_pca_loading_heatmap_from_se <- function(
   ord <- order(abs(loading), decreasing = TRUE)
   sel_ids <- names(loading)[head(ord, topn_heat)]
 
-  # Row labels (optional mapping)
   sel_labels <- get_feature_labels_from_se(se = se, feature_ids = sel_ids, label_col = label_col)
   sel_labels <- make.unique(as.character(sel_labels))
 
-  # ---- heatmap matrix: features x samples ----
   mat2 <- t(X[, sel_ids, drop = FALSE])
   rownames(mat2) <- sel_labels
 
-  # Row-wise Z-score + clip
   row_z <- function(m) {
     m2 <- m - rowMeans(m, na.rm = TRUE)
     s  <- matrixStats::rowSds(m2, na.rm = TRUE)
@@ -374,7 +358,6 @@ make_pca_loading_heatmap_from_se <- function(
   mat_z[mat_z >  z_lim] <-  z_lim
   mat_z[mat_z < -z_lim] <- -z_lim
 
-  # Loading annotation (signed)
   load_vec <- loading[sel_ids]
   names(load_vec) <- sel_labels
 
@@ -387,14 +370,30 @@ make_pca_loading_heatmap_from_se <- function(
 
   ha_left <- ComplexHeatmap::rowAnnotation(
     Loading = ComplexHeatmap::anno_simple(load_vec, col = col_load, border = TRUE),
-    width = grid::unit(6, "mm")
+    width = grid::unit(8, "mm"),
+    annotation_legend_param = list(
+      Loading = list(
+        title = "Loading",
+        direction = "horizontal",
+        title_gp = grid::gpar(fontsize = 10),
+        labels_gp = grid::gpar(fontsize = 9)
+      )
+    )
   )
 
   ha_top <- ComplexHeatmap::HeatmapAnnotation(
     Group = y,
     col = list(Group = cols),
     annotation_name_side = "left",
-    annotation_legend_param = list(title = "Group")
+    annotation_legend_param = list(
+      Group = list(
+        title = "Group",
+        direction = "horizontal",
+        nrow = 1,
+        title_gp = grid::gpar(fontsize = 10),
+        labels_gp = grid::gpar(fontsize = 9)
+      )
+    )
   )
 
   col_z <- circlize::colorRamp2(c(-z_lim, 0, z_lim), c("blue4", "#f7f7f7", "#c30010"))
@@ -410,7 +409,12 @@ make_pca_loading_heatmap_from_se <- function(
     show_column_names = FALSE,
     top_annotation = ha_top,
     left_annotation = ha_left,
-    heatmap_legend_param = list(border = TRUE)
+    heatmap_legend_param = list(
+      border = TRUE,
+      direction = "horizontal",
+      title_gp = grid::gpar(fontsize = 10),
+      labels_gp = grid::gpar(fontsize = 9)
+    )
   )
 
   list(

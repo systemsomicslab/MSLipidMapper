@@ -299,7 +299,6 @@ mod_pca_generic_server <- function(id,
       # X: samples x variables
       X <- t(as.matrix(mat))
       storage.mode(X) <- "double"
-
       X[!is.finite(X)] <- NA
 
       # impute NA with column mean (all-NA col -> 0)
@@ -317,7 +316,6 @@ mod_pca_generic_server <- function(id,
       if (nrow(X) < 2) stop("Too few samples after filtering.")
 
       rpca <- stats::prcomp(X, center = center, scale. = scale.)
-
       var_pct <- (rpca$sdev^2) / sum(rpca$sdev^2) * 100
 
       list(X = X, cd = cd, rpca = rpca, var_pct = var_pct)
@@ -336,7 +334,6 @@ mod_pca_generic_server <- function(id,
         stringsAsFactors = FALSE
       )
 
-      # factor to keep palette order
       df$class <- factor(df$class, levels = names(cols))
 
       xLabel <- paste0("PC", pc_x, ": ", round(var_pct[pc_x], 2), "%")
@@ -356,7 +353,8 @@ mod_pca_generic_server <- function(id,
       if (pc_index > ncol(rpca$rotation)) stop("pc_index exceeds available PCs.")
 
       loading_all <- rpca$rotation[, pc_index]
-      # ensure aligned to X columns
+
+      # ensure aligned to X columns (and keep X order)
       loading_all <- loading_all[match(X_colnames, names(loading_all))]
       names(loading_all) <- X_colnames
 
@@ -369,12 +367,12 @@ mod_pca_generic_server <- function(id,
         stringsAsFactors = FALSE
       )
 
-      # match the prior loading-plot behavior:
-      # remove duplicated labels BEFORE selecting (keeps first occurrence in original order)
+      # de-duplication by label (same logic for barplot + heatmap)
       df <- df[!duplicated(df$label), , drop = FALSE]
 
       # remove non-finite
       df <- df[is.finite(df$loading), , drop = FALSE]
+      if (!nrow(df)) stop("No finite loadings after filtering/dedup.")
 
       df
     }
@@ -418,7 +416,6 @@ mod_pca_generic_server <- function(id,
     }
 
     .select_ids_for_heatmap <- function(df_loading, top_n_each_bar, topn_heat_total) {
-      # guarantee heatmap includes at least the barplot variables
       topn_heat_total <- max(5L, as.integer(topn_heat_total))
       top_n_each_bar  <- max(1L, as.integer(top_n_each_bar))
       topn_heat_total <- max(topn_heat_total, 2L * top_n_each_bar)
@@ -449,14 +446,18 @@ mod_pca_generic_server <- function(id,
       sel_ids <- intersect(sel_ids, colnames(X))
       if (length(sel_ids) < 2) stop("Too few variables selected for heatmap.")
 
-      # labels + loadings (keep order of sel_ids)
+      # keep order of sel_ids (bar vars included first)
       df_sel <- df_loading[match(sel_ids, df_loading$feature_id), , drop = FALSE]
+      ok <- !is.na(df_sel$feature_id) & is.finite(df_sel$loading)
+      df_sel <- df_sel[ok, , drop = FALSE]
+      if (!nrow(df_sel)) stop("Selected heatmap variables could not be matched to loading table.")
+
       sel_labels <- make.unique(as.character(df_sel$label))
       load_vec   <- as.numeric(df_sel$loading)
       names(load_vec) <- sel_labels
 
       # heatmap matrix: features x samples
-      mat2 <- t(X[, sel_ids, drop = FALSE])
+      mat2 <- t(X[, df_sel$feature_id, drop = FALSE])
       rownames(mat2) <- sel_labels
 
       # row-wise Z + clip
@@ -485,17 +486,31 @@ mod_pca_generic_server <- function(id,
         col_load <- circlize::colorRamp2(c(-maxabs, 0, maxabs), c("blue4", "white", "#c30010"))
       }
 
-      ha_left <- ComplexHeatmap::rowAnnotation(
-        Loading = ComplexHeatmap::anno_simple(load_vec, col = col_load, border = TRUE),
-        width = grid::unit(10, "mm")
-      )
+ha_left <- ComplexHeatmap::rowAnnotation(
+  Loading = ComplexHeatmap::anno_simple(load_vec, col = col_load, border = TRUE),
+  width = grid::unit(10, "mm"),
+  annotation_legend_param = list(
+    title = "Loading",
+    direction = "horizontal",
+    title_gp  = grid::gpar(fontsize = 10),
+    labels_gp = grid::gpar(fontsize = 9)
+  )
+)
 
-      ha_top <- ComplexHeatmap::HeatmapAnnotation(
-        Group = y,
-        col = list(Group = cols),
-        annotation_name_side = "left",
-        annotation_legend_param = list(title = "Group")
-      )
+ha_top <- ComplexHeatmap::HeatmapAnnotation(
+  Group = y,
+  col = list(Group = cols),
+  annotation_name_side = "left",
+  annotation_legend_param = list(
+    Group = list(
+      title = "Group",
+      direction = "horizontal",
+      nrow = 1,
+      title_gp  = grid::gpar(fontsize = 10),
+      labels_gp = grid::gpar(fontsize = 9)
+    )
+  )
+)
 
       col_z <- circlize::colorRamp2(c(-z_lim, 0, z_lim), c("blue4", "#f7f7f7", "#c30010"))
 
@@ -508,19 +523,39 @@ mod_pca_generic_server <- function(id,
         cluster_columns = TRUE,
         show_row_names = TRUE,
         show_column_names = FALSE,
+        row_names_gp = grid::gpar(fontsize = 9),
         top_annotation = ha_top,
         left_annotation = ha_left,
-        heatmap_legend_param = list(border = TRUE)
+        heatmap_legend_param = list(
+          border = TRUE,
+          direction = "horizontal",
+          title_gp = grid::gpar(fontsize = 10),
+          labels_gp = grid::gpar(fontsize = 9)
+        )
       )
 
       list(
         ht = ht,
         loading_min = sprintf("%.4f", min(load_vec, na.rm = TRUE)),
         loading_max = sprintf("%.4f", max(load_vec, na.rm = TRUE)),
-        selected_feature_ids = sel_ids,
+        selected_feature_ids = df_sel$feature_id,
         selected_labels = sel_labels,
         selected_loadings = load_vec,
         pc_index = pc_index
+      )
+    }
+
+    # ---------------------------
+    # Legend-safe draw (avoid overlap)
+    # ---------------------------
+    .draw_heatmap_safe <- function(ht) {
+      grid::grid.newpage()
+      ComplexHeatmap::draw(
+        ht,
+        heatmap_legend_side = "bottom",
+        annotation_legend_side = "bottom",
+        merge_legends = TRUE,
+        padding = grid::unit(c(3, 3, 3, 3), "mm")
       )
     }
 
@@ -620,7 +655,7 @@ mod_pca_generic_server <- function(id,
       pc_load <- max(1L, as.integer(input$pc_loading %||% 1))
       top_n   <- max(1L, as.integer(input$top_n_each %||% 10))
 
-      top_h <- max(5L, as.integer(input$topn_heat %||% 25))
+      top_h <- max(5L, as.integer(input$topn_heat %||% 20))
 
       z_lim <- as.numeric(input$z_lim %||% 2)
       if (!is.finite(z_lim) || z_lim <= 0) z_lim <- 2
@@ -630,7 +665,6 @@ mod_pca_generic_server <- function(id,
       withProgress(message = "Running PCA ...", value = 0, {
         incProgress(0.2)
 
-        # Prepare PCA (single run)
         prep <- tryCatch({
           .prep_pca(se = se, assay_name = assay, exclude_classes = c("Blank", "QC"))
         }, error = function(e) e)
@@ -645,13 +679,11 @@ mod_pca_generic_server <- function(id,
         rpca <- prep$rpca
         varp <- prep$var_pct
 
-        # Palette (based on filtered samples)
-        pal <- .palette_from_adv(cd2[["class"]], adv)
+        pal  <- .palette_from_adv(cd2[["class"]], adv)
         cols <- pal$colors
 
         incProgress(0.25)
 
-        # Scores plot
         p_scores <- tryCatch({
           .plot_scores(rpca = rpca, var_pct = varp, cd = cd2, cols = cols,
                        pc_x = pc_x, pc_y = pc_y, point_size = pt)
@@ -664,11 +696,10 @@ mod_pca_generic_server <- function(id,
 
         incProgress(0.25)
 
-        # Loadings plot (build table once)
         df_loading <- tryCatch({
           .build_loading_table(
             rpca = rpca,
-            se = se,                 # use original se for rowData labels
+            se = se,                 # original se for rowData labels
             X_colnames = colnames(X),
             pc_index = pc_load,
             label_col = NULL
@@ -691,7 +722,6 @@ mod_pca_generic_server <- function(id,
 
         incProgress(0.2)
 
-        # Heatmap (GUARANTEED consistent with loadings plot selection logic)
         hm <- tryCatch({
           .make_loading_heatmap(
             X = X,
@@ -743,8 +773,7 @@ mod_pca_generic_server <- function(id,
       req(res)
 
       hm <- res$heatmap
-      grid::grid.newpage()
-      ComplexHeatmap::draw(hm$ht)
+      .draw_heatmap_safe(hm$ht)
 
       if (!is.null(hm$loading_min) && !is.null(hm$loading_max)) {
         try({
@@ -799,7 +828,7 @@ mod_pca_generic_server <- function(id,
         stem <- paste0(
           "pca_heatmap_", current_dataset_label(),
           "_PC", input$pc_loading %||% 1,
-          "_Top", input$topn_heat %||% 25
+          "_Top", input$topn_heat %||% 20
         )
         paste0(.safe_file_stem(stem), ".pdf")
       },
@@ -809,7 +838,14 @@ mod_pca_generic_server <- function(id,
         hm <- res$heatmap
         grDevices::pdf(file, width = 10, height = 8, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
-        ComplexHeatmap::draw(hm$ht)
+        # legend-safe draw for PDF too
+        ComplexHeatmap::draw(
+          hm$ht,
+          heatmap_legend_side = "bottom",
+          annotation_legend_side = "bottom",
+          merge_legends = TRUE,
+          padding = grid::unit(c(3, 3, 3, 3), "mm")
+        )
       }
     )
 
