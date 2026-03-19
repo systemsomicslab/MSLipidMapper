@@ -9,16 +9,16 @@
 # Handlers:
 # - cy_init
 # - cy_fit
-# - cy_resize                 (NEW; safe for mod_cyto.R)
+# - cy_resize
 # - cy_set_node_images
 # - cy_loading
-# - cy_set_node_borders       (border-color changes; existing)
-# - cy_set_node_borderstyle   (NEW; double border highlight; no color change)
-# - cy_set_node_meta          (NEW; set node.data(enrich_html) etc.)
+# - cy_set_node_borders
+# - cy_set_node_borderstyle
+# - cy_set_node_meta
 # - cy_delete_selected
 # - cy_push_cyjs
-# - cy_export_pdf
-# - cy_export_pdf_with_popups
+# - cy_export_pdf                 (vector PDF via cytoscape-pdf-export)
+# - cy_export_pdf_with_popups     (bitmap PDF via html2canvas + jsPDF)
 
 suppressPackageStartupMessages({
   library(shiny)
@@ -26,10 +26,11 @@ suppressPackageStartupMessages({
 
 cyto_js_deps <- function(container_id_css) {
   shiny::tagList(
-    shiny::tags$script(src = "https://unpkg.com/cytoscape@3.26.0/dist/cytoscape.min.js"),
+    shiny::tags$script(src = "https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"),
+    shiny::tags$script(src = "vendor/cytoscape-pdf-export.js"),
     shiny::tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"),
     shiny::tags$script(src = "https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"),
-    
+
     shiny::tags$style(shiny::HTML(sprintf("
       #%s { position: relative; }
 
@@ -90,17 +91,41 @@ cyto_js_deps <- function(container_id_css) {
       .cy-popup-img-wrap{ max-height:360px; overflow:auto; }
       .cy-popup-img{ width:100%%; height:auto; display:block; }
 
-      /* Enrichment HTML helpers (optional) */
       .cy-enrich{ font-size:12px; line-height:1.35; }
       .cy-enrich hr{ margin:8px 0; }
       .cy-enrich .muted{ opacity:.75; font-size:11px; }
       .cy-enrich .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:11px; }
     ", container_id_css))),
-    
+
     shiny::tags$script(shiny::HTML('
 (function(){
   if (!window.__cy_instances) window.__cy_instances = {};
   if (!window.__cy_state) window.__cy_state = {};
+
+  // ---- register cytoscape-pdf-export once ---------------------------------
+  (function(){
+    try{
+      if (window.__cy_pdf_export_registered) return;
+      if (!window.cytoscape) return;
+
+      const plugin =
+        window.cytoscapePdfExport ||
+        window.cytoscapePDFExport ||
+        window.cytoscapePdf ||
+        window.cytoscape_pdf_export ||
+        null;
+
+      if (plugin){
+        window.cytoscape.use(plugin);
+        window.__cy_pdf_export_registered = true;
+        console.log("[cyto] cytoscape-pdf-export registered");
+      } else {
+        console.warn("[cyto] cytoscape-pdf-export plugin global not found.");
+      }
+    } catch(e){
+      console.error("[cyto] Failed to register cytoscape-pdf-export:", e);
+    }
+  })();
 
   function normalizeStyle(arr){
     if (!Array.isArray(arr)) return arr;
@@ -116,17 +141,27 @@ cyto_js_deps <- function(container_id_css) {
           "border-width": "data(BorderWidth)",
           "border-color": "data(Color)",
           "border-style": "data(borderstyle)",
-          "label": "data(label)", "background-color": "white", "shape": "rectangle",
+          "label": "data(label)",
+          "background-color": "white",
+          "shape": "rectangle",
           "background-image": "data(path)",
           "background-image-crossorigin": "anonymous",
           "background-fit": "cover cover",
-          "height": "data(Height)", "width": "data(Width)",
-          "font-size": "data(Label_size)", "text-valign": "top", "text-halign": "center", "text-margin-y": 22
+          "height": "data(Height)",
+          "width": "data(Width)",
+          "font-size": "data(Label_size)",
+          "text-valign": "top",
+          "text-halign": "center",
+          "text-margin-y": 22
       }},
       { selector: "node:selected", style: { "border-width": 3 } },
       { selector: "edge", style: {
-          "width": 2, "line-color": "#888", "curve-style": "bezier",
-          "target-arrow-shape": "triangle", "target-arrow-color": "#888", "arrow-scale": 1.5
+          "width": 2,
+          "line-color": "#888",
+          "curve-style": "bezier",
+          "target-arrow-shape": "triangle",
+          "target-arrow-color": "#888",
+          "arrow-scale": 1.5
       } }
     ];
   }
@@ -143,8 +178,16 @@ cyto_js_deps <- function(container_id_css) {
     }
     return ov;
   }
-  function showLoading(container_id){ const ov = overlayEl(container_id); if (ov) ov.classList.add("show"); }
-  function hideLoading(container_id){ const ov = overlayEl(container_id); if (ov) ov.classList.remove("show"); }
+
+  function showLoading(container_id){
+    const ov = overlayEl(container_id);
+    if (ov) ov.classList.add("show");
+  }
+
+  function hideLoading(container_id){
+    const ov = overlayEl(container_id);
+    if (ov) ov.classList.remove("show");
+  }
 
   function withOverlayHidden(container_id, fn){
     const ov = overlayEl(container_id);
@@ -152,8 +195,9 @@ cyto_js_deps <- function(container_id_css) {
     if (ov) ov.classList.remove("show");
 
     let ret;
-    try { ret = fn(); }
-    catch(e){
+    try {
+      ret = fn();
+    } catch(e){
       if (ov && wasShown) ov.classList.add("show");
       throw e;
     }
@@ -168,7 +212,6 @@ cyto_js_deps <- function(container_id_css) {
     }
   }
 
-  // ---- Deletion helpers ----------------------------------------------------
   function isTypingContext(){
     const ae = document.activeElement;
     if (!ae) return false;
@@ -220,8 +263,8 @@ cyto_js_deps <- function(container_id_css) {
     el.addEventListener("mousedown", function(){ try{ el.focus(); }catch(e){} });
 
     let lastInside = 0;
-    el.addEventListener("mouseenter", () => { lastInside = Date.now(); });
-    el.addEventListener("mousemove",  () => { lastInside = Date.now(); });
+    el.addEventListener("mouseenter", function(){ lastInside = Date.now(); });
+    el.addEventListener("mousemove",  function(){ lastInside = Date.now(); });
 
     document.addEventListener("keydown", function(e){
       if (isTypingContext()) return;
@@ -237,12 +280,10 @@ cyto_js_deps <- function(container_id_css) {
 
       e.preventDefault();
       e.stopPropagation();
-
       deleteSelected(container_id, {fit_after:false});
     }, true);
   }
 
-  // ---- Core ----------------------------------------------------------------
   function ensureCy(payload){
     const id = payload.container_id;
     const el = document.getElementById(id);
@@ -253,15 +294,12 @@ cyto_js_deps <- function(container_id_css) {
     window.__cy_state[id].changed_input  = payload.changed_input  || null;
     window.__cy_state[id].allow_delete   = (payload.allow_delete !== false);
 
-    // IMPORTANT: never auto-show loading on cy_init / network updates
     hideLoading(id);
 
-    // remove popups
     el.querySelectorAll(".cy-popup").forEach(function(p){
       try{ p.remove(); }catch(e){}
     });
 
-    // reset old instance
     if (window.__cy_instances[id]) {
       try{ window.__cy_instances[id].destroy(); }catch(e){}
       delete window.__cy_instances[id];
@@ -281,7 +319,6 @@ cyto_js_deps <- function(container_id_css) {
 
     if (window.__cy_state[id].allow_delete) installDeleteHotkeys(id);
 
-    // Selection bridge -> Shiny input
     (function(){
       const inId = window.__cy_state[id] && window.__cy_state[id].selected_input;
       if (!inId || !window.Shiny) return;
@@ -309,19 +346,24 @@ cyto_js_deps <- function(container_id_css) {
       });
     })();
 
-    // Right-click popup (Plot / Heatmap / Enrichment)
     (function(){
       const containerEl = document.getElementById(id);
       if (!containerEl) return;
 
       if (!window.__cy_popup_z) window.__cy_popup_z = 20000;
-      function bringToFront(pop){ window.__cy_popup_z++; pop.style.zIndex = String(window.__cy_popup_z); }
+      function bringToFront(pop){
+        window.__cy_popup_z++;
+        pop.style.zIndex = String(window.__cy_popup_z);
+      }
 
       function stopAllEvents(pop){
         ["mousedown","click","dblclick","wheel","touchstart","touchmove","touchend","pointerdown"].forEach(function(evName){
           pop.addEventListener(evName, function(e){ e.stopPropagation(); });
         });
-        pop.addEventListener("mousedown", function(e){ bringToFront(pop); e.stopPropagation(); });
+        pop.addEventListener("mousedown", function(e){
+          bringToFront(pop);
+          e.stopPropagation();
+        });
       }
 
       cy.on("cxttap", "node,edge", function(evt){
@@ -329,7 +371,6 @@ cyto_js_deps <- function(container_id_css) {
         const st = window.__cy_state[id] || {};
         const allowDelete = !!st.allow_delete;
 
-        // Ctrl/Meta + rightclick: delete target immediately
         if (allowDelete && oe && (oe.ctrlKey || oe.metaKey)){
           if (oe.preventDefault) oe.preventDefault();
           evt.target.select();
@@ -343,14 +384,14 @@ cyto_js_deps <- function(container_id_css) {
         const node = evt.target;
         const pos  = node.renderedPosition();
 
-        const plotSrc  = node.data("path") || "";
-        const hmSrc    = node.data("heatmap_path") || node.data("hm_path") || "";
+        const plotSrc    = node.data("path") || "";
+        const hmSrc      = node.data("heatmap_path") || node.data("hm_path") || "";
         const enrichHtml = node.data("enrich_html") || "";
-        const hasPlot  = !!plotSrc;
-        const hasHm    = !!hmSrc;
-        const hasEn    = !!enrichHtml;
+        const hasPlot    = !!plotSrc;
+        const hasHm      = !!hmSrc;
+        const hasEn      = !!enrichHtml;
 
-        const label    = node.data("label") || node.id();
+        const label = node.data("label") || node.id();
 
         const tabsHtml =
           "<div class=\\"cy-popup-tabs\\">" +
@@ -359,7 +400,6 @@ cyto_js_deps <- function(container_id_css) {
             "<button type=\\"button\\" class=\\"cy-tab-btn cy-tab-en\\"" + (hasEn ? ">" : " disabled>") + "Enrichment</button>" +
           "</div>";
 
-        // two content areas: imageWrap + enrichWrap
         const imageWrapHtml = (
           (hasPlot || hasHm)
             ? ("<div class=\\"cy-popup-img-wrap cy-wrap-img\\">" +
@@ -386,8 +426,8 @@ cyto_js_deps <- function(container_id_css) {
 
         pop.style.width  = "380px";
         pop.style.height = "300px";
-        pop.style.left = (pos.x + 20) + "px";
-        pop.style.top  = (pos.y + 20) + "px";
+        pop.style.left   = (pos.x + 20) + "px";
+        pop.style.top    = (pos.y + 20) + "px";
 
         bringToFront(pop);
         containerEl.appendChild(pop);
@@ -401,24 +441,28 @@ cyto_js_deps <- function(container_id_css) {
           };
         }
 
-        const imgWrap  = pop.querySelector(".cy-wrap-img");
-        const enWrap   = pop.querySelector(".cy-wrap-en");
-        const imgEl    = pop.querySelector(".cy-popup-img");
-        const btnPlot  = pop.querySelector(".cy-tab-plot");
-        const btnHm    = pop.querySelector(".cy-tab-hm");
-        const btnEn    = pop.querySelector(".cy-tab-en");
+        const imgWrap = pop.querySelector(".cy-wrap-img");
+        const enWrap  = pop.querySelector(".cy-wrap-en");
+        const imgEl   = pop.querySelector(".cy-popup-img");
+        const btnPlot = pop.querySelector(".cy-tab-plot");
+        const btnHm   = pop.querySelector(".cy-tab-hm");
+        const btnEn   = pop.querySelector(".cy-tab-en");
 
         function setActive(btn){
-          [btnPlot, btnHm, btnEn].forEach(function(b){ if (b) b.classList.remove("active"); });
+          [btnPlot, btnHm, btnEn].forEach(function(b){
+            if (b) b.classList.remove("active");
+          });
           if (btn) btn.classList.add("active");
         }
+
         function showImg(){
           if (enWrap) enWrap.style.display = "none";
           if (imgWrap) imgWrap.style.display = "block";
         }
+
         function showEn(){
           if (imgWrap) imgWrap.style.display = "none";
-          if (enWrap)  enWrap.style.display = "block";
+          if (enWrap) enWrap.style.display = "block";
         }
 
         if (btnPlot){
@@ -430,6 +474,7 @@ cyto_js_deps <- function(container_id_css) {
             setActive(btnPlot);
           };
         }
+
         if (btnHm){
           btnHm.onclick = function(e){
             e.stopPropagation();
@@ -439,6 +484,7 @@ cyto_js_deps <- function(container_id_css) {
             setActive(btnHm);
           };
         }
+
         if (btnEn){
           btnEn.onclick = function(e){
             e.stopPropagation();
@@ -448,18 +494,19 @@ cyto_js_deps <- function(container_id_css) {
           };
         }
 
-        // draggable
         const headerEl = pop.querySelector(".cy-popup-header");
         if (headerEl){
-          let dragging=false, startX=0, startY=0, startLeft=0, startTop=0;
+          let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
           headerEl.addEventListener("mousedown", function(e){
             dragging = true;
             bringToFront(pop);
-            e.stopPropagation(); e.preventDefault();
+            e.stopPropagation();
+            e.preventDefault();
 
             const rect = pop.getBoundingClientRect();
             const contRect2 = containerEl.getBoundingClientRect();
-            startX = e.clientX; startY = e.clientY;
+            startX = e.clientX;
+            startY = e.clientY;
             startLeft = rect.left - contRect2.left;
             startTop  = rect.top  - contRect2.top;
 
@@ -470,11 +517,13 @@ cyto_js_deps <- function(container_id_css) {
               pop.style.left = (startLeft + dx) + "px";
               pop.style.top  = (startTop  + dy) + "px";
             }
+
             function onUp(){
-              dragging=false;
+              dragging = false;
               document.removeEventListener("mousemove", onMove);
               document.removeEventListener("mouseup", onUp);
             }
+
             document.addEventListener("mousemove", onMove);
             document.addEventListener("mouseup", onUp);
           });
@@ -482,7 +531,6 @@ cyto_js_deps <- function(container_id_css) {
       });
     })();
 
-    // resize/fit after render
     (function(){
       let tries = 0;
       const tick = function(){
@@ -500,7 +548,6 @@ cyto_js_deps <- function(container_id_css) {
     return cy;
   }
 
-  // ---- Border color handler (existing) --------------------------------------
   function isColorString(x){
     return (typeof x === "string") && x.length > 0;
   }
@@ -529,7 +576,6 @@ cyto_js_deps <- function(container_id_css) {
     });
   }
 
-  // ---- NEW: set node meta (enrich_html) -------------------------------------
   function applyNodeMeta(container_id, items, reset_ids){
     const cy = window.__cy_instances[container_id];
     if (!cy) return;
@@ -549,6 +595,7 @@ cyto_js_deps <- function(container_id_css) {
       if (!it || typeof it.id !== "string") return;
       const n = cy.getElementById(it.id);
       if (n.empty()) return;
+
       if (typeof it.enrich_html === "string" && it.enrich_html.length){
         n.data("enrich_html", it.enrich_html);
       } else {
@@ -557,7 +604,6 @@ cyto_js_deps <- function(container_id_css) {
     });
   }
 
-  // ---- NEW: double border highlight (no color change) ------------------------
   function applyNodeBorderStyle(container_id, items, reset_ids){
     const cy = window.__cy_instances[container_id];
     if (!cy) return;
@@ -566,8 +612,8 @@ cyto_js_deps <- function(container_id_css) {
       reset_ids.forEach(function(id){
         const n = cy.getElementById(id);
         if (!n.empty()){
-          try{ n.removeStyle("border-style"); }catch(e){ n.style("border-style",""); }
-          try{ n.removeStyle("border-width"); }catch(e){ n.style("border-width",""); }
+          try{ n.removeStyle("border-style"); }catch(e){ n.style("border-style", ""); }
+          try{ n.removeStyle("border-width"); }catch(e){ n.style("border-width", ""); }
         }
       });
     }
@@ -584,15 +630,32 @@ cyto_js_deps <- function(container_id_css) {
     });
   }
 
+  function triggerDownloadFromBlob(blob, filename){
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || "download.bin";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){
+      try{ document.body.removeChild(a); }catch(e){}
+      try{ URL.revokeObjectURL(url); }catch(e){}
+    }, 1000);
+  }
+
   function registerHandlers(){
-    Shiny.addCustomMessageHandler("cy_init", function(p){ ensureCy(p); });
+    Shiny.addCustomMessageHandler("cy_init", function(p){
+      ensureCy(p);
+    });
 
     Shiny.addCustomMessageHandler("cy_fit", function(p){
       const cy = window.__cy_instances[p.container_id];
-      if (cy){ cy.fit(); cy.center(); }
+      if (cy){
+        cy.fit();
+        cy.center();
+      }
     });
 
-    // NEW: safe resize handler
     Shiny.addCustomMessageHandler("cy_resize", function(p){
       const cy = window.__cy_instances[p.container_id];
       if (!cy) return;
@@ -615,7 +678,7 @@ cyto_js_deps <- function(container_id_css) {
         p.clear_ids.forEach(function(id){
           const n = cy.getElementById(id);
           if (!n.empty()){
-            n.style("background-image","none");
+            n.style("background-image", "none");
             n.data("path", null);
             n.data("heatmap_path", null);
             n.data("hm_path", null);
@@ -636,6 +699,7 @@ cyto_js_deps <- function(container_id_css) {
           n.data("heatmap_path", it.hm_url);
           n.data("hm_path", it.hm_url);
         }
+
         if (typeof it.borderWidthPx === "number"){
           n.style("border-width", String(it.borderWidthPx) + "px");
         }
@@ -693,66 +757,90 @@ cyto_js_deps <- function(container_id_css) {
       });
     });
 
+    // ---- vector PDF export --------------------------------------------------
     Shiny.addCustomMessageHandler("cy_export_pdf", function(p){
       try{
         if (!p || !p.container_id) return;
+
         const cy = window.__cy_instances[p.container_id];
-        if (!cy){ alert("Cytoscape instance not found."); return; }
+        if (!cy){
+          alert("Cytoscape instance not found.");
+          return;
+        }
 
-        if (!window.jspdf || !window.jspdf.jsPDF){ alert("jsPDF not loaded."); return; }
-        const jsPDF = window.jspdf.jsPDF;
+        if (typeof cy.pdf !== "function"){
+          alert("cy.pdf() is not available. Check whether vendor/cytoscape-pdf-export.js is loaded.");
+          return;
+        }
 
-        withOverlayHidden(p.container_id, function(){
-          const scale = (typeof p.scale === "number" && p.scale > 0) ? p.scale : 2;
-          const bg = p.bg || "white";
-          const dataUrl = cy.png({ full: true, scale: scale, bg: bg });
+        return withOverlayHidden(p.container_id, async function(){
+          const paperSize = String(p.format || "A4").toUpperCase();
 
-          const doc = new jsPDF({
-            orientation: (p.orientation === "p" || p.orientation === "portrait") ? "p" : "l",
-            unit: "pt",
-            format: p.format || "a4"
-          });
+          let orientation = "LANDSCAPE";
+          if (
+            p.orientation === "p" ||
+            p.orientation === "portrait" ||
+            p.orientation === "PORTRAIT"
+          ){
+            orientation = "PORTRAIT";
+          }
 
-          const pageW = doc.internal.pageSize.getWidth();
-          const pageH = doc.internal.pageSize.getHeight();
-
-          const img = new Image();
-          img.onload = function(){
-            const iw = img.width, ih = img.height;
-            const r = Math.min(pageW / iw, pageH / ih);
-            const w = iw * r, h = ih * r;
-            const x = (pageW - w) / 2;
-            const y = (pageH - h) / 2;
-            doc.addImage(dataUrl, "PNG", x, y, w, h);
-            doc.save(p.filename || "network.pdf");
+          const opts = {
+            full: true,
+            bg: p.bg || "white",
+            paperSize: paperSize,
+            orientation: orientation,
+            save: false,
+            fileName: p.filename || "network.pdf",
+            includeSvgLayers: false,
+            debug: false
           };
-          img.onerror = function(){ alert("Failed to load PNG from cy.png()."); };
-          img.src = dataUrl;
+
+          let blob = await cy.pdf(opts);
+
+          if (!blob) {
+            throw new Error("cy.pdf() returned no blob.");
+          }
+
+          triggerDownloadFromBlob(blob, p.filename || "network.pdf");
         });
 
       } catch(e){
         console.error(e);
-        alert("PDF export failed: " + (e && e.message ? e.message : String(e)));
+        alert("Vector PDF export failed: " + (e && e.message ? e.message : String(e)));
       }
     });
 
+    // ---- popup export remains bitmap ---------------------------------------
     Shiny.addCustomMessageHandler("cy_export_pdf_with_popups", function(p){
       try{
         if (!p || !p.container_id) return;
 
         const el = document.getElementById(p.container_id);
-        if (!el){ alert("Container not found."); return; }
+        if (!el){
+          alert("Container not found.");
+          return;
+        }
 
-        if (!window.html2canvas){ alert("html2canvas not loaded."); return; }
-        if (!window.jspdf || !window.jspdf.jsPDF){ alert("jsPDF not loaded."); return; }
+        if (!window.html2canvas){
+          alert("html2canvas not loaded.");
+          return;
+        }
+
+        if (!window.jspdf || !window.jspdf.jsPDF){
+          alert("jsPDF not loaded.");
+          return;
+        }
         const jsPDF = window.jspdf.jsPDF;
 
         return withOverlayHidden(p.container_id, async function(){
           const imgs = Array.from(el.querySelectorAll("img"));
-          await Promise.all(imgs.map(img => new Promise(res => {
-            if (img.complete) return res();
-            img.onload = img.onerror = () => res();
-          })));
+          await Promise.all(imgs.map(function(img){
+            return new Promise(function(res){
+              if (img.complete) return res();
+              img.onload = img.onerror = function(){ res(); };
+            });
+          }));
 
           const scale = (typeof p.scale === "number" && p.scale > 0) ? p.scale : 2;
 

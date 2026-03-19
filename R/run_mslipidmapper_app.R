@@ -48,7 +48,17 @@ run_mslipidmapper_app <- function(
     library(SummarizedExperiment)
     library(shinybusy)
   })
+  
+  app_root <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+  vendor_dir <- file.path(app_root, "www", "vendor")
 
+  if (dir.exists(vendor_dir)) {
+    shiny::addResourcePath("vendor", vendor_dir)
+    message("[INFO] Registered static resource path: /vendor -> ", vendor_dir)
+  } else {
+    warning("vendor directory not found: ", vendor_dir)
+  }
+  
   `%||%` <- function(a, b) {
     if (is.null(a) || (is.character(a) && length(a) == 0)) b else a
   }

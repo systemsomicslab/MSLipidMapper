@@ -453,7 +453,7 @@ plot_dot_se <- function(se, feature_id,
       size   = point_size,
       alpha  = point_alpha,
       shape  = 21,
-      colour = "black"   # ??????(??????)
+      colour = "black"  
     )
   
   if (!is.null(palette) && length(palette)) {
@@ -807,13 +807,17 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
 # ======================================================================
 # Theme
 # ======================================================================
-theme_lipidomics <- function(base_size = 12, x_angle = 0,
+theme_lipidomics <- function(base_size = 14, x_angle = 0,
                              axis_fontsize = base_size,
                              legend_fontsize = base_size,
                              title_fontsize = base_size + 2) {
-  ggplot2::theme_classic() +
+      ggprism::theme_prism(
+    base_fontface = "plain", 
+    base_line_size = 0.7, 
+    base_family = "Arial"
+  )+
     ggplot2::theme(
-      plot.title   = ggplot2::element_text(face = "bold", size = title_fontsize),
+      plot.title   = ggplot2::element_text(size = title_fontsize),
       axis.text.x  = ggplot2::element_text(
         angle = x_angle, size = axis_fontsize,
         vjust = ifelse(x_angle == 0, 0.5, 1),
@@ -822,6 +826,6 @@ theme_lipidomics <- function(base_size = 12, x_angle = 0,
       axis.text.y  = ggplot2::element_text(size = axis_fontsize),
       axis.title   = ggplot2::element_text(size = title_fontsize),
       legend.text  = ggplot2::element_text(size = legend_fontsize),
-      legend.title = ggplot2::element_text(size = legend_fontsize, face = "bold")
+      legend.title = ggplot2::element_text(size = legend_fontsize)
     )
 }

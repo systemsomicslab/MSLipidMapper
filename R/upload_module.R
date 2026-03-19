@@ -2,7 +2,8 @@
 # Upload & Edit module (navlistPanel + rhandsontable + class mapping + robust checks)
 # - Step 1: Upload lipidome data (MS-DIAL or Generic: wide + ontology)
 # - Step 2: Edit colData (sample_id, class, use) & subset by use -> analysis SE
-# - Step 3: Transcriptome CSV -> SummarizedExperiment (auto-align to Lipidomics sample IDs if possible)
+# - Step 3: Transcriptome CSV -> SummarizedExperiment
+# - Transcriptome is automatically re-synchronized when lipidomics sample/class selection changes
 # - Optional: Import class mapping (CSV/TSV) and overwrite colData$class by sample_id
 # - Summary shows only {samples, features} (prioritize the analysis SE if present)
 #
@@ -106,23 +107,25 @@ suppressPackageStartupMessages({
 # ============================================================
 LIPID_RULES_PATH <- getOption(
   "mslipidmapper.lipid_rules",
-  default = "./R/lipid_rules.yaml"  # Change this path if needed.
+  default = "./R/lipid_rules.yaml"
 )
 
 .add_acyl_chains_if_available <- function(se) {
   if (!exists("add_chain_list_to_se", mode = "function") ||
-      !exists("load_lipid_rules",     mode = "function")) {
+      !exists("load_lipid_rules", mode = "function")) {
     return(se)
   }
   if (is.null(LIPID_RULES_PATH) || !nzchar(LIPID_RULES_PATH) ||
       !file.exists(LIPID_RULES_PATH)) {
     return(se)
   }
+
   rules <- try(load_lipid_rules(LIPID_RULES_PATH), silent = TRUE)
   if (inherits(rules, "try-error") || is.null(rules)) {
     warning("Failed to load lipid rules from: ", LIPID_RULES_PATH)
     return(se)
   }
+
   out <- try(
     add_chain_list_to_se(
       se,
@@ -155,7 +158,7 @@ LIPID_RULES_PATH <- getOption(
   stopifnot(is.data.frame(assay_df), is.data.frame(feature_df))
 
   if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) stop("Please install 'SummarizedExperiment'.")
-  if (!requireNamespace("S4Vectors", quietly = TRUE))            stop("Please install 'S4Vectors'.")
+  if (!requireNamespace("S4Vectors", quietly = TRUE)) stop("Please install 'S4Vectors'.")
 
   if (is.null(sample_id_col) || !nzchar(sample_id_col) || !(sample_id_col %in% names(assay_df))) {
     stop("sample_id_col is invalid (not found in assay_df).")
@@ -171,7 +174,6 @@ LIPID_RULES_PATH <- getOption(
     stop("ontology_col is invalid (not found in feature_df).")
   }
 
-  # fixed: measurement columns
   exclude_cols <- c(sample_id_col, sample_class_col)
   exclude_cols <- exclude_cols[!is.null(exclude_cols) & nzchar(exclude_cols)]
   value_cols <- setdiff(names(assay_df), exclude_cols)
@@ -190,7 +192,6 @@ LIPID_RULES_PATH <- getOption(
     rep(NA_character_, length(sample_ids))
   }
 
-  # assay_df is samples x features (wide); convert to matrix features x samples
   assay_data <- assay_df[, value_cols, drop = FALSE]
   assay_mat_wide <- as.matrix(
     data.frame(
@@ -201,7 +202,9 @@ LIPID_RULES_PATH <- getOption(
   rownames(assay_mat_wide) <- sample_ids
   colnames(assay_mat_wide) <- value_cols
 
-  if (all(is.na(assay_mat_wide))) stop("All measurement values are NA after numeric conversion. Check your CSV.")
+  if (all(is.na(assay_mat_wide))) {
+    stop("All measurement values are NA after numeric conversion. Check your CSV.")
+  }
 
   assay_mat <- t(assay_mat_wide)
 
@@ -266,13 +269,14 @@ LIPID_RULES_PATH <- getOption(
     out$reasons <- c(out$reasons, sprintf("Header rows < %d.", header_rows))
     return(out)
   }
+
   true_colnames <- as.character(unlist(hdr[header_rows, ]))
   if (!any(nzchar(true_colnames))) {
     out$ok <- FALSE
     out$reasons <- c(out$reasons, "Header row appears empty (no column names detected).")
   }
 
-  required_cols <- c("Metabolite name","Average Rt(min)","Average Mz","Adduct type","Alignment ID")
+  required_cols <- c("Metabolite name", "Average Rt(min)", "Average Mz", "Adduct type", "Alignment ID")
   missing <- setdiff(required_cols, true_colnames)
   if (length(missing) > 0) {
     out$ok <- FALSE
@@ -298,6 +302,7 @@ LIPID_RULES_PATH <- getOption(
       }
     }
   }
+
   out
 }
 
@@ -344,7 +349,6 @@ mod_upload_ui <- function(id) {
           shiny::column(
             width = 9,
 
-            # ---------------- MS-DIAL ----------------
             shiny::conditionalPanel(
               condition = sprintf("input['%s'] == 'msdial'", ns("lipid_format")),
               shiny::fluidRow(
@@ -364,15 +368,15 @@ mod_upload_ui <- function(id) {
               )
             ),
 
-            # ---------------- Generic ----------------
             shiny::conditionalPanel(
               condition = sprintf("input['%s'] == 'generic'", ns("lipid_format")),
 
               shiny::div(
                 style = "margin-bottom:10px; padding:10px; border:1px solid #fde68a; background:#fffbeb; border-radius:10px;",
-                shiny::tags$b("Generic input requires an Ontology file (lipid name ??? Ontology). "),
-                shiny::span("If you do not have one, create it in Utility ??? Ontology builder."),
-                shiny::div(style = "margin-top:8px;",
+                shiny::tags$b("Generic input requires an Ontology file (lipid name -> Ontology). "),
+                shiny::span("If you do not have one, create it in Utility -> Ontology builder."),
+                shiny::div(
+                  style = "margin-top:8px;",
                   shiny::actionButton(
                     ns("go_ontology_builder"),
                     "Go to Ontology builder",
@@ -387,7 +391,7 @@ mod_upload_ui <- function(id) {
                   width = 6,
                   shinydashboard::box(
                     width = 12, status = "primary", solidHeader = TRUE,
-                    title = "Assay CSV (wide: samples × lipids)",
+                    title = "Assay CSV (wide: samples x lipids)",
                     shiny::fileInput(ns("generic_assay_file"), "Assay CSV", accept = ".csv"),
                     shiny::uiOutput(ns("generic_assay_col_ui")),
                     shiny::tags$hr(),
@@ -398,7 +402,7 @@ mod_upload_ui <- function(id) {
                   width = 6,
                   shinydashboard::box(
                     width = 12, status = "primary", solidHeader = TRUE,
-                    title = "Feature/Ontology CSV (lipid name ??? Ontology)",
+                    title = "Feature/Ontology CSV (lipid name -> Ontology)",
                     shiny::fileInput(ns("generic_feature_file"), "Feature/Ontology CSV", accept = ".csv"),
                     shiny::uiOutput(ns("generic_feature_col_ui")),
                     shiny::tags$hr(),
@@ -407,7 +411,8 @@ mod_upload_ui <- function(id) {
                 )
               ),
 
-              shiny::div(style = "margin-top: 10px;",
+              shiny::div(
+                style = "margin-top: 10px;",
                 shiny::actionButton(ns("build_generic"), "Submit (Generic)", class = "btn btn-primary")
               )
             )
@@ -448,7 +453,7 @@ mod_upload_ui <- function(id) {
                 style = "display:flex; justify-content:center; margin: 10px 0 14px 0; clear: both;",
                 shiny::actionButton(
                   ns("apply_edits"),
-                  "Apply edits & update analysis samples (use == TRUE) ???",
+                  "Apply edits & update analysis samples (use == TRUE)",
                   class = "btn-warning",
                   style = "min-width: 420px; white-space: normal;"
                 )
@@ -499,7 +504,9 @@ mod_upload_ui <- function(id) {
                     class = "btn-info"
                   ),
                   shiny::br(),
-                  shiny::helpText("Required columns: sample_id and class")
+                  shiny::helpText("Required columns: sample_id and class"),
+                  shiny::br(),
+                  shiny::verbatimTextOutput(ns("class_import_msg"))
                 ),
                 shiny::column(
                   width = 8,
@@ -602,15 +609,17 @@ mod_upload_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    se_full_r <- shiny::reactiveVal(NULL)
-    se_sel_r  <- shiny::reactiveVal(NULL)
-    se_tx_r   <- shiny::reactiveVal(NULL)
+    se_full_r   <- shiny::reactiveVal(NULL)
+    se_sel_r    <- shiny::reactiveVal(NULL)
+    se_tx_r     <- shiny::reactiveVal(NULL)
+    se_tx_raw_r <- shiny::reactiveVal(NULL)
 
     .update_selected_from_use <- function(se_full) {
       cd0 <- as.data.frame(SummarizedExperiment::colData(se_full))
       if (!"use" %in% colnames(cd0)) {
         return(se_full)
       }
+
       keep <- rownames(cd0)[which(cd0$use %in% TRUE)]
       if (length(keep) == 0L) {
         shiny::showNotification(
@@ -619,10 +628,53 @@ mod_upload_server <- function(id) {
         )
         return(se_full)
       }
+
       se_full[, keep, drop = FALSE]
     }
 
-    # ---- Generic CSV preview readers (for column-name dropdowns) ----------
+    .sync_tx_with_lipid <- function(se_tx_raw, se_lip, notify_no_overlap = FALSE) {
+      if (is.null(se_tx_raw)) return(NULL)
+      if (is.null(se_lip)) return(se_tx_raw)
+
+      tx_ids  <- colnames(SummarizedExperiment::assay(se_tx_raw, "abundance"))
+      lip_ids <- colnames(SummarizedExperiment::assay(se_lip, "abundance"))
+      keep    <- intersect(lip_ids, tx_ids)
+
+      if (length(keep) == 0L) {
+        if (isTRUE(notify_no_overlap)) {
+          shiny::showNotification(
+            "No overlapping samples between Lipidomics and Transcriptome after lipidomics update.",
+            type = "warning",
+            duration = 6
+          )
+        }
+        return(se_tx_raw[, 0, drop = FALSE])
+      }
+
+      keep_ordered <- lip_ids[lip_ids %in% keep]
+      se_tx_new <- se_tx_raw[, keep_ordered, drop = FALSE]
+
+      cd_tx <- as.data.frame(SummarizedExperiment::colData(se_tx_new))
+      if (!"sample_id" %in% names(cd_tx)) cd_tx$sample_id <- rownames(cd_tx)
+      cd_tx$sample_id <- as.character(cd_tx$sample_id)
+      rownames(cd_tx) <- cd_tx$sample_id
+      cd_tx <- cd_tx[keep_ordered, , drop = FALSE]
+
+      cd_lip <- as.data.frame(SummarizedExperiment::colData(se_lip))
+      if (!"sample_id" %in% names(cd_lip)) cd_lip$sample_id <- rownames(cd_lip)
+      cd_lip$sample_id <- as.character(cd_lip$sample_id)
+      rownames(cd_lip) <- cd_lip$sample_id
+      cd_lip <- cd_lip[keep_ordered, , drop = FALSE]
+
+      if (!"class" %in% names(cd_lip)) cd_lip$class <- NA_character_
+      cd_tx$class <- cd_lip$class
+
+      SummarizedExperiment::colData(se_tx_new) <-
+        S4Vectors::DataFrame(cd_tx, row.names = cd_tx$sample_id)
+
+      se_tx_new
+    }
+
     generic_assay_df <- shiny::reactive({
       req(input$generic_assay_file)
       df <- try(
@@ -655,13 +707,12 @@ mod_upload_server <- function(id) {
       df
     })
 
-    # ---- UI: assay column pickers (names) --------------------------------
     output$generic_assay_col_ui <- shiny::renderUI({
       df <- generic_assay_df()
       cols <- names(df)
 
       default_sample <- if ("sample_id" %in% cols) "sample_id" else cols[1]
-      default_class  <- if ("class" %in% cols) "class" else if (length(cols) >= 2) cols[2] else ""
+      default_class  <- if ("class" %in% cols) "class" else ""
 
       shiny::tagList(
         shiny::selectInput(
@@ -679,17 +730,23 @@ mod_upload_server <- function(id) {
       )
     })
 
-    # ---- UI: feature column pickers (names) ------------------------------
     output$generic_feature_col_ui <- shiny::renderUI({
       df <- generic_feature_df()
       cols <- names(df)
 
-      default_name <- if (any(tolower(cols) %in% c("lipid", "lipid_name", "metabolite", "metabolite name", "metabolite.name", "name"))) {
-        cols[which(tolower(cols) %in% c("lipid", "lipid_name", "metabolite", "metabolite name", "metabolite.name", "name"))[1]]
+      lower_cols <- tolower(cols)
+      default_name <- if (any(lower_cols %in% c("lipid", "lipid_name", "metabolite", "metabolite name", "metabolite.name", "name"))) {
+        cols[which(lower_cols %in% c("lipid", "lipid_name", "metabolite", "metabolite name", "metabolite.name", "name"))[1]]
       } else {
         cols[1]
       }
-      default_ont <- if ("Ontology" %in% cols) "Ontology" else if ("ontology" %in% cols) "ontology" else cols[min(2, length(cols))]
+      default_ont <- if ("Ontology" %in% cols) {
+        "Ontology"
+      } else if ("ontology" %in% cols) {
+        "ontology"
+      } else {
+        cols[min(2, length(cols))]
+      }
 
       shiny::tagList(
         shiny::selectInput(
@@ -707,7 +764,6 @@ mod_upload_server <- function(id) {
       )
     })
 
-    # ---- Build SE (MS-DIAL) ----------------------------------------------
     shiny::observeEvent(input$build, {
       req(input$file)
       if (!identical(input$lipid_format, "msdial")) return()
@@ -719,7 +775,8 @@ mod_upload_server <- function(id) {
         shiny::showModal(
           shiny::modalDialog(
             title = "File format error",
-            easyClose = TRUE, footer = shiny::modalButton("OK"),
+            easyClose = TRUE,
+            footer = shiny::modalButton("OK"),
             shiny::p("This file does not look like an MS-DIAL alignment table with the expected format."),
             shiny::hr(),
             shiny::p("Please check the file format.")
@@ -737,17 +794,20 @@ mod_upload_server <- function(id) {
         ),
         silent = TRUE
       )
+
       if (inherits(se, "try-error")) {
         shiny::showModal(
           shiny::modalDialog(
             title = "Failed to build SE",
-            easyClose = TRUE, footer = shiny::modalButton("OK"),
+            easyClose = TRUE,
+            footer = shiny::modalButton("OK"),
             shiny::p("An error occurred while parsing the file:"),
             shiny::code(as.character(se))
           )
         )
         return(invisible(NULL))
       }
+
       if (!methods::is(se, "SummarizedExperiment") ||
           !"abundance" %in% SummarizedExperiment::assayNames(se)) {
         shiny::showNotification("Invalid SummarizedExperiment structure.", type = "error")
@@ -756,7 +816,7 @@ mod_upload_server <- function(id) {
 
       cd <- as.data.frame(SummarizedExperiment::colData(se))
       if (!"sample_id" %in% names(cd)) cd$sample_id <- rownames(cd)
-      if (!"class"     %in% names(cd)) cd$class     <- NA_character_
+      if (!"class" %in% names(cd)) cd$class <- NA_character_
 
       default_off <- c("Blank", "Quality control", "QC")
       cd$use <- !(cd$class %in% default_off)
@@ -773,7 +833,6 @@ mod_upload_server <- function(id) {
       shiny::showNotification("SE built successfully (MS-DIAL).", type = "message")
     })
 
-    # ---- Build SE (Generic; fixed measurement columns) -------------------
     shiny::observeEvent(input$build_generic, {
       if (!identical(input$lipid_format, "generic")) return()
       req(input$generic_assay_file, input$generic_feature_file)
@@ -785,10 +844,8 @@ mod_upload_server <- function(id) {
       req(input$generic_feature_name_colname, input$generic_ontology_colname)
 
       sample_id_col <- input$generic_sample_id_colname
-      class_col     <- input$generic_sample_class_colname %||% ""
+      class_col <- input$generic_sample_class_colname %||% ""
       if (!nzchar(class_col)) class_col <- NULL
-
-      # (fixed) measurement columns are computed inside builder
 
       se <- try(
         .build_lipidomics_se_generic_cols(
@@ -807,13 +864,15 @@ mod_upload_server <- function(id) {
         shiny::showModal(
           shiny::modalDialog(
             title = "Failed to build SE (Generic)",
-            easyClose = TRUE, footer = shiny::modalButton("OK"),
+            easyClose = TRUE,
+            footer = shiny::modalButton("OK"),
             shiny::p("An error occurred while parsing generic lipidomics files:"),
             shiny::code(as.character(se))
           )
         )
         return(invisible(NULL))
       }
+
       if (!methods::is(se, "SummarizedExperiment") ||
           !"abundance" %in% SummarizedExperiment::assayNames(se)) {
         shiny::showNotification("Invalid SummarizedExperiment structure (Generic).", type = "error")
@@ -822,7 +881,7 @@ mod_upload_server <- function(id) {
 
       cd <- as.data.frame(SummarizedExperiment::colData(se))
       if (!"sample_id" %in% names(cd)) cd$sample_id <- rownames(cd)
-      if (!"class"     %in% names(cd)) cd$class     <- NA_character_
+      if (!"class" %in% names(cd)) cd$class <- NA_character_
 
       default_off <- c("Blank", "Quality control", "QC")
       cd$use <- !(cd$class %in% default_off)
@@ -839,7 +898,6 @@ mod_upload_server <- function(id) {
       shiny::showNotification("SE built successfully (Generic).", type = "message")
     })
 
-    # ---- Summary: prioritize analysis SE (fallback to full SE) -----------
     output$summary_html <- shiny::renderUI({
       se_sel  <- se_sel_r()
       se_full <- se_full_r()
@@ -849,18 +907,20 @@ mod_upload_server <- function(id) {
       sx <- .summarize_se(se, assay_name = "abundance", group_col = "class")
       htmltools::tagList(
         .render_kpi_cards(sx),
-        if (length(sx$warnings))
+        if (length(sx$warnings)) {
           htmltools::tags$div(
             style = "margin-top:8px;color:#b45309;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;padding:8px;",
             htmltools::tags$strong("Warnings: "),
             htmltools::tags$ul(lapply(sx$warnings, htmltools::tags$li))
           )
+        }
       )
     })
 
-    # ---- Master colData as rhandsontable (all samples) -------------------
     output$cd_hot <- rhandsontable::renderRHandsontable({
-      se_full <- se_full_r(); req(se_full)
+      se_full <- se_full_r()
+      req(se_full)
+
       df <- as.data.frame(SummarizedExperiment::colData(se_full))
       others <- setdiff(colnames(df), c("sample_id", "class", "use"))
       df <- df[, c("sample_id", "class", "use", others), drop = FALSE]
@@ -875,7 +935,6 @@ mod_upload_server <- function(id) {
         rhandsontable::hot_col("use", type = "checkbox")
     })
 
-    # ---- Selected colData as rhandsontable (analysis; use==TRUE) ----------
     output$cd_hot_selected <- rhandsontable::renderRHandsontable({
       se_sel  <- se_sel_r()
       se_full <- se_full_r()
@@ -896,7 +955,6 @@ mod_upload_server <- function(id) {
         rhandsontable::hot_col("sample_id", readOnly = TRUE)
     })
 
-    # ---- rowData head as rhandsontable ----------------------------------
     output$rd_hot <- rhandsontable::renderRHandsontable({
       se_sel  <- se_sel_r()
       se_full <- se_full_r()
@@ -918,14 +976,16 @@ mod_upload_server <- function(id) {
         rhandsontable::hot_col("feature_id", readOnly = TRUE)
     })
 
-    # ---- Apply edits & update analysis samples --------------------------
     shiny::observeEvent(input$apply_edits, {
-      se_full <- se_full_r(); req(se_full)
+      se_full <- se_full_r()
+      req(se_full)
+
       if (!is.null(input$cd_hot)) {
         df_cd <- rhandsontable::hot_to_r(input$cd_hot)
         others <- setdiff(colnames(df_cd), c("sample_id", "class", "use"))
         df_cd <- df_cd[, c("sample_id", "class", "use", others), drop = FALSE]
         stopifnot("sample_id" %in% names(df_cd))
+
         rownames(df_cd) <- df_cd$sample_id
         if ("use" %in% names(df_cd)) {
           df_cd$use <- as.logical(df_cd$use)
@@ -948,14 +1008,15 @@ mod_upload_server <- function(id) {
         se_full_r(se_full)
         se_sel_r(.update_selected_from_use(se_full))
       }
+
       shiny::showNotification("Edits applied and analysis samples updated from 'use'.", type = "message")
     })
 
-    # ==== Class-level 'use' control: table (master) =======================
     output$class_use_hot <- rhandsontable::renderRHandsontable({
-      se_full <- se_full_r(); req(se_full)
-      cd <- as.data.frame(SummarizedExperiment::colData(se_full))
+      se_full <- se_full_r()
+      req(se_full)
 
+      cd <- as.data.frame(SummarizedExperiment::colData(se_full))
       if (!"class" %in% names(cd)) return(NULL)
 
       classes <- sort(unique(cd$class))
@@ -992,7 +1053,8 @@ mod_upload_server <- function(id) {
     })
 
     shiny::observeEvent(input$apply_class_use, {
-      se_full <- se_full_r(); req(se_full)
+      se_full <- se_full_r()
+      req(se_full)
 
       if (is.null(input$class_use_hot)) {
         shiny::showNotification("No class table available.", type = "warning")
@@ -1036,51 +1098,62 @@ mod_upload_server <- function(id) {
 
       shiny::showNotification(
         sprintf("Updated colData$use from class table: %d TRUE, %d FALSE.", sum(cd$use), sum(!cd$use)),
-        type = "message", duration = 5
+        type = "message",
+        duration = 5
       )
     })
 
-    # ===== Class mapping (CSV/TSV) =======================================
     class_df <- shiny::reactive({
       req(input$class_file)
       sep <- if (identical(input$class_sep, "\t")) "\t" else ","
-      df <- try({
+      df <- try(
         utils::read.delim(
           input$class_file$datapath,
-          sep = sep, header = TRUE,
-          check.names = FALSE, stringsAsFactors = FALSE
-        )
-      }, silent = TRUE)
-      shiny::validate(shiny::need(!inherits(df, "try-error") && !is.null(df),
-                                  "Failed to read class file."))
+          sep = sep,
+          header = TRUE,
+          check.names = FALSE,
+          stringsAsFactors = FALSE
+        ),
+        silent = TRUE
+      )
+      shiny::validate(shiny::need(!inherits(df, "try-error") && !is.null(df), "Failed to read class file."))
       df
     })
 
     output$class_colpick_ui <- shiny::renderUI({
-      df <- class_df(); req(df)
+      df <- class_df()
+      req(df)
       cols <- colnames(df)
+
       shiny::tagList(
         shiny::selectInput(
-          ns("col_sample"), "Column for sample_id", choices = cols,
+          ns("col_sample"),
+          "Column for sample_id",
+          choices = cols,
           selected = if ("sample_id" %in% cols) "sample_id" else cols[1]
         ),
         shiny::selectInput(
-          ns("col_class"), "Column for class", choices = cols,
+          ns("col_class"),
+          "Column for class",
+          choices = cols,
           selected = if ("class" %in% cols) "class" else cols[min(2, length(cols))]
         )
       )
     })
 
     output$class_preview <- shiny::renderTable({
-      df <- class_df(); req(df)
+      df <- class_df()
+      req(df)
       utils::head(df, 8)
     }, striped = TRUE, bordered = TRUE, spacing = "xs")
 
     output$class_import_msg <- shiny::renderText({ "" })
 
     shiny::observeEvent(input$apply_class_map, {
-      se_full <- se_full_r(); req(se_full)
-      df <- class_df(); req(df)
+      se_full <- se_full_r()
+      req(se_full)
+      df <- class_df()
+      req(df)
       req(input$col_sample, input$col_class)
 
       map <- df[, c(input$col_sample, input$col_class), drop = FALSE]
@@ -1105,6 +1178,12 @@ mod_upload_server <- function(id) {
         cd$use <- TRUE
       }
 
+      if (isTRUE(input$reset_use)) {
+        default_off <- c("Blank", "Quality control", "QC")
+        cd$use <- !(cd$class %in% default_off)
+        cd$use[is.na(cd$use)] <- TRUE
+      }
+
       others <- setdiff(colnames(cd), c("sample_id", "class", "use"))
       cd <- cd[, c("sample_id", "class", "use", others), drop = FALSE]
       SummarizedExperiment::colData(se_full) <- S4Vectors::DataFrame(cd, row.names = cd$sample_id)
@@ -1113,98 +1192,81 @@ mod_upload_server <- function(id) {
       se_sel_r(.update_selected_from_use(se_full))
 
       not_found <- setdiff(map$sample_id, cd$sample_id)
-      msg <- sprintf("Mapped class to %d/%d samples. Unmatched in SE: %d",
-                     n_match, nrow(cd), length(not_found))
+      msg <- sprintf(
+        "Mapped class to %d/%d samples. Unmatched in SE: %d",
+        n_match, nrow(cd), length(not_found)
+      )
       if (length(not_found)) {
-        msg <- paste0(msg, "\nUnmatched sample_id (first 5): ",
-                      paste(utils::head(not_found, 5), collapse = ", "))
+        msg <- paste0(
+          msg,
+          "\nUnmatched sample_id (first 5): ",
+          paste(utils::head(not_found, 5), collapse = ", ")
+        )
       }
       output$class_import_msg <- shiny::renderText(msg)
       shiny::showNotification("Class mapping applied to colData.", type = "message")
     })
 
-    # ===== Transcriptome: build & align ==================================
     shiny::observeEvent(input$tx_build, {
       req(input$tx_file)
       org <- input$tx_organism %||% "mmusculus"
 
-      se_tx <- try(
+      se_tx_raw <- try(
         {
-          if (is.function(load_transcriptome_se_from_symbol_ensembl)) {
+          if (exists("load_transcriptome_se_from_symbol_ensembl", mode = "function")) {
             load_transcriptome_se_from_symbol_ensembl(
               csv_path      = input$tx_file$datapath,
               organism      = org,
-              symbol_col    = "Gene",
-              ensembl_col   = "EnsemblID",
+              symbol_col    = 1,
+              ensembl_col   = 2,
               none_tokens   = "none",
               keep_unmapped = "keep_na"
             )
           } else {
             load_transcriptome_se(
               csv_path = input$tx_file$datapath,
-              organism = org, target = "ENSG"
+              organism = org,
+              target   = "ENSG"
             )
           }
         },
         silent = TRUE
       )
 
-      if (inherits(se_tx, "try-error")) {
+      if (inherits(se_tx_raw, "try-error")) {
         shiny::showModal(
           shiny::modalDialog(
             title = "Failed to build Transcriptome SE",
-            easyClose = TRUE, footer = shiny::modalButton("OK"),
+            easyClose = TRUE,
+            footer = shiny::modalButton("OK"),
             shiny::p("An error occurred while parsing the transcriptome CSV:"),
-            shiny::code(as.character(se_tx))
+            shiny::code(as.character(se_tx_raw))
           )
         )
         return(invisible(NULL))
       }
-      if (!methods::is(se_tx, "SummarizedExperiment") ||
-          !"abundance" %in% SummarizedExperiment::assayNames(se_tx)) {
+
+      if (!methods::is(se_tx_raw, "SummarizedExperiment") ||
+          !"abundance" %in% SummarizedExperiment::assayNames(se_tx_raw)) {
         shiny::showNotification("Invalid transcriptome SE structure.", type = "error")
         return(invisible(NULL))
       }
+
+      se_tx_raw_r(se_tx_raw)
 
       se_lip_sel  <- se_sel_r()
       se_lip_full <- se_full_r()
       se_lip <- se_lip_sel %||% se_lip_full
 
+      se_tx <- .sync_tx_with_lipid(se_tx_raw, se_lip, notify_no_overlap = TRUE)
+
       if (!is.null(se_lip)) {
-        lip_ids <- colnames(SummarizedExperiment::assay(se_lip, "abundance"))
-        tx_ids  <- colnames(SummarizedExperiment::assay(se_tx,  "abundance"))
-        keep    <- intersect(lip_ids, tx_ids)
-
-        if (length(keep) == 0L) {
-          shiny::showNotification(
-            "No overlapping samples between Lipidomics and Transcriptome.",
-            type = "warning", duration = 8
-          )
-        } else {
-          keep_ordered <- lip_ids[lip_ids %in% keep]
-          se_tx <- se_tx[, keep_ordered, drop = FALSE]
-
-          cd_tx <- as.data.frame(SummarizedExperiment::colData(se_tx))
-          if (!"sample_id" %in% names(cd_tx)) cd_tx$sample_id <- rownames(cd_tx)
-          cd_tx <- cd_tx[keep_ordered, , drop = FALSE]
-
-          cd_lip <- as.data.frame(SummarizedExperiment::colData(se_lip))
-          if (!"sample_id" %in% names(cd_lip)) cd_lip$sample_id <- rownames(cd_lip)
-          cd_lip <- cd_lip[match(keep_ordered, cd_lip$sample_id), , drop = FALSE]
-
-          if (!"class" %in% names(cd_lip)) cd_lip$class <- NA_character_
-          cd_tx$class <- cd_lip$class
-
-          SummarizedExperiment::colData(se_tx) <-
-            S4Vectors::DataFrame(cd_tx, row.names = cd_tx$sample_id)
-
-          dropped <- setdiff(tx_ids, keep)
-          shiny::showNotification(
-            sprintf("Transcriptome aligned to Lipidomics (analysis SE): kept %d, dropped %d.",
-                    length(keep_ordered), length(dropped)),
-            type = "message"
-          )
-        }
+        n_keep <- ncol(SummarizedExperiment::assay(se_tx, "abundance"))
+        n_drop <- ncol(SummarizedExperiment::assay(se_tx_raw, "abundance")) - n_keep
+        shiny::showNotification(
+          sprintf("Transcriptome aligned to Lipidomics: kept %d, dropped %d.", n_keep, n_drop),
+          type = "message"
+        )
       } else {
         shiny::showNotification(
           "Lipidomics SE not loaded yet: Transcriptome kept as-is.",
@@ -1216,38 +1278,68 @@ mod_upload_server <- function(id) {
       shiny::showNotification("Transcriptome SE built successfully.", type = "message")
     })
 
+    shiny::observe({
+      se_tx_raw <- se_tx_raw_r()
+      req(se_tx_raw)
+
+      se_lip_sel  <- se_sel_r()
+      se_lip_full <- se_full_r()
+      se_lip <- se_lip_sel %||% se_lip_full
+
+      se_tx_new <- .sync_tx_with_lipid(se_tx_raw, se_lip, notify_no_overlap = FALSE)
+      se_tx_r(se_tx_new)
+    })
+
     output$tx_summary_html <- shiny::renderUI({
       se_tx <- se_tx_r()
       if (is.null(se_tx)) return(shiny::HTML("<em>No transcriptome loaded.</em>"))
+
       sx <- .summarize_se(se_tx, assay_name = "abundance", group_col = "class")
       htmltools::tagList(
         .render_kpi_cards_tx(sx),
-        if (length(sx$warnings))
+        if (length(sx$warnings)) {
           htmltools::tags$div(
             style = "margin-top:8px;color:#b45309;background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;padding:8px;",
             htmltools::tags$strong("Warnings: "),
             htmltools::tags$ul(lapply(sx$warnings, htmltools::tags$li))
           )
+        }
       )
     })
 
     output$tx_row_preview <- rhandsontable::renderRHandsontable({
-      se_tx <- se_tx_r(); req(se_tx)
+      se_tx <- se_tx_r()
+      req(se_tx)
+
       rd <- as.data.frame(SummarizedExperiment::rowData(se_tx))
       n_show <- min(200, nrow(rd))
       df <- utils::head(rd, n_show)
       df$feature_id <- rownames(rd)[seq_len(n_show)]
       df <- df[, c("feature_id", setdiff(colnames(df), "feature_id")), drop = FALSE]
-      rhandsontable::rhandsontable(df, readOnly = TRUE, rowHeaders = NULL, stretchH = "all")
+
+      rhandsontable::rhandsontable(
+        df,
+        readOnly = TRUE,
+        rowHeaders = NULL,
+        stretchH = "all"
+      )
     })
 
     output$tx_col_preview <- rhandsontable::renderRHandsontable({
-      se_tx <- se_tx_r(); req(se_tx)
+      se_tx <- se_tx_r()
+      req(se_tx)
+
       cd <- as.data.frame(SummarizedExperiment::colData(se_tx))
       if (!"sample_id" %in% names(cd)) cd$sample_id <- rownames(cd)
       others <- setdiff(colnames(cd), "sample_id")
       cd <- cd[, c("sample_id", others), drop = FALSE]
-      rhandsontable::rhandsontable(cd, readOnly = TRUE, rowHeaders = NULL, stretchH = "all")
+
+      rhandsontable::rhandsontable(
+        cd,
+        readOnly = TRUE,
+        rowHeaders = NULL,
+        stretchH = "all"
+      )
     })
 
     list(

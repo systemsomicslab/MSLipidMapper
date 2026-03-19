@@ -4,6 +4,14 @@
 # - Event-driven fitting (Run button)
 # - UI: remove MODEL params; keep PLOT params
 # - Heatmap downloads: figure output only (heatmap PDF only)
+#
+# Legend-safe draw aligned to PCA tab:
+#   - draw(..., heatmap_legend_side="bottom", annotation_legend_side="bottom",
+#           merge_legends=TRUE, padding=...)
+#
+# NOTE:
+#   - This file assumes `run_oplsda_objects_from_se()` is available
+#     (from R/oplsda_ropls_utils.R) and now supports score_point_size.
 
 suppressPackageStartupMessages({
   library(shiny)
@@ -44,7 +52,6 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
           uiOutput(ns("group_ui")),
           hr(),
 
-          # ---- keep ONLY plot params (model params removed) ----
           tags$label("Plots"),
           numericInput(ns("point_size"), "Score point size", value = 5, min = 0.5, max = 10, step = 0.5),
           numericInput(ns("vip_thres"),  "VIP threshold",    value = 1, min = 0, step = 0.1),
@@ -112,7 +119,6 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
           status = "primary",
           plotOutput(ns("opls_heatmap"), height = "650px"),
           fluidRow(
-            # ---- Heatmap area: FIGURE OUTPUT ONLY ----
             column(4, downloadButton(ns("download_heatmap_pdf"), "Download heatmap PDF",
                                      class = "btn-default", width = "100%"))
           )
@@ -132,7 +138,6 @@ mod_oplsda_generic_server <- function(id,
                                       adv_reactive = NULL) {
   moduleServer(id, function(input, output, session) {
 
-    # ---- fixed MODEL params (user does NOT set these) ----
     MODEL_DEFAULT <- list(
       predI     = 1L,
       orthoI    = NA_integer_,   # auto
@@ -141,6 +146,17 @@ mod_oplsda_generic_server <- function(id,
       permI     = 50L,
       seed      = 123L
     )
+
+
+.draw_heatmap_safe <- function(ht) {
+  ComplexHeatmap::draw(
+    ht,
+    heatmap_legend_side = "bottom",
+    annotation_legend_side = "bottom",
+    merge_legends = TRUE,
+    padding = grid::unit(c(3, 3, 3, 3), "mm")
+  )
+}
 
     .get_adv <- function() {
       if (is.function(adv_reactive)) {
@@ -300,7 +316,6 @@ mod_oplsda_generic_server <- function(id,
         return(NULL)
       }
 
-      # ---- Plot params (user keeps these) ----
       vip_thres <- as.numeric(input$vip_thres %||% 1)
       if (!is.finite(vip_thres) || vip_thres < 0) vip_thres <- 1
 
@@ -326,7 +341,6 @@ mod_oplsda_generic_server <- function(id,
             group_col   = "class",
             keep_groups = keep_groups,
 
-            # ---- fixed MODEL params ----
             seed        = MODEL_DEFAULT$seed,
             predI       = MODEL_DEFAULT$predI,
             orthoI      = MODEL_DEFAULT$orthoI,
@@ -334,12 +348,12 @@ mod_oplsda_generic_server <- function(id,
             crossvalI   = MODEL_DEFAULT$crossvalI,
             permI       = MODEL_DEFAULT$permI,
 
-            # ---- plot-related params remain user-controlled ----
             vip_thres   = vip_thres,
             topn_vip    = topn_vip,
             topn_heat   = topn_heat,
             z_lim       = z_lim,
 
+            score_point_size = pt,     # ★正式に渡す（serverでgeom追加しない）
             base_family = "sans",
             use_prism   = FALSE,
             verbose     = TRUE,
@@ -353,11 +367,6 @@ mod_oplsda_generic_server <- function(id,
           showNotification(conditionMessage(res), type = "error", duration = 10)
           return(NULL)
         }
-
-        # Apply point size (override)
-        res$plots$score <- res$plots$score +
-          ggplot2::geom_point(aes(fill = Group), size = pt, shape = 21,
-                              color = "black", inherit.aes = TRUE)
 
         incProgress(0.1)
         res
@@ -380,8 +389,8 @@ mod_oplsda_generic_server <- function(id,
     output$opls_heatmap <- renderPlot({
       res <- fit_res()
       req(res)
-      grid::grid.newpage()
-      ComplexHeatmap::draw(res$heatmap$ht)
+
+      .draw_heatmap_safe(res$heatmap$ht)
 
       if (!is.null(res$heatmap$vip_min) && !is.null(res$heatmap$vip_max)) {
         try({
@@ -397,7 +406,6 @@ mod_oplsda_generic_server <- function(id,
       }
     })
 
-    # ---- downloads (score/vip keep as-is) ----
     output$download_scores_pdf <- downloadHandler(
       filename = function() {
         kg <- input$keep_groups %||% c("A", "B")
@@ -405,8 +413,7 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".pdf")
       },
       content = function(file) {
-        res <- fit_res()
-        req(res)
+        res <- fit_res(); req(res)
         grDevices::pdf(file, width = 6.5, height = 6.5, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
         print(res$plots$score)
@@ -420,8 +427,7 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".pdf")
       },
       content = function(file) {
-        res <- fit_res()
-        req(res)
+        res <- fit_res(); req(res)
         grDevices::pdf(file, width = 8.5, height = 6.5, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
         print(res$plots$vip)
@@ -435,13 +441,11 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".csv")
       },
       content = function(file) {
-        res <- fit_res()
-        req(res)
+        res <- fit_res(); req(res)
         utils::write.csv(res$vip_tables$vip_tbl_signed, file, row.names = FALSE)
       }
     )
 
-    # ---- heatmap: figure output only ----
     output$download_heatmap_pdf <- downloadHandler(
       filename = function() {
         kg <- input$keep_groups %||% c("A", "B")
@@ -449,11 +453,10 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".pdf")
       },
       content = function(file) {
-        res <- fit_res()
-        req(res)
+        res <- fit_res(); req(res)
         grDevices::pdf(file, width = 10, height = 8, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
-        ComplexHeatmap::draw(res$heatmap$ht)
+        .draw_heatmap_safe(res$heatmap$ht)
       }
     )
 

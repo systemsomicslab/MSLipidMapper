@@ -1,6 +1,5 @@
 # R/oplsda_ropls_utils.R -------------------------------------------------
 # OPLS-DA (ropls) reusable functions (NO install/library side-effects)
-#
 # Caller must have packages installed.
 # This file does NOT call library().
 
@@ -105,7 +104,7 @@ prepare_opls_data_from_se <- function(
   }
 
   A <- SummarizedExperiment::assay(se2, assay_name)
-  X <- t(as.matrix(A))
+  X <- t(as.matrix(A))  # samples x features
   storage.mode(X) <- "double"
 
   if (is.null(colnames(X))) colnames(X) <- rownames(se2)
@@ -133,17 +132,18 @@ fit_oplsda <- function(
   permI = 50,
   seed = 123
 ) {
+  if (!requireNamespace("ropls", quietly = TRUE)) {
+    stop("Package 'ropls' is required for OPLS-DA.")
+  }
+
   set.seed(seed)
 
   n <- nrow(X)
+  if (n < 2) stop("Too few samples for OPLS-DA (need >=2).")
 
-  # ---- safe crossvalI ----
   cv <- suppressWarnings(as.integer(crossvalI))
   if (is.na(cv) || cv < 2) cv <- 2L
-  if (cv > n) cv <- n  # n未満なら下げる
-
-  # サンプルが2未満だとCV自体が成立しないので止める
-  if (n < 2) stop("Too few samples for OPLS-DA (need >=2).")
+  if (cv > n) cv <- n
 
   ropls::opls(
     X, y,
@@ -203,7 +203,12 @@ plot_opls_scores <- function(
       y = paste0("Orthogonal score (to1) [", st$r2x_ortho_pct, "%]")
     ) +
     ggplot2::theme_classic(base_family = base_family) +
-    ggplot2::theme(aspect.ratio = 1, legend.position = "bottom") +
+    ggplot2::theme(
+      aspect.ratio = 1,
+      legend.position = "bottom",
+      legend.direction = "horizontal"
+    ) +
+    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
     ggplot2::scale_fill_manual(values = cols, breaks = names(cols), drop = FALSE) +
     ggplot2::annotate(
       "text",
@@ -220,6 +225,9 @@ plot_opls_scores <- function(
 }
 
 build_vip_tables <- function(op, feature_names = NULL, vip_thres = 1) {
+  if (!requireNamespace("tibble", quietly = TRUE)) stop("Package 'tibble' is required.")
+  if (!requireNamespace("dplyr", quietly = TRUE)) stop("Package 'dplyr' is required.")
+
   vip <- op@vipVn
   if (is.null(vip)) stop("op@vipVn is NULL (VIP not available).")
 
@@ -240,8 +248,8 @@ build_vip_tables <- function(op, feature_names = NULL, vip_thres = 1) {
     stop("VIP length does not match any available variable name source.")
   }
 
-  vip_tbl <- tibble::tibble(variable = vars, VIP = as.numeric(vip))
-  vip_tbl <- vip_tbl[vapply(vip_tbl$VIP, is.finite, logical(1)), , drop = FALSE]
+  vip_tbl <- tibble::tibble(variable = as.character(vars), VIP = as.numeric(vip))
+  vip_tbl <- vip_tbl[is.finite(vip_tbl$VIP), , drop = FALSE]
 
   vip_tbl_filt <- vip_tbl[vip_tbl$VIP >= vip_thres & is.finite(vip_tbl$VIP), , drop = FALSE]
   vip_tbl_filt <- vip_tbl_filt[order(vip_tbl_filt$VIP, decreasing = TRUE), , drop = FALSE]
@@ -251,7 +259,7 @@ build_vip_tables <- function(op, feature_names = NULL, vip_thres = 1) {
 
   loading_match <- loading1[match(vip_tbl_filt$variable, names(loading1))]
   vip_tbl_signed <- vip_tbl_filt
-  vip_tbl_signed$loading1 <- loading_match
+  vip_tbl_signed$loading1 <- as.numeric(loading_match)
   vip_tbl_signed$VIP_signed <- vip_tbl_signed$VIP * sign(vip_tbl_signed$loading1)
   vip_tbl_signed <- vip_tbl_signed[is.finite(vip_tbl_signed$VIP_signed), , drop = FALSE]
 
@@ -262,13 +270,14 @@ build_vip_tables <- function(op, feature_names = NULL, vip_thres = 1) {
     model_vars = vars
   )
 }
-    
+
 plot_signed_vip <- function(
   vip_tbl_signed,
   topn = 20,
   base_family = "sans",
   legend_title = "VIP"
 ) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) stop("Package 'dplyr' is required.")
   if (nrow(vip_tbl_signed) == 0) stop("No VIP variables available after filtering.")
 
   topn2 <- min(topn, nrow(vip_tbl_signed))
@@ -276,7 +285,7 @@ plot_signed_vip <- function(
     dplyr::slice_max(order_by = abs(VIP_signed), n = topn2, with_ties = FALSE) %>%
     dplyr::mutate(
       Sign = ifelse(VIP_signed > 0, "Positive", "Negative"),
-      Sign = factor(Sign, levels = c("Negative", "Positive"))
+      Sign = factor(Sign, levels = c("Positive","Negative"))
     )
 
   ggplot2::ggplot(
@@ -290,20 +299,18 @@ plot_signed_vip <- function(
     ggplot2::geom_col() +
     ggplot2::coord_flip() +
     ggplot2::geom_hline(yintercept = 0, linetype = "dashed") +
-    scale_fill_manual(
-      name   = "VIP",
+    ggplot2::scale_fill_manual(
+      name   = legend_title,
       labels = c("Positive", "Negative"),
-      values = c("Positive" = "#00ba38", "Negative" = "#f8766d")
+      values = c("Positive"= "#00ba38", "Negative"  = "#f8766d")
     ) +
     ggplot2::labs(
       title = sprintf("Top %d VIP", nrow(vip_top)),
       x = "Variable",
-      y = "VIP",
-      fill = legend_title
+      y = "VIP"
     ) +
-    ggplot2::theme_classic(base_size = 15)
+    ggplot2::theme_classic(base_size = 15, base_family = base_family) 
 }
-
 
 make_vip_heatmap <- function(
     X, y,
@@ -312,17 +319,28 @@ make_vip_heatmap <- function(
     z_lim = 2,
     colors = NULL
 ) {
+  if (!requireNamespace("matrixStats", quietly = TRUE)) stop("Package 'matrixStats' is required.")
+  if (!requireNamespace("circlize", quietly = TRUE)) stop("Package 'circlize' is required.")
+  if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) stop("Package 'ComplexHeatmap' is required.")
+  if (!requireNamespace("grid", quietly = TRUE)) stop("Package 'grid' is required.")
+
   cols <- .align_colors(levels(y), colors)
 
+  # ---- select variables (stable order) ----
   sel_vars <- if (nrow(vip_tbl_filt) > 0) {
     vip_tbl_filt$variable
   } else {
     vip_tbl2 <- vip_tbl[order(vip_tbl$VIP, decreasing = TRUE), , drop = FALSE]
     vip_tbl2$variable
   }
-  sel_vars <- head(sel_vars, topn_heat)
+  sel_vars <- unique(as.character(sel_vars))
+  sel_vars <- intersect(sel_vars, colnames(X))
+  sel_vars <- head(sel_vars, max(5L, as.integer(topn_heat)))
+  if (!length(sel_vars)) stop("No variables selected for heatmap (after intersection with X columns).")
 
+  # ---- matrix: features x samples ----
   mat <- t(X[, sel_vars, drop = FALSE])
+  rownames(mat) <- sel_vars
 
   row_z <- function(m) {
     m2 <- m - rowMeans(m, na.rm = TRUE)
@@ -331,46 +349,87 @@ make_vip_heatmap <- function(
     m2 / s
   }
   mat_z <- row_z(mat)
+
+  z_lim <- as.numeric(z_lim)
+  if (!is.finite(z_lim) || z_lim <= 0) z_lim <- 2
   mat_z[mat_z >  z_lim] <-  z_lim
   mat_z[mat_z < -z_lim] <- -z_lim
 
-  vip_vec <- stats::setNames(vip_tbl$VIP, vip_tbl$variable)[rownames(mat_z)]
-  vip_vec[!is.finite(vip_vec)] <- NA
+  # ---- Group (top annotation) aligned to columns ----
+  y2 <- factor(as.character(y), levels = names(cols))
+  names(y2) <- rownames(X)              # X rows are samples
+  y2 <- y2[colnames(mat_z)]             # columns are samples
+  y2 <- factor(as.character(y2), levels = names(cols))
 
-  vip_min <- sprintf("%.2f", min(vip_vec, na.rm = TRUE))
-  vip_max <- sprintf("%.2f", max(vip_vec, na.rm = TRUE))
+  # ---- VIP vector aligned to sel_vars (THIS prevents "simple annotation = 0") ----
+  vip_map <- stats::setNames(as.numeric(vip_tbl$VIP), as.character(vip_tbl$variable))
+  vip_vec <- vip_map[sel_vars]
+  names(vip_vec) <- sel_vars
 
-  vip_range <- range(vip_vec, na.rm = TRUE)
+  # critical rescue: if all NA -> make finite zeros so the simple annotation exists
+  if (!length(vip_vec) || all(is.na(vip_vec))) {
+    vip_vec <- rep(0, length(sel_vars))
+    names(vip_vec) <- sel_vars
+  }
+  vip_vec_anno <- vip_vec
+  vip_vec_anno[!is.finite(vip_vec_anno) | is.na(vip_vec_anno)] <- 0
+
+  vip_min <- sprintf("%.2f", min(vip_vec_anno, na.rm = TRUE))
+  vip_max <- sprintf("%.2f", max(vip_vec_anno, na.rm = TRUE))
+
+  vip_range <- range(vip_vec_anno, na.rm = TRUE)
   if (!all(is.finite(vip_range)) || diff(vip_range) == 0) vip_range <- c(0, 1)
   col_vip <- circlize::colorRamp2(vip_range, c("white", "green4"))
 
+  # ---- PCAと同じ書き方（rowAnnotation: フラットな legend param）----
   ha_left <- ComplexHeatmap::rowAnnotation(
-    VIP = ComplexHeatmap::anno_simple(vip_vec, col = col_vip, border = TRUE),
-    width = grid::unit(6, "mm")
+    VIP = ComplexHeatmap::anno_simple(vip_vec_anno, col = col_vip, border = TRUE),
+    width = grid::unit(10, "mm"),
+    annotation_legend_param = list(
+      title = "VIP",
+      direction = "horizontal",
+      title_gp  = grid::gpar(fontsize = 10),
+      labels_gp = grid::gpar(fontsize = 9)
+    )
   )
 
   ha_top <- ComplexHeatmap::HeatmapAnnotation(
-    Group = y,
+    Group = y2,
     col = list(Group = cols),
     annotation_name_side = "left",
-    annotation_legend_param = list(title = "Group")
+    annotation_legend_param = list(
+      Group = list(
+        title = "Group",
+        direction = "horizontal",
+        nrow = 1,
+        title_gp  = grid::gpar(fontsize = 10),
+        labels_gp = grid::gpar(fontsize = 9)
+      )
+    )
   )
 
   col_z <- circlize::colorRamp2(c(-z_lim, 0, z_lim), c("blue4", "#f7f7f7", "#c30010"))
 
-  ht <- ComplexHeatmap::Heatmap(
-    mat_z,
-    name = "Z",
-    col = col_z,
-    rect_gp = grid::gpar(col = "gray45", lwd = 0.5),
-    cluster_rows = FALSE,
-    cluster_columns = TRUE,
-    show_row_names = TRUE,
-    show_column_names = FALSE,
-    top_annotation = ha_top,
-    left_annotation = ha_left,
-    heatmap_legend_param = list(border = TRUE)
+ht <- ComplexHeatmap::Heatmap(
+  mat_z,
+  name = "Z",
+  col = col_z,
+  rect_gp = grid::gpar(col = "gray45", lwd = 0.5),
+  cluster_rows = FALSE,
+  cluster_columns = TRUE,
+  show_row_names = TRUE,
+  show_column_names = FALSE,
+  row_names_gp = grid::gpar(fontsize = 12),
+  column_names_gp = grid::gpar(fontsize = 8),
+  top_annotation = ha_top,
+  left_annotation = ha_left,
+  heatmap_legend_param = list(
+    border = TRUE,
+    direction = "horizontal",
+    title_gp  = grid::gpar(fontsize = 10),
+    labels_gp = grid::gpar(fontsize = 9)
   )
+)
 
   list(ht = ht, vip_min = vip_min, vip_max = vip_max)
 }
@@ -394,6 +453,7 @@ run_oplsda_objects_from_se <- function(
     topn_vip = 20,
     topn_heat = 25,
     z_lim = 2,
+    score_point_size = 5,   # ★追加（serverから渡す）
     base_family = "sans",
     use_prism = FALSE,
     verbose = FALSE,
@@ -425,7 +485,7 @@ run_oplsda_objects_from_se <- function(
   p_scores <- plot_opls_scores(
     op = op, y = y,
     colors = cols,
-    point_size = 5,
+    point_size = score_point_size,
     stroke = 1,
     alpha = 0.95,
     base_family = base_family,

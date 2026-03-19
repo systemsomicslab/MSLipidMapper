@@ -4,7 +4,15 @@
 #  - run find_decoupled_chains()
 #  - show subclass × chains panels (patchwork)
 #  - export multi-panel PDF
-#  - chains are selectable (multi-select) instead of comma text
+#  - chains are selectable (multi-select)
+#  - NEW: Compare to switch:
+#        total: x=C (class total) vs y=S (subset total)
+#        rest : x=R (class total minus subset) vs y=S
+#
+# Requirements (in your package / app environment):
+#  - find_decoupled_chains()
+#  - plot_chain_vs_total_panel()
+#    (Both can be the "rest-enabled" versions; wrappers below also work if old versions)
 # ============================================================
 
 mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
@@ -15,20 +23,47 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
       title = title, width = 4, status = "primary", solidHeader = TRUE,
 
       shiny::uiOutput(ns("ui_subclass")),
-      shiny::uiOutput(ns("ui_chains")),   # <- NEW: selectable chains
+      shiny::uiOutput(ns("ui_chains")),
 
       shiny::tags$hr(),
 
       shiny::selectInput(ns("corr_method"), "cor method",
                          choices = c("pearson","spearman"), selected = "pearson"),
+
+      # --- NEW: switch x-axis target (Total vs Rest) ---
+      shiny::selectInput(
+        ns("compare_to"),
+        "Compare to (x-axis)",
+        choices = c(
+          "Total (C): subset vs class total" = "total",
+          "Rest  (R): subset vs (class total minus subset)" = "rest"
+        ),
+        selected = "total"
+      ),
+      shiny::helpText("Total: x=C, y=S.  Rest: x=R=T−S, y=S (reduces coupling)."),
+
       shiny::numericInput(ns("point_size"), "Point size", value = 3, min = 0.5, step = 0.5),
       shiny::numericInput(ns("point_alpha"), "Point alpha", min = 0.1, max = 1.0, value = 0.8, step = 0.05),
+
+      shiny::tags$hr(),
+
+      shiny::checkboxInput(ns("drop_outliers"), "Drop outliers (per panel)", value = FALSE),
+      shiny::selectInput(
+        ns("outlier_method"),
+        "Outlier method",
+        choices = c("mad_resid", "iqr_resid", "cook"),
+        selected = "mad_resid"
+      ),
+      shiny::numericInput(ns("outlier_k"), "Outlier k", value = 4, min = 1, step = 0.5),
+      shiny::helpText("mad_resid/iqr_resid: |residual| > k×MAD(IQR).  cook: Cook's D > k/n."),
+
       shiny::checkboxInput(ns("use_lm_r2"), "use lm R2 (decouple=1-R2)", value = TRUE),
       shiny::checkboxInput(ns("log1p"), "log10(raw + pseudo)", value = FALSE),
       shiny::numericInput(ns("pseudo"), "pseudo", value = 1, min = 0, step = 0.1),
-	  shiny::numericInput(ns("min_species_total"), "min_species_total", value = 1, min = 1, step = 1),
+      shiny::numericInput(ns("min_species_total"), "min_species_total", value = 1, min = 1, step = 1),
       shiny::numericInput(ns("min_species_chain"), "min_species_chain", value = 1, min = 1, step = 1),
       shiny::numericInput(ns("min_chain_frac_med"), "min_chain_fraction_median", value = 0.01, min = 0, step = 0.001),
+
       shiny::tags$hr(),
 
       shiny::actionButton(ns("run"), "Run", icon = shiny::icon("play")),
@@ -44,14 +79,15 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
   )
 }
 
+
 mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_reactive = NULL) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns
     `%||%` <- function(a, b) if (is.null(a) || (is.character(a) && length(a) == 0)) b else a
 
-    # ============================================================
-    # (A) PCAタブと同じ palette 取得ロジック（“色の取り方”）
-    # ============================================================
+    # ----------------------------
+    # adv helpers (palette snapshot)
+    # ----------------------------
     .get_adv <- function() {
       if (is.function(adv_reactive)) {
         a <- adv_reactive()
@@ -102,11 +138,77 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
         ggplot2::scale_fill_manual(values  = pal$colors, breaks = pal$breaks, drop = FALSE)
     }
 
-    # group_col 固定は PCA 同様 "class" を優先（なければ "Class" にフォールバック）
     .infer_group_col <- function(cd, fixed = "class") {
       if (fixed %in% colnames(cd)) return(fixed)
       if ("Class" %in% colnames(cd)) return("Class")
       NULL
+    }
+
+    # ----------------------------
+    # basic utils
+    # ----------------------------
+    .parse_chains <- function(x) {
+      chains <- as.character(x %||% character(0))
+      chains <- trimws(chains)
+      chains <- chains[nzchar(chains)]
+      unique(chains)
+    }
+
+    .placeholder_plot <- function(title, msg) {
+      ggplot2::ggplot() +
+        ggplot2::theme_void() +
+        ggplot2::annotate("text", x = 0, y = 0, label = msg, size = 4) +
+        ggplot2::labs(title = title) +
+        ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", hjust = 0))
+    }
+
+    .rank_chains_by_subsetS <- function(out, subclass, chains) {
+      chains <- unique(trimws(chains))
+      chains <- chains[nzchar(chains)]
+      if (!length(chains)) return(character(0))
+
+      dl <- as.data.frame(out$data_long)
+      if (!nrow(dl)) return(chains)
+
+      dl$subclass <- trimws(as.character(dl$subclass))
+      dl$chain    <- trimws(as.character(dl$chain))
+      dl$S        <- suppressWarnings(as.numeric(dl$S))
+
+      dl2 <- dl[dl$subclass == subclass & dl$chain %in% chains, , drop = FALSE]
+      if (!nrow(dl2)) return(chains)
+
+      rank_tbl <- dl2 |>
+        dplyr::group_by(.data$chain) |>
+        dplyr::summarise(score = sum(.data$S, na.rm = TRUE), .groups = "drop") |>
+        dplyr::arrange(dplyr::desc(.data$score))
+
+      ranked  <- as.character(rank_tbl$chain)
+      missing <- setdiff(chains, ranked)
+      c(ranked, missing)
+    }
+
+    .sanitize_compare_to <- function(x) {
+      v <- trimws(as.character(x %||% "total"))
+      if (!v %in% c("total","rest")) v <- "total"
+      v
+    }
+
+    # ----------------------------
+    # SAFE CALLERS (argument-gated)
+    #   - important fix: se/out are always passed as named args
+    # ----------------------------
+    .call_find_decoupled <- function(se, ...) {
+      args <- c(list(se = se), list(...))
+      fm <- names(formals(find_decoupled_chains))
+      args <- args[names(args) %in% fm]
+      do.call(find_decoupled_chains, args)
+    }
+
+    .call_plot_panel <- function(out, ...) {
+      args <- c(list(out = out), list(...))
+      fm <- names(formals(plot_chain_vs_total_panel))
+      args <- args[names(args) %in% fm]
+      do.call(plot_chain_vs_total_panel, args)
     }
 
     # ============================================================
@@ -171,56 +273,22 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
     })
 
     # ============================================================
-    # helpers
-    # ============================================================
-    .parse_chains <- function(x) {
-      chains <- as.character(x %||% character(0))
-      chains <- trimws(chains)
-      chains <- chains[nzchar(chains)]
-      unique(chains)
-    }
-
-    .placeholder_plot <- function(title, msg) {
-      ggplot2::ggplot() +
-        ggplot2::theme_void() +
-        ggplot2::annotate("text", x = 0, y = 0, label = msg, size = 4) +
-        ggplot2::labs(title = title) +
-        ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", hjust = 0))
-    }
-
-    .rank_chains_by_subsetS <- function(out, subclass, chains) {
-      chains <- unique(trimws(chains))
-      chains <- chains[nzchar(chains)]
-      if (!length(chains)) return(character(0))
-
-      dl <- as.data.frame(out$data_long)
-      if (!nrow(dl)) return(chains)
-
-      dl$subclass <- trimws(as.character(dl$subclass))
-      dl$chain    <- trimws(as.character(dl$chain))
-      dl$S        <- suppressWarnings(as.numeric(dl$S))
-
-      dl2 <- dl[dl$subclass == subclass & dl$chain %in% chains, , drop = FALSE]
-      if (!nrow(dl2)) return(chains)
-
-      rank_tbl <- dl2 |>
-        dplyr::group_by(.data$chain) |>
-        dplyr::summarise(score = sum(.data$S, na.rm = TRUE), .groups = "drop") |>
-        dplyr::arrange(dplyr::desc(.data$score))
-
-      ranked  <- as.character(rank_tbl$chain)
-      missing <- setdiff(chains, ranked)  # pair無しは末尾
-      c(ranked, missing)
-    }
-
-    # ============================================================
     # state (snapshot after Run)
     # ============================================================
     rv <- shiny::reactiveValues(
       out = NULL,
       subclass = NULL,
       chains_ranked = character(0),
-      plot_opts = list(corr_method = "pearson", add_lm = TRUE, point_size = 2.2),
+      plot_opts = list(
+        corr_method = "pearson",
+        add_lm = TRUE,
+        point_size = 2.2,
+        point_alpha = 0.8,
+        compare_to = "total",
+        drop_outliers = FALSE,
+        outlier_method = "mad_resid",
+        outlier_k = 4
+      ),
       pal = NULL
     )
 
@@ -237,10 +305,12 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       chains <- .parse_chains(input$chains)
       shiny::validate(shiny::need(length(chains) > 0, "chains is empty."))
 
+      compare_to <- .sanitize_compare_to(input$compare_to)
+
       out <- NULL
       tryCatch({
-        out <- find_decoupled_chains(
-          se,
+        out <- .call_find_decoupled(
+          se = se,
           chains = chains,
           assay_name = assay,
           subclass_col = "subclass",
@@ -252,14 +322,16 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
           min_species_chain = as.integer(input$min_species_chain),
           min_chain_fraction_median = as.numeric(input$min_chain_frac_med),
           corr_method = as.character(input$corr_method),
-          use_lm_r2 = isTRUE(input$use_lm_r2)
+          use_lm_r2 = isTRUE(input$use_lm_r2),
+          # if supported by your find_decoupled_chains() version:
+          score_against = compare_to
         )
       }, error = function(e) {
         shiny::showNotification(conditionMessage(e), type = "error", duration = 10)
       })
       if (is.null(out)) return()
 
-      # --- snapshot palette exactly like PCA (but snapshot at Run to avoid auto-update)
+      # palette snapshot (avoid auto-update)
       pal <- NULL
       try({
         cd <- as.data.frame(SummarizedExperiment::colData(se))
@@ -270,23 +342,50 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
         }
       }, silent = TRUE)
 
+      # outlier snapshot
+      drop_out <- isTRUE(input$drop_outliers %||% FALSE)
+
+      om <- as.character(input$outlier_method %||% "mad_resid")
+      if (!om %in% c("none", "mad_resid", "iqr_resid", "cook")) om <- "mad_resid"
+
+      ok <- suppressWarnings(as.numeric(input$outlier_k %||% 4))
+      if (!is.finite(ok) || ok <= 0) ok <- 4
+
+      # point snapshot
+      ps <- suppressWarnings(as.numeric(input$point_size %||% 2.2))
+      if (!is.finite(ps) || ps <= 0) ps <- 2.2
+
+      pa <- suppressWarnings(as.numeric(input$point_alpha %||% 0.8))
+      if (!is.finite(pa) || pa <= 0) pa <- 0.8
+      if (pa > 1) pa <- 1
+
       rv$out <- out
       rv$subclass <- subclass
       rv$chains_ranked <- .rank_chains_by_subsetS(out, subclass, chains)
+      rv$pal <- pal
+
       rv$plot_opts <- list(
         corr_method = as.character(input$corr_method),
         add_lm = TRUE,
-        point_size = {
-          ps <- as.numeric(input$point_size %||% 2.2)
-          if (!is.finite(ps) || ps <= 0) 2.2 else ps
-        }
+        point_size = ps,
+        point_alpha = pa,
+        compare_to = compare_to,
+        drop_outliers = drop_out,
+        outlier_method = om,
+        outlier_k = ok
       )
-      rv$pal <- pal
+    }, ignoreInit = TRUE)
+
+    # ============================================================
+    # allow compare_to switching AFTER Run (no recompute)
+    # ============================================================
+    shiny::observeEvent(input$compare_to, {
+      if (is.null(rv$out)) return()
+      rv$plot_opts$compare_to <- .sanitize_compare_to(input$compare_to)
     }, ignoreInit = TRUE)
 
     # ============================================================
     # render ALL panels (patchwork ncol=2)
-    #  - no input refs => no update until Run
     # ============================================================
     output$all_panels_plot <- shiny::renderPlot({
       out <- rv$out
@@ -308,18 +407,36 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
 
       corr_method <- rv$plot_opts$corr_method %||% "pearson"
       add_lm      <- isTRUE(rv$plot_opts$add_lm)
-      pt_size     <- as.numeric(rv$plot_opts$point_size %||% 2.2)
-      pal         <- rv$pal
+
+      pt_size  <- suppressWarnings(as.numeric(rv$plot_opts$point_size %||% 2.2))
+      if (!is.finite(pt_size) || pt_size <= 0) pt_size <- 2.2
+
+      pt_alpha <- suppressWarnings(as.numeric(rv$plot_opts$point_alpha %||% 0.8))
+      if (!is.finite(pt_alpha) || pt_alpha <= 0) pt_alpha <- 0.8
+      if (pt_alpha > 1) pt_alpha <- 1
+
+      compare_to <- .sanitize_compare_to(rv$plot_opts$compare_to %||% "total")
+
+      drop_out    <- isTRUE(rv$plot_opts$drop_outliers)
+      out_method  <- rv$plot_opts$outlier_method %||% "mad_resid"
+      out_k       <- suppressWarnings(as.numeric(rv$plot_opts$outlier_k %||% 4))
+      if (!is.finite(out_k) || out_k <= 0) out_k <- 4
+
+      pal <- rv$pal
 
       plots <- lapply(chains, function(ch) {
         p <- try(
-          plot_chain_vs_total_panel(
-            out,
+          .call_plot_panel(
+            out = out,
             subclass_value = sc,
             chain_value    = ch,
             add_lm         = add_lm,
             corr_method    = corr_method,
-            drop_outliers  = FALSE,
+            compare_to     = compare_to,
+            drop_outliers  = drop_out,
+            outlier_method = out_method,
+            outlier_k      = out_k,
+            point_alpha    = pt_alpha,
             point_size     = pt_size
           ),
           silent = TRUE
@@ -331,8 +448,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
             msg = "No data for this pair\n(or filtered out by thresholds)."
           )
         } else {
-          p <- .apply_palette_snapshot(p, pal)
-          p
+          .apply_palette_snapshot(p, pal)
         }
       })
 
@@ -342,7 +458,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
     }, res = 120)
 
     # ============================================================
-    # download PDF (same as screen: ranked + palette)
+    # download PDF (same as screen)
     # ============================================================
     output$download_pdf <- shiny::downloadHandler(
       filename = function() paste0("decoupled_chain_panels_", Sys.Date(), ".pdf"),
@@ -361,22 +477,41 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
 
         corr_method <- rv$plot_opts$corr_method %||% "pearson"
         add_lm      <- isTRUE(rv$plot_opts$add_lm)
-        pt_size     <- as.numeric(rv$plot_opts$point_size %||% 2.2)
-        pal         <- rv$pal
+
+        pt_size  <- suppressWarnings(as.numeric(rv$plot_opts$point_size %||% 2.2))
+        if (!is.finite(pt_size) || pt_size <= 0) pt_size <- 2.2
+
+        pt_alpha <- suppressWarnings(as.numeric(rv$plot_opts$point_alpha %||% 0.8))
+        if (!is.finite(pt_alpha) || pt_alpha <= 0) pt_alpha <- 0.8
+        if (pt_alpha > 1) pt_alpha <- 1
+
+        compare_to <- .sanitize_compare_to(rv$plot_opts$compare_to %||% "total")
+
+        drop_out    <- isTRUE(rv$plot_opts$drop_outliers)
+        out_method  <- rv$plot_opts$outlier_method %||% "mad_resid"
+        out_k       <- suppressWarnings(as.numeric(rv$plot_opts$outlier_k %||% 4))
+        if (!is.finite(out_k) || out_k <= 0) out_k <- 4
+
+        pal <- rv$pal
 
         plots <- lapply(chains, function(ch) {
           p <- try(
-            plot_chain_vs_total_panel(
-              out,
+            .call_plot_panel(
+              out = out,
               subclass_value = sc,
               chain_value    = ch,
               add_lm         = add_lm,
               corr_method    = corr_method,
-              drop_outliers  = FALSE,
+              compare_to     = compare_to,
+              drop_outliers  = drop_out,
+              outlier_method = out_method,
+              outlier_k      = out_k,
+              point_alpha    = pt_alpha,
               point_size     = pt_size
             ),
             silent = TRUE
           )
+
           if (inherits(p, "try-error")) {
             .placeholder_plot(
               title = paste0(sc, " | with ", ch),

@@ -59,7 +59,7 @@ mod_normalize_ui <- function(id) {
   )
   
   shiny::tagList(
-    shiny::h3("Step 2: Lipidome data Normalization"),
+    shiny::h3("Step 2: Lipidome data normalization"),
     
     # Inject scoped CSS once per module instance
     shiny::tags$style(shiny::HTML(css)),
@@ -81,7 +81,7 @@ mod_normalize_ui <- function(id) {
             style = "min-width:260px;",
             shiny::selectInput(
               ns("method"), "Method",
-              c("none", "log2", "sum", "median", "zscore"),
+              c("none", "sum", "median"),
               selected = "none"
             )
           ),

@@ -1,7 +1,7 @@
 # decoupled_chain_panels.R
 # ============================================================
 # Utilities for "decoupled chain" scatter panels
-#  - find_decoupled_chains(): build long data (C vs S) + decoupling scores
+#  - find_decoupled_chains(): build long data (C vs S) + (R vs S) + scores
 #  - plot_chain_vs_total_panel(): single scatter panel (fills by sample class)
 #  - export_subclass_chains_pdf(): multi-panel PDF for one subclass & many chains
 #
@@ -47,6 +47,14 @@
   NULL
 }
 
+.safe_log_ratio <- function(S, R, pseudo = 1) {
+  # log((S+p)/(R+p)) in natural log
+  S <- as.numeric(S); R <- as.numeric(R)
+  p <- as.numeric(pseudo)
+  if (!is.finite(p) || p <= 0) p <- 1
+  log((S + p) / (R + p))
+}
+
 # ============================================================
 # 1) Build decoupled chain candidates from SE
 # ============================================================
@@ -62,10 +70,12 @@ find_decoupled_chains <- function(se,
                                  min_species_chain = 3,
                                  min_chain_fraction_median = 0.01,
                                  corr_method = c("pearson","spearman"),
-                                 use_lm_r2 = TRUE) {
+                                 use_lm_r2 = TRUE,
+                                 score_against = c("total","rest")) {
 
   .require_pkgs(c("SummarizedExperiment", "dplyr", "tibble"))
-  corr_method <- match.arg(corr_method)
+  corr_method  <- match.arg(corr_method)
+  score_against <- match.arg(score_against)
 
   stopifnot(assay_name %in% SummarizedExperiment::assayNames(se))
   A <- SummarizedExperiment::assay(se, assay_name)
@@ -91,7 +101,7 @@ find_decoupled_chains <- function(se,
   A <- A[, keep_samp, drop = FALSE]
   samp_names <- colnames(A)
 
-  # sample metadata map AFTER filtering (key: sample)
+  # sample metadata map AFTER filtering
   cd2 <- cd[keep_samp, , drop = FALSE]
 
   # If rownames(cd2) are sample names, reorder to match colnames(A)
@@ -108,25 +118,12 @@ find_decoupled_chains <- function(se,
     sample_map <- dplyr::mutate(sample_map, class = NA_character_)
   }
 
-  # ---- work scale
+  # ---- work scale (per-feature)
   A_work <- if (isTRUE(log1p)) log10(pmax(A, 0) + pseudo) else A
 
   idx_by_sc <- split(seq_len(nrow(A_work)), subclass)
 
-  # ---- class total C per subclass
-  C_df <- dplyr::bind_rows(lapply(names(idx_by_sc), function(sc) {
-    idx <- idx_by_sc[[sc]]
-    if (length(idx) < min_species_total) return(NULL)
-    tibble::tibble(
-      subclass = sc,
-      sample   = samp_names,
-      C        = as.numeric(colSums(A_work[idx, , drop = FALSE], na.rm = TRUE)),
-      n_total  = length(idx)
-    )
-  }))
-  if (nrow(C_df) == 0) stop("No subclasses passed min_species_total=", min_species_total, call. = FALSE)
-
-  # ---- subset S per chain
+  # ---- subset S and rest R per chain (and C total)
   out_long <- list()
   chains <- unique(.trim_chr(chains))
   chains <- chains[nzchar(chains)]
@@ -135,29 +132,46 @@ find_decoupled_chains <- function(se,
   for (ch in chains) {
     has_ch <- .feature_has_chain(acyl_list, ch)
 
-    S_df <- dplyr::bind_rows(lapply(names(idx_by_sc), function(sc) {
+    SR_df <- dplyr::bind_rows(lapply(names(idx_by_sc), function(sc) {
       idx_all <- idx_by_sc[[sc]]
       if (length(idx_all) < min_species_total) return(NULL)
-      idx <- idx_all[has_ch[idx_all]]
-      if (length(idx) < min_species_chain) return(NULL)
+
+      idx_ch   <- idx_all[has_ch[idx_all]]
+      if (length(idx_ch) < min_species_chain) return(NULL)
+
+      idx_rest <- idx_all[!has_ch[idx_all]]
+      # NOTE: idx_rest can be length 0 (rare) -> R becomes 0 (or 0-length sum)
+      C <- as.numeric(colSums(A_work[idx_all,  , drop = FALSE], na.rm = TRUE))
+      S <- as.numeric(colSums(A_work[idx_ch,   , drop = FALSE], na.rm = TRUE))
+      R <- if (length(idx_rest) > 0) {
+        as.numeric(colSums(A_work[idx_rest, , drop = FALSE], na.rm = TRUE))
+      } else {
+        rep(0, length(samp_names))
+      }
 
       tibble::tibble(
         subclass = sc,
         sample   = samp_names,
         chain    = ch,
-        S        = as.numeric(colSums(A_work[idx, , drop = FALSE], na.rm = TRUE)),
-        n_chain  = length(idx),
-        n_total  = length(idx_all)
+        C        = C,
+        S        = S,
+        R        = R,
+        n_total  = length(idx_all),
+        n_chain  = length(idx_ch),
+        n_rest   = length(idx_rest)
       )
     }))
 
-    if (nrow(S_df) == 0) next
+    if (nrow(SR_df) == 0) next
 
-    tmp <- S_df |>
-      dplyr::inner_join(C_df, by = c("subclass","sample","n_total")) |>
-      dplyr::mutate(frac = ifelse(C > 0, S / C, NA_real_)) |>
-      dplyr::group_by(subclass, chain, n_total, n_chain) |>
-      dplyr::filter(stats::median(frac, na.rm = TRUE) >= min_chain_fraction_median) |>
+    tmp <- SR_df |>
+      dplyr::mutate(
+        frac_total = ifelse(is.finite(C) & C != 0, S / C, NA_real_),    # old-style fraction vs total
+        frac_parts = ifelse(is.finite(S + R) & (S + R) != 0, S / (S + R), NA_real_), # composition fraction using parts
+        log_ratio  = .safe_log_ratio(S, R, pseudo = pseudo)            # log((S+p)/(R+p))
+      ) |>
+      dplyr::group_by(subclass, chain, n_total, n_chain, n_rest) |>
+      dplyr::filter(stats::median(frac_total, na.rm = TRUE) >= min_chain_fraction_median) |>
       dplyr::ungroup()
 
     out_long[[ch]] <- tmp
@@ -171,41 +185,73 @@ find_decoupled_chains <- function(se,
   # Attach sample class
   dat <- dplyr::left_join(dat, sample_map, by = "sample")
 
-  # ---- score decoupling
+  # ---- score decoupling (both total and rest)
   res <- dat |>
     dplyr::group_by(subclass, chain) |>
     dplyr::summarise(
-      n_samples = sum(is.finite(C) & is.finite(S)),
+      n_samples = sum(is.finite(C) & is.finite(S) & is.finite(R)),
       n_total   = max(n_total, na.rm = TRUE),
       n_chain   = max(n_chain, na.rm = TRUE),
-      cor = {
+      n_rest    = max(n_rest, na.rm = TRUE),
+
+      # total-based: S ~ C
+      cor_total = {
         x <- C; y <- S
         ok <- is.finite(x) & is.finite(y)
         if (sum(ok) < 3) NA_real_ else suppressWarnings(stats::cor(x[ok], y[ok], method = corr_method))
       },
-      r2 = {
+      r2_total = {
         if (!use_lm_r2) return(NA_real_)
         x <- C; y <- S
         ok <- is.finite(x) & is.finite(y)
         if (sum(ok) < 3) NA_real_ else as.numeric(summary(stats::lm(y[ok] ~ x[ok]))$r.squared)
       },
-      slope = {
+      slope_total = {
         x <- C; y <- S
         ok <- is.finite(x) & is.finite(y)
         if (sum(ok) < 3) NA_real_ else as.numeric(stats::coef(stats::lm(y[ok] ~ x[ok]))[2])
       },
-      frac_median = stats::median(frac, na.rm = TRUE),
-      frac_iqr    = stats::IQR(frac, na.rm = TRUE),
+
+      # rest-based: S ~ R
+      cor_rest = {
+        x <- R; y <- S
+        ok <- is.finite(x) & is.finite(y)
+        if (sum(ok) < 3) NA_real_ else suppressWarnings(stats::cor(x[ok], y[ok], method = corr_method))
+      },
+      r2_rest = {
+        if (!use_lm_r2) return(NA_real_)
+        x <- R; y <- S
+        ok <- is.finite(x) & is.finite(y)
+        if (sum(ok) < 3) NA_real_ else as.numeric(summary(stats::lm(y[ok] ~ x[ok]))$r.squared)
+      },
+      slope_rest = {
+        x <- R; y <- S
+        ok <- is.finite(x) & is.finite(y)
+        if (sum(ok) < 3) NA_real_ else as.numeric(stats::coef(stats::lm(y[ok] ~ x[ok]))[2])
+      },
+
+      frac_total_median = stats::median(frac_total, na.rm = TRUE),
+      frac_total_iqr    = stats::IQR(frac_total, na.rm = TRUE),
+      frac_parts_median = stats::median(frac_parts, na.rm = TRUE),
+      frac_parts_iqr    = stats::IQR(frac_parts, na.rm = TRUE),
+
+      log_ratio_median  = stats::median(log_ratio, na.rm = TRUE),
+      log_ratio_iqr     = stats::IQR(log_ratio, na.rm = TRUE),
+
       .groups = "drop"
     ) |>
     dplyr::mutate(
-      decouple = ifelse(is.finite(r2), 1 - r2,
-                        ifelse(is.finite(cor), 1 - abs(cor), NA_real_))
+      decouple_total = ifelse(is.finite(r2_total), 1 - r2_total,
+                              ifelse(is.finite(cor_total), 1 - abs(cor_total), NA_real_)),
+      decouple_rest  = ifelse(is.finite(r2_rest),  1 - r2_rest,
+                              ifelse(is.finite(cor_rest),  1 - abs(cor_rest),  NA_real_)),
+      decouple = if (score_against == "rest") decouple_rest else decouple_total,
+      score_against = score_against
     ) |>
     dplyr::arrange(dplyr::desc(decouple), dplyr::desc(n_samples))
 
   list(
-    data_long  = dat,        # subclass, chain, sample, C, S, frac, class
+    data_long  = dat,        # subclass, chain, sample, C, S, R, frac_total, frac_parts, log_ratio, class
     results    = res,
     sample_map = sample_map  # sample -> class
   )
@@ -219,6 +265,7 @@ plot_chain_vs_total_panel <- function(out,
                                       chain_value,
                                       add_lm = TRUE,
                                       corr_method = c("pearson","spearman"),
+                                      compare_to = c("total","rest"),
                                       # outlier options
                                       drop_outliers = FALSE,
                                       outlier_method = c("none","mad_resid","iqr_resid","cook"),
@@ -229,6 +276,7 @@ plot_chain_vs_total_panel <- function(out,
   .require_pkgs(c("dplyr", "ggplot2"))
 
   corr_method    <- match.arg(corr_method)
+  compare_to     <- match.arg(compare_to)
   outlier_method <- match.arg(outlier_method)
 
   dl <- as.data.frame(out$data_long)
@@ -251,13 +299,18 @@ plot_chain_vs_total_panel <- function(out,
 
   df$C <- as.numeric(df$C)
   df$S <- as.numeric(df$S)
-  ok <- is.finite(df$C) & is.finite(df$S)
+  df$R <- as.numeric(df$R)
+
+  xvar <- if (compare_to == "rest") "R" else "C"
+  df$X <- as.numeric(df[[xvar]])
+
+  ok <- is.finite(df$X) & is.finite(df$S)
   df <- df[ok, , drop = FALSE]
   if (nrow(df) < 3) stop("Too few points (n<3) for subclass=", sv, " chain=", cv, call. = FALSE)
 
-  # optional outlier removal based on S~C
+  # optional outlier removal based on S~X
   if (isTRUE(drop_outliers) && outlier_method != "none" && nrow(df) >= 6) {
-    fit <- stats::lm(S ~ C, data = df)
+    fit <- stats::lm(S ~ X, data = df)
     keep <- rep(TRUE, nrow(df))
 
     if (outlier_method %in% c("mad_resid", "iqr_resid")) {
@@ -286,23 +339,31 @@ plot_chain_vs_total_panel <- function(out,
   }
 
   # stats (after filtering)
-  fit2 <- stats::lm(S ~ C, data = df)
-  corv <- suppressWarnings(stats::cor(df$C, df$S, method = corr_method))
+  fit2 <- stats::lm(S ~ X, data = df)
+  corv <- suppressWarnings(stats::cor(df$X, df$S, method = corr_method))
   r2v  <- suppressWarnings(summary(fit2)$r.squared)
   ann  <- sprintf("cor = %.2f\nR² = %.2f", corv, r2v)
 
   # ensure class exists for fill
   if (!"class" %in% names(df)) df$class <- NA_character_
 
-  p <- ggplot2::ggplot(df, ggplot2::aes(x = C, y = S)) +
+  xlab <- if (compare_to == "rest") {
+    "Rest (R): subclass total excluding the chain-subset"
+  } else {
+    "Class total expression (C)"
+  }
+
+  ttl_suffix <- if (compare_to == "rest") "S vs R" else "S vs C"
+
+  p <- ggplot2::ggplot(df, ggplot2::aes(x = X, y = S)) +
     ggplot2::geom_point(
       ggplot2::aes(fill = class),
       shape = 21, color = "black",
       alpha = point_alpha, size = point_size
     ) +
     ggplot2::labs(
-      title = paste0(sv, " | with ", cv),
-      x = "Class total expression (C)",
+      title = paste0(sv, " | with ", cv, " (", ttl_suffix, ")"),
+      x = xlab,
       y = "Chain-subset total expression (S)",
       fill = "Class"
     ) +
@@ -333,6 +394,7 @@ export_subclass_chains_pdf <- function(out,
                                        height = 8.5,
                                        add_lm = TRUE,
                                        corr_method = "pearson",
+                                       compare_to = c("total","rest"),
                                        # outlier options
                                        drop_outliers = FALSE,
                                        outlier_method = "mad_resid",
@@ -343,6 +405,8 @@ export_subclass_chains_pdf <- function(out,
                                        point_size = 2.2) {
 
   .require_pkgs(c("patchwork", "ggplot2"))
+
+  compare_to <- match.arg(compare_to)
 
   subclass <- .trim_chr(subclass)
   chains   <- unique(.trim_chr(chains))
@@ -358,6 +422,7 @@ export_subclass_chains_pdf <- function(out,
         chain_value    = ch,
         add_lm         = add_lm,
         corr_method    = corr_method,
+        compare_to     = compare_to,
         drop_outliers  = drop_outliers,
         outlier_method = outlier_method,
         outlier_k      = outlier_k,
@@ -404,7 +469,9 @@ run_decoupled_chain_panels <- function(se,
                                       min_chain_fraction_median = 0.01,
                                       corr_method = "pearson",
                                       use_lm_r2 = TRUE,
+                                      score_against = c("total","rest"),
                                       # plot/export params
+                                      compare_to = c("total","rest"),
                                       ncol = 2,
                                       width = 11,
                                       height = 8.5,
@@ -415,6 +482,9 @@ run_decoupled_chain_panels <- function(se,
                                       skip_missing = TRUE,
                                       point_alpha = 0.8,
                                       point_size = 2.2) {
+
+  score_against <- match.arg(score_against)
+  compare_to    <- match.arg(compare_to)
 
   out <- find_decoupled_chains(
     se,
@@ -429,7 +499,8 @@ run_decoupled_chain_panels <- function(se,
     min_species_chain = min_species_chain,
     min_chain_fraction_median = min_chain_fraction_median,
     corr_method = corr_method,
-    use_lm_r2 = use_lm_r2
+    use_lm_r2 = use_lm_r2,
+    score_against = score_against
   )
 
   export_subclass_chains_pdf(
@@ -442,6 +513,7 @@ run_decoupled_chain_panels <- function(se,
     height = height,
     add_lm = add_lm,
     corr_method = corr_method,
+    compare_to = compare_to,
     drop_outliers = drop_outliers,
     outlier_method = outlier_method,
     outlier_k = outlier_k,
@@ -452,4 +524,3 @@ run_decoupled_chain_panels <- function(se,
 
   invisible(out)
 }
-

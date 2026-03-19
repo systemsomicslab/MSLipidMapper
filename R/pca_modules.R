@@ -407,6 +407,8 @@ make_pca_loading_heatmap_from_se <- function(
     cluster_columns = TRUE,
     show_row_names = TRUE,
     show_column_names = FALSE,
+	row_names_gp = grid::gpar(fontsize = 12),
+    column_names_gp = grid::gpar(fontsize = 8),
     top_annotation = ha_top,
     left_annotation = ha_left,
     heatmap_legend_param = list(
