@@ -419,11 +419,25 @@ parse_chain <- function(chain, oxygen_keywords = c(";OH", "(OH)")) {
 # ------------------------------------------------------------
 add_chain_list_to_se <- function(se,
                                  rules,
-                                 lipid_col = "Metabolite.name",
+                                 lipid_col = NULL,
                                  out_col   = "acyl_chains") {
   stopifnot(methods::is(se, "SummarizedExperiment"))
   
-  rd <- as.data.frame(SummarizedExperiment::rowData(se))
+  rd <- SummarizedExperiment::rowData(se)
+  lipid_col <- lipid_col %||% .resolve_lipid_name_col(se)
+
+  if (!is.null(lipid_col) && nzchar(lipid_col) && !lipid_col %in% colnames(rd)) {
+    alt_idx <- match(make.names(lipid_col), make.names(colnames(rd)))
+    if (!is.na(alt_idx)) lipid_col <- colnames(rd)[alt_idx]
+  }
+
+  if (is.null(lipid_col) || !nzchar(lipid_col)) {
+    stop(
+      "rowData does not contain a recognized lipid name column ",
+      "(expected one of: Metabolite.name, Metabolite name).",
+      call. = FALSE
+    )
+  }
   if (!lipid_col %in% colnames(rd)) {
     stop("rowData does not contain column: '", lipid_col, "'.", call. = FALSE)
   }
@@ -432,16 +446,16 @@ add_chain_list_to_se <- function(se,
     rd[[out_col]] <- NULL
   }
   
-  lipid_names <- rd[[lipid_col]]
+  lipid_names <- as.character(rd[[lipid_col]])
   
-  chains_list <- purrr::map(as.character(lipid_names), ~{
+  chains_list <- purrr::map(lipid_names, ~{
     out <- try(extract_acyl_chains_from_name(.x, rules = rules), silent = TRUE)
     if (inherits(out, "try-error") || is.null(out)) character(0) else as.character(out)
   })
   
   rd[[out_col]] <- .ensure_listcol(chains_list)
   
-  SummarizedExperiment::rowData(se) <- S4Vectors::DataFrame(rd)
+  SummarizedExperiment::rowData(se) <- rd
   se
 }
 

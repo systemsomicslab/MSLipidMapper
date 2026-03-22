@@ -127,7 +127,7 @@ suppressPackageStartupMessages({
 # ------------------------------------------------------------
 # YAML rules
 # ------------------------------------------------------------
-load_lipid_rules <- function(yaml_file) {
+.enrich_load_lipid_rules <- function(yaml_file) {
   if (is.null(yaml_file) || !nzchar(yaml_file)) {
     stop("rules_yaml_path is NULL/empty. Provide a path to acyl_rules.yaml.", call. = FALSE)
   }
@@ -155,7 +155,7 @@ load_lipid_rules <- function(yaml_file) {
   pri * 1000 + rx_len + bonus
 }
 
-select_rule <- function(lipid_class, rules) {
+.enrich_select_rule <- function(lipid_class, rules) {
   pats <- rules$patterns
   if (is.null(pats)) return(NULL)
   hits <- list()
@@ -270,7 +270,7 @@ select_rule <- function(lipid_class, rules) {
 # ------------------------------------------------------------
 # Extract acyl chains from one lipid name (ALWAYS character vec)
 # ------------------------------------------------------------
-extract_acyl_chains_from_name <- function(lipid_name, rules) {
+.enrich_extract_acyl_chains_from_name <- function(lipid_name, rules) {
   nm <- as.character(lipid_name %||% "")
   nm <- str_trim(nm)
   if (!nzchar(nm)) return(character(0))
@@ -279,7 +279,7 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
   class_raw <- str_extract(nm, "^[A-Za-z0-9\\-\\+;_]+") %||% ""
   class_raw <- str_trim(class_raw)
   
-  rule <- select_rule(class_raw, rules)
+  rule <- .enrich_select_rule(class_raw, rules)
   
   # if no rule, still try minimal extraction
   if (is.null(rule)) {
@@ -392,7 +392,7 @@ add_acyl_chains_to_table <- function(df, lipid_col, rules) {
     mutate(
       .lipid_tmp__ = as.character(.data[[lipid_col]]),
       acyl_chains  = purrr::map(.lipid_tmp__, ~{
-        out <- try(extract_acyl_chains_from_name(.x, rules = rules), silent = TRUE)
+        out <- try(.enrich_extract_acyl_chains_from_name(.x, rules = rules), silent = TRUE)
         if (inherits(out, "try-error") || is.null(out)) character(0) else as.character(out)
       })
     ) %>%
@@ -680,7 +680,7 @@ mod_lipid_enrich_server <- function(id, rules_yaml_path, adv_reactive = NULL, ..
     }
     
     # Load YAML rules ONCE (no UI input)
-    rules <- load_lipid_rules(rules_yaml_path)
+    rules <- .enrich_load_lipid_rules(rules_yaml_path)
     
     bg_tbl_raw <- reactive({
       req(input$bg_file)

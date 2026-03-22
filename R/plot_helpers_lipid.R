@@ -149,7 +149,7 @@ plot_lipid_class_bar <- function(
     ggplot2::labs(
       title = lipid_class,
       x     = NULL,
-      y     = if (isTRUE(use_se)) "Abundance (mean ± SE)" else "Abundance (mean ± SD)",
+      y     = if (isTRUE(use_se)) "Abundance" else "Abundance",
       fill  = sample_class_col
     ) +
     # Helps avoid clipping when labels are long and rotated.

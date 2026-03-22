@@ -22,7 +22,6 @@
 
 suppressPackageStartupMessages({
   library(shiny)
-  library(htmltools)
 })
 
 cyto_js_deps <- function(container_id_css) {
@@ -31,20 +30,9 @@ cyto_js_deps <- function(container_id_css) {
     vendor_dir <- normalizePath(file.path(getwd(), "www", "vendor"), winslash = "/", mustWork = FALSE)
   }
 
-  dep_pdf_export <- if (nzchar(vendor_dir)) {
-    htmltools::htmlDependency(
-      name = "mslm-cytoscape-pdf-export",
-      version = "1.0.0",
-      src = c(file = vendor_dir),
-      script = "cytoscape-pdf-export.js"
-    )
-  } else {
-    NULL
-  }
-
   shiny::tagList(
-    dep_pdf_export,
     shiny::tags$script(src = "https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"),
+    if (nzchar(vendor_dir)) shiny::tags$script(src = "/vendor/cytoscape-pdf-export.js"),
     shiny::tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"),
     shiny::tags$script(src = "https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"),
     shiny::tags$style(shiny::HTML(sprintf("
@@ -203,6 +191,52 @@ cyto_js_deps <- function(container_id_css) {
   function hideLoading(container_id){
     const ov = overlayEl(container_id);
     if (ov) ov.classList.remove("show");
+  }
+
+  function injectScriptOnce(src, key){
+    return new Promise(function(resolve, reject){
+      if (key && window[key]) return resolve(true);
+
+      const existing = document.querySelector("script[data-mslm-src=\\"" + src + "\\"]");
+      if (existing) {
+        if (existing.dataset.loaded === "true") return resolve(true);
+        existing.addEventListener("load", function(){ resolve(true); }, { once: true });
+        existing.addEventListener("error", function(){ reject(new Error("Failed to load " + src)); }, { once: true });
+        return;
+      }
+
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = false;
+      s.dataset.mslmSrc = src;
+      s.onload = function(){
+        s.dataset.loaded = "true";
+        if (key) window[key] = true;
+        resolve(true);
+      };
+      s.onerror = function(){
+        reject(new Error("Failed to load " + src));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  async function ensurePdfExportAvailable(container_id){
+    const cy = window.__cy_instances[container_id];
+    if (cy && typeof cy.pdf === "function") return true;
+
+    await injectScriptOnce("/vendor/cytoscape-pdf-export.js", "__cy_pdf_export_script_loaded");
+
+    for (let i = 0; i < 20; i++) {
+      const cyNow = window.__cy_instances[container_id];
+      if (cyNow && typeof cyNow.pdf === "function") {
+        window.__cy_pdf_export_registered = true;
+        return true;
+      }
+      await new Promise(function(res){ setTimeout(res, 100); });
+    }
+
+    return false;
   }
 
   function withOverlayHidden(container_id, fn){
@@ -778,18 +812,18 @@ cyto_js_deps <- function(container_id_css) {
       try{
         if (!p || !p.container_id) return;
 
-        const cy = window.__cy_instances[p.container_id];
-        if (!cy){
-          alert("Cytoscape instance not found.");
-          return;
-        }
-
-        if (typeof cy.pdf !== "function"){
-          alert("cy.pdf() is not available. Check whether vendor/cytoscape-pdf-export.js is loaded.");
-          return;
-        }
-
         return withOverlayHidden(p.container_id, async function(){
+          const ok = await ensurePdfExportAvailable(p.container_id);
+          const cy = window.__cy_instances[p.container_id];
+
+          if (!cy){
+            throw new Error("Cytoscape instance not found.");
+          }
+
+          if (!ok || typeof cy.pdf !== "function"){
+            throw new Error("cy.pdf() is not available after loading /vendor/cytoscape-pdf-export.js.");
+          }
+
           const paperSize = String(p.format || "A4").toUpperCase();
 
           let orientation = "LANDSCAPE";

@@ -62,7 +62,7 @@ mod_plot_lipid_server <- function(
     .resolve_label_col <- function(se) {
       rd <- as.data.frame(SummarizedExperiment::rowData(se))
       cn <- colnames(rd)
-      cand <- c("Metabolite name", "Metabolite", "Name","Metabolite.name")
+      cand <- c("Metabolite name", "Metabolite.name", "Metabolite", "Name")
       hit  <- cand[cand %in% cn][1]
       if (length(hit)) hit else cn[1]
     }
@@ -584,7 +584,7 @@ mod_plot_lipid_server <- function(
         lipid_class       = input$lipid_class,
         assay_name        = "abundance",
         lipid_class_col   = class_col,
-        feature_label_col = label_col,
+        #feature_label_col = label_col,
         sample_class_col  = "class",
         use_se            = TRUE,
         top_n             = top_n,
