@@ -18,6 +18,87 @@
 mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
   ns <- shiny::NS(id)
 
+  return(
+    shinydashboard::tabBox(
+      width = 12,
+      shiny::tabPanel(
+        "Heatmap",
+        shiny::br(),
+        shiny::fluidRow(
+          shinydashboard::box(
+            title = "Heatmap settings", width = 4, status = "primary", solidHeader = TRUE,
+            shiny::uiOutput(ns("ui_heatmap_chains")),
+            shiny::selectInput(
+              ns("heatmap_corr_method"),
+              "Correlation method",
+              choices = c("pearson", "spearman"),
+              selected = "pearson"
+            ),
+            shiny::helpText("The heatmap always uses class-total correlation and colors tiles by 1 - cor.")
+          ),
+          shinydashboard::box(
+            title = title, width = 8, status = "primary", solidHeader = TRUE,
+            shiny::plotOutput(ns("cor_heatmap"), height = "760px")
+          )
+        )
+      ),
+      shiny::tabPanel(
+        "Panels",
+        shiny::br(),
+        shiny::fluidRow(
+          shinydashboard::box(
+            title = title, width = 4, status = "primary", solidHeader = TRUE,
+            shiny::uiOutput(ns("ui_subclass")),
+            shiny::uiOutput(ns("ui_chains")),
+            shiny::tags$hr(),
+            shiny::selectInput(
+              ns("corr_method"),
+              "cor method",
+              choices = c("pearson", "spearman"),
+              selected = "pearson"
+            ),
+            shiny::selectInput(
+              ns("compare_to"),
+              "Compare to (x-axis)",
+              choices = c(
+                "Total (C): subset vs class total" = "total",
+                "Rest  (R): subset vs (class total minus subset)" = "rest"
+              ),
+              selected = "total"
+            ),
+            shiny::helpText("Total: x=C, y=S. Rest: x=R=T-S, y=S."),
+            shiny::numericInput(ns("point_size"), "Point size", value = 3, min = 0.5, step = 0.5),
+            shiny::numericInput(ns("point_alpha"), "Point alpha", min = 0.1, max = 1.0, value = 0.8, step = 0.05),
+            shiny::tags$hr(),
+            shiny::checkboxInput(ns("drop_outliers"), "Drop outliers (per panel)", value = FALSE),
+            shiny::selectInput(
+              ns("outlier_method"),
+              "Outlier method",
+              choices = c("mad_resid", "iqr_resid", "cook"),
+              selected = "mad_resid"
+            ),
+            shiny::numericInput(ns("outlier_k"), "Outlier k", value = 4, min = 1, step = 0.5),
+            shiny::helpText("mad_resid/iqr_resid: |residual| > k*MAD(IQR). cook: Cook's D > k/n."),
+            shiny::checkboxInput(ns("use_lm_r2"), "use lm R2 (decouple=1-R2)", value = TRUE),
+            shiny::checkboxInput(ns("log1p"), "log10(raw + pseudo)", value = FALSE),
+            shiny::numericInput(ns("pseudo"), "pseudo", value = 1, min = 0, step = 0.1),
+            shiny::numericInput(ns("min_species_total"), "min_species_total", value = 1, min = 1, step = 1),
+            shiny::numericInput(ns("min_species_chain"), "min_species_chain", value = 1, min = 1, step = 1),
+            shiny::numericInput(ns("min_chain_frac_med"), "min_chain_fraction_median", value = 0.01, min = 0, step = 0.001),
+            shiny::tags$hr(),
+            shiny::actionButton(ns("run"), "Run", icon = shiny::icon("play")),
+            shiny::downloadButton(ns("download_pdf"), "Export PDF")
+          ),
+          shinydashboard::box(
+            title = "Scatter panels", width = 8, status = "primary", solidHeader = TRUE,
+            shiny::helpText("Selected subclass-chain panels are shown below."),
+            shiny::plotOutput(ns("all_panels_plot"), height = "860px")
+          )
+        )
+      )
+    )
+  )
+
   shiny::fluidRow(
     shinydashboard::box(
       title = title, width = 4, status = "primary", solidHeader = TRUE,
@@ -77,7 +158,22 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
         shiny::tabPanel(
           "Heatmap",
           shiny::br(),
-          shiny::helpText("Heatmap shows 1 - cor for the current chain set across subclasses."),
+          shiny::fluidRow(
+            shiny::column(
+              width = 7,
+              shiny::uiOutput(ns("ui_heatmap_chains"))
+            ),
+            shiny::column(
+              width = 3,
+              shiny::selectInput(
+                ns("heatmap_corr_method"),
+                "Correlation method",
+                choices = c("pearson", "spearman"),
+                selected = "pearson"
+              )
+            )
+          ),
+          shiny::helpText("Heatmap uses class-total correlation and colors tiles by 1 - cor."),
           shiny::plotOutput(ns("cor_heatmap"), height = "760px")
         ),
         shiny::tabPanel(
@@ -285,6 +381,46 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
     })
 
     # ============================================================
+    # heatmap chain choices from the full SE
+    # ============================================================
+    output$ui_heatmap_chains <- shiny::renderUI({
+      se <- se_lipid()
+      shiny::validate(shiny::need(!is.null(se), "No SE loaded yet."))
+
+      rd <- as.data.frame(SummarizedExperiment::rowData(se))
+      shiny::validate(
+        shiny::need("acyl_chains" %in% names(rd), "rowData$acyl_chains is missing."),
+        shiny::need(is.list(rd$acyl_chains), "rowData$acyl_chains must be a list-column.")
+      )
+
+      cand <- unique(trimws(as.character(unlist(rd$acyl_chains, use.names = FALSE))))
+      cand <- cand[nzchar(cand)]
+      cand <- sort(cand)
+
+      shiny::validate(shiny::need(length(cand) > 0, "No chains found in rowData$acyl_chains."))
+
+      default <- isolate(input$heatmap_chains %||% character(0))
+      if (!length(default)) {
+        default <- intersect(c("16:0", "18:1", "18:2", "20:4", "22:6"), cand)
+      }
+      if (!length(default)) default <- cand[seq_len(min(12, length(cand)))]
+
+      shiny::selectizeInput(
+        ns("heatmap_chains"),
+        "Chains for heatmap",
+        choices = cand,
+        selected = default,
+        multiple = TRUE,
+        options = list(
+          placeholder = "Select chains to include in the heatmap",
+          plugins = list("remove_button"),
+          persist = TRUE,
+          maxItems = 500
+        )
+      )
+    })
+
+    # ============================================================
     # state (snapshot after Run)
     # ============================================================
     rv <- shiny::reactiveValues(
@@ -400,20 +536,43 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
     # heatmap (subclass x chain)
     # ============================================================
     output$cor_heatmap <- shiny::renderPlot({
-      out <- rv$out
-      shiny::validate(shiny::need(!is.null(out), "Press Run to compute."))
+      se <- se_lipid()
+      shiny::validate(shiny::need(!is.null(se), "No SE loaded yet."))
 
+      hm_chains <- .parse_chains(input$heatmap_chains)
+      shiny::validate(shiny::need(length(hm_chains) > 0, "Select one or more chains for the heatmap."))
+
+      out <- NULL
+      tryCatch({
+        out <- .call_find_decoupled(
+          se = se,
+          chains = hm_chains,
+          assay_name = assay,
+          subclass_col = "subclass",
+          acyl_col = "acyl_chains",
+          exclude_sample_classes = c("QC", "Blank"),
+          log1p = FALSE,
+          pseudo = 1,
+          min_species_total = 1L,
+          min_species_chain = 1L,
+          min_chain_fraction_median = 0.01,
+          corr_method = as.character(input$heatmap_corr_method %||% "pearson"),
+          use_lm_r2 = FALSE,
+          score_against = "total"
+        )
+      }, error = function(e) {
+        shiny::validate(shiny::need(FALSE, conditionMessage(e)))
+      })
+
+      shiny::validate(shiny::need(!is.null(out), "No heatmap data available."))
       res <- as.data.frame(out$results)
       shiny::validate(shiny::need(nrow(res) > 0, "No heatmap data available."))
 
-      compare_to <- .sanitize_compare_to(rv$plot_opts$compare_to %||% "total")
-      cor_col <- if (compare_to == "rest") "cor_rest" else "cor_total"
-
-      shiny::validate(shiny::need(cor_col %in% names(res), "Correlation column is missing in the decoupled-chain results."))
+      shiny::validate(shiny::need("cor_total" %in% names(res), "Correlation column cor_total is missing in the decoupled-chain results."))
 
       res$subclass <- trimws(as.character(res$subclass))
       res$chain    <- trimws(as.character(res$chain))
-      res$cor_val  <- suppressWarnings(as.numeric(res[[cor_col]]))
+      res$cor_val  <- suppressWarnings(as.numeric(res[["cor_total"]]))
       res$fill_val <- ifelse(is.finite(res$cor_val), 1 - res$cor_val, NA_real_)
 
       ggplot2::ggplot(res, ggplot2::aes(x = .data$chain, y = .data$subclass, fill = .data$fill_val)) +
@@ -439,7 +598,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
         ggplot2::labs(
           x = "Chain",
           y = "Subclass",
-          title = if (compare_to == "rest") "Decoupled chain heatmap (rest-based correlation)" else "Decoupled chain heatmap (class-total correlation)"
+          title = "Decoupled chain heatmap (1 - cor_total)"
         )
     }, res = 120)
 
