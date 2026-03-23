@@ -201,10 +201,13 @@ find_decoupled_chains <- function(se,
         if (sum(ok) < 3) NA_real_ else suppressWarnings(stats::cor(x[ok], y[ok], method = corr_method))
       },
       r2_total = {
-        if (!use_lm_r2) return(NA_real_)
-        x <- C; y <- S
-        ok <- is.finite(x) & is.finite(y)
-        if (sum(ok) < 3) NA_real_ else as.numeric(summary(stats::lm(y[ok] ~ x[ok]))$r.squared)
+        if (!use_lm_r2) {
+          NA_real_
+        } else {
+          x <- C; y <- S
+          ok <- is.finite(x) & is.finite(y)
+          if (sum(ok) < 3) NA_real_ else as.numeric(summary(stats::lm(y[ok] ~ x[ok]))$r.squared)
+        }
       },
       slope_total = {
         x <- C; y <- S
@@ -219,10 +222,13 @@ find_decoupled_chains <- function(se,
         if (sum(ok) < 3) NA_real_ else suppressWarnings(stats::cor(x[ok], y[ok], method = corr_method))
       },
       r2_rest = {
-        if (!use_lm_r2) return(NA_real_)
-        x <- R; y <- S
-        ok <- is.finite(x) & is.finite(y)
-        if (sum(ok) < 3) NA_real_ else as.numeric(summary(stats::lm(y[ok] ~ x[ok]))$r.squared)
+        if (!use_lm_r2) {
+          NA_real_
+        } else {
+          x <- R; y <- S
+          ok <- is.finite(x) & is.finite(y)
+          if (sum(ok) < 3) NA_real_ else as.numeric(summary(stats::lm(y[ok] ~ x[ok]))$r.squared)
+        }
       },
       slope_rest = {
         x <- R; y <- S
