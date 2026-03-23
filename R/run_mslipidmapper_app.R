@@ -350,6 +350,7 @@ run_mslipidmapper_app <- function(
           shinydashboard::menuSubItem("Correlation",      tabName = "analysis_cor",        icon = .ic("chart-line")),
           shinydashboard::menuSubItem("Volcano",          tabName = "analysis_volcano",    icon = .ic("fire")),
           shinydashboard::menuSubItem("Enrichment",       tabName = "analysis_enrich",     icon = .ic("magnifying-glass")),
+          shinydashboard::menuSubItem("CCD analysis",     tabName = "analysis_ccd",        icon = .ic("braille")),
           shinydashboard::menuSubItem("Decoupled chains", tabName = "analysis_decoupled",  icon = .ic("shuffle")),
           shinydashboard::menuSubItem("Pathway analysis", tabName = "analysis_network",    icon = .ic("code-branch"))
         ),
@@ -501,6 +502,14 @@ run_mslipidmapper_app <- function(
             shiny::column(
               width = 3,
               shinydashboard::box(
+                title = "CCD analysis", width = 12, status = "primary", solidHeader = TRUE,
+                shiny::p("Class x chain-subset divergence analysis using total abundance profiles."),
+                shiny::actionButton("go_ccd", "Go to CCD analysis", width = "100%", icon = .ic("braille"))
+              )
+            ),
+            shiny::column(
+              width = 3,
+              shinydashboard::box(
                 title = "Decoupled chains", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Scatter panels for chain vs class total (decoupling)."),
                 shiny::actionButton("go_decoupled", "Go to Decoupled chains", width = "100%", icon = .ic("shuffle"))
@@ -603,7 +612,19 @@ run_mslipidmapper_app <- function(
           )
         ),
 
-        # ---------------- 3-F3. Decoupled chains tab (NEW) ----------------
+        # ---------------- 3-F3. CCD analysis tab ----------------
+        shinydashboard::tabItem(
+          tabName = "analysis_ccd",
+          shiny::fluidRow(
+            shinydashboard::box(
+              title = "Step 3: Analysis - CCD analysis",
+              width = 12, status = "primary", solidHeader = TRUE,
+              maybe_ui("mod_ccd_analysis_ui", "ccd", title = "CCD analysis")
+            )
+          )
+        ),
+
+        # ---------------- 3-F4. Decoupled chains tab (NEW) ----------------
        shinydashboard::tabItem(
           tabName = "analysis_decoupled",
           shiny::fluidRow(
@@ -741,6 +762,7 @@ run_mslipidmapper_app <- function(
     shiny::observeEvent(input$go_cor,       { shinydashboard::updateTabItems(session, "tabs", "analysis_cor") })
     shiny::observeEvent(input$go_volcano,   { shinydashboard::updateTabItems(session, "tabs", "analysis_volcano") })
     shiny::observeEvent(input$go_enrich,    { shinydashboard::updateTabItems(session, "tabs", "analysis_enrich") })
+    shiny::observeEvent(input$go_ccd,       { shinydashboard::updateTabItems(session, "tabs", "analysis_ccd") })
     shiny::observeEvent(input$go_decoupled, { shinydashboard::updateTabItems(session, "tabs", "analysis_decoupled") })
     shiny::observeEvent(input$go_net,       { shinydashboard::updateTabItems(session, "tabs", "analysis_network") })
     shiny::observeEvent(input$go_util_pathway,  { shinydashboard::updateTabItems(session, "tabs", "utility_pathway") })
@@ -866,6 +888,13 @@ run_mslipidmapper_app <- function(
       se_lipid        = se_lipid_for_plot,
       adv_reactive    = settings_reactive,
       rules_yaml_path = rules_yaml_path2
+    )
+
+    # ---- CCD analysis module --------------------------------------------
+    maybe_server(
+      "mod_ccd_analysis_server",
+      "ccd",
+      se_lipid = se_lipid_for_plot
     )
 
     # ---- Decoupled chains module (NEW) ----------------------------------
