@@ -16,26 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-0 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# ---- R packages ----
-RUN R -e "options(repos=c(CRAN='https://cloud.r-project.org')); \
-          options(Ncpus=parallel::detectCores()); \
-          install.packages(c( \
-            'BiocManager', \
-            'ggplot2','ggpmisc','ggprism','ggrepel','DT', \
-            'svglite','plumber','rhandsontable','readr', \
-            'xml2','colourpicker','rlang','forcats','tidyr','dplyr','UpSetR', \
-            'shiny','shinydashboard','shinybusy', \
-            'tibble','RColorBrewer','circlize','matrixStats', \
-            'patchwork' \
-          )); \
-          BiocManager::install(c( \
-            'SummarizedExperiment','ComplexHeatmap','clusterProfiler','rgoslin', \
-            'ropls' \
-          ), ask=FALSE, update=FALSE)"
-
 # ---- App copy ----
 WORKDIR /srv/app
 COPY . /srv/app
+
+# ---- R package install from DESCRIPTION ----
+RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); \
+             install.packages('pak'); \
+             pak::pkg_install('local::.', dependencies = TRUE)"
 
 # ---- start script ----
 COPY ./scripts/start.sh /usr/local/bin/start.sh
