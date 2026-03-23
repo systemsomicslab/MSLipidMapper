@@ -26,7 +26,7 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
         shiny::br(),
         shiny::fluidRow(
           shinydashboard::box(
-            title = "Heatmap settings", width = 4, status = "primary", solidHeader = TRUE,
+            title = "Heatmap settings", width = 3, status = "primary", solidHeader = TRUE,
             shiny::uiOutput(ns("ui_heatmap_chains")),
             shiny::selectInput(
               ns("heatmap_corr_method"),
@@ -34,10 +34,14 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
               choices = c("pearson", "spearman"),
               selected = "pearson"
             ),
-            shiny::helpText("The heatmap always uses class-total correlation and colors tiles by 1 - cor.")
+            shiny::numericInput(ns("heatmap_min_species_total"), "min_species_total", value = 1, min = 1, step = 1),
+            shiny::numericInput(ns("heatmap_min_species_chain"), "min_species_chain", value = 1, min = 1, step = 1),
+            shiny::numericInput(ns("heatmap_min_chain_frac_med"), "min_chain_fraction_median", value = 0.01, min = 0, step = 0.001),
+            shiny::helpText("The heatmap uses class-total correlation for the selected chain subsets."),
+            shiny::downloadButton(ns("download_heatmap_pdf"), "Export PDF")
           ),
           shinydashboard::box(
-            title = title, width = 8, status = "primary", solidHeader = TRUE,
+            title = title, width = 9, status = "primary", solidHeader = TRUE,
             shiny::plotOutput(ns("cor_heatmap"), height = "760px")
           )
         )
@@ -319,6 +323,80 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       do.call(plot_chain_vs_total_panel, args)
     }
 
+    .build_heatmap_plot <- function() {
+      se <- se_lipid()
+      shiny::validate(shiny::need(!is.null(se), "No SE loaded yet."))
+
+      hm_chains <- .parse_chains(input$heatmap_chains)
+      shiny::validate(shiny::need(length(hm_chains) > 0, "Select one or more chains for the heatmap."))
+
+      hm_min_total <- suppressWarnings(as.integer(input$heatmap_min_species_total %||% 1L))
+      if (!is.finite(hm_min_total) || hm_min_total < 1) hm_min_total <- 1L
+
+      hm_min_chain <- suppressWarnings(as.integer(input$heatmap_min_species_chain %||% 1L))
+      if (!is.finite(hm_min_chain) || hm_min_chain < 1) hm_min_chain <- 1L
+
+      hm_min_frac <- suppressWarnings(as.numeric(input$heatmap_min_chain_frac_med %||% 0.01))
+      if (!is.finite(hm_min_frac) || hm_min_frac < 0) hm_min_frac <- 0.01
+
+      out <- NULL
+      tryCatch({
+        out <- .call_find_decoupled(
+          se = se,
+          chains = hm_chains,
+          assay_name = assay,
+          subclass_col = "subclass",
+          acyl_col = "acyl_chains",
+          exclude_sample_classes = c("QC", "Blank"),
+          log1p = FALSE,
+          pseudo = 1,
+          min_species_total = hm_min_total,
+          min_species_chain = hm_min_chain,
+          min_chain_fraction_median = hm_min_frac,
+          corr_method = as.character(input$heatmap_corr_method %||% "pearson"),
+          use_lm_r2 = FALSE,
+          score_against = "total"
+        )
+      }, error = function(e) {
+        shiny::validate(shiny::need(FALSE, conditionMessage(e)))
+      })
+
+      shiny::validate(shiny::need(!is.null(out), "No heatmap data available."))
+      res <- as.data.frame(out$results)
+      shiny::validate(shiny::need(nrow(res) > 0, "No heatmap data available."))
+      shiny::validate(shiny::need("cor_total" %in% names(res), "Correlation column cor_total is missing in the decoupled-chain results."))
+
+      res$subclass <- trimws(as.character(res$subclass))
+      res$chain    <- trimws(as.character(res$chain))
+      res$cor_val  <- suppressWarnings(as.numeric(res[["cor_total"]]))
+
+      ggplot2::ggplot(res, ggplot2::aes(x = .data$chain, y = .data$subclass, fill = .data$cor_val)) +
+        ggplot2::geom_tile(color = "white", linewidth = 0.3) +
+        ggplot2::geom_text(
+          ggplot2::aes(label = ifelse(is.finite(.data$cor_val), sprintf("%.2f", .data$cor_val), "NA")),
+          size = 3
+        ) +
+        ggplot2::scale_fill_gradient2(
+          low = "#b2182b",
+          mid = "#f7f7f7",
+          high = "#2166ac",
+          midpoint = 0,
+          limits = c(-1, 1),
+          na.value = "#d9d9d9",
+          name = "cor"
+        ) +
+        ggplot2::theme_minimal(base_size = 12) +
+        ggplot2::theme(
+          axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
+          panel.grid = ggplot2::element_blank()
+        ) +
+        ggplot2::labs(
+          x = "Chain",
+          y = "Subclass",
+          title = "Decoupled chain heatmap (cor_total)"
+        )
+    }
+
     # ============================================================
     # subclass choices from SE
     # ============================================================
@@ -536,71 +614,18 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
     # heatmap (subclass x chain)
     # ============================================================
     output$cor_heatmap <- shiny::renderPlot({
-      se <- se_lipid()
-      shiny::validate(shiny::need(!is.null(se), "No SE loaded yet."))
-
-      hm_chains <- .parse_chains(input$heatmap_chains)
-      shiny::validate(shiny::need(length(hm_chains) > 0, "Select one or more chains for the heatmap."))
-
-      out <- NULL
-      tryCatch({
-        out <- .call_find_decoupled(
-          se = se,
-          chains = hm_chains,
-          assay_name = assay,
-          subclass_col = "subclass",
-          acyl_col = "acyl_chains",
-          exclude_sample_classes = c("QC", "Blank"),
-          log1p = FALSE,
-          pseudo = 1,
-          min_species_total = 1L,
-          min_species_chain = 1L,
-          min_chain_fraction_median = 0.01,
-          corr_method = as.character(input$heatmap_corr_method %||% "pearson"),
-          use_lm_r2 = FALSE,
-          score_against = "total"
-        )
-      }, error = function(e) {
-        shiny::validate(shiny::need(FALSE, conditionMessage(e)))
-      })
-
-      shiny::validate(shiny::need(!is.null(out), "No heatmap data available."))
-      res <- as.data.frame(out$results)
-      shiny::validate(shiny::need(nrow(res) > 0, "No heatmap data available."))
-
-      shiny::validate(shiny::need("cor_total" %in% names(res), "Correlation column cor_total is missing in the decoupled-chain results."))
-
-      res$subclass <- trimws(as.character(res$subclass))
-      res$chain    <- trimws(as.character(res$chain))
-      res$cor_val  <- suppressWarnings(as.numeric(res[["cor_total"]]))
-      res$fill_val <- ifelse(is.finite(res$cor_val), 1 - res$cor_val, NA_real_)
-
-      ggplot2::ggplot(res, ggplot2::aes(x = .data$chain, y = .data$subclass, fill = .data$fill_val)) +
-        ggplot2::geom_tile(color = "white", linewidth = 0.3) +
-        ggplot2::geom_text(
-          ggplot2::aes(label = ifelse(is.finite(.data$cor_val), sprintf("%.2f", .data$cor_val), "NA")),
-          size = 3
-        ) +
-        ggplot2::scale_fill_gradient2(
-          low = "#2166ac",
-          mid = "#f7f7f7",
-          high = "#b2182b",
-          midpoint = 1,
-          limits = c(0, 2),
-          na.value = "#d9d9d9",
-          name = "1 - cor"
-        ) +
-        ggplot2::theme_minimal(base_size = 12) +
-        ggplot2::theme(
-          axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
-          panel.grid = ggplot2::element_blank()
-        ) +
-        ggplot2::labs(
-          x = "Chain",
-          y = "Subclass",
-          title = "Decoupled chain heatmap (1 - cor_total)"
-        )
+      .build_heatmap_plot()
     }, res = 120)
+
+    output$download_heatmap_pdf <- shiny::downloadHandler(
+      filename = function() {
+        paste0("decoupled_chain_heatmap_", format(Sys.Date(), "%Y%m%d"), ".pdf")
+      },
+      content = function(file) {
+        p <- .build_heatmap_plot()
+        ggplot2::ggsave(file, p, width = 11, height = 8.5, units = "in")
+      }
+    )
 
     # ============================================================
     # render ALL panels (patchwork ncol=2)
