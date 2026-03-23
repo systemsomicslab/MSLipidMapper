@@ -27,6 +27,8 @@
 #' @export
 run_mslipidmapper_app <- function(
   launch.browser = TRUE,
+  host = "0.0.0.0",
+  port = 3838,
   max_request_size = 1024 * 1024 * 1024,
   api_enable = TRUE,
   api_host = "0.0.0.0",
@@ -50,7 +52,12 @@ run_mslipidmapper_app <- function(
   })
   
   app_root <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
-  vendor_dir <- file.path(app_root, "www", "vendor")
+  app_www_dir <- .mslm_app_www_dir()
+  vendor_dir <- if (nzchar(app_www_dir)) {
+    file.path(app_www_dir, "vendor")
+  } else {
+    file.path(app_root, "www", "vendor")
+  }
 
   if (dir.exists(vendor_dir)) {
     shiny::addResourcePath("vendor", vendor_dir)
@@ -233,7 +240,9 @@ run_mslipidmapper_app <- function(
     invisible(TRUE)
   }
 
-  .load_app_sources("R")
+  if (file.exists(file.path(app_root, "R", "plot_helpers_lipid.R"))) {
+    .load_app_sources("R")
+  }
 
   # ============================================================
   # 1) rules yaml path resolve
@@ -276,7 +285,7 @@ run_mslipidmapper_app <- function(
     NULL
   }
 
-  rules_yaml_path2 <- .resolve_rules_yaml(rules_yaml_path)
+  rules_yaml_path2 <- .mslm_rules_yaml_path(rules_yaml_path)
 
   # ---- Safe UI/server callers -------------------------------------------
   maybe_ui <- function(fun_name, ...) {
@@ -929,7 +938,7 @@ run_mslipidmapper_app <- function(
   shiny::runApp(
     list(ui = ui, server = server),
     launch.browser = launch.browser,
-    host = "0.0.0.0",
-    port = 3838
+    host = host,
+    port = port
   )
 }

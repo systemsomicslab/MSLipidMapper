@@ -22,15 +22,31 @@
 
 suppressPackageStartupMessages({
   library(shiny)
+  library(htmltools)
 })
 
 cyto_js_deps <- function(container_id_css) {
+  vendor_dir <- system.file("app", "www", "vendor", package = "MSLipidMapper")
+  if (!nzchar(vendor_dir) && dir.exists(file.path(getwd(), "www", "vendor"))) {
+    vendor_dir <- normalizePath(file.path(getwd(), "www", "vendor"), winslash = "/", mustWork = FALSE)
+  }
+
+  dep_pdf_export <- if (nzchar(vendor_dir)) {
+    htmltools::htmlDependency(
+      name = "mslm-cytoscape-pdf-export",
+      version = "1.0.0",
+      src = c(file = vendor_dir),
+      script = "cytoscape-pdf-export.js"
+    )
+  } else {
+    NULL
+  }
+
   shiny::tagList(
+    dep_pdf_export,
     shiny::tags$script(src = "https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"),
-    shiny::tags$script(src = "vendor/cytoscape-pdf-export.js"),
     shiny::tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"),
     shiny::tags$script(src = "https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"),
-
     shiny::tags$style(shiny::HTML(sprintf("
       #%s { position: relative; }
 

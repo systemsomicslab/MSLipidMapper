@@ -30,7 +30,23 @@ NULL
 .utilpe_require_cyto_utils <- function() {
   req_funs <- c(".cyjs_to_elements", ".parse_gml_yed", ".parse_gpml",
                 ".ensure_positions_for_preset", ".any_node_has_pos")
-  miss <- req_funs[!vapply(req_funs, exists, logical(1), mode = "function", inherits = TRUE)]
+  find_fun <- function(nm) {
+    if (exists(nm, mode = "function", inherits = TRUE)) return(TRUE)
+
+    ns_env <- tryCatch(parent.env(environment()), error = function(e) NULL)
+    if (!is.null(ns_env) && exists(nm, envir = ns_env, mode = "function", inherits = FALSE)) {
+      return(TRUE)
+    }
+
+    pkg_ns <- tryCatch(asNamespace("MSLipidMapper"), error = function(e) NULL)
+    if (!is.null(pkg_ns) && exists(nm, envir = pkg_ns, mode = "function", inherits = FALSE)) {
+      return(TRUE)
+    }
+
+    FALSE
+  }
+
+  miss <- req_funs[!vapply(req_funs, find_fun, logical(1))]
   if (length(miss)) {
     .utilpe_stop(
       "Required functions not found: ", paste(miss, collapse = ", "),

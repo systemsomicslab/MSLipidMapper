@@ -21,7 +21,7 @@ RUN R -e "options(repos=c(CRAN='https://cloud.r-project.org')); \
           options(Ncpus=parallel::detectCores()); \
           install.packages(c( \
             'BiocManager', \
-            'ggplot2','ggpmisc','ggrepel','DT', \
+            'ggplot2','ggpmisc','ggprism','ggrepel','DT', \
             'svglite','plumber','rhandsontable','readr', \
             'xml2','colourpicker','rlang','forcats','tidyr','dplyr','UpSetR', \
             'shiny','shinydashboard','shinybusy', \
@@ -45,7 +45,6 @@ RUN chmod +x /usr/local/bin/start.sh \
 EXPOSE 3838
 EXPOSE 7310
 
-# ---- Healthcheck (Shiny応答確認) ----
 HEALTHCHECK --interval=5s --timeout=3s --start-period=20s --retries=20 \
   CMD curl -fsS http://localhost:3838/ >/dev/null || exit 1
 

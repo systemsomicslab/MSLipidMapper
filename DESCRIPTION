@@ -1,0 +1,61 @@
+Package: MSLipidMapper
+Type: Package
+Title: Interactive Shiny Dashboard for Lipidomics Data Exploration
+Version: 0.0.0.9000
+Authors@R:
+    person(
+      given = "Systems Omics Lab",
+      family = "MSLipidMapper Team",
+      role = c("aut", "cre"),
+      email = "support@example.org"
+    )
+Description: Interactive Shiny dashboard for lipidomics data exploration
+    using SummarizedExperiment-based workflows. The package provides data
+    import, normalization, exploratory analysis, enrichment, and Cytoscape-
+    based pathway visualization.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: false
+Depends:
+    R (>= 4.3)
+Imports:
+    shiny,
+    shinydashboard,
+    shinybusy,
+    SummarizedExperiment,
+    S4Vectors,
+    ggplot2,
+    ComplexHeatmap,
+    circlize,
+    DT,
+    plotly,
+    rhandsontable,
+    readr,
+    dplyr,
+    tidyr,
+    tibble,
+    forcats,
+    jsonlite,
+    xml2,
+    svglite,
+    matrixStats,
+    RColorBrewer,
+    plumber,
+    httpuv,
+    htmltools
+Suggests:
+    ropls,
+    clusterProfiler,
+    rgoslin,
+    UpSetR,
+    patchwork,
+    ggrepel,
+    ggpmisc,
+    ggprism,
+    colourpicker,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

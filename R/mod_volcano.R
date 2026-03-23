@@ -323,7 +323,7 @@ mod_volcano_ui <- function(id, title = "Volcano") {
           solidHeader = TRUE,
           tabsetPanel(
             tabPanel("Plot", uiOutput(ns("ui_plot"))),
-            tabPanel("Table", DTOutput(ns("tbl")))
+          tabPanel("Table", DT::DTOutput(ns("tbl")))
           )
         )
       )
@@ -455,9 +455,9 @@ mod_volcano_server <- function(
     output$gg <- renderPlot({ req(rv$out); rv$out$plot })
     output$ply <- plotly::renderPlotly({ req(rv$out); rv$out$plotly })
 
-    output$tbl <- renderDT({
+    output$tbl <- DT::renderDT({
       req(rv$out)
-      datatable(rv$out$table, options = list(pageLength = 25, scrollX = TRUE))
+      DT::datatable(rv$out$table, options = list(pageLength = 25, scrollX = TRUE))
     })
 
     output$dl_plot <- downloadHandler(
