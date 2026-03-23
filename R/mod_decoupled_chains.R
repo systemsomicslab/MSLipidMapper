@@ -70,11 +70,23 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
       shiny::downloadButton(ns("download_pdf"), "Export PDF")
     ),
 
-    shinydashboard::box(
-      title = "Panels",
-      width = 8, status = "primary", solidHeader = TRUE,
-      shiny::helpText("Selected subclass × chains panels are shown below."),
-      shiny::plotOutput(ns("all_panels_plot"), height = "860px")
+    shiny::column(
+      width = 8,
+      shinydashboard::tabBox(
+        width = 12,
+        shiny::tabPanel(
+          "Heatmap",
+          shiny::br(),
+          shiny::helpText("Heatmap shows 1 - cor for the current chain set across subclasses."),
+          shiny::plotOutput(ns("cor_heatmap"), height = "760px")
+        ),
+        shiny::tabPanel(
+          "Panels",
+          shiny::br(),
+          shiny::helpText("Selected subclass × chains panels are shown below."),
+          shiny::plotOutput(ns("all_panels_plot"), height = "860px")
+        )
+      )
     )
   )
 }
@@ -383,6 +395,53 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       if (is.null(rv$out)) return()
       rv$plot_opts$compare_to <- .sanitize_compare_to(input$compare_to)
     }, ignoreInit = TRUE)
+
+    # ============================================================
+    # heatmap (subclass x chain)
+    # ============================================================
+    output$cor_heatmap <- shiny::renderPlot({
+      out <- rv$out
+      shiny::validate(shiny::need(!is.null(out), "Press Run to compute."))
+
+      res <- as.data.frame(out$results)
+      shiny::validate(shiny::need(nrow(res) > 0, "No heatmap data available."))
+
+      compare_to <- .sanitize_compare_to(rv$plot_opts$compare_to %||% "total")
+      cor_col <- if (compare_to == "rest") "cor_rest" else "cor_total"
+
+      shiny::validate(shiny::need(cor_col %in% names(res), "Correlation column is missing in the decoupled-chain results."))
+
+      res$subclass <- trimws(as.character(res$subclass))
+      res$chain    <- trimws(as.character(res$chain))
+      res$cor_val  <- suppressWarnings(as.numeric(res[[cor_col]]))
+      res$fill_val <- ifelse(is.finite(res$cor_val), 1 - res$cor_val, NA_real_)
+
+      ggplot2::ggplot(res, ggplot2::aes(x = .data$chain, y = .data$subclass, fill = .data$fill_val)) +
+        ggplot2::geom_tile(color = "white", linewidth = 0.3) +
+        ggplot2::geom_text(
+          ggplot2::aes(label = ifelse(is.finite(.data$cor_val), sprintf("%.2f", .data$cor_val), "NA")),
+          size = 3
+        ) +
+        ggplot2::scale_fill_gradient2(
+          low = "#2166ac",
+          mid = "#f7f7f7",
+          high = "#b2182b",
+          midpoint = 1,
+          limits = c(0, 2),
+          na.value = "#d9d9d9",
+          name = "1 - cor"
+        ) +
+        ggplot2::theme_minimal(base_size = 12) +
+        ggplot2::theme(
+          axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
+          panel.grid = ggplot2::element_blank()
+        ) +
+        ggplot2::labs(
+          x = "Chain",
+          y = "Subclass",
+          title = if (compare_to == "rest") "Decoupled chain heatmap (rest-based correlation)" else "Decoupled chain heatmap (class-total correlation)"
+        )
+    }, res = 120)
 
     # ============================================================
     # render ALL panels (patchwork ncol=2)

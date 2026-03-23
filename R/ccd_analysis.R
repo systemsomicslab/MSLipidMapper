@@ -156,7 +156,7 @@ generate_chain_subsets <- function(row_annot,
                                    chain_col = "Chains",
                                    class_col = "LipidClass",
                                    custom_subset_rules = NULL) {
-  df <- as.data.frame(row_annot, check.names = FALSE)
+  df <- as.data.frame(row_annot)
   if (!class_col %in% colnames(df)) {
     stop("row_annot does not contain class_col: ", class_col, call. = FALSE)
   }
@@ -186,6 +186,7 @@ generate_chain_subsets <- function(row_annot,
   if (subset_mode == "exact_chain") {
     all_codes <- sort(unique(unlist(chains_list, use.names = FALSE)))
     all_codes <- all_codes[nzchar(all_codes)]
+    if (!length(all_codes)) return(list())
     labels <- paste0(all_codes, "-containing")
     codes <- stats::setNames(all_codes, labels)
     return(make_membership(names(codes), function(chains, lab) {
@@ -196,6 +197,7 @@ generate_chain_subsets <- function(row_annot,
 
   if (subset_mode == "carbon_only") {
     carbons <- sort(unique(stats::na.omit(vapply(unlist(chains_list, use.names = FALSE), .ccd_chain_carbon, integer(1)))))
+    if (!length(carbons)) return(list())
     labels <- paste0("C", carbons, "-containing")
     carbon_map <- stats::setNames(carbons, labels)
     return(make_membership(names(carbon_map), function(chains, lab) {
