@@ -1319,7 +1319,6 @@ mod_cyto_server <- function(id,
         }
       }
 
-      thick_bw <- 4L
       thin_bw  <- 1L
 
       el$nodes <- lapply(el$nodes, function(n) {
@@ -1330,11 +1329,9 @@ mod_cyto_server <- function(id,
         ens_key <- sub("\\..*$", "", ens_key)
 
         if (nzchar(ens_key) && !is.null(url_map_gene[[ens_key]])) {
-          d$path        <- url_map_gene[[ens_key]]
-          d$BorderWidth <- thick_bw
+          d$path <- url_map_gene[[ens_key]]
         } else if (nzchar(cls_key) && !is.null(url_map_lipid_class[[cls_key]])) {
-          d$path        <- url_map_lipid_class[[cls_key]]
-          d$BorderWidth <- thick_bw
+          d$path <- url_map_lipid_class[[cls_key]]
         } else {
           d$BorderWidth <- d$BorderWidth %||% thin_bw
         }

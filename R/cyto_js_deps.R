@@ -147,7 +147,7 @@ cyto_js_deps <- function(container_id_css) {
           "border-style": "data(borderstyle)",
           "label": "data(label)",
           "background-color": "white",
-          "shape": "rectangle",
+          "shape": "round-rectangle",
           "background-image": "data(path)",
           "background-image-crossorigin": "anonymous",
           "background-fit": "cover cover",

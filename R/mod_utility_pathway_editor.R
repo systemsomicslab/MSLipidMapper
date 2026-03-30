@@ -326,7 +326,7 @@ shiny::tags$script(shiny::HTML("
 
       style: [
         { selector:'node', style:{
-          'shape':'rectangle',
+          'shape':'round-rectangle',
           'background-color':'white',
           'border-width':'data(BorderWidth)',
           'border-color':'data(Color)',
