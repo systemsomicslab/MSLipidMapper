@@ -158,6 +158,16 @@ cyto_js_deps <- function(container_id_css) {
           "text-halign": "center",
           "text-margin-y": 22
       }},
+      { selector: "node[IsJunction = 1]", style: {
+          "shape": "ellipse",
+          "width": 24,
+          "height": 24,
+          "label": "",
+          "border-width": 2,
+          "border-color": "#666",
+          "background-color": "white",
+          "background-image": "none"
+      }},
       { selector: "node:selected", style: { "border-width": 3 } },
       { selector: "edge", style: {
           "width": 2,
@@ -166,6 +176,9 @@ cyto_js_deps <- function(container_id_css) {
           "target-arrow-shape": "triangle",
           "target-arrow-color": "#888",
           "arrow-scale": 1.5
+      } },
+      { selector: "edge[edgeType = 'toJunction']", style: {
+          "target-arrow-shape": "none"
       } }
     ];
   }
