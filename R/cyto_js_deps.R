@@ -177,7 +177,7 @@ cyto_js_deps <- function(container_id_css) {
           "target-arrow-color": "#888",
           "arrow-scale": 1.5
       } },
-      { selector: "edge[edgeType = \"toJunction\"]", style: {
+      { selector: \'edge[edgeType = "toJunction"]\', style: {
           "target-arrow-shape": "none"
       } }
     ];
