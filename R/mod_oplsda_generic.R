@@ -90,7 +90,7 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
       column(
         width = 5,
         shinydashboard::box(
-          title = "Signed VIP plot",
+          title = "VIP plot",
           width = 12,
           solidHeader = TRUE,
           status = "primary",
@@ -442,7 +442,7 @@ mod_oplsda_generic_server <- function(id,
       },
       content = function(file) {
         res <- fit_res(); req(res)
-        utils::write.csv(res$vip_tables$vip_tbl_signed, file, row.names = FALSE)
+        utils::write.csv(res$vip_tables$vip_tbl_ranked, file, row.names = FALSE)
       }
     )
 

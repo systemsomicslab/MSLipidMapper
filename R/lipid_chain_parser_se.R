@@ -207,25 +207,40 @@ select_rule <- function(lipid_class, rules) {
   tok
 }
 
-# ------------------------------------------------------------
-# Extract acyl chains from ONE lipid name (ALWAYS character vec)
-# - obeys: no_chain / ignore_sum_only / exclude_first_chain (>=2 only)
-# - suffix extraction:
-#     detect_fa_suffix: parentheses
-#     detect_fa_tail  : "... FA 20:4" (no parentheses)
-# ------------------------------------------------------------
-extract_acyl_chains_from_name <- function(lipid_name, rules) {
+.is_sphingoid_class <- function(class_raw, rule = NULL) {
+  class_raw <- as.character(class_raw %||% "")
+  rule_id <- tolower(as.character(rule$id %||% ""))
+  if (identical(class_raw, "SPB")) return(TRUE)
+  if (rule_id %in% c(
+    "ceramide_force_drop_base",
+    "cer_subclass_force_drop_base",
+    "gm3_mixed_notation",
+    "sphingolipid_generic"
+  )) {
+    return(TRUE)
+  }
+  str_detect(class_raw, "^(Cer($|_)|HexCer$|Hex2Cer$|Hex3Cer$|SM$|SHexCer$|GM3$|GD1a$|GD1b$|GD2$|GD3$|GM1$|GQ1b$|GT1b$|PE-Cer$|SL$|CerP$|AHexCer$|ASHexCer$)")
+}
+
+.has_sphingoid_molecular_notation <- function(core) {
+  core <- as.character(core %||% "")
+  stringr::str_detect(core, fixed("/"))
+}
+
+.parse_lipid_chain_metadata <- function(lipid_name, rules) {
   nm <- as.character(lipid_name %||% "")
   nm <- str_trim(nm)
-  if (!nzchar(nm)) return(character(0))
+  empty_meta <- list(
+    acyl_chains = character(0),
+    sphingoid_bases = character(0)
+  )
+  if (!nzchar(nm)) return(empty_meta)
   
-  # class token (allow + - ; _)
   class_raw <- str_extract(nm, "^[A-Za-z0-9\\-\\+;_]+") %||% ""
   class_raw <- str_trim(class_raw)
   
   rule <- select_rule(class_raw, rules)
   
-  # minimal fallback (still safe)
   if (is.null(rule)) {
     rule <- list(
       no_chain = FALSE,
@@ -240,15 +255,9 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
     )
   }
   
-  if (isTRUE(rule$no_chain %||% FALSE)) return(character(0))
-  
-  # choose best alt (A|B)
   nm2 <- .pick_best_alt(nm, prefer_molecular_notation = isTRUE(rule$prefer_molecular_notation %||% FALSE))
   
   core <- nm2
-  
-  # remove class prefix:
-  # support "PC(16:0/18:1)" AND "PC 16:0/18:1"
   if (nzchar(class_raw) && str_detect(core, paste0("^", class_raw, "\\("))) {
     core <- str_remove(core, paste0("^", class_raw, "\\("))
     core <- str_remove(core, "\\)$")
@@ -256,16 +265,24 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
     core <- str_remove(core, paste0("^", class_raw, "\\s+"))
   }
   core <- str_trim(core)
+  has_sphingoid_slash <- .has_sphingoid_molecular_notation(core)
   
-  # ignore_sum_only (stronger)
-  if (isTRUE(rule$ignore_sum_only %||% FALSE) && .is_sum_only_like(core)) {
-    return(character(0))
+  if (isTRUE(rule$no_chain %||% FALSE)) {
+    if (.is_sphingoid_class(class_raw, rule) && str_detect(core, "^(?:O-|P-)?\\d+:\\d+")) {
+      spb <- .norm_chain_token(core)
+      if (!is.na(spb) && nzchar(spb)) {
+        return(list(acyl_chains = character(0), sphingoid_bases = paste0("SPB", spb)))
+      }
+    }
+    return(empty_meta)
   }
   
-  # ---- suffix extraction in parentheses: (FA 16:0) etc. ----
+  if (isTRUE(rule$ignore_sum_only %||% FALSE) && .is_sum_only_like(core)) {
+    return(empty_meta)
+  }
+  
   suffix_vec <- character(0)
   if (isTRUE(rule$detect_fa_suffix %||% FALSE)) {
-    # allow isotopic suffix like (d7) inside final parentheses, keep as-is
     suffix_pat <- "\\((?:FA\\s*)?(?:O-|P-)?\\d+:\\d+(?:(?:;O\\d*)|(?:;\\d+O))?(?:;?\\(\\d+OH\\))?(?:\\(d\\d+\\))?\\)"
     suf_raw <- str_extract_all(core, suffix_pat, simplify = FALSE)[[1]]
     if (length(suf_raw) > 0) {
@@ -278,7 +295,6 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
     core <- str_trim(core)
   }
   
-  # ---- tail extraction: "...;FA 20:4" (NO parentheses) ----
   if (isTRUE(rule$detect_fa_tail %||% FALSE)) {
     tail_pat <- "(?:^|[;\\s])FA\\s*(?:O-|P-)?\\d+:\\d+(?:(?:;O\\d*)|(?:;\\d+O))?(?:;?\\(\\d+OH\\))?(?:\\(d\\d+\\))?"
     tail_raw <- str_extract_all(core, tail_pat, simplify = FALSE)[[1]]
@@ -296,7 +312,6 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
     core <- str_trim(core)
   }
   
-  # split main chains
   split <- rule$split %||% "auto"
   split_mode <- rule$split_mode %||% NULL
   parts <- .split_by_rule(core, split, split_mode)
@@ -304,7 +319,6 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
   parts <- str_trim(parts)
   parts <- parts[nzchar(parts)]
   
-  # keep only chain-like tokens
   is_chain_like <- function(x) str_detect(x, "^(?:FA\\s*)?(?:O-|P-)?\\d+:\\d+")
   parts <- parts[is_chain_like(parts)]
   parts <- vapply(parts, .norm_chain_token, character(1), USE.NAMES = FALSE)
@@ -316,14 +330,34 @@ extract_acyl_chains_from_name <- function(lipid_name, rules) {
   
   chains <- c(parts, suffix_vec)
   chains <- chains[!is.na(chains) & nzchar(chains)]
-  if (!length(chains)) return(character(0))
+  if (!length(chains)) return(empty_meta)
   
-  # drop first chain ONLY when >=2
+  sphingoid_bases <- character(0)
   if (isTRUE(rule$exclude_first_chain %||% FALSE) && length(chains) >= 2L) {
+    if (.is_sphingoid_class(class_raw, rule) && has_sphingoid_slash) {
+      sphingoid_bases <- paste0("SPB", chains[1])
+    }
     chains <- chains[-1]
+  } else if (.is_sphingoid_class(class_raw, rule) && identical(class_raw, "SPB")) {
+    sphingoid_bases <- paste0("SPB", chains)
+    chains <- character(0)
   }
   
-  unique(chains)
+  list(
+    acyl_chains = unique(chains),
+    sphingoid_bases = unique(sphingoid_bases)
+  )
+}
+
+# ------------------------------------------------------------
+# Extract acyl chains from ONE lipid name (ALWAYS character vec)
+# - obeys: no_chain / ignore_sum_only / exclude_first_chain (>=2 only)
+# - suffix extraction:
+#     detect_fa_suffix: parentheses
+#     detect_fa_tail  : "... FA 20:4" (no parentheses)
+# ------------------------------------------------------------
+extract_acyl_chains_from_name <- function(lipid_name, rules) {
+  .parse_lipid_chain_metadata(lipid_name, rules)$acyl_chains
 }
 
 # ------------------------------------------------------------
@@ -420,7 +454,8 @@ parse_chain <- function(chain, oxygen_keywords = c(";OH", "(OH)")) {
 add_chain_list_to_se <- function(se,
                                  rules,
                                  lipid_col = NULL,
-                                 out_col   = "acyl_chains") {
+                                 out_col   = "acyl_chains",
+                                 sphingoid_col = "sphingoid_bases") {
   stopifnot(methods::is(se, "SummarizedExperiment"))
   
   rd <- SummarizedExperiment::rowData(se)
@@ -445,15 +480,27 @@ add_chain_list_to_se <- function(se,
   if (out_col %in% colnames(rd)) {
     rd[[out_col]] <- NULL
   }
+  if (!is.null(sphingoid_col) && nzchar(sphingoid_col) && sphingoid_col %in% colnames(rd)) {
+    rd[[sphingoid_col]] <- NULL
+  }
   
   lipid_names <- as.character(rd[[lipid_col]])
   
-  chains_list <- purrr::map(lipid_names, ~{
-    out <- try(extract_acyl_chains_from_name(.x, rules = rules), silent = TRUE)
-    if (inherits(out, "try-error") || is.null(out)) character(0) else as.character(out)
+  metadata_list <- purrr::map(lipid_names, ~{
+    out <- try(.parse_lipid_chain_metadata(.x, rules = rules), silent = TRUE)
+    if (inherits(out, "try-error") || is.null(out)) {
+      list(acyl_chains = character(0), sphingoid_bases = character(0))
+    } else {
+      out
+    }
   })
+  chains_list <- purrr::map(metadata_list, ~ as.character(.x$acyl_chains %||% character(0)))
+  sphingoid_list <- purrr::map(metadata_list, ~ as.character(.x$sphingoid_bases %||% character(0)))
   
   rd[[out_col]] <- .ensure_listcol(chains_list)
+  if (!is.null(sphingoid_col) && nzchar(sphingoid_col)) {
+    rd[[sphingoid_col]] <- .ensure_listcol(sphingoid_list)
+  }
   
   SummarizedExperiment::rowData(se) <- rd
   se

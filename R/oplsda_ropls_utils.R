@@ -258,58 +258,151 @@ build_vip_tables <- function(op, feature_names = NULL, vip_thres = 1) {
   names(loading1) <- rownames(loadMN)
 
   loading_match <- loading1[match(vip_tbl_filt$variable, names(loading1))]
-  vip_tbl_signed <- vip_tbl_filt
-  vip_tbl_signed$loading1 <- as.numeric(loading_match)
-  vip_tbl_signed$VIP_signed <- vip_tbl_signed$VIP * sign(vip_tbl_signed$loading1)
-  vip_tbl_signed <- vip_tbl_signed[is.finite(vip_tbl_signed$VIP_signed), , drop = FALSE]
+  vip_tbl_ranked <- vip_tbl_filt
+  vip_tbl_ranked$loading1 <- as.numeric(loading_match)
+  vip_tbl_ranked <- vip_tbl_ranked[is.finite(vip_tbl_ranked$VIP), , drop = FALSE]
 
   list(
     vip_tbl = vip_tbl,
     vip_tbl_filt = vip_tbl_filt,
-    vip_tbl_signed = vip_tbl_signed,
+    vip_tbl_ranked = vip_tbl_ranked,
     model_vars = vars
   )
 }
 
-plot_signed_vip <- function(
-  vip_tbl_signed,
+add_vip_group_direction <- function(vip_tbl_ranked, X, y) {
+  if (!nrow(vip_tbl_ranked)) return(vip_tbl_ranked)
+  if (is.null(colnames(X)) || !length(levels(y))) return(vip_tbl_ranked)
+  
+  group_levels <- levels(y)
+  mean_mat <- vapply(group_levels, function(gr) {
+    idx <- which(as.character(y) == gr)
+    if (!length(idx)) {
+      rep(NA_real_, ncol(X))
+    } else {
+      colMeans(X[idx, , drop = FALSE], na.rm = TRUE)
+    }
+  }, numeric(ncol(X)))
+  
+  if (is.null(dim(mean_mat))) {
+    mean_mat <- matrix(mean_mat, ncol = 1, dimnames = list(colnames(X), group_levels[1]))
+  }
+  rownames(mean_mat) <- colnames(X)
+  colnames(mean_mat) <- group_levels
+  
+  vip_tbl_ranked$highest_group <- NA_character_
+  vip_tbl_ranked$lowest_group <- NA_character_
+  matched <- match(as.character(vip_tbl_ranked$variable), rownames(mean_mat))
+  for (i in seq_along(matched)) {
+    j <- matched[i]
+    if (is.na(j)) next
+    vals <- mean_mat[j, ]
+    if (!all(is.na(vals))) {
+      vip_tbl_ranked$highest_group[i] <- names(which.max(vals))[1]
+      vip_tbl_ranked$lowest_group[i] <- names(which.min(vals))[1]
+    }
+  }
+  
+  vip_tbl_ranked
+}
+
+plot_vip <- function(
+  vip_tbl_ranked,
   topn = 20,
   base_family = "sans",
-  legend_title = "VIP"
+  legend_title = "VIP",
+  group_levels = NULL,
+  group_colors = NULL
 ) {
   if (!requireNamespace("dplyr", quietly = TRUE)) stop("Package 'dplyr' is required.")
-  if (nrow(vip_tbl_signed) == 0) stop("No VIP variables available after filtering.")
+  if (nrow(vip_tbl_ranked) == 0) stop("No VIP variables available after filtering.")
 
-  topn2 <- min(topn, nrow(vip_tbl_signed))
-  vip_top <- vip_tbl_signed %>%
-    dplyr::slice_max(order_by = abs(VIP_signed), n = topn2, with_ties = FALSE) %>%
-    dplyr::mutate(
-      Sign = ifelse(VIP_signed > 0, "Positive", "Negative"),
-      Sign = factor(Sign, levels = c("Positive","Negative"))
-    )
-
-  ggplot2::ggplot(
+  topn2 <- min(topn, nrow(vip_tbl_ranked))
+  vip_top <- vip_tbl_ranked %>%
+    dplyr::slice_max(order_by = VIP, n = topn2, with_ties = FALSE)
+  vip_top$variable <- factor(vip_top$variable, levels = rev(vip_top$variable))
+  
+  p <- ggplot2::ggplot(
     vip_top,
-    ggplot2::aes(
-      x = stats::reorder(variable, VIP_signed),
-      y = VIP_signed,
-      fill = Sign
-    )
+    ggplot2::aes(x = VIP, y = variable)
   ) +
-    ggplot2::geom_col() +
-    ggplot2::coord_flip() +
-    ggplot2::geom_hline(yintercept = 0, linetype = "dashed") +
-    ggplot2::scale_fill_manual(
-      name   = legend_title,
-      labels = c("Positive", "Negative"),
-      values = c("Positive"= "#00ba38", "Negative"  = "#f8766d")
+    ggplot2::geom_point(size = 3.2, color = "#00ba38") +
+    ggplot2::geom_segment(
+      ggplot2::aes(
+        x = 0,
+        xend = VIP,
+        y = variable,
+        yend = variable
+      ),
+      color = "#00ba38",
+      linewidth = 0.6,
+      alpha = 0.8
     ) +
     ggplot2::labs(
       title = sprintf("Top %d VIP", nrow(vip_top)),
-      x = "Variable",
-      y = "VIP"
+      x = "VIP",
+      y = "Variable"
     ) +
-    ggplot2::theme_classic(base_size = 15, base_family = base_family) 
+    ggplot2::theme_classic(base_size = 15, base_family = base_family)
+  
+  group_levels <- as.character(group_levels %||% character(0))
+  if (length(group_levels) >= 2 && "highest_group" %in% colnames(vip_top)) {
+    group_levels <- group_levels[seq_len(2)]
+    x_max <- max(vip_top$VIP, na.rm = TRUE)
+    x_max <- if (is.finite(x_max) && x_max > 0) x_max else 1
+    tile_gap <- x_max * 0.18
+    tile_step <- x_max * 0.16
+    tile_start <- x_max + tile_gap
+    tile_positions <- stats::setNames(tile_start + tile_step * seq(0, length(group_levels) - 1), group_levels)
+    
+    tile_df <- do.call(rbind, lapply(seq_len(nrow(vip_top)), function(i) {
+      data.frame(
+        variable = vip_top$variable[i],
+        Group = group_levels,
+        tile_x = unname(tile_positions[group_levels]),
+        direction = ifelse(
+          group_levels == vip_top$highest_group[i],
+          "Higher",
+          ifelse(group_levels == vip_top$lowest_group[i], "Lower", "Lower")
+        ),
+        stringsAsFactors = FALSE
+      )
+    }))
+    tile_df$variable <- factor(tile_df$variable, levels = levels(vip_top$variable))
+    tile_df$Group <- factor(tile_df$Group, levels = group_levels)
+    tile_df$direction <- factor(tile_df$direction, levels = c("Higher", "Lower"))
+    
+    p <- p +
+      ggplot2::geom_tile(
+        data = tile_df,
+        ggplot2::aes(x = tile_x, y = variable, fill = direction),
+        width = tile_step * 0.72,
+        height = 0.72,
+        color = "black",
+        inherit.aes = FALSE
+      ) +
+      ggplot2::scale_fill_manual(values = c(Higher = "#B11001", Lower = "blue4"), drop = FALSE) +
+      ggplot2::annotate(
+        "text",
+        x = unname(tile_positions[group_levels]),
+        y = length(levels(vip_top$variable)) + 0.8,
+        label = group_levels,
+        angle = 45,
+        hjust = 0,
+        vjust = 1,
+        size = 4
+      ) +
+      ggplot2::coord_cartesian(
+        xlim = c(0, max(unname(tile_positions[group_levels])) + tile_step * 0.9),
+        clip = "off"
+      ) +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(t = 20, r = 70, b = 10, l = 10),
+        legend.position = "none"
+      )
+  }
+  
+  p
 }
 
 make_vip_heatmap <- function(
@@ -493,12 +586,19 @@ run_oplsda_objects_from_se <- function(
   )
 
   vips <- build_vip_tables(op, feature_names = colnames(X), vip_thres = vip_thres)
+  vips$vip_tbl_ranked <- add_vip_group_direction(vips$vip_tbl_ranked, X = X, y = y)
 
   model_vars <- intersect(colnames(X), vips$model_vars)
   if (length(model_vars) < 2) stop("Too few variables remain after aligning X to model variables.")
   X_model <- X[, model_vars, drop = FALSE]
 
-  p_vip <- plot_signed_vip(vips$vip_tbl_signed, topn = topn_vip, base_family = base_family)
+  p_vip <- plot_vip(
+    vips$vip_tbl_ranked,
+    topn = topn_vip,
+    base_family = base_family,
+    group_levels = levels(y),
+    group_colors = cols
+  )
 
   hm <- make_vip_heatmap(
     X = X_model, y = y,

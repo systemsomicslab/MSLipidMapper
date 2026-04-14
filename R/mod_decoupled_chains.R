@@ -34,10 +34,21 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
               choices = c("pearson", "spearman"),
               selected = "pearson"
             ),
+            shiny::selectInput(
+              ns("heatmap_compare_to"),
+              "Compare to",
+              choices = c(
+                "Total (C): subset vs class total" = "total",
+                "Rest  (R): subset vs (class total minus subset)" = "rest"
+              ),
+              selected = "total"
+            ),
             shiny::numericInput(ns("heatmap_min_species_total"), "min_species_total", value = 1, min = 1, step = 1),
             shiny::numericInput(ns("heatmap_min_species_chain"), "min_species_chain", value = 1, min = 1, step = 1),
             shiny::numericInput(ns("heatmap_min_chain_frac_med"), "min_chain_fraction_median", value = 0.01, min = 0, step = 0.001),
-            shiny::helpText("The heatmap uses class-total correlation for the selected chain subsets."),
+            shiny::numericInput(ns("heatmap_base_font_size"), "Base font size", value = 12, min = 6, step = 1),
+            shiny::numericInput(ns("heatmap_value_font_size"), "Value label size", value = 3, min = 1, step = 0.2),
+            shiny::helpText("Total: subset vs class total. Rest: subset vs class total minus subset."),
             shiny::downloadButton(ns("download_heatmap_pdf"), "Export PDF")
           ),
           shinydashboard::box(
@@ -339,6 +350,15 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       hm_min_frac <- suppressWarnings(as.numeric(input$heatmap_min_chain_frac_med %||% 0.01))
       if (!is.finite(hm_min_frac) || hm_min_frac < 0) hm_min_frac <- 0.01
 
+      hm_base_font_size <- suppressWarnings(as.numeric(input$heatmap_base_font_size %||% 12))
+      if (!is.finite(hm_base_font_size) || hm_base_font_size <= 0) hm_base_font_size <- 12
+
+      hm_value_font_size <- suppressWarnings(as.numeric(input$heatmap_value_font_size %||% 3))
+      if (!is.finite(hm_value_font_size) || hm_value_font_size <= 0) hm_value_font_size <- 3
+
+      heatmap_compare_to <- .sanitize_compare_to(input$heatmap_compare_to)
+      cor_col <- if (identical(heatmap_compare_to, "rest")) "cor_rest" else "cor_total"
+
       out <- NULL
       tryCatch({
         out <- .call_find_decoupled(
@@ -355,7 +375,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
           min_chain_fraction_median = hm_min_frac,
           corr_method = as.character(input$heatmap_corr_method %||% "pearson"),
           use_lm_r2 = FALSE,
-          score_against = "total"
+          score_against = heatmap_compare_to
         )
       }, error = function(e) {
         shiny::validate(shiny::need(FALSE, conditionMessage(e)))
@@ -364,17 +384,29 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       shiny::validate(shiny::need(!is.null(out), "No heatmap data available."))
       res <- as.data.frame(out$results)
       shiny::validate(shiny::need(nrow(res) > 0, "No heatmap data available."))
-      shiny::validate(shiny::need("cor_total" %in% names(res), "Correlation column cor_total is missing in the decoupled-chain results."))
+      shiny::validate(shiny::need(cor_col %in% names(res), paste0("Correlation column ", cor_col, " is missing in the decoupled-chain results.")))
 
       res$subclass <- trimws(as.character(res$subclass))
       res$chain    <- trimws(as.character(res$chain))
-      res$cor_val  <- suppressWarnings(as.numeric(res[["cor_total"]]))
+      res$cor_val  <- suppressWarnings(as.numeric(res[[cor_col]]))
+      res <- res |>
+        dplyr::group_by(.data$subclass) |>
+        dplyr::filter(any(is.finite(.data$cor_val))) |>
+        dplyr::ungroup()
+
+      shiny::validate(shiny::need(nrow(res) > 0, "No lipid classes with plottable correlations remain for the heatmap."))
+
+      heatmap_title <- if (identical(heatmap_compare_to, "rest")) {
+        "Decoupled chain heatmap (cor_rest: subset vs rest)"
+      } else {
+        "Decoupled chain heatmap (cor_total: subset vs class total)"
+      }
 
       ggplot2::ggplot(res, ggplot2::aes(x = .data$chain, y = .data$subclass, fill = .data$cor_val)) +
-        ggplot2::geom_tile(color = "white", linewidth = 0.3) +
+        ggplot2::geom_tile(color = "grey80", linewidth = 0.3) +
         ggplot2::geom_text(
-          ggplot2::aes(label = ifelse(is.finite(.data$cor_val), sprintf("%.2f", .data$cor_val), "NA")),
-          size = 3
+          ggplot2::aes(label = ifelse(is.finite(.data$cor_val), sprintf("%.2f", .data$cor_val), "")),
+          size = hm_value_font_size
         ) +
         ggplot2::scale_fill_gradient2(
           low = "#b2182b",
@@ -382,10 +414,10 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
           high = "#2166ac",
           midpoint = 0,
           limits = c(-1, 1),
-          na.value = "#d9d9d9",
+          na.value = "white",
           name = "cor"
         ) +
-        ggplot2::theme_minimal(base_size = 12) +
+        ggplot2::theme_minimal(base_size = hm_base_font_size) +
         ggplot2::theme(
           axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
           panel.grid = ggplot2::element_blank()
@@ -393,7 +425,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
         ggplot2::labs(
           x = "Chain",
           y = "Subclass",
-          title = "Decoupled chain heatmap (cor_total)"
+          title = heatmap_title
         )
     }
 

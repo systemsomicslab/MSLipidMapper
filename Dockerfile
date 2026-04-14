@@ -16,14 +16,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-0 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# ---- App copy ----
+# ---- Dependency metadata copy (cache-friendly) ----
 WORKDIR /srv/app
+COPY DESCRIPTION NAMESPACE LICENCE README.md /srv/app/
+
+# ---- R package deps install from DESCRIPTION ----
+# Install only required package dependencies so optional Suggests do not
+# pull in incompatible visualization stacks during image build.
+RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); \
+             install.packages(c('BiocManager', 'remotes')); \
+             options(repos = BiocManager::repositories()); \
+             remotes::install_deps('.', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never')"
+
+# ---- App copy ----
 COPY . /srv/app
 
-# ---- R package install from DESCRIPTION ----
-RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); \
-             install.packages('pak'); \
-             pak::pkg_install('local::.', dependencies = TRUE)"
+# ---- Local package install ----
+RUN R CMD INSTALL /srv/app
 
 # ---- start script ----
 COPY ./scripts/start.sh /usr/local/bin/start.sh

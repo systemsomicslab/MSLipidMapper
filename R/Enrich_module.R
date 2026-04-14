@@ -678,6 +678,13 @@ mod_lipid_enrich_server <- function(id, rules_yaml_path, adv_reactive = NULL, ..
     if (!is.null(adv_reactive)) {
       shiny::observe({ adv_reactive() }, priority = -1000)
     }
+
+    .current_adv <- function() {
+      if (is.null(adv_reactive)) return(list())
+      if (shiny::is.reactive(adv_reactive)) return(adv_reactive())
+      if (is.function(adv_reactive)) return(adv_reactive())
+      adv_reactive
+    }
     
     # Load YAML rules ONCE (no UI input)
     rules <- .enrich_load_lipid_rules(rules_yaml_path)
@@ -934,6 +941,9 @@ mod_lipid_enrich_server <- function(id, rules_yaml_path, adv_reactive = NULL, ..
         
       } else {
         base_size <- .safe_int(input$bar_font_size %||% 12, default = 12L, min = 6L, max = 30L)
+        adv <- .current_adv()
+        y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "-log10(adjusted p)"))
+        if (!nzchar(y_axis_label)) y_axis_label <- "-log10(adjusted p)"
         
         dfp <- tbl %>%
           mutate(log10_padj = -log10(p.adjust + 1e-300)) %>%
@@ -942,7 +952,7 @@ mod_lipid_enrich_server <- function(id, rules_yaml_path, adv_reactive = NULL, ..
         p <- ggplot(dfp, aes(x = reorder(ID, log10_padj), y = log10_padj, fill = log10_padj)) +
           geom_col() +
           coord_flip() +
-          labs(x = NULL, y = "-log10(adjusted p)", fill = "-log10(p.adjust)", title = NULL) +
+          labs(x = NULL, y = y_axis_label, fill = "-log10(p.adjust)", title = NULL) +
           scale_fill_gradient(low = "grey90", high = "steelblue") +
           theme_classic(base_size = base_size)
         

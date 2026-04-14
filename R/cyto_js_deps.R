@@ -92,6 +92,16 @@ cyto_js_deps <- function(container_id_css) {
       }
       .cy-tab-btn.active{ background-color:#2563eb; color:#fff; border-color:#1d4ed8; }
       .cy-tab-btn:disabled{ opacity:0.4; cursor:default; }
+      .cy-popup-actions{ display:flex; gap:6px; margin-bottom:6px; }
+      .cy-popup-actions button{
+        border:1px solid #cbd5e1;
+        padding:3px 8px;
+        font-size:11px;
+        border-radius:4px;
+        background-color:#ffffff;
+        cursor:pointer;
+      }
+      .cy-popup-actions button:disabled{ opacity:0.4; cursor:default; }
       .cy-popup-img-wrap{ max-height:360px; overflow:auto; }
       .cy-popup-img{ width:100%%; height:auto; display:block; }
 
@@ -232,6 +242,55 @@ cyto_js_deps <- function(container_id_css) {
       };
       document.head.appendChild(s);
     });
+  }
+
+  function safeFilenamePart(x){
+    return String(x || "node")
+      .replace(/[\\\\/:*?"<>|]+/g, "_")
+      .replace(/\\s+/g, "_")
+      .slice(0, 120);
+  }
+
+  async function fetchBlobFromUrl(url){
+    const res = await fetch(url, { credentials: "same-origin" });
+    if (!res.ok) throw new Error("Failed to fetch image: " + res.status);
+    return await res.blob();
+  }
+
+  async function downloadCurrentImagePdf(url, filenameBase){
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      throw new Error("jsPDF not loaded.");
+    }
+    const blob = await fetchBlobFromUrl(url);
+    const objUrl = URL.createObjectURL(blob);
+    try{
+      const img = await new Promise(function(resolve, reject){
+        const el = new Image();
+        el.crossOrigin = "anonymous";
+        el.onload = function(){ resolve(el); };
+        el.onerror = function(){ reject(new Error("Failed to load image for PDF export.")); };
+        el.src = objUrl;
+      });
+
+      const canvas = document.createElement("canvas");
+      const w = Math.max(1, img.naturalWidth || img.width || 1200);
+      const h = Math.max(1, img.naturalHeight || img.height || 900);
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+
+      const jsPDF = window.jspdf.jsPDF;
+      const orient = w >= h ? "landscape" : "portrait";
+      const doc = new jsPDF({ orientation: orient, unit: "pt", format: [w, h] });
+      const dataUrl = canvas.toDataURL("image/png");
+      doc.addImage(dataUrl, "PNG", 0, 0, w, h);
+      doc.save((filenameBase || "image") + ".pdf");
+    } finally {
+      URL.revokeObjectURL(objUrl);
+    }
   }
 
   async function ensurePdfExportAvailable(container_id){
@@ -463,6 +522,12 @@ cyto_js_deps <- function(container_id_css) {
             "<button type=\\"button\\" class=\\"cy-tab-btn cy-tab-en\\"" + (hasEn ? ">" : " disabled>") + "Enrichment</button>" +
           "</div>";
 
+        const actionHtml =
+          "<div class=\\"cy-popup-actions\\">" +
+            "<button type=\\"button\\" class=\\"cy-dl-svg\\">Download SVG</button>" +
+            "<button type=\\"button\\" class=\\"cy-dl-pdf\\">Download PDF</button>" +
+          "</div>";
+
         const imageWrapHtml = (
           (hasPlot || hasHm)
             ? ("<div class=\\"cy-popup-img-wrap cy-wrap-img\\">" +
@@ -484,6 +549,7 @@ cyto_js_deps <- function(container_id_css) {
             "<button type=\\"button\\" class=\\"cy-popup-close\\">&#x2715;</button>" +
           "</div>" +
           tabsHtml +
+          actionHtml +
           imageWrapHtml +
           enrichWrapHtml;
 
@@ -510,6 +576,21 @@ cyto_js_deps <- function(container_id_css) {
         const btnPlot = pop.querySelector(".cy-tab-plot");
         const btnHm   = pop.querySelector(".cy-tab-hm");
         const btnEn   = pop.querySelector(".cy-tab-en");
+        const btnDlSvg = pop.querySelector(".cy-dl-svg");
+        const btnDlPdf = pop.querySelector(".cy-dl-pdf");
+        let currentImageKind = hasPlot ? "plot" : (hasHm ? "heatmap" : "");
+
+        function currentImageSrc(){
+          if (currentImageKind === "plot") return plotSrc;
+          if (currentImageKind === "heatmap") return hmSrc;
+          return "";
+        }
+
+        function updateDownloadButtons(){
+          const hasImage = !!currentImageSrc();
+          if (btnDlSvg) btnDlSvg.disabled = !hasImage;
+          if (btnDlPdf) btnDlPdf.disabled = !hasImage;
+        }
 
         function setActive(btn){
           [btnPlot, btnHm, btnEn].forEach(function(b){
@@ -533,8 +614,10 @@ cyto_js_deps <- function(container_id_css) {
             e.stopPropagation();
             if (!hasPlot) return;
             showImg();
+            currentImageKind = "plot";
             if (imgEl) imgEl.src = plotSrc;
             setActive(btnPlot);
+            updateDownloadButtons();
           };
         }
 
@@ -543,8 +626,10 @@ cyto_js_deps <- function(container_id_css) {
             e.stopPropagation();
             if (!hasHm || btnHm.disabled) return;
             showImg();
+            currentImageKind = "heatmap";
             if (imgEl) imgEl.src = hmSrc;
             setActive(btnHm);
+            updateDownloadButtons();
           };
         }
 
@@ -553,9 +638,42 @@ cyto_js_deps <- function(container_id_css) {
             e.stopPropagation();
             if (!hasEn || btnEn.disabled) return;
             showEn();
+            currentImageKind = "";
             setActive(btnEn);
+            updateDownloadButtons();
           };
         }
+
+        if (btnDlSvg){
+          btnDlSvg.onclick = async function(e){
+            e.stopPropagation();
+            const src = currentImageSrc();
+            if (!src) return;
+            try{
+              const kind = currentImageKind || "image";
+              const blob = await fetchBlobFromUrl(src);
+              triggerDownloadFromBlob(blob, safeFilenamePart(label) + "_" + kind + ".svg");
+            } catch(err){
+              alert("Image download failed: " + (err && err.message ? err.message : String(err)));
+            }
+          };
+        }
+
+        if (btnDlPdf){
+          btnDlPdf.onclick = async function(e){
+            e.stopPropagation();
+            const src = currentImageSrc();
+            if (!src) return;
+            try{
+              const kind = currentImageKind || "image";
+              await downloadCurrentImagePdf(src, safeFilenamePart(label) + "_" + kind);
+            } catch(err){
+              alert("PDF download failed: " + (err && err.message ? err.message : String(err)));
+            }
+          };
+        }
+
+        updateDownloadButtons();
 
         const headerEl = pop.querySelector(".cy-popup-header");
         if (headerEl){

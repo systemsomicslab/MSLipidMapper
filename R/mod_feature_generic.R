@@ -15,6 +15,7 @@ suppressPackageStartupMessages({
 
 # Utilities ----------------------------------------------------------------
 `%||%` <- function(a, b) if (is.null(a)) b else a
+.NO_SPLIT_CHOICE <- "__MSLM_NO_SPLIT__"
 
 .idify <- function(x) gsub("[^A-Za-z0-9_]+", "_", as.character(x))
 
@@ -70,6 +71,7 @@ suppressPackageStartupMessages({
 # Default advanced settings -------------------------------------------------
 .default_feature_adv <- function() {
   list(
+    facet_var    = "",
     # --- X-axis ordering -----------------------------------------------------
     order_by     = "abundance_median",  # "abundance_median" / "none"
     decreasing   = FALSE,
@@ -81,6 +83,7 @@ suppressPackageStartupMessages({
     add_p        = FALSE,
     test         = "wilcox",  # "wilcox" / "t.test"
     p_label      = "both",    # "p" / "stars" / "both"
+    p_label_font_size = 3.5,
     comp_mode    = "ref",     # "all" / "ref" / "manual"
     ref_group    = "",
     manual_pairs = data.frame(
@@ -117,6 +120,12 @@ suppressPackageStartupMessages({
     violin_show_median  = TRUE,
     violin_median_size  = 0.7,
     violin_median_color = "#222222",
+
+    # --- Common plot font ---------------------------------------------------
+    plot_font_size = 12,
+    strip_font_size = 12,
+    lipid_y_axis_label = "Abundance",
+    gene_y_axis_label  = "Abundance",
 
     # --- Heatmap options -----------------------------------------------------
     hm_row_z = TRUE,
@@ -162,9 +171,25 @@ mod_feature_generic_server <- function(
       if (is.null(se)) return(character(0))
       cd <- as.data.frame(SummarizedExperiment::colData(se))
       if (!nrow(cd) || !"class" %in% colnames(cd)) return(character(0))
-      g <- as.character(cd$class)
+      g <- as.character(cd[["class"]])
       g <- g[!is.na(g) & nzchar(g)]
       unique(g)
+    }
+
+    .get_split_choices_one <- function(se) {
+      if (is.null(se)) return(character(0))
+      cd <- as.data.frame(SummarizedExperiment::colData(se))
+      if (!ncol(cd)) return(character(0))
+      keep <- vapply(cd, function(x) is.atomic(x) || is.factor(x), logical(1))
+      cols <- names(cd)[keep]
+      setdiff(cols, c("sample_id", "use", "class"))
+    }
+
+    .get_split_choices <- function() {
+      unique(c(
+        .get_split_choices_one(se_lipid_r()),
+        .get_split_choices_one(se_tx_r())
+      ))
     }
 
     # Shared state ------------------------------------------------------------
@@ -177,8 +202,8 @@ mod_feature_generic_server <- function(
     # ---- IMPORTANT: initialize palette_map early (before modal is opened) ---
     shiny::observe({
       dataset <- rv$dataset %||% "lipid"
-      groups  <- .get_groups(dataset)
       adv     <- rv$adv
+      groups  <- .get_groups(dataset)
 
       if (length(groups)) {
         adv$palette_map <- .merge_palette(groups, adv$palette_map)
@@ -208,6 +233,8 @@ mod_feature_generic_server <- function(
 
       if (!is.null(live$plot_type)) adv$plot_type <- as.character(live$plot_type)
       if (!is.null(live$dataset))   rv$dataset <- as.character(live$dataset)
+      if (!is.null(live$facet_var)) adv$facet_var <- as.character(live$facet_var %||% "")
+      if (!is.null(live$facet_var_plot)) adv$facet_var <- as.character(live$facet_var_plot %||% "")
       if (!is.null(live$hm_topN))   adv$hm_topN <- as.integer(live$hm_topN)
       if (!is.null(live$hm_row_z))  adv$hm_row_z <- isTRUE(live$hm_row_z)
 
@@ -256,7 +283,7 @@ mod_feature_generic_server <- function(
     output$adv_color_pickers <- shiny::renderUI({
       df <- rv$pal_tbl
       if (is.null(df) || !nrow(df)) {
-        return(shiny::helpText("No 'class' groups found in colData."))
+        return(shiny::helpText("No groups found for colData$class."))
       }
       shiny::tagList(lapply(seq_len(nrow(df)), function(i) {
         gid <- df$group[i]
@@ -395,6 +422,10 @@ mod_feature_generic_server <- function(
     feature_adv_modal <- function() {
       adv    <- rv$adv
       groups <- .get_groups(rv$dataset)
+      split_choices <- .get_split_choices()
+      sel_split <- adv$facet_var %||% ""
+      if (nzchar(sel_split) && !sel_split %in% split_choices) sel_split <- ""
+      sel_split_ui <- if (nzchar(sel_split)) sel_split else .NO_SPLIT_CHOICE
 
       # init palette table from adv (already initialized before modal)
       pal_map <- .merge_palette(groups, adv$palette_map)
@@ -430,6 +461,7 @@ mod_feature_generic_server <- function(
 
           shiny::tabPanel(
             "Colors / order",
+            shiny::helpText("Current sample grouping column: colData$class"),
             shiny::fluidRow(
               shiny::column(6, shiny::h4("Color / order"), shiny::uiOutput(ns("adv_color_pickers"))),
               shiny::column(
@@ -442,7 +474,20 @@ mod_feature_generic_server <- function(
                 }
               )
             ),
-            shiny::helpText("Use the 'level' column to define a manual x-axis order (smaller comes first).")
+            shiny::hr(),
+            shiny::helpText("Use the 'level' column to define a manual x-axis order for colData$class (smaller comes first)."),
+            shiny::hr(),
+            shiny::h4("Panel split"),
+            shiny::selectInput(
+              ns("adv_facet_var"),
+              "Split by sample metadata",
+              choices = c("Do not split" = .NO_SPLIT_CHOICE, setNames(split_choices, split_choices)),
+              selected = sel_split_ui
+            ),
+            shiny::helpText("Choose an additional sample metadata column to facet the plots. The primary class remains colData$class."),
+            if (!length(split_choices)) {
+              shiny::helpText("No additional sample metadata columns are currently available for split.")
+            }
           ),
 
           shiny::tabPanel(
@@ -451,7 +496,8 @@ mod_feature_generic_server <- function(
             shiny::fluidRow(
               shiny::column(3, shiny::checkboxInput(ns("adv_add_p"), "Show p-values", value = isTRUE(adv$add_p))),
               shiny::column(3, shiny::selectInput(ns("adv_test"), "Test", choices = c("wilcox", "t.test"), selected = adv$test)),
-              shiny::column(3, shiny::selectInput(ns("adv_p_label"), "Label", choices = c("p", "stars", "both"), selected = adv$p_label))
+              shiny::column(3, shiny::selectInput(ns("adv_p_label"), "Label", choices = c("p", "stars", "both"), selected = adv$p_label)),
+              shiny::column(3, shiny::numericInput(ns("adv_p_label_font_size"), "Label font size", value = adv$p_label_font_size, min = 1, max = 12, step = 0.1))
             ),
             shiny::hr(),
             shiny::radioButtons(
@@ -470,6 +516,50 @@ mod_feature_generic_server <- function(
           shiny::tabPanel(
             "Plot styling",
             shiny::h4("Plot styling parameters (Dot / Box / Violin)"),
+            shiny::fluidRow(
+              shiny::column(
+                4,
+                shiny::numericInput(
+                  ns("adv_plot_font_size"),
+                  "Base font size",
+                  value = adv$plot_font_size,
+                  min = 6,
+                  max = 30,
+                  step = 1
+                )
+              ),
+              shiny::column(
+                4,
+                shiny::numericInput(
+                  ns("adv_strip_font_size"),
+                  "Split label font size",
+                  value = adv$strip_font_size %||% adv$plot_font_size,
+                  min = 6,
+                  max = 30,
+                  step = 1
+                )
+              )
+            ),
+            shiny::br(),
+            shiny::fluidRow(
+              shiny::column(
+                6,
+                shiny::textInput(
+                  ns("adv_lipid_y_axis_label"),
+                  "Lipid plot y-axis label",
+                  value = adv$lipid_y_axis_label %||% "Abundance"
+                )
+              ),
+              shiny::column(
+                6,
+                shiny::textInput(
+                  ns("adv_gene_y_axis_label"),
+                  "Gene plot y-axis label",
+                  value = adv$gene_y_axis_label %||% "Abundance"
+                )
+              )
+            ),
+            shiny::br(),
             shiny::fluidRow(
               shiny::column(
                 4, shiny::h5("Dot"),
@@ -546,10 +636,15 @@ mod_feature_generic_server <- function(
         }
       }
 
+      facet_in <- as.character(input$adv_facet_var %||% .NO_SPLIT_CHOICE)
+      adv$facet_var <- if (identical(facet_in, .NO_SPLIT_CHOICE)) "" else facet_in
+
       # Statistics
       adv$add_p     <- isTRUE(input$adv_add_p)
       adv$test      <- input$adv_test    %||% "wilcox"
       adv$p_label   <- input$adv_p_label %||% "both"
+      adv$p_label_font_size <- suppressWarnings(as.numeric(input$adv_p_label_font_size %||% 3.5))
+      if (!is.finite(adv$p_label_font_size) || adv$p_label_font_size <= 0) adv$p_label_font_size <- 3.5
       adv$comp_mode <- input$adv_comp_mode %||% "ref"
       adv$ref_group <- input$adv_ref_group %||% ""
 
@@ -575,6 +670,17 @@ mod_feature_generic_server <- function(
       }
 
       # Dot
+      plot_font_in <- suppressWarnings(as.numeric(input$adv_plot_font_size))
+      if (!is.finite(plot_font_in) || plot_font_in < 6) plot_font_in <- 12
+      adv$plot_font_size <- plot_font_in
+      strip_font_in <- suppressWarnings(as.numeric(input$adv_strip_font_size))
+      if (!is.finite(strip_font_in) || strip_font_in < 6) strip_font_in <- plot_font_in
+      adv$strip_font_size <- strip_font_in
+      adv$lipid_y_axis_label <- trimws(as.character(input$adv_lipid_y_axis_label %||% "Abundance"))
+      if (!nzchar(adv$lipid_y_axis_label)) adv$lipid_y_axis_label <- "Abundance"
+      adv$gene_y_axis_label <- trimws(as.character(input$adv_gene_y_axis_label %||% "Abundance"))
+      if (!nzchar(adv$gene_y_axis_label)) adv$gene_y_axis_label <- "Abundance"
+
       adv$dot_point_size   <- input$adv_dot_point_size
       adv$dot_jitter_width <- input$adv_dot_jitter_width
       adv$dot_alpha        <- input$adv_dot_alpha

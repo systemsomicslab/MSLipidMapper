@@ -137,6 +137,22 @@ mod_cyto_ui <- function(id) {
 }
 .plot-card h5{ margin-top: 4px; margin-bottom: 6px; }
 .dl-row{ margin-top: 6px; }
+.cy-plot-frame{
+  width: 100%;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cy-plot-square{
+  width: min(100%, 360px);
+  height: 360px;
+}
+.cy-plot-square .shiny-plot-output{
+  width: 100% !important;
+  height: 100% !important;
+}
 "
 
 
@@ -205,7 +221,7 @@ mod_cyto_ui <- function(id) {
               shiny::actionButton(ns("apply_diff_borders"), "Apply", class = "btn-xs btn-primary"),
               shiny::actionButton(ns("clear_diff_borders"), "Clear", class = "btn-xs")
             ),
-            shiny::helpText("Group column is fixed to colData$class. Direction is B − A."),
+            shiny::helpText("Direction is B − A."),
             shiny::helpText("Significant increase = red border; decrease = blue border."),
             open = FALSE
           ),
@@ -268,7 +284,13 @@ mod_cyto_ui <- function(id) {
               shiny::div(
                 class = "plot-card",
                 shiny::uiOutput(ns("plot_title_left")),
-                shiny::plotOutput(ns("plot_left"), height = "360px"),
+                shiny::div(
+                  class = "cy-plot-frame",
+                  shiny::div(
+                    class = "cy-plot-square",
+                    shiny::plotOutput(ns("plot_left"), height = "100%")
+                  )
+                ),
                 shiny::div(
                   class = "dl-row",
                   shiny::downloadButton(ns("dl_left"), "Download", class = "btn btn-default btn-sm")
@@ -281,7 +303,13 @@ mod_cyto_ui <- function(id) {
                 class = "plot-card",
                 shiny::uiOutput(ns("plot_title_right")),
                 shiny::uiOutput(ns("molecule_ui")),
-                shiny::plotOutput(ns("plot_right"), height = "360px"),
+                shiny::div(
+                  class = "cy-plot-frame",
+                  shiny::div(
+                    class = "cy-plot-square",
+                    shiny::plotOutput(ns("plot_right"), height = "100%")
+                  )
+                ),
                 shiny::div(
                   class = "dl-row",
                   shiny::downloadButton(ns("dl_right"), "Download", class = "btn btn-default btn-sm")
@@ -518,9 +546,6 @@ mod_cyto_server <- function(id,
       }
     }, ignoreInit = TRUE)
 
-    # ---- Differential (2-group) UI (fixed group_col = "class") ---------------
-    DIFF_GROUP_COL <- "class"
-
     se_group_ref <- reactive({
       se <- tryCatch(se_lipid_reactive(), error = function(e) NULL)
       if (!is.null(se)) return(se)
@@ -531,7 +556,25 @@ mod_cyto_server <- function(id,
       NULL
     })
 
-    .class_levels_from_se <- function(se, class_col = DIFF_GROUP_COL) {
+    # Primary grouping is fixed to colData$class.
+    # Optional panel split is read from shared Feature advanced settings.
+    .selected_group_col <- reactive("class")
+
+    .palette_for_groups <- function(groups, adv = NULL) {
+      groups <- unique(as.character(groups))
+      groups <- groups[!is.na(groups) & nzchar(groups)]
+      if (!length(groups)) return(NULL)
+      hues <- seq(15, 375, length.out = length(groups) + 1)[seq_along(groups)]
+      pal <- grDevices::hcl(h = hues, l = 65, c = 100)
+      names(pal) <- groups
+      if (!is.null(adv$palette_map) && length(adv$palette_map)) {
+        nm <- intersect(names(adv$palette_map), groups)
+        pal[nm] <- adv$palette_map[nm]
+      }
+      pal
+    }
+
+    .class_levels_from_se <- function(se, class_col) {
       if (is.null(se)) return(character(0))
       cd <- as.data.frame(colData(se))
       if (!class_col %in% names(cd)) return(character(0))
@@ -547,9 +590,10 @@ mod_cyto_server <- function(id,
       if (is.null(se)) {
         return(shiny::helpText("Differential: unavailable (no SE provided)."))
       }
-      levs <- .class_levels_from_se(se, DIFF_GROUP_COL)
+      group_col <- .selected_group_col()
+      levs <- .class_levels_from_se(se, group_col)
       if (length(levs) < 2) {
-        return(shiny::helpText(paste0("Differential: unavailable (colData$", DIFF_GROUP_COL, " has <2 levels).")))
+        return(shiny::helpText(paste0("Differential: unavailable (colData$", group_col, " has <2 levels).")))
       }
 
       a0 <- isolate(input$diff_group_a)
@@ -586,7 +630,7 @@ mod_cyto_server <- function(id,
       )
     })
 
-    .idx_from_se <- function(se, gA, gB, class_col = DIFF_GROUP_COL) {
+    .idx_from_se <- function(se, gA, gB, class_col) {
       cd <- as.data.frame(colData(se))
       if (!class_col %in% names(cd)) stop("Group column not found in colData: ", class_col, call. = FALSE)
       grp <- trimws(as.character(cd[[class_col]]))
@@ -632,11 +676,11 @@ mod_cyto_server <- function(id,
       list(class = cls_keys, ens = ens_keys)
     }
 
-    .compute_diff_stats <- function(el, se_lipid, se_tx, gA, gB, method = "wilcox") {
+    .compute_diff_stats <- function(el, se_lipid, se_tx, gA, gB, class_col, method = "wilcox") {
       stats_map <- list()
 
       if (!is.null(se_lipid)) {
-        ii <- .idx_from_se(se_lipid, gA, gB, DIFF_GROUP_COL)
+        ii <- .idx_from_se(se_lipid, gA, gB, class_col)
 
         valid_lipid <- get_valid_classes_from_se(se_lipid)
         keys <- .extract_net_keys(el)$class
@@ -656,7 +700,7 @@ mod_cyto_server <- function(id,
       }
 
       if (!is.null(se_tx)) {
-        ii <- .idx_from_se(se_tx, gA, gB, DIFF_GROUP_COL)
+        ii <- .idx_from_se(se_tx, gA, gB, class_col)
 
         ens_map <- .make_ensembl_to_rowname_map(se_tx)
         keys <- .extract_net_keys(el)$ens
@@ -736,6 +780,7 @@ mod_cyto_server <- function(id,
       }
 
       method <- tolower(as.character(input$diff_method %||% "wilcox"))[1]
+      group_col <- .selected_group_col()
 
       alpha <- suppressWarnings(as.numeric(input$diff_alpha %||% 0.05))
       if (!is.finite(alpha) || alpha <= 0 || alpha >= 1) alpha <- 0.05
@@ -747,26 +792,26 @@ mod_cyto_server <- function(id,
 
       if (!is.null(se_lipid)) {
         cd <- as.data.frame(colData(se_lipid))
-        if (!DIFF_GROUP_COL %in% names(cd)) {
-          showNotification(paste0("Lipid SE: colData has no column '", DIFF_GROUP_COL, "'. Lipid nodes will be skipped."), type = "warning")
+        if (!group_col %in% names(cd)) {
+          showNotification(paste0("Lipid SE: colData has no column '", group_col, "'. Lipid nodes will be skipped."), type = "warning")
           se_lipid <- NULL
         }
       }
       if (!is.null(se_tx)) {
         cd <- as.data.frame(colData(se_tx))
-        if (!DIFF_GROUP_COL %in% names(cd)) {
-          showNotification(paste0("Gene SE: colData has no column '", DIFF_GROUP_COL, "'. Gene nodes will be skipped."), type = "warning")
+        if (!group_col %in% names(cd)) {
+          showNotification(paste0("Gene SE: colData has no column '", group_col, "'. Gene nodes will be skipped."), type = "warning")
           se_tx <- NULL
         }
       }
 
       if (is.null(se_lipid) && is.null(se_tx)) {
-        showNotification(paste0("No applicable SE found (missing colData$", DIFF_GROUP_COL, ")."), type = "error")
+        showNotification(paste0("No applicable SE found (missing colData$", group_col, ")."), type = "error")
         return()
       }
 
       stats_map <- tryCatch(
-        .compute_diff_stats(el, se_lipid, se_tx, gA, gB, method = method),
+        .compute_diff_stats(el, se_lipid, se_tx, gA, gB, class_col = group_col, method = method),
         error = function(e) {
           showNotification(conditionMessage(e), type = "error")
           NULL
@@ -1083,32 +1128,32 @@ mod_cyto_server <- function(id,
     # ---- Acyl-chain filter UI ------------------------------------------------
     has_chain_info <- reactive({
       se <- tryCatch(se_lipid_reactive(), error = function(e) NULL)
-      .has_chain_col(se, "acyl_chains")
+      .has_chain_col(se, "acyl_chains") || .has_chain_col(se, "sphingoid_bases")
     })
 
     output$chain_filter_ui <- renderUI({
       if (!isTRUE(has_chain_info())) {
-        return(shiny::helpText("Acyl-chain filter: unavailable (rowData$acyl_chains is missing)."))
+        return(shiny::helpText("Chain/SPB filter: unavailable (rowData$acyl_chains and rowData$sphingoid_bases are missing)."))
       }
 
       se <- se_lipid_reactive()
-      codes <- .get_unique_chain_codes(se, "acyl_chains")
+      codes <- .get_combined_chain_codes(se, c("acyl_chains", "sphingoid_bases"))
 
       selected0 <- isolate(input$chain_codes)
       if (is.null(selected0)) selected0 <- character(0)
       selected0 <- intersect(as.character(selected0), codes)
 
       shiny::tagList(
-        shiny::checkboxInput(ns("chain_exclude_odd"), "Exclude molecules with any odd-carbon chain", value = FALSE),
+        shiny::checkboxInput(ns("chain_exclude_odd"), "Exclude molecules with any odd-carbon chain or SPB", value = FALSE),
         shiny::selectizeInput(
           ns("chain_codes"),
-          "Chain code(s) (multiple)",
+          "Chain / SPB code(s) (multiple)",
           choices  = codes,
           selected = selected0,
           multiple = TRUE,
           options  = list(
             plugins     = list("remove_button"),
-            placeholder = "Select one or more (e.g., 18:0, 22:6;O2)",
+            placeholder = "Select one or more (e.g., 18:0, 22:6;O2, SPB18:1;O2)",
             maxOptions  = 5000
           )
         ),
@@ -1135,7 +1180,7 @@ mod_cyto_server <- function(id,
       se <- se_lipid_reactive()
       req(se)
 
-      if (!isTRUE(.has_chain_col(se, "acyl_chains"))) return(se)
+      if (!isTRUE(.has_chain_col(se, "acyl_chains") || .has_chain_col(se, "sphingoid_bases"))) return(se)
 
       chain_codes <- input$chain_codes %||% character(0)
       require_all <- isTRUE(input$chain_require_all)
@@ -1161,7 +1206,7 @@ mod_cyto_server <- function(id,
         require_all = require_all,
         exclude_odd = exclude_odd,
         carbon = carbon, db = db, oxygen = oxygen,
-        chain_col = "acyl_chains"
+        chain_cols = c("acyl_chains", "sphingoid_bases")
       )
     })
 
@@ -1210,10 +1255,18 @@ mod_cyto_server <- function(id,
       if (length(target_lipid)) {
         plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
         agg_fun   <- tolower(as.character(input$agg_fun   %||% "sum"))[1]
+        group_col <- .selected_group_col()
 
         adv <- .get_adv_or_default(se_lipid, settings_reactive = settings_reactive)
+        facet_var <- adv$facet_var %||% ""
         x_order <- adv$manual_order %||% character(0)
-        pal     <- if (length(adv$palette_map)) adv$palette_map else NULL
+        groups  <- .class_levels_from_se(se_lipid, group_col)
+        pal     <- .palette_for_groups(groups, adv)
+        plot_font   <- .safe_plot_font_size(adv$plot_font_size %||% 12)
+        strip_font  <- .safe_strip_font_size(adv$strip_font_size %||% plot_font, default = plot_font)
+        p_label_font <- .safe_p_label_font_size(adv$p_label_font_size %||% 3.5)
+        y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
+        if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
         extra_p     <- .pvalue_args_from_adv(adv)
         extra_style <- .plot_style_args_from_adv(adv, plot_type)
 
@@ -1227,13 +1280,17 @@ mod_cyto_server <- function(id,
           f    <- file.path(svg_dir, paste0("class_", safe, ".svg"))
 
           p <- do.call(fun, c(list(
-            se = se_cls, feature_id = cls, x_var = "class",
+            se = se_cls, feature_id = cls, x_var = group_col,
+            facet_var = if (nzchar(facet_var)) facet_var else NULL,
             x_order = if (length(x_order)) x_order else NULL,
             palette = pal
           ), extra_style, extra_p))
 
           p <- .apply_palette_if_missing(p, pal)
-          p <- p + ggplot2::theme(legend.position = "none", aspect.ratio = 1)
+          p <- .apply_plot_font_size(p, plot_font, strip_size = strip_font)
+          p <- .apply_p_label_size(p, p_label_font)
+          p <- p + ggplot2::labs(y = y_axis_label)
+          p <- p + ggplot2::theme(legend.position = "none")
           p <- .prep_for_node_svg(p)
 
           .save_svg_file(p, f, width = sz[["w"]], height = sz[["h"]])
@@ -1260,6 +1317,7 @@ mod_cyto_server <- function(id,
             se_lipid,
             class_col  = class_col,
             class_name = cls,
+            x_var      = group_col,
             topN       = top_n,
             x_order    = if (length(x_order)) x_order else NULL
           )
@@ -1283,10 +1341,18 @@ mod_cyto_server <- function(id,
         if (length(target_ens)) {
           plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
           fun <- get_plot_fun(plot_type)
+          group_col <- .selected_group_col()
 
           adv_tx <- .get_adv_or_default(se_tx, settings_reactive = settings_reactive)
+          facet_var <- adv_tx$facet_var %||% ""
           x_order <- adv_tx$manual_order %||% character(0)
-          pal     <- if (length(adv_tx$palette_map)) adv_tx$palette_map else NULL
+          groups  <- .class_levels_from_se(se_tx, group_col)
+          pal     <- .palette_for_groups(groups, adv_tx)
+          plot_font   <- .safe_plot_font_size(adv_tx$plot_font_size %||% 12)
+          strip_font  <- .safe_strip_font_size(adv_tx$strip_font_size %||% plot_font, default = plot_font)
+          p_label_font <- .safe_p_label_font_size(adv_tx$p_label_font_size %||% 3.5)
+          y_axis_label <- trimws(as.character(adv_tx$gene_y_axis_label %||% "Abundance"))
+          if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
           extra_p     <- .pvalue_args_from_adv(adv_tx)
           extra_style <- .plot_style_args_from_adv(adv_tx, plot_type)
 
@@ -1299,13 +1365,17 @@ mod_cyto_server <- function(id,
             f <- file.path(svg_dir, paste0("gene_", safe, ".svg"))
 
             p <- do.call(fun, c(list(
-              se = se_tx, feature_id = fid, x_var = "class",
+              se = se_tx, feature_id = fid, x_var = group_col,
+              facet_var = if (nzchar(facet_var)) facet_var else NULL,
               x_order = if (length(x_order)) x_order else NULL,
               palette = pal
             ), extra_style, extra_p))
 
             p <- .apply_palette_if_missing(p, pal)
-            p <- p + ggplot2::theme(legend.position = "none", aspect.ratio = 1)
+            p <- .apply_plot_font_size(p, plot_font, strip_size = strip_font)
+            p <- .apply_p_label_size(p, p_label_font)
+            p <- p + ggplot2::labs(y = y_axis_label)
+            p <- p + ggplot2::theme(legend.position = "none")
             p <- .prep_for_node_svg(p)
 
             .save_svg_file(p, f, width = sz_gene[["w"]], height = sz_gene[["h"]])
@@ -1469,6 +1539,7 @@ mod_cyto_server <- function(id,
       if (.is_gene_node(node)) {
         se_tx <- if (!is.null(se_tx_reactive)) se_tx_reactive() else NULL
         if (is.null(se_tx)) return(.empty_plot("Gene SE is not available."))
+        group_col <- .selected_group_col()
 
         ens <- .get_ens_key(node)
         ens_map <- .make_ensembl_to_rowname_map(se_tx)
@@ -1476,20 +1547,30 @@ mod_cyto_server <- function(id,
         fid <- unname(ens_map[[ens]])
 
         adv <- .get_adv_or_default(se_tx, settings_reactive = settings_reactive)
+        facet_var <- adv$facet_var %||% ""
         x_order <- adv$manual_order %||% character(0)
-        pal     <- if (length(adv$palette_map)) adv$palette_map else NULL
+        groups  <- .class_levels_from_se(se_tx, group_col)
+        pal     <- .palette_for_groups(groups, adv)
+        plot_font   <- .safe_plot_font_size(adv$plot_font_size %||% 12)
+        strip_font  <- .safe_strip_font_size(adv$strip_font_size %||% plot_font, default = plot_font)
+        p_label_font <- .safe_p_label_font_size(adv$p_label_font_size %||% 3.5)
+        y_axis_label <- trimws(as.character(adv$gene_y_axis_label %||% "Abundance"))
+        if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
         extra_style <- .plot_style_args_from_adv(adv, plot_type)
         extra_p     <- .pvalue_args_from_adv(adv)
 
         p <- do.call(fun, c(list(
-          se = se_tx, feature_id = fid, x_var = "class",
+          se = se_tx, feature_id = fid, x_var = group_col,
+          facet_var = if (nzchar(facet_var)) facet_var else NULL,
           x_order = if (length(x_order)) x_order else NULL,
           palette = pal
         ), extra_style, extra_p))
 
         p <- .apply_palette_if_missing(p, pal)
-        p + ggplot2::labs(title = paste0("Gene: ", .get_gene_label(node))) +
-          ggplot2::theme(legend.position = "none", aspect.ratio = 1)
+        p <- .apply_plot_font_size(p, plot_font, strip_size = strip_font)
+        p <- .apply_p_label_size(p, p_label_font)
+        p + ggplot2::labs(title = NULL, y = y_axis_label) +
+          ggplot2::theme(legend.position = "none")
 
       } else {
         se_lipid <- se_lipid_effective()
@@ -1500,22 +1581,33 @@ mod_cyto_server <- function(id,
         cls <- .get_class_key(node)
         agg_fun <- tolower(as.character(input$agg_fun %||% "sum"))[1]
         se_cls <- aggregate_to_class_se(se_lipid, fun = agg_fun)
+        group_col <- .selected_group_col()
 
         adv <- .get_adv_or_default(se_lipid, settings_reactive = settings_reactive)
+        facet_var <- adv$facet_var %||% ""
         x_order <- adv$manual_order %||% character(0)
-        pal     <- if (length(adv$palette_map)) adv$palette_map else NULL
+        groups  <- .class_levels_from_se(se_lipid, group_col)
+        pal     <- .palette_for_groups(groups, adv)
+        plot_font   <- .safe_plot_font_size(adv$plot_font_size %||% 12)
+        strip_font  <- .safe_strip_font_size(adv$strip_font_size %||% plot_font, default = plot_font)
+        p_label_font <- .safe_p_label_font_size(adv$p_label_font_size %||% 3.5)
+        y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
+        if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
         extra_style <- .plot_style_args_from_adv(adv, plot_type)
         extra_p     <- .pvalue_args_from_adv(adv)
 
         p <- do.call(fun, c(list(
-          se = se_cls, feature_id = cls, x_var = "class",
+          se = se_cls, feature_id = cls, x_var = group_col,
+          facet_var = if (nzchar(facet_var)) facet_var else NULL,
           x_order = if (length(x_order)) x_order else NULL,
           palette = pal
         ), extra_style, extra_p))
 
         p <- .apply_palette_if_missing(p, pal)
-        p + ggplot2::labs(title = paste0("Class: ", cls)) +
-          ggplot2::theme(legend.position = "none", aspect.ratio = 1)
+        p <- .apply_plot_font_size(p, plot_font, strip_size = strip_font)
+        p <- .apply_p_label_size(p, p_label_font)
+        p + ggplot2::labs(title = NULL, y = y_axis_label) +
+          ggplot2::theme(legend.position = "none")
       }
     })
 
@@ -1544,22 +1636,33 @@ mod_cyto_server <- function(id,
 
       plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
       fun <- get_plot_fun(plot_type)
+      group_col <- .selected_group_col()
 
       adv <- .get_adv_or_default(se_lipid, settings_reactive = settings_reactive)
+      facet_var <- adv$facet_var %||% ""
       x_order <- adv$manual_order %||% character(0)
-      pal     <- if (length(adv$palette_map)) adv$palette_map else NULL
+      groups  <- .class_levels_from_se(se_lipid, group_col)
+      pal     <- .palette_for_groups(groups, adv)
+      plot_font   <- .safe_plot_font_size(adv$plot_font_size %||% 12)
+      strip_font  <- .safe_strip_font_size(adv$strip_font_size %||% plot_font, default = plot_font)
+      p_label_font <- .safe_p_label_font_size(adv$p_label_font_size %||% 3.5)
+      y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
+      if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
       extra_style <- .plot_style_args_from_adv(adv, plot_type)
       extra_p     <- .pvalue_args_from_adv(adv)
 
       p <- do.call(fun, c(list(
-        se = se_lipid, feature_id = fid, x_var = "class",
+        se = se_lipid, feature_id = fid, x_var = group_col,
+        facet_var = if (nzchar(facet_var)) facet_var else NULL,
         x_order = if (length(x_order)) x_order else NULL,
         palette = pal
       ), extra_style, extra_p))
 
       p <- .apply_palette_if_missing(p, pal)
-      p + ggplot2::labs(title = paste0("Molecule in ", cls, ": ", fid)) +
-        ggplot2::theme(legend.position = "none", aspect.ratio = 1)
+      p <- .apply_plot_font_size(p, plot_font, strip_size = strip_font)
+      p <- .apply_p_label_size(p, p_label_font)
+      p + ggplot2::labs(title = NULL, y = y_axis_label) +
+        ggplot2::theme(legend.position = "none")
     })
 
     output$plot_left  <- renderPlot({ left_plot_obj() })

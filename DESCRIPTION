@@ -24,6 +24,7 @@ Imports:
     shinybusy,
     SummarizedExperiment,
     S4Vectors,
+    clusterProfiler,
     ggplot2,
     ComplexHeatmap,
     circlize,
@@ -50,7 +51,6 @@ Imports:
     htmltools
 Suggests:
     ropls,
-    clusterProfiler,
     rgoslin,
     UpSetR,
     patchwork,

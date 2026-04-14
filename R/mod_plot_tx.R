@@ -116,6 +116,25 @@ mod_plot_gene_server <- function(
       if (!length(x) || is.na(x) || x < 0) 0 else x
     }
 
+    .safe_font_size <- function(x, default = 12) {
+      x <- suppressWarnings(as.numeric(x))
+      if (!length(x) || is.na(x) || !is.finite(x) || x < 6) default else x
+    }
+
+    .apply_p_label_size <- function(p, size = 3.5) {
+      if (!inherits(p, c("gg", "ggplot"))) return(p)
+      size <- suppressWarnings(as.numeric(size))
+      if (!length(size) || is.na(size) || !is.finite(size) || size <= 0) return(p)
+      for (i in seq_along(p$layers)) {
+        lyr <- p$layers[[i]]
+        if (inherits(lyr$geom, "GeomText")) {
+          lyr$aes_params$size <- size
+          p$layers[[i]] <- lyr
+        }
+      }
+      p
+    }
+
     .build_comp_args <- function(mode, ref_group, manual_df) {
       if (identical(mode, "all"))
         return(list(comparisons = NULL, ref_group = NULL))
@@ -259,6 +278,13 @@ mod_plot_gene_server <- function(
 
       pal <- .make_palette(groups, adv)
       cmp <- .build_comp_args(adv$comp_mode, adv$ref_group, adv$manual_pairs)
+      facet_var <- adv$facet_var %||% ""
+      plot_font <- .safe_font_size(adv$plot_font_size, default = 12)
+      strip_font <- .safe_font_size(adv$strip_font_size %||% plot_font, default = plot_font)
+      p_label_font <- suppressWarnings(as.numeric(adv$p_label_font_size %||% 3.5))
+      if (!is.finite(p_label_font) || p_label_font <= 0) p_label_font <- 3.5
+      y_axis_label <- trimws(as.character(adv$gene_y_axis_label %||% "Abundance"))
+      if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
 
       dot_jw    <- .safe_jitter(adv$dot_jitter_width)
       box_jw    <- .safe_jitter(adv$box_jitter_width)
@@ -307,6 +333,7 @@ mod_plot_gene_server <- function(
         se         = se2,
         feature_id = input$gene_id,
         x_var      = x_var,
+        facet_var  = if (nzchar(facet_var)) facet_var else NULL,
         x_order    = x_order,
         order_by   = "none",
         decreasing = FALSE,
@@ -318,9 +345,10 @@ mod_plot_gene_server <- function(
         p_adjust   = "BH",
         p_label    = adv$p_label
       ), extra)) +
-        theme_lipidomics(11, 0, 10, 10, 12) +
+        theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 1, strip_font) +
         ggplot2::theme(legend.position = "none", aspect.ratio = 1) +
-        ggplot2::labs(title = paste0("Gene: ", input$gene_id))
+        ggplot2::labs(title = paste0("Gene: ", input$gene_id), y = y_axis_label)
+      p <- .apply_p_label_size(p, p_label_font)
 
       p
     })

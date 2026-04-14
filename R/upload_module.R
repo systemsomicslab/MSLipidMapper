@@ -151,11 +151,17 @@ suppressPackageStartupMessages({
   }
 
   n_nonempty <- sum(vapply(as.list(rd_out[["acyl_chains"]]), function(v) length(v) > 0, logical(1)))
+  n_spb <- if ("sphingoid_bases" %in% colnames(rd_out)) {
+    sum(vapply(as.list(rd_out[["sphingoid_bases"]]), function(v) length(v) > 0, logical(1)))
+  } else {
+    0L
+  }
   message(
     "[INFO] Acyl-chain annotation: ",
     n_nonempty, "/", nrow(rd_out),
     " features annotated using ", basename(rules_path),
-    " (lipid column: ", lipid_col, ")."
+    " (lipid column: ", lipid_col, ").",
+    if (n_spb > 0) paste0(" Sphingoid bases captured for ", n_spb, " features.") else ""
   )
   out
 }
@@ -348,6 +354,10 @@ mod_upload_ui <- function(id) {
             shiny::tags$li("Import lipidomics data as the primary input."),
             shiny::tags$li("Optionally add other omics layers (e.g., gene expression) for integrated analysis."),
             shiny::tags$li("Explore results with interactive plots and pathway-based views.")
+          ),
+          shiny::tags$div(
+            style = "margin-top:12px;text-align:right;color:#6b7280;font-size:12px;",
+            "Ver.1.20260414"
           )
         ),
 
@@ -494,7 +504,7 @@ mod_upload_ui <- function(id) {
 
             shinydashboard::box(
               width = 12,
-              title = "Import class file (CSV/TSV)",
+              title = "Import sample metadata file (CSV/TSV)",
               solidHeader = TRUE,
               status = "primary",
               collapsible = TRUE,
@@ -507,7 +517,7 @@ mod_upload_ui <- function(id) {
                   ),
                   shiny::fileInput(
                     ns("class_file"),
-                    "Class mapping file",
+                    "Sample metadata file",
                     accept = c(".csv", ".tsv", ".txt")
                   ),
                   shiny::checkboxInput(
@@ -518,11 +528,11 @@ mod_upload_ui <- function(id) {
                   shiny::uiOutput(ns("class_colpick_ui")),
                   shiny::actionButton(
                     ns("apply_class_map"),
-                    "Apply class mapping",
+                    "Apply sample metadata",
                     class = "btn-info"
                   ),
                   shiny::br(),
-                  shiny::helpText("Required columns: sample_id and class"),
+                  shiny::helpText("Required: one sample ID column and one primary grouping column. Other columns are also merged into colData."),
                   shiny::br(),
                   shiny::verbatimTextOutput(ns("class_import_msg"))
                 ),
@@ -685,7 +695,26 @@ mod_upload_server <- function(id) {
       cd_lip <- cd_lip[keep_ordered, , drop = FALSE]
 
       if (!"class" %in% names(cd_lip)) cd_lip$class <- NA_character_
-      cd_tx$class <- cd_lip$class
+
+      shared_cols <- union(names(cd_tx), names(cd_lip))
+      shared_cols <- unique(c(
+        intersect(c("sample_id", "class", "use"), shared_cols),
+        setdiff(shared_cols, c("sample_id", "class", "use"))
+      ))
+
+      for (nm in setdiff(shared_cols, names(cd_tx))) {
+        cd_tx[[nm]] <- NA
+      }
+      for (nm in setdiff(shared_cols, names(cd_lip))) {
+        cd_lip[[nm]] <- NA
+      }
+
+      cd_tx <- cd_tx[, shared_cols, drop = FALSE]
+      cd_lip <- cd_lip[rownames(cd_tx), shared_cols, drop = FALSE]
+
+      for (nm in setdiff(shared_cols, "sample_id")) {
+        cd_tx[[nm]] <- cd_lip[[nm]]
+      }
 
       SummarizedExperiment::colData(se_tx_new) <-
         S4Vectors::DataFrame(cd_tx, row.names = cd_tx$sample_id)
@@ -1152,7 +1181,7 @@ mod_upload_server <- function(id) {
         ),
         shiny::selectInput(
           ns("col_class"),
-          "Column for class",
+          "Primary grouping column",
           choices = cols,
           selected = if ("class" %in% cols) "class" else cols[min(2, length(cols))]
         )
@@ -1174,8 +1203,10 @@ mod_upload_server <- function(id) {
       req(df)
       req(input$col_sample, input$col_class)
 
-      map <- df[, c(input$col_sample, input$col_class), drop = FALSE]
-      colnames(map) <- c("sample_id", "class")
+      class_vals <- as.character(df[[input$col_class]])
+      map <- df
+      colnames(map)[colnames(map) == input$col_sample] <- "sample_id"
+      map$class <- class_vals
       map$sample_id <- as.character(map$sample_id)
 
       cd <- as.data.frame(SummarizedExperiment::colData(se_full))
@@ -1190,6 +1221,15 @@ mod_upload_server <- function(id) {
       key <- match(cd$sample_id, map$sample_id)
       matched <- !is.na(key)
       n_match <- sum(matched)
+
+      # Merge all imported metadata columns so plot modules can use multiple sample classes.
+      incoming_cols <- setdiff(colnames(map), "sample_id")
+      for (nm in incoming_cols) {
+        if (!nm %in% colnames(cd)) {
+          cd[[nm]] <- NA
+        }
+        cd[[nm]][matched] <- map[[nm]][key[matched]]
+      }
       cd$class[matched] <- map$class[key[matched]]
 
       if (!"use" %in% names(cd)) {
@@ -1222,7 +1262,7 @@ mod_upload_server <- function(id) {
         )
       }
       output$class_import_msg <- shiny::renderText(msg)
-      shiny::showNotification("Class mapping applied to colData.", type = "message")
+      shiny::showNotification("Sample metadata was merged into colData.", type = "message")
     })
 
     shiny::observeEvent(input$tx_build, {

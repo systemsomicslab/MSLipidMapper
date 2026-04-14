@@ -29,8 +29,8 @@ suppressPackageStartupMessages({
   
   if (is.null(v) || length(v) < 2L) {
     v <- switch(kind,
-                class = c(w = 5.4, h = 4.5),
-                gene  = c(w = 5.4, h = 4.5),
+                class = c(w = 5.4, h = 5.4),
+                gene  = c(w = 5.4, h = 5.4),
                 hm    = c(w = 10,  h = 8)
     )
   } else {
@@ -102,7 +102,7 @@ suppressPackageStartupMessages({
   v <- getOption("mslm_cy_svg_pad_pt", NULL)
   if (is.null(v)) v <- getOption("mslm_cy_svg_pad_pt_legacy", NULL)
   
-  pad_default <- c(top = 50, right = 18, bottom = 18, left = 18)
+  pad_default <- c(top = 58, right = 26, bottom = 26, left = 26)
   
   if (!is.null(v)) {
     vv <- suppressWarnings(as.numeric(v))
@@ -136,6 +136,49 @@ suppressPackageStartupMessages({
       ),
       plot.background = ggplot2::element_rect(fill = "white", colour = NA)
     )
+}
+
+.safe_plot_font_size <- function(x, default = 12) {
+  x <- suppressWarnings(as.numeric(x))
+  if (!length(x) || is.na(x) || !is.finite(x) || x < 6) default else x
+}
+
+.safe_strip_font_size <- function(x, default = 12) {
+  x <- suppressWarnings(as.numeric(x))
+  if (!length(x) || is.na(x) || !is.finite(x) || x < 6) default else x
+}
+
+.safe_p_label_font_size <- function(x, default = 3.5) {
+  x <- suppressWarnings(as.numeric(x))
+  if (!length(x) || is.na(x) || !is.finite(x) || x <= 0) default else x
+}
+
+.apply_p_label_size <- function(p, size = 3.5) {
+  if (!inherits(p, c("gg", "ggplot"))) return(p)
+  size <- .safe_p_label_font_size(size)
+  for (i in seq_along(p$layers)) {
+    lyr <- p$layers[[i]]
+    if (inherits(lyr$geom, "GeomText")) {
+      lyr$aes_params$size <- size
+      p$layers[[i]] <- lyr
+    }
+  }
+  p
+}
+
+.apply_plot_font_size <- function(p, base_size = 12, strip_size = base_size) {
+  if (!inherits(p, c("gg", "ggplot"))) return(p)
+  base_size <- .safe_plot_font_size(base_size)
+  strip_size <- .safe_strip_font_size(strip_size, default = base_size)
+  p + ggplot2::theme(
+    text = ggplot2::element_text(size = base_size),
+    plot.title = ggplot2::element_text(size = base_size + 2),
+    axis.title = ggplot2::element_text(size = base_size + 1),
+    axis.text = ggplot2::element_text(size = base_size),
+    strip.text = ggplot2::element_text(size = strip_size),
+    legend.title = ggplot2::element_text(size = base_size),
+    legend.text = ggplot2::element_text(size = base_size - 1)
+  )
 }
 
 .save_svg_file <- function(plt, file, width, height) {
@@ -263,6 +306,27 @@ aggregate_to_class_se <- function(se, fun = c("sum","mean","median"), assay_name
   sort(codes)
 }
 
+.get_combined_chain_codes <- function(se, chain_cols = c("acyl_chains", "sphingoid_bases")) {
+  if (is.null(se) || !methods::is(se, "SummarizedExperiment")) return(character(0))
+  chain_cols <- unique(as.character(chain_cols))
+  chain_cols <- chain_cols[nzchar(chain_cols)]
+  codes <- unique(unlist(lapply(chain_cols, function(col) .get_unique_chain_codes(se, col)), use.names = FALSE))
+  codes <- codes[!is.na(codes) & nzchar(codes)]
+  sort(codes)
+}
+
+.as_combined_chain_list <- function(se, chain_cols = c("acyl_chains", "sphingoid_bases")) {
+  if (is.null(se) || !methods::is(se, "SummarizedExperiment")) return(list())
+  n <- nrow(SummarizedExperiment::rowData(se))
+  out <- rep(list(character(0)), n)
+  for (col in unique(chain_cols)) {
+    if (!.has_chain_col(se, col)) next
+    xs <- .as_chain_list(se, col)
+    out <- Map(function(a, b) unique(c(a, b)), out, xs)
+  }
+  out
+}
+
 .chain_code_triplet <- function(code) {
   code <- as.character(code)
   carbon <- suppressWarnings(as.integer(stringr::str_extract(code, "^\\d+")))
@@ -290,11 +354,17 @@ aggregate_to_class_se <- function(se, fun = c("sum","mean","median"), assay_name
                                        require_all = FALSE,
                                        exclude_odd = FALSE,
                                        carbon = NULL, db = NULL, oxygen = NULL,
-                                       chain_col = "acyl_chains") {
+                                       chain_col = "acyl_chains",
+                                       chain_cols = NULL) {
   if (is.null(se) || !methods::is(se, "SummarizedExperiment")) return(se)
-  if (!.has_chain_col(se, chain_col)) return(se)
+  if (!is.null(chain_cols)) {
+    xs <- .as_combined_chain_list(se, chain_cols = chain_cols)
+    if (!length(xs)) return(se)
+  } else {
+    if (!.has_chain_col(se, chain_col)) return(se)
+    xs <- .as_chain_list(se, chain_col)
+  }
   
-  xs <- .as_chain_list(se, chain_col)
   keep <- rep(TRUE, length(xs))
   
   if (isTRUE(exclude_odd)) {
@@ -396,6 +466,9 @@ get_plot_fun <- function(plot_type){
     ref_group   = NULL,
     p_adjust    = "BH",
     p_label     = "both",
+    p_label_font_size = 3.5,
+    plot_font_size = 12,
+    strip_font_size = 12,
     
     dot_point_size   = 2.0,
     dot_jitter_width = 0.15,
@@ -463,11 +536,39 @@ get_plot_fun <- function(plot_type){
 }
 
 .pvalue_args_from_adv <- function(adv) {
+  comp_mode <- adv$comp_mode %||% "ref"
+  ref_group <- adv$ref_group %||% NULL
+  comparisons <- adv$comparisons %||% NULL
+
+  if (identical(comp_mode, "all")) {
+    comparisons <- NULL
+    ref_group <- NULL
+  } else if (identical(comp_mode, "ref")) {
+    if (!is.null(ref_group) && !nzchar(as.character(ref_group))) ref_group <- NULL
+    comparisons <- NULL
+  } else if (identical(comp_mode, "manual")) {
+    df <- adv$manual_pairs
+    if (is.data.frame(df) && nrow(df) && all(c("group1", "group2") %in% names(df))) {
+      df <- df[stats::complete.cases(df[, c("group1", "group2")]), , drop = FALSE]
+      df <- df[nzchar(df$group1) & nzchar(df$group2), , drop = FALSE]
+      if (nrow(df)) {
+        comparisons <- lapply(seq_len(nrow(df)), function(i) {
+          c(as.character(df$group1[i]), as.character(df$group2[i]))
+        })
+      } else {
+        comparisons <- NULL
+      }
+    } else {
+      comparisons <- NULL
+    }
+    ref_group <- NULL
+  }
+
   list(
     add_p       = isTRUE(adv$add_p),
     test        = adv$test        %||% "wilcox",
-    comparisons = adv$comparisons %||% NULL,
-    ref_group   = adv$ref_group   %||% NULL,
+    comparisons = comparisons,
+    ref_group   = ref_group,
     p_adjust    = adv$p_adjust    %||% "BH",
     p_label     = adv$p_label     %||% "both"
   )

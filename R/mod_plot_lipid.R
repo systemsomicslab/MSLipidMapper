@@ -9,10 +9,11 @@
 #   - "Require ALL selected chain codes" (AND/OR switch)
 #   - "Remove odd-carbon chains" checkbox
 #   - Auto-OFF if rowData has no valid acyl_chains
-#   - Heatmap card header text updated + toggle label "Bar plot"
+#   - Heatmap / bar plot / acyl-chain composition are shown as tabs
 #   - Bar plot uses the same palette logic as other plots (adv$palette_map)
 #   - FIX: top_n slicing no longer uses dplyr::n() outside data-masking verbs
 #   - NEW: Bar plot adds extra bottom margin (and supports ggsave safety via coord_cartesian(clip="off"))
+#   - NEW: Acyl-chain composition plot shows within-class chain proportions
 # ---------------------------------------------------------------------------
 
 suppressPackageStartupMessages({
@@ -21,6 +22,8 @@ suppressPackageStartupMessages({
   library(SummarizedExperiment)
   library(S4Vectors)
   library(methods)
+  library(dplyr)
+  library(tidyr)
   # optional (used in downloads / combined)
   # library(ComplexHeatmap)
   # library(grid)
@@ -67,10 +70,21 @@ mod_plot_lipid_server <- function(
       if (length(hit)) hit else cn[1]
     }
     
-    .get_x_groups <- function(se) {
+    .get_group_choices <- function(se) {
       cd <- as.data.frame(SummarizedExperiment::colData(se))
-      if (!"class" %in% colnames(cd)) return(character(0))
-      unique(as.character(cd$class))
+      if (!ncol(cd)) return(character(0))
+      keep <- vapply(cd, function(x) {
+        is.atomic(x) || is.factor(x)
+      }, logical(1))
+      cols <- names(cd)[keep]
+      cols <- setdiff(cols, c("sample_id", "use"))
+      cols
+    }
+
+    .get_x_groups <- function(se, x_var = "class") {
+      cd <- as.data.frame(SummarizedExperiment::colData(se))
+      if (!x_var %in% colnames(cd)) return(character(0))
+      unique(as.character(cd[[x_var]]))
     }
     
     aggregate_to_class_se <- function(se, class_col, fun = c("sum","mean","median"), assay_name = NULL) {
@@ -131,6 +145,25 @@ mod_plot_lipid_server <- function(
       x <- suppressWarnings(as.numeric(x))
       if (!length(x) || is.na(x) || x < 0) 0 else x
     }
+
+    .safe_font_size <- function(x, default = 12) {
+      x <- suppressWarnings(as.numeric(x))
+      if (!length(x) || is.na(x) || !is.finite(x) || x < 6) default else x
+    }
+
+    .apply_p_label_size <- function(p, size = 3.5) {
+      if (!inherits(p, c("gg", "ggplot"))) return(p)
+      size <- suppressWarnings(as.numeric(size))
+      if (!length(size) || is.na(size) || !is.finite(size) || size <= 0) return(p)
+      for (i in seq_along(p$layers)) {
+        lyr <- p$layers[[i]]
+        if (inherits(lyr$geom, "GeomText")) {
+          lyr$aes_params$size <- size
+          p$layers[[i]] <- lyr
+        }
+      }
+      p
+    }
     
     .build_comp_args <- function(mode, ref_group, manual_df) {
       if (identical(mode, "all"))
@@ -164,8 +197,25 @@ mod_plot_lipid_server <- function(
       }
       pal
     }
+
+    .make_chain_palette <- function(chains) {
+      chains <- unique(as.character(chains))
+      chains <- chains[!is.na(chains) & nzchar(chains)]
+      if (!length(chains)) return(NULL)
+
+      other_idx <- which(chains == "Other")
+      base_chains <- setdiff(chains, "Other")
+
+      pal_base <- unname(grDevices::palette.colors(palette = "R3"))
+      pal <- rep(pal_base, length.out = max(length(base_chains), 1L))
+      pal <- pal[seq_len(length(base_chains))]
+      names(pal) <- base_chains
+
+      if (length(other_idx)) pal <- c(pal, Other = "#BDBDBD")
+      pal[chains]
+    }
     
-    # ==== Acyl-chain filtering helpers =================================
+    # ==== Chain/SPB filtering helpers ==================================
     .has_acyl_chains <- function(se, chain_col = "acyl_chains") {
       rd <- SummarizedExperiment::rowData(se)
       chain_col %in% colnames(rd)
@@ -211,6 +261,23 @@ mod_plot_lipid_server <- function(
       u <- u[!is.na(u) & nzchar(u)]
       sort(u)
     }
+
+    .get_combined_chain_list <- function(se, chain_cols = c("acyl_chains", "sphingoid_bases")) {
+      n <- nrow(SummarizedExperiment::rowData(se))
+      out <- rep(list(character(0)), n)
+      for (col in unique(chain_cols)) {
+        lst <- .get_chain_list(se, chain_col = col)
+        if (is.null(lst)) next
+        out <- Map(function(a, b) unique(c(a, b)), out, lst)
+      }
+      out
+    }
+
+    .get_combined_chain_choices <- function(se, chain_cols = c("acyl_chains", "sphingoid_bases")) {
+      u <- unique(unlist(.get_combined_chain_list(se, chain_cols = chain_cols), use.names = FALSE))
+      u <- u[!is.na(u) & nzchar(u)]
+      sort(u)
+    }
     
     .row_has_odd_carbon_chain <- function(chains_vec) {
       if (!length(chains_vec)) return(FALSE)
@@ -222,10 +289,15 @@ mod_plot_lipid_server <- function(
                                           selected_codes = character(0),
                                           require_all = FALSE,
                                           remove_odd = FALSE,
-                                          chain_col = "acyl_chains") {
+                                          chain_col = "acyl_chains",
+                                          chain_cols = NULL) {
       if (is.null(se) || !methods::is(se, "SummarizedExperiment")) return(se)
       
-      chains_list <- .get_chain_list(se, chain_col = chain_col)
+      chains_list <- if (is.null(chain_cols)) {
+        .get_chain_list(se, chain_col = chain_col)
+      } else {
+        .get_combined_chain_list(se, chain_cols = chain_cols)
+      }
       if (is.null(chains_list)) return(se)
       
       selected_codes <- as.character(selected_codes %||% character(0))
@@ -278,15 +350,15 @@ mod_plot_lipid_server <- function(
         return(tags$div(style = "font-size:12px; color:#777;", "Chain filtering: (SE not ready)"))
       }
       
-      if (!.has_acyl_chains(se, "acyl_chains")) {
+      if (!(.has_acyl_chains(se, "acyl_chains") || .has_acyl_chains(se, "sphingoid_bases"))) {
         return(tags$div(style = "font-size:12px; color:#777;",
-                        "Chain filtering is OFF (rowData has no 'acyl_chains')."))
+                        "Chain filtering is OFF (rowData has no 'acyl_chains' or 'sphingoid_bases')."))
       }
       
-      choices <- .get_chain_choices(se, "acyl_chains")
+      choices <- .get_combined_chain_choices(se, c("acyl_chains", "sphingoid_bases"))
       if (!length(choices)) {
         return(tags$div(style = "font-size:12px; color:#777;",
-                        "Chain filtering is OFF ('acyl_chains' format is not supported / empty)."))
+                        "Chain/SPB filtering is OFF (metadata format is not supported / empty)."))
       }
       
       sel <- isolate(input$chain_codes)
@@ -295,12 +367,12 @@ mod_plot_lipid_server <- function(
       tagList(
         selectizeInput(
           ns("chain_codes"),
-          "Chain codes (multi-select)",
+          "Chain / SPB codes (multi-select)",
           choices  = choices,
           selected = sel,
           multiple = TRUE,
           options = list(
-            placeholder = "e.g., 18:0, 22:6;O2 ...",
+            placeholder = "e.g., 18:0, 22:6;O2, SPB18:1;O2 ...",
             maxOptions  = 5000,
             plugins     = list("remove_button")
           )
@@ -312,11 +384,11 @@ mod_plot_lipid_server <- function(
         ),
         checkboxInput(
           ns("chain_remove_odd"),
-          "Remove molecules with odd-carbon chains",
+          "Remove molecules with odd-carbon chains or SPB",
           value = isTRUE(isolate(input$chain_remove_odd))
         ),
         tags$div(style = "font-size:11px; color:#777; margin-top:4px;",
-                 "Note: Filtering affects class plot / molecule plot / heatmap / bar plot.")
+                 "Note: Filtering affects class plot / molecule plot / heatmap / bar plot / chain composition.")
       )
     })
     
@@ -326,9 +398,9 @@ mod_plot_lipid_server <- function(
       req(se)
       
       if (!methods::is(se, "SummarizedExperiment")) return(se)
-      if (!.has_acyl_chains(se, "acyl_chains")) return(se)
+      if (!(.has_acyl_chains(se, "acyl_chains") || .has_acyl_chains(se, "sphingoid_bases"))) return(se)
       
-      choices <- .get_chain_choices(se, "acyl_chains")
+      choices <- .get_combined_chain_choices(se, c("acyl_chains", "sphingoid_bases"))
       if (!length(choices)) return(se)
       
       codes   <- input$chain_codes %||% character(0)
@@ -340,10 +412,10 @@ mod_plot_lipid_server <- function(
         selected_codes = codes,
         require_all    = req_all,
         remove_odd     = rm_odd,
-        chain_col      = "acyl_chains"
+        chain_cols     = c("acyl_chains", "sphingoid_bases")
       )
     })
-    
+
     # ==== Class UI (based on filtered SE) ==============================
     output$class_ui <- renderUI({
       se <- se_work(); req(se)
@@ -404,10 +476,11 @@ mod_plot_lipid_server <- function(
       req(exists("theme_lipidomics",      mode = "function"))
       
       x_var        <- "class"
+      facet_var    <- adv$facet_var %||% ""
       x_order      <- adv$manual_order
       order_by_eff <- if (length(x_order)) "none" else adv$order_by
       
-      groups <- .get_x_groups(se)
+      groups <- .get_x_groups(se, x_var = x_var)
       pal    <- .make_palette(groups, adv)
       
       class_col <- .resolve_class_col(se)
@@ -416,6 +489,12 @@ mod_plot_lipid_server <- function(
       picked_mol <- .pick_molecule_in_class(se, class_col, input$lipid_class, preferred_id = input$molecule_id)
       
       arg <- .build_comp_args(adv$comp_mode, adv$ref_group, adv$manual_pairs)
+      plot_font <- .safe_font_size(adv$plot_font_size, default = 12)
+      strip_font <- .safe_font_size(adv$strip_font_size %||% plot_font, default = plot_font)
+      p_label_font <- suppressWarnings(as.numeric(adv$p_label_font_size %||% 3.5))
+      if (!is.finite(p_label_font) || p_label_font <= 0) p_label_font <- 3.5
+      y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
+      if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
       
       dot_jw    <- .safe_jitter(adv$dot_jitter_width)
       box_jw    <- .safe_jitter(adv$box_jitter_width)
@@ -462,6 +541,7 @@ mod_plot_lipid_server <- function(
         se         = se_cls,
         feature_id = input$lipid_class,
         x_var      = x_var,
+        facet_var  = if (nzchar(facet_var)) facet_var else NULL,
         x_order    = if (length(x_order)) x_order else NULL,
         order_by   = order_by_eff,
         decreasing = isTRUE(adv$decreasing),
@@ -473,9 +553,10 @@ mod_plot_lipid_server <- function(
         p_adjust   = "BH",
         p_label    = adv$p_label
       ), extra)) +
-        theme_lipidomics(12, 0, 12, 12, 14) +
-        ggplot2::theme(legend.position = "none", aspect.ratio = 1) +
-        ggplot2::labs(title = paste0("Class: ", input$lipid_class))
+        theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 2, strip_font) +
+        ggplot2::theme(legend.position = "none") +
+        ggplot2::labs(title = paste0("Class: ", input$lipid_class), y = y_axis_label)
+      p_class <- .apply_p_label_size(p_class, p_label_font)
       
       x_levels_from_plot <- NULL
       if (!is.null(p_class$data) && x_var %in% names(p_class$data)) {
@@ -492,6 +573,7 @@ mod_plot_lipid_server <- function(
           se         = se,
           feature_id = picked_mol,
           x_var      = x_var,
+          facet_var  = if (nzchar(facet_var)) facet_var else NULL,
           x_order    = if (length(x_order)) x_order else NULL,
           order_by   = order_by_eff,
           decreasing = isTRUE(adv$decreasing),
@@ -503,9 +585,10 @@ mod_plot_lipid_server <- function(
           p_adjust   = "BH",
           p_label    = adv$p_label
         ), extra)) +
-          theme_lipidomics(11, 0, 10, 10, 12) +
-          ggplot2::theme(legend.position = "none", aspect.ratio = 1) +
-          ggplot2::labs(title = paste0("Molecule: ", picked_mol))
+          theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 1, strip_font) +
+          ggplot2::theme(legend.position = "none") +
+          ggplot2::labs(title = paste0("Molecule: ", picked_mol), y = y_axis_label)
+        p_mol <- .apply_p_label_size(p_mol, p_label_font)
       }
       
       x_order_hm <- NULL
@@ -547,7 +630,7 @@ mod_plot_lipid_server <- function(
       filename = function() paste0("class_plot_", input$lipid_class, ".svg"),
       content  = function(file) {
         if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-        svglite::svglite(file, width = 6, height = 5)
+        svglite::svglite(file, width = 6, height = 6)
         on.exit(grDevices::dev.off(), add = TRUE)
         pcs <- plot_components(); req(pcs$p_class)
         print(pcs$p_class)
@@ -558,7 +641,7 @@ mod_plot_lipid_server <- function(
       filename = function() paste0("molecule_plot_", input$molecule_id %||% "molecule", ".svg"),
       content  = function(file) {
         if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-        svglite::svglite(file, width = 6, height = 5)
+        svglite::svglite(file, width = 6, height = 6)
         on.exit(grDevices::dev.off(), add = TRUE)
         pcs <- plot_components(); req(pcs$p_mol)
         print(pcs$p_mol)
@@ -571,10 +654,14 @@ mod_plot_lipid_server <- function(
       adv <- adv_reactive(); req(adv)
       
       class_col <- .resolve_class_col(se)
-      label_col <- .resolve_label_col(se)
       top_n     <- adv$hm_topN
+      plot_font <- .safe_font_size(adv$plot_font_size, default = 12)
+      y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
+      if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
       
-      groups  <- .get_x_groups(se)
+      x_var   <- "class"
+      facet_var <- adv$facet_var %||% ""
+      groups  <- .get_x_groups(se, x_var = x_var)
       pal     <- .make_palette(groups, adv)
       x_order <- adv$manual_order
       
@@ -585,7 +672,8 @@ mod_plot_lipid_server <- function(
         assay_name        = "abundance",
         lipid_class_col   = class_col,
         #feature_label_col = label_col,
-        sample_class_col  = "class",
+        sample_class_col  = x_var,
+        facet_var         = if (nzchar(facet_var)) facet_var else NULL,
         use_se            = TRUE,
         top_n             = top_n,
         class_colors      = pal,
@@ -593,24 +681,224 @@ mod_plot_lipid_server <- function(
         x_text_angle      = 45,
         x_text_hjust      = 1,
         bottom_margin_pt  = 26
+      ) +
+        ggplot2::labs(y = y_axis_label) +
+        ggplot2::theme_classic(base_size = plot_font) +
+        ggplot2::theme(
+          axis.text.x  = ggplot2::element_text(size = plot_font, angle = 45, hjust = 1, vjust = 1),
+          axis.text.y  = ggplot2::element_text(size = plot_font),
+          axis.title   = ggplot2::element_text(size = plot_font + 1),
+          legend.text  = ggplot2::element_text(size = plot_font),
+          legend.title = ggplot2::element_text(size = plot_font, face = "bold"),
+          plot.title   = ggplot2::element_text(size = plot_font + 2, face = "bold")
+        )
+    }
+
+    .make_chain_composition_plot <- function() {
+      se  <- se_work();      req(se, input$lipid_class)
+      adv <- adv_reactive(); req(adv)
+
+      .fail_plot <- function(msg) {
+        stop(as.character(msg), call. = FALSE)
+      }
+
+      class_col <- .resolve_class_col(se)
+      facet_var <- adv$facet_var %||% ""
+      x_var     <- "class"
+      plot_font <- .safe_font_size(adv$plot_font_size, default = 12)
+      y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
+      if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
+
+      rd <- as.data.frame(SummarizedExperiment::rowData(se))
+      idx <- which(as.character(rd[[class_col]]) == as.character(input$lipid_class))
+      if (!length(idx)) .fail_plot("No molecules are available in the selected lipid class.")
+
+      chain_list_all <- .get_chain_list(se, chain_col = "acyl_chains")
+      if (is.null(chain_list_all)) .fail_plot("rowData must contain a usable 'acyl_chains' column.")
+      chain_list <- chain_list_all[idx]
+
+      has_chain <- vapply(chain_list, function(ch) length(ch) > 0, logical(1))
+      if (!any(has_chain)) .fail_plot("No acyl-chain annotations are available in the selected lipid class.")
+
+      idx <- idx[has_chain]
+      chain_list <- chain_list[has_chain]
+
+      assay_name <- if ("abundance" %in% SummarizedExperiment::assayNames(se)) "abundance" else SummarizedExperiment::assayNames(se)[1]
+      mat <- as.matrix(SummarizedExperiment::assay(se, assay_name))[idx, , drop = FALSE]
+      storage.mode(mat) <- "double"
+
+      feature_chain_map <- dplyr::bind_rows(lapply(seq_along(chain_list), function(i) {
+        chains <- unique(trimws(as.character(chain_list[[i]])))
+        chains <- chains[!is.na(chains) & nzchar(chains)]
+        if (!length(chains)) return(NULL)
+        data.frame(
+          feature_id = rownames(mat)[i],
+          chain = chains,
+          chain_weight = 1 / length(chains),
+          stringsAsFactors = FALSE
+        )
+      }))
+      if (is.null(feature_chain_map) || !nrow(feature_chain_map)) {
+        .fail_plot("No valid acyl-chain entries were found.")
+      }
+
+      abundance_long <- as.data.frame(mat)
+      abundance_long$feature_id <- rownames(mat)
+      abundance_long <- tidyr::pivot_longer(
+        abundance_long,
+        cols = -feature_id,
+        names_to = "sample_id",
+        values_to = "abundance"
       )
+
+      cd <- as.data.frame(SummarizedExperiment::colData(se))
+      if (!(x_var %in% names(cd))) .fail_plot("colData must contain 'class'.")
+      sample_meta <- data.frame(
+        sample_id = colnames(se),
+        class = as.character(cd[[x_var]]),
+        stringsAsFactors = FALSE
+      )
+      if (nzchar(facet_var) && facet_var %in% names(cd)) {
+        sample_meta[[facet_var]] <- as.character(cd[[facet_var]])
+      }
+
+      dat <- abundance_long |>
+        dplyr::left_join(feature_chain_map, by = "feature_id") |>
+        dplyr::filter(!is.na(.data$chain), nzchar(.data$chain)) |>
+        dplyr::mutate(chain_abundance = .data$abundance * .data$chain_weight) |>
+        dplyr::left_join(sample_meta, by = "sample_id") |>
+        dplyr::filter(!is.na(.data[[x_var]]), nzchar(.data[[x_var]]))
+
+      if (!nrow(dat)) .fail_plot("No chain abundance data could be calculated.")
+
+      group_vars <- c(x_var, if (nzchar(facet_var) && facet_var %in% names(dat)) facet_var else character(0), "chain")
+      summarised <- dat |>
+        dplyr::group_by(dplyr::across(dplyr::all_of(group_vars))) |>
+        dplyr::summarise(value = stats::median(.data$chain_abundance, na.rm = TRUE), .groups = "drop")
+
+      summarised <- summarised |>
+        dplyr::group_by(.data[[x_var]], !!!rlang::syms(setdiff(group_vars, c(x_var, "chain")))) |>
+        dplyr::mutate(prop = .data$value / sum(.data$value, na.rm = TRUE)) |>
+        dplyr::ungroup()
+
+      summarised <- summarised |>
+        dplyr::filter(is.finite(.data$prop), !is.na(.data$prop), .data$prop > 0)
+      if (!nrow(summarised)) .fail_plot("No non-zero chain proportions are available for this class.")
+
+      top_n_chain <- suppressWarnings(as.integer(input$n_top_chain %||% 12L))
+      if (!is.finite(top_n_chain) || top_n_chain < 1) top_n_chain <- 12L
+
+      top_chains <- summarised |>
+        dplyr::group_by(.data$chain) |>
+        dplyr::summarise(score = mean(.data$prop, na.rm = TRUE), .groups = "drop") |>
+        dplyr::arrange(dplyr::desc(.data$score), .data$chain) |>
+        dplyr::slice_head(n = top_n_chain) |>
+        dplyr::pull(.data$chain)
+
+      summarised <- summarised |>
+        dplyr::mutate(chain = ifelse(.data$chain %in% top_chains, .data$chain, "Other")) |>
+        dplyr::group_by(dplyr::across(dplyr::all_of(setdiff(group_vars, "chain"))), .data$chain) |>
+        dplyr::summarise(prop = sum(.data$prop, na.rm = TRUE), .groups = "drop")
+
+      chain_order <- summarised |>
+        dplyr::group_by(.data$chain) |>
+        dplyr::summarise(score = mean(.data$prop, na.rm = TRUE), .groups = "drop") |>
+        dplyr::arrange(dplyr::desc(.data$score), .data$chain) |>
+        dplyr::pull(.data$chain)
+      if ("Other" %in% chain_order) {
+        chain_order <- c(setdiff(chain_order, "Other"), "Other")
+      }
+      summarised$chain <- factor(summarised$chain, levels = chain_order, ordered = TRUE)
+
+      x_order <- adv$manual_order %||% character(0)
+      x_levels <- unique(as.character(summarised[[x_var]]))
+      x_levels <- x_levels[!is.na(x_levels) & nzchar(x_levels)]
+      if (length(x_order)) {
+        x_levels <- c(intersect(x_order, x_levels), setdiff(x_levels, x_order))
+      }
+      summarised[[x_var]] <- factor(as.character(summarised[[x_var]]), levels = x_levels, ordered = TRUE)
+
+      chain_pal <- .make_chain_palette(levels(summarised$chain))
+
+      p <- ggplot2::ggplot(
+        summarised,
+        ggplot2::aes(x = .data[[x_var]], y = .data$prop, fill = .data$chain)
+      ) +
+        ggplot2::geom_col(width = 0.8, color = "gray34", linewidth = 0.2) +
+        ggplot2::coord_flip() +
+        ggplot2::scale_y_continuous(
+          limits = c(0, 1),
+          breaks = seq(0, 1, by = 0.2),
+          labels = function(x) paste0(round(x * 100), "%"),
+          expand = ggplot2::expansion(mult = c(0, 0.02))
+        ) +
+        ggplot2::scale_fill_manual(values = chain_pal, drop = FALSE) +
+        ggplot2::labs(
+          title = paste0("Acyl chain composition: ", input$lipid_class),
+          x = NULL,
+          y = y_axis_label,
+          fill = "Acyl chain"
+        ) +
+        ggplot2::theme_classic(base_size = plot_font) +
+        ggplot2::theme(
+          axis.text.x  = ggplot2::element_text(size = plot_font),
+          axis.text.y  = ggplot2::element_text(size = plot_font),
+          axis.title   = ggplot2::element_text(size = plot_font + 1),
+          legend.text  = ggplot2::element_text(size = plot_font),
+          legend.title = ggplot2::element_text(size = plot_font, face = "bold"),
+          plot.title   = ggplot2::element_text(size = plot_font + 2, face = "bold")
+        )
+
+      if (nzchar(facet_var) && facet_var %in% names(summarised)) {
+        p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_var)))
+      }
+
+      p
     }
     
-    # ==== Heatmap / Bar plot output ====================================
+    # ==== Heatmap / Bar plot / chain composition output ================
     output$plot_heatmap <- renderPlot({
-      mode <- input$heatmap_mode %||% "heatmap"
       pcs  <- plot_components()
-      
-      if (identical(mode, "heatmap")) {
-        req(pcs$ht)
-        if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
-          plot.new(); text(0.5, 0.5, "ComplexHeatmap is not installed.")
-          return()
-        }
-        if (!requireNamespace("grid", quietly = TRUE)) {
-          plot.new(); text(0.5, 0.5, "grid is not available.")
-          return()
-        }
+      req(pcs$ht)
+      if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
+        plot.new(); text(0.5, 0.5, "ComplexHeatmap is not installed.")
+        return()
+      }
+      if (!requireNamespace("grid", quietly = TRUE)) {
+        plot.new(); text(0.5, 0.5, "grid is not available.")
+        return()
+      }
+      grid::grid.newpage()
+      ComplexHeatmap::draw(
+        pcs$ht,
+        newpage = FALSE,
+        heatmap_legend_side    = "bottom",
+        annotation_legend_side = "bottom",
+        merge_legends          = TRUE
+      )
+    })
+
+    output$plot_bar <- renderPlot({
+      p_bar <- .make_bar_plot()
+      print(p_bar)
+    })
+
+    output$plot_chain_comp <- renderPlot({
+      p_chain <- .make_chain_composition_plot()
+      print(p_chain)
+    })
+
+    output$dl_heatmap <- downloadHandler(
+      filename = function() paste0("heatmap_", input$lipid_class, ".svg"),
+      content  = function(file) {
+        if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
+
+        svglite::svglite(file, width = 7, height = 7)
+        on.exit(grDevices::dev.off(), add = TRUE)
+
+        pcs <- plot_components(); req(pcs$ht)
+        if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) stop("Please install ComplexHeatmap.")
+        if (!requireNamespace("grid", quietly = TRUE)) stop("grid is required.")
         grid::grid.newpage()
         ComplexHeatmap::draw(
           pcs$ht,
@@ -619,41 +907,28 @@ mod_plot_lipid_server <- function(
           annotation_legend_side = "bottom",
           merge_legends          = TRUE
         )
-      } else {
+      }
+    )
+
+    output$dl_bar <- downloadHandler(
+      filename = function() paste0("barplot_", input$lipid_class, ".svg"),
+      content  = function(file) {
+        if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
+        svglite::svglite(file, width = 7, height = 7)
+        on.exit(grDevices::dev.off(), add = TRUE)
         p_bar <- .make_bar_plot()
         print(p_bar)
       }
-    })
-    
-    output$dl_heatmap <- downloadHandler(
-      filename = function() {
-        mode <- input$heatmap_mode %||% "heatmap"
-        if (identical(mode, "heatmap")) paste0("heatmap_", input$lipid_class, ".svg")
-        else paste0("barplot_", input$lipid_class, ".svg")
-      },
+    )
+
+    output$dl_chain_comp <- downloadHandler(
+      filename = function() paste0("acyl_chain_composition_", input$lipid_class, ".svg"),
       content  = function(file) {
         if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-        mode <- input$heatmap_mode %||% "heatmap"
-        
-        svglite::svglite(file, width = 7, height = 6)
+        svglite::svglite(file, width = 8, height = 7)
         on.exit(grDevices::dev.off(), add = TRUE)
-        
-        if (identical(mode, "heatmap")) {
-          pcs <- plot_components(); req(pcs$ht)
-          if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) stop("Please install ComplexHeatmap.")
-          if (!requireNamespace("grid", quietly = TRUE)) stop("grid is required.")
-          grid::grid.newpage()
-          ComplexHeatmap::draw(
-            pcs$ht,
-            newpage = FALSE,
-            heatmap_legend_side    = "bottom",
-            annotation_legend_side = "bottom",
-            merge_legends          = TRUE
-          )
-        } else {
-          p_bar <- .make_bar_plot()
-          print(p_bar)
-        }
+        p_chain <- .make_chain_composition_plot()
+        print(p_chain)
       }
     )
     
@@ -709,7 +984,7 @@ mod_plot_lipid_server <- function(
     observeEvent(input$molecule_id, {
       if (is.function(on_live_change)) on_live_change(list(molecule_id = input$molecule_id, dataset = "lipid"))
     }, ignoreInit = TRUE)
-    
+
     observeEvent(list(input$chain_codes, input$chain_require_all, input$chain_remove_odd), {
       if (is.function(on_live_change)) {
         on_live_change(list(
@@ -743,29 +1018,29 @@ mod_plot_lipid_server <- function(
 mod_plot_lipid_ui <- function(id) {
   ns <- shiny::NS(id)
   
-  js_heatmap_toggle <- "
-  document.addEventListener('click', function(e){
-    var t = e.target;
-    if (!t.classList.contains('hm-toggle-link')) return;
-    e.preventDefault();
-    var inputId = t.getAttribute('data-input');
-    var mode    = t.getAttribute('data-mode');
-    var header = t.closest('.box-header');
-    if (header) {
-      header.querySelectorAll('.hm-toggle-link').forEach(function(el){
-        el.classList.remove('hm-active');
-      });
-      t.classList.add('hm-active');
-    }
-    if (window.Shiny && Shiny.setInputValue) {
-      Shiny.setInputValue(inputId, mode, {priority: 'event'});
-    }
-  });
-  "
-  
   css_heatmap_toggle <- "
-  .hm-toggle-link { cursor: pointer; padding: 0 6px; color: #e1ecf4; }
-  .hm-toggle-link.hm-active { font-weight: bold; text-decoration: underline; }
+  .mslm-plot-frame {
+    width: 100%;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .mslm-plot-frame-lg {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+  }
+  .mslm-plot-square {
+    width: min(100%, 360px);
+    height: 360px;
+  }
+  .mslm-plot-square .shiny-plot-output,
+  .mslm-plot-square-lg .shiny-plot-output {
+    width: 100% !important;
+    height: 100% !important;
+  }
   "
   
   # details/summary accordion style
@@ -816,7 +1091,6 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
   
   shiny::tagList(
     shiny::tags$style(shiny::HTML(paste0(css_heatmap_toggle, css_details))),
-    shiny::tags$script(shiny::HTML(js_heatmap_toggle)),
     
     shiny::fluidRow(
       shinydashboard::box(
@@ -824,7 +1098,13 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
         width       = 6,
         status      = "primary",
         solidHeader = TRUE,
-        shiny::plotOutput(ns("plot_class"), height = "360px"),
+        shiny::div(
+          class = "mslm-plot-frame",
+          shiny::div(
+            class = "mslm-plot-square",
+            shiny::plotOutput(ns("plot_class"), height = "100%")
+          )
+        ),
         shiny::br(),
         shiny::downloadButton(ns("dl_class_plot"), "Download SVG")
       ),
@@ -833,7 +1113,13 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
         width       = 6,
         status      = "primary",
         solidHeader = TRUE,
-        shiny::plotOutput(ns("plot_molecule"), height = "360px"),
+        shiny::div(
+          class = "mslm-plot-frame",
+          shiny::div(
+            class = "mslm-plot-square",
+            shiny::plotOutput(ns("plot_molecule"), height = "100%")
+          )
+        ),
         shiny::br(),
         shiny::downloadButton(ns("dl_molecule_plot"), "Download SVG")
       )
@@ -873,10 +1159,17 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
           ),
           shiny::numericInput(
             ns("n_top_mol"),
-            "Top-N molecules (heatmap / bar plot)",
+            "Top-N molecules (heatmap / bar plot tabs)",
             value = 40,
             min   = 5,
             step  = 5
+          ),
+          shiny::numericInput(
+            ns("n_top_chain"),
+            "Top-N chains (composition)",
+            value = 12,
+            min   = 3,
+            step  = 1
           )
         ),
         
@@ -888,31 +1181,44 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
       ),
       
       shinydashboard::box(
-        title       = shiny::div(
-          "Top molecules in selected lipid class",
-          shiny::span(
-            class = "pull-right",
-            shiny::tags$a(
-              "Heatmap",
-              class        = "hm-toggle-link hm-active",
-              `data-input` = ns("heatmap_mode"),
-              `data-mode`  = "heatmap"
-            ),
-            "|",
-            shiny::tags$a(
-              "Bar plot",
-              class        = "hm-toggle-link",
-              `data-input` = ns("heatmap_mode"),
-              `data-mode`  = "bar"
-            )
-          )
-        ),
+        title       = "Top molecules in selected lipid class",
         width       = 9,
         status      = "primary",
         solidHeader = TRUE,
-        shiny::plotOutput(ns("plot_heatmap"), height = "380px"),
-        shiny::br(),
-        shiny::downloadButton(ns("dl_heatmap"), "Download SVG")
+        shiny::tabsetPanel(
+          id = ns("heatmap_mode"),
+          type = "tabs",
+          shiny::tabPanel(
+            title = "Heatmap",
+            value = "heatmap",
+            shiny::div(
+              class = "mslm-plot-frame-lg",
+              shiny::plotOutput(ns("plot_heatmap"), height = "100%")
+            ),
+            shiny::br(),
+            shiny::downloadButton(ns("dl_heatmap"), "Download SVG")
+          ),
+          shiny::tabPanel(
+            title = "Bar plot",
+            value = "bar",
+            shiny::div(
+              class = "mslm-plot-frame-lg",
+              shiny::plotOutput(ns("plot_bar"), height = "100%")
+            ),
+            shiny::br(),
+            shiny::downloadButton(ns("dl_bar"), "Download SVG")
+          ),
+          shiny::tabPanel(
+            title = "Acyl chain composition",
+            value = "chain",
+            shiny::div(
+              class = "mslm-plot-frame-lg",
+              shiny::plotOutput(ns("plot_chain_comp"), height = "100%")
+            ),
+            shiny::br(),
+            shiny::downloadButton(ns("dl_chain_comp"), "Download SVG")
+          )
+        )
       )
     )
   )

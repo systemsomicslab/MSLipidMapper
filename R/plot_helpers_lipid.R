@@ -2,7 +2,7 @@
 # Helper: Class-level bar plot (for Alt view)
 # ======================================================================
 
-#' Bar plot for molecules in a selected lipid class (mean ± SE/SD)
+#' Bar plot for molecules in a selected lipid class (mean ï½± SE/SD)
 #'
 #' This function is used in mod_plot_lipid_server() as an alternative view
 #' ("Bar plot") for the "Top molecules in selected lipid class" card.
@@ -31,6 +31,7 @@ plot_lipid_class_bar <- function(
     lipid_class_col   = "Ontology",
     feature_label_col = "Metabolite name",
     sample_class_col  = "class",
+    facet_var         = NULL,
     use_se            = TRUE,
     top_n             = NULL,
     class_colors      = NULL,
@@ -57,6 +58,9 @@ plot_lipid_class_bar <- function(
   if (!lipid_class_col %in% colnames(rd))   stop("rowData has no column: ", lipid_class_col)
   if (!feature_label_col %in% colnames(rd)) stop("rowData has no column: ", feature_label_col)
   if (!sample_class_col %in% colnames(cd))  stop("colData has no column: ", sample_class_col)
+  if (!is.null(facet_var) && nzchar(facet_var) && !facet_var %in% colnames(cd)) {
+    stop("colData has no column: ", facet_var)
+  }
   
   mat <- SummarizedExperiment::assay(se, assay_name)
   
@@ -82,6 +86,9 @@ plot_lipid_class_bar <- function(
     class     = as.character(cd[[sample_class_col]]),
     stringsAsFactors = FALSE
   )
+  if (!is.null(facet_var) && nzchar(facet_var)) {
+    sample_info[[facet_var]] <- as.character(cd[[facet_var]])
+  }
   
   if (!is.null(class_order) && length(class_order)) {
     sample_info$class <- factor(sample_info$class, levels = unique(class_order), ordered = TRUE)
@@ -92,8 +99,11 @@ plot_lipid_class_bar <- function(
     stop("Some samples could not be matched to class (NA). Check colnames(se) and sample IDs.")
   }
   
+  group_cols <- c("feature_label", "class")
+  if (!is.null(facet_var) && nzchar(facet_var)) group_cols <- c(group_cols, facet_var)
+
   summary_df <- df_long |>
-    dplyr::group_by(.data$feature_label, .data$class) |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(group_cols))) |>
     dplyr::summarise(
       n    = dplyr::n(),
       mean = mean(.data$value, na.rm = TRUE),
@@ -161,6 +171,10 @@ plot_lipid_class_bar <- function(
     }
     p <- p + ggplot2::scale_fill_manual(values = class_colors, drop = FALSE)
   }
+
+  if (!is.null(facet_var) && nzchar(facet_var)) {
+    p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_var)), scales = "free_x")
+  }
   
   p
 }
@@ -177,6 +191,7 @@ plot_lipid_class_bar <- function(
                          test        = "wilcox",
                          comparisons = NULL,
                          ref_group   = NULL,
+                         facet_var   = NULL,
                          p_label     = c("both","p","stars"),
                          p_adjust    = "BH",
                          bracket_tip_frac = 0.02,
@@ -192,52 +207,6 @@ plot_lipid_class_bar <- function(
   if (!x_var %in% names(df)) return(p)
   if (!"abundance" %in% names(df)) return(p)
   
-  # factor levels -> x positions
-  if (!is.factor(df[[x_var]])) df[[x_var]] <- factor(df[[x_var]])
-  levs <- levels(df[[x_var]])
-  if (length(levs) < 2) return(p)
-  
-  y_all <- df$abundance
-  y_all <- y_all[is.finite(y_all)]
-  if (!length(y_all)) return(p)
-  
-  y_min <- min(y_all, na.rm = TRUE)
-  y_max <- max(y_all, na.rm = TRUE)
-  y_rng <- y_max - y_min
-  if (!is.finite(y_rng) || y_rng == 0) y_rng <- max(abs(y_max), 1)
-  
-  # decide comparisons
-  if (is.null(comparisons)) {
-    if (!is.null(ref_group) && nzchar(ref_group) && ref_group %in% levs) {
-      others <- setdiff(levs, ref_group)
-      comparisons <- lapply(others, function(g) c(ref_group, g))
-    } else {
-      comparisons <- utils::combn(levs, 2, simplify = FALSE)
-    }
-  }
-  
-  # compute p-values
-  get_p <- function(g1, g2) {
-    x <- df$abundance[df[[x_var]] == g1]
-    y <- df$abundance[df[[x_var]] == g2]
-    x <- x[is.finite(x)]; y <- y[is.finite(y)]
-    if (length(x) < 2 || length(y) < 2) return(NA_real_)
-    
-    if (tolower(test) %in% c("t", "t.test", "ttest")) {
-      out <- try(stats::t.test(x, y), silent = TRUE)
-    } else {
-      out <- try(stats::wilcox.test(x, y), silent = TRUE)
-    }
-    if (inherits(out, "try-error")) return(NA_real_)
-    as.numeric(out$p.value)
-  }
-  
-  comp_ok <- Filter(function(v) length(v) == 2 && all(v %in% levs), comparisons)
-  if (!length(comp_ok)) return(p)
-  
-  raw_p <- vapply(comp_ok, function(v) get_p(v[1], v[2]), numeric(1))
-  adj_p <- stats::p.adjust(raw_p, method = p_adjust)
-  
   p_to_stars <- function(pp) {
     if (!is.finite(pp)) return("NA")
     if (pp <= 0.0001) return("****")
@@ -252,38 +221,95 @@ plot_lipid_class_bar <- function(
     if (pp < 10^(-digits)) return(paste0("p<", format(10^(-digits), scientific = FALSE)))
     paste0("p=", formatC(pp, digits = digits, format = "g"))
   }
-  
-  labels <- mapply(function(pp) {
-    if (p_label == "stars") return(p_to_stars(pp))
-    if (p_label == "p")     return(fmt_p(pp))
-    paste0(fmt_p(pp), " (", p_to_stars(pp), ")")
-  }, adj_p, SIMPLIFY = TRUE, USE.NAMES = FALSE)
-  
-  # layout y positions (stack)
-  step  <- step_frac * y_rng
-  tip   <- bracket_tip_frac * y_rng
-  nud   <- text_nudge_frac  * y_rng
-  if (!is.finite(step) || step <= 0) step <- 0.2 * y_rng
-  if (!is.finite(tip)  || tip  <= 0) tip  <- 0.05 * y_rng
-  if (!is.finite(nud)  || nud  <= 0) nud  <- 0.05 * y_rng
-  
-  base_y <- y_max + step
-  y_pos  <- base_y + (seq_along(comp_ok) - 1) * step
-  
-  x1 <- vapply(comp_ok, function(v) match(v[1], levs), integer(1))
-  x2 <- vapply(comp_ok, function(v) match(v[2], levs), integer(1))
-  xmin <- pmin(x1, x2); xmax <- pmax(x1, x2)
-  
-  df_anno <- data.frame(
-    xmin  = xmin,
-    xmax  = xmax,
-    y     = y_pos,
-    ytip  = y_pos - tip,
-    label = labels,
-    stringsAsFactors = FALSE
-  )
-  df_anno <- df_anno[is.finite(df_anno$y) & nzchar(df_anno$label), , drop = FALSE]
-  if (!nrow(df_anno)) return(p)
+
+  .build_anno_df <- function(df_sub, facet_value = NULL) {
+    if (!is.factor(df_sub[[x_var]])) df_sub[[x_var]] <- factor(df_sub[[x_var]])
+    levs <- levels(df_sub[[x_var]])
+    if (length(levs) < 2) return(NULL)
+
+    y_all <- df_sub$abundance
+    y_all <- y_all[is.finite(y_all)]
+    if (!length(y_all)) return(NULL)
+
+    y_max <- max(y_all, na.rm = TRUE)
+    y_rng <- y_max - min(y_all, na.rm = TRUE)
+    if (!is.finite(y_rng) || y_rng == 0) y_rng <- max(abs(y_max), 1)
+
+    comp_use <- comparisons
+    if (is.null(comp_use)) {
+      if (!is.null(ref_group) && nzchar(ref_group) && ref_group %in% levs) {
+        others <- setdiff(levs, ref_group)
+        comp_use <- lapply(others, function(g) c(ref_group, g))
+      } else {
+        comp_use <- utils::combn(levs, 2, simplify = FALSE)
+      }
+    }
+
+    get_p <- function(g1, g2) {
+      x <- df_sub$abundance[df_sub[[x_var]] == g1]
+      y <- df_sub$abundance[df_sub[[x_var]] == g2]
+      x <- x[is.finite(x)]; y <- y[is.finite(y)]
+      if (length(x) < 2 || length(y) < 2) return(NA_real_)
+
+      if (tolower(test) %in% c("t", "t.test", "ttest")) {
+        out <- try(stats::t.test(x, y), silent = TRUE)
+      } else {
+        out <- try(stats::wilcox.test(x, y), silent = TRUE)
+      }
+      if (inherits(out, "try-error")) return(NA_real_)
+      as.numeric(out$p.value)
+    }
+
+    comp_ok <- Filter(function(v) length(v) == 2 && all(v %in% levs), comp_use)
+    if (!length(comp_ok)) return(NULL)
+
+    raw_p <- vapply(comp_ok, function(v) get_p(v[1], v[2]), numeric(1))
+    adj_p <- stats::p.adjust(raw_p, method = p_adjust)
+    labels <- mapply(function(pp) {
+      if (p_label == "stars") return(p_to_stars(pp))
+      if (p_label == "p")     return(fmt_p(pp))
+      paste0(fmt_p(pp), " (", p_to_stars(pp), ")")
+    }, adj_p, SIMPLIFY = TRUE, USE.NAMES = FALSE)
+
+    step  <- step_frac * y_rng
+    tip   <- bracket_tip_frac * y_rng
+    nud   <- text_nudge_frac  * y_rng
+    if (!is.finite(step) || step <= 0) step <- 0.2 * y_rng
+    if (!is.finite(tip)  || tip  <= 0) tip  <- 0.05 * y_rng
+    if (!is.finite(nud)  || nud  <= 0) nud  <- 0.05 * y_rng
+
+    y_pos <- y_max + step + (seq_along(comp_ok) - 1) * step
+    x1 <- vapply(comp_ok, function(v) match(v[1], levs), integer(1))
+    x2 <- vapply(comp_ok, function(v) match(v[2], levs), integer(1))
+
+    out <- data.frame(
+      xmin  = pmin(x1, x2),
+      xmax  = pmax(x1, x2),
+      y     = y_pos,
+      ytip  = y_pos - tip,
+      label = labels,
+      ylab  = y_pos + nud,
+      stringsAsFactors = FALSE
+    )
+    out <- out[is.finite(out$y) & nzchar(out$label), , drop = FALSE]
+    if (!is.null(facet_var) && nzchar(facet_var) && !is.null(facet_value)) {
+      out[[facet_var]] <- facet_value
+    }
+    out
+  }
+
+  if (!is.null(facet_var) && nzchar(facet_var) && facet_var %in% names(df)) {
+    facet_vals <- unique(as.character(df[[facet_var]]))
+    anno_list <- lapply(facet_vals, function(fv) {
+      .build_anno_df(df[df[[facet_var]] == fv, , drop = FALSE], facet_value = fv)
+    })
+    anno_list <- Filter(Negate(is.null), anno_list)
+    if (!length(anno_list)) return(p)
+    df_anno <- do.call(rbind, anno_list)
+  } else {
+    df_anno <- .build_anno_df(df)
+    if (is.null(df_anno) || !nrow(df_anno)) return(p)
+  }
   
   p +
     ggplot2::geom_segment(
@@ -303,9 +329,13 @@ plot_lipid_class_bar <- function(
     ) +
     ggplot2::geom_text(
       data = df_anno,
-      ggplot2::aes(x = (xmin + xmax) / 2, y = y + nud, label = label),
+      ggplot2::aes(x = (xmin + xmax) / 2, y = ylab, label = label),
       inherit.aes = FALSE, size = 3.5, vjust = 0
-    )
+    ) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0.05, 0.24))
+    ) +
+    ggplot2::coord_cartesian(clip = "off")
 }
 
 # ======================================================================
@@ -410,6 +440,7 @@ plot_lipid_class_bar <- function(
 #' @export
 plot_dot_se <- function(se, feature_id,
                         x_var        = "class",
+                        facet_var    = NULL,
                         x_order      = NULL,
                         order_by     = c("none","abundance_mean","abundance_median","alphabetical"),
                         decreasing   = FALSE,
@@ -474,8 +505,12 @@ plot_dot_se <- function(se, feature_id,
   p <- p +
     ggplot2::labs(x = x_var, y = "Abundance") +
     theme_lipidomics()
+
+  if (!is.null(facet_var) && nzchar(facet_var) && facet_var %in% names(tidy)) {
+    p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_var)))
+  }
   
-  p <- .add_p_layer(p, x_var, add_p, test, comparisons, ref_group, p_label, p_adjust)
+  p <- .add_p_layer(p, x_var, add_p, test, comparisons, ref_group, facet_var, p_label, p_adjust)
   
   p
 }
@@ -484,6 +519,7 @@ plot_dot_se <- function(se, feature_id,
 #' @export
 plot_box_se <- function(se, feature_id,
                         x_var        = "class",
+                        facet_var    = NULL,
                         x_order      = NULL,
                         order_by     = c("none","abundance_mean","abundance_median","alphabetical"),
                         decreasing   = FALSE,
@@ -543,8 +579,12 @@ plot_box_se <- function(se, feature_id,
   p <- p +
     ggplot2::labs(x = x_var, y = "Abundance") +
     theme_lipidomics()
+
+  if (!is.null(facet_var) && nzchar(facet_var) && facet_var %in% names(tidy)) {
+    p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_var)))
+  }
   
-  p <- .add_p_layer(p, x_var, add_p, test, comparisons, ref_group, p_label, p_adjust)
+  p <- .add_p_layer(p, x_var, add_p, test, comparisons, ref_group, facet_var, p_label, p_adjust)
   
   p
 }
@@ -553,6 +593,7 @@ plot_box_se <- function(se, feature_id,
 #' @export
 plot_violin_se <- function(se, feature_id,
                            x_var        = "class",
+                           facet_var    = NULL,
                            x_order      = NULL,
                            order_by     = c("none","abundance_mean","abundance_median","alphabetical"),
                            decreasing   = FALSE,
@@ -625,8 +666,12 @@ plot_violin_se <- function(se, feature_id,
   p <- p +
     ggplot2::labs(x = x_var, y = "Abundance") +
     theme_lipidomics()
+
+  if (!is.null(facet_var) && nzchar(facet_var) && facet_var %in% names(tidy)) {
+    p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_var)))
+  }
   
-  p <- .add_p_layer(p, x_var, add_p, test, comparisons, ref_group, p_label, p_adjust)
+  p <- .add_p_layer(p, x_var, add_p, test, comparisons, ref_group, facet_var, p_label, p_adjust)
   
   p
 }
@@ -690,7 +735,7 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   # store x levels (reuse later)
   x_levels <- levels(tidy[[x_var]])
   
-  # ---- Mean abundance: molecule × class ----
+  # ---- Mean abundance: molecule ï¾— class ----
   M <- tidy |>
     dplyr::group_by(.data$feature_id, .data[[x_var]]) |>
     dplyr::summarise(mu = mean(.data$abundance, na.rm = TRUE), .groups = "drop")
@@ -717,7 +762,7 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   
   if (!nrow(M)) return(NULL)
   
-  # ---- wide matrix (feature × class) ----
+  # ---- wide matrix (feature ï¾— class) ----
   x_sym <- rlang::sym(x_var)
   M_wide <- tidyr::pivot_wider(M, names_from = !!x_sym, values_from = "mu")
   rn <- M_wide$feature_id
@@ -798,7 +843,8 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
     show_row_names    = TRUE,
     show_column_names = TRUE,
     column_title      = x_var,
-    row_title         = "Molecule"
+    row_title         = "Molecule",
+    rect_gp           = grid::gpar(col = "grey80", lwd = 0.5)
   )
   
   ht
@@ -810,7 +856,8 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
 theme_lipidomics <- function(base_size = 14, x_angle = 0,
                              axis_fontsize = base_size,
                              legend_fontsize = base_size,
-                             title_fontsize = base_size + 2) {
+                             title_fontsize = base_size + 2,
+                             strip_fontsize = axis_fontsize) {
       ggprism::theme_prism(
     base_fontface = "plain", 
     base_line_size = 0.7, 
@@ -825,6 +872,7 @@ theme_lipidomics <- function(base_size = 14, x_angle = 0,
       ),
       axis.text.y  = ggplot2::element_text(size = axis_fontsize),
       axis.title   = ggplot2::element_text(size = title_fontsize),
+      strip.text   = ggplot2::element_text(size = strip_fontsize),
       legend.text  = ggplot2::element_text(size = legend_fontsize),
       legend.title = ggplot2::element_text(size = legend_fontsize)
     )

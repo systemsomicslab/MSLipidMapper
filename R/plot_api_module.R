@@ -9,6 +9,20 @@ suppressPackageStartupMessages({
 
 `%||%` <- function(a,b) if (is.null(a) || (is.character(a) && length(a) == 0)) b else a
 
+.apply_p_label_size_api <- function(p, size = 3.5) {
+  if (!inherits(p, c("gg", "ggplot"))) return(p)
+  size <- suppressWarnings(as.numeric(size))
+  if (!length(size) || is.na(size) || !is.finite(size) || size <= 0) return(p)
+  for (i in seq_along(p$layers)) {
+    lyr <- p$layers[[i]]
+    if (inherits(lyr$geom, "GeomText")) {
+      lyr$aes_params$size <- size
+      p$layers[[i]] <- lyr
+    }
+  }
+  p
+}
+
 .check_pkgs <- function(pkgs) {
   miss <- pkgs[!vapply(pkgs, requireNamespace, FUN.VALUE = logical(1), quietly = TRUE)]
   if (length(miss)) stop("Missing packages: ", paste(miss, collapse = ", "))
@@ -29,7 +43,8 @@ suppressPackageStartupMessages({
 .theme_lipidomics <- function(base_size = 12, x_angle = 0,
                               axis_fontsize = base_size,
                               legend_fontsize = base_size,
-                              title_fontsize = base_size + 2) {
+                              title_fontsize = base_size + 2,
+                              strip_fontsize = axis_fontsize) {
   ggplot2::theme_classic() +
     ggplot2::theme(
       plot.title   = ggplot2::element_text(face = "bold", size = title_fontsize),
@@ -38,6 +53,7 @@ suppressPackageStartupMessages({
                                            hjust = ifelse(x_angle == 0, 0.5, 1)),
       axis.text.y  = ggplot2::element_text(size = axis_fontsize),
       axis.title   = ggplot2::element_text(size = title_fontsize),
+      strip.text   = ggplot2::element_text(size = strip_fontsize),
       legend.text  = ggplot2::element_text(size = legend_fontsize),
       legend.title = ggplot2::element_text(size = legend_fontsize, face = "bold")
     )
@@ -202,10 +218,17 @@ start_inline_api2_static <- function(
       function(lipid_class = NULL, plot_type = NULL, agg_fun = NULL) {
         se <- se_provider(); if (is.null(se)) plumber::halt(503, "SE not ready.")
         st <- state_provider(); live <- st$live %||% list()
+        adv <- st$adv %||% list()
         plot_type <- (plot_type %||% live$plot_type) %||% "violin"
         plot_type <- match.arg(plot_type, c("violin","box","dot"))
         agg_fun   <- (agg_fun   %||% live$agg_fun)   %||% "sum"
         agg_fun   <- match.arg(agg_fun, c("sum","mean","median"))
+        plot_font <- suppressWarnings(as.numeric(adv$plot_font_size %||% 12))
+        if (!is.finite(plot_font) || plot_font < 6) plot_font <- 12
+        strip_font <- suppressWarnings(as.numeric(adv$strip_font_size %||% plot_font))
+        if (!is.finite(strip_font) || strip_font < 6) strip_font <- plot_font
+        p_label_font <- suppressWarnings(as.numeric(adv$p_label_font_size %||% 3.5))
+        if (!is.finite(p_label_font) || p_label_font <= 0) p_label_font <- 3.5
         lipid_class <- (lipid_class %||% live$lipid_class)
         if (is.null(lipid_class) || !nzchar(lipid_class)) plumber::halt(400, "lipid_class is required")
 
@@ -219,7 +242,7 @@ start_inline_api2_static <- function(
                         box    = get("plot_box_se",    inherits = TRUE),
                         dot    = get("plot_dot_se",    inherits = TRUE))
           do.call(fun, c(list(se = se_cls, feature_id = lipid_class, x_var = "class", add_p = FALSE))) +
-            .theme_lipidomics(12, 0, 12, 12, 14) +
+            .theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 2, strip_font) +
             ggplot2::theme(legend.position = "none", aspect.ratio = 1) +
             ggplot2::labs(title = paste0("Class: ", lipid_class))
         } else {
@@ -229,6 +252,7 @@ start_inline_api2_static <- function(
             ggplot2::labs(title = paste0("Class: ", lipid_class)) +
             .theme_lipidomics()
         }
+        p <- .apply_p_label_size_api(p, p_label_font)
         .save_plot_svg_text(p)
       },
       serializer = plumber::serializer_content_type("image/svg+xml; charset=utf-8")
@@ -239,8 +263,15 @@ start_inline_api2_static <- function(
       function(feature_id = NULL, lipid_class = NULL, plot_type = NULL) {
         se <- se_provider(); if (is.null(se)) plumber::halt(503, "SE not ready.")
         st <- state_provider(); live <- st$live %||% list()
+        adv <- st$adv %||% list()
         plot_type <- (plot_type %||% live$plot_type) %||% "violin"
         plot_type <- match.arg(plot_type, c("violin","box","dot"))
+        plot_font <- suppressWarnings(as.numeric(adv$plot_font_size %||% 12))
+        if (!is.finite(plot_font) || plot_font < 6) plot_font <- 12
+        strip_font <- suppressWarnings(as.numeric(adv$strip_font_size %||% plot_font))
+        if (!is.finite(strip_font) || strip_font < 6) strip_font <- plot_font
+        p_label_font <- suppressWarnings(as.numeric(adv$p_label_font_size %||% 3.5))
+        if (!is.finite(p_label_font) || p_label_font <= 0) p_label_font <- 3.5
         class_col <- .resolve_class_col(se)
 
         if (is.null(feature_id) || !nzchar(feature_id)) {
@@ -258,7 +289,7 @@ start_inline_api2_static <- function(
                         box    = get("plot_box_se",    inherits = TRUE),
                         dot    = get("plot_dot_se",    inherits = TRUE))
           do.call(fun, c(list(se = se, feature_id = feature_id, x_var = "class", add_p = FALSE))) +
-            .theme_lipidomics(11, 0, 10, 10, 12) +
+            .theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 1, strip_font) +
             ggplot2::theme(legend.position = "none", aspect.ratio = 1) +
             ggplot2::labs(title = paste0("Molecule: ", feature_id))
         } else {
@@ -268,6 +299,7 @@ start_inline_api2_static <- function(
             ggplot2::labs(title = paste0("Molecule: ", feature_id)) +
             .theme_lipidomics()
         }
+        p <- .apply_p_label_size_api(p, p_label_font)
         .save_plot_svg_text(p)
       },
       serializer = plumber::serializer_content_type("image/svg+xml; charset=utf-8")
