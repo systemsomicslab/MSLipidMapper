@@ -32,15 +32,6 @@ MSLipidMapper can be used in two ways:
 This is the recommended option if you want to run MSLipidMapper directly from R.
 
 ```r
-install.packages("pak")
-pak::pkg_install("github::systemsomicslab/MSLipidMapper", dependencies = TRUE)
-```
-
-`pak` resolves CRAN and Bioconductor dependencies together, so packages such as `SummarizedExperiment`, `ComplexHeatmap`, and `clusterProfiler` are installed from the package metadata.
-
-If you prefer `remotes`, install Bioconductor dependencies first and then install the package:
-
-```r
 install.packages("BiocManager")
 install.packages("remotes")
 
@@ -50,7 +41,8 @@ BiocManager::install(c(
   "ComplexHeatmap",
   "clusterProfiler",
   "rgoslin",
-  "ropls"
+  "ropls",
+  "GO.db"
 ), ask = FALSE, update = FALSE)
 
 remotes::install_github("systemsomicslab/MSLipidMapper", dependencies = TRUE)
