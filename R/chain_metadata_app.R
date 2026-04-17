@@ -78,6 +78,70 @@ annotate_lipid_metadata <- function(
   )
 }
 
+.combine_chain_metadata <- function(acyl, sphingoid) {
+  acyl <- as.character(acyl %||% character(0))
+  sphingoid <- as.character(sphingoid %||% character(0))
+  out <- c(sphingoid, acyl)
+  out <- out[!is.na(out) & nzchar(out)]
+  unique(out)
+}
+
+.format_lipid_metadata_output <- function(
+  df,
+  lipid_col,
+  acyl_col,
+  sphingoid_col,
+  output_format = c("long", "wide")
+) {
+  output_format <- match.arg(output_format)
+  
+  if (identical(output_format, "wide")) {
+    list_cols <- vapply(df, is.list, logical(1))
+    df[list_cols] <- lapply(df[list_cols], function(col) {
+      vapply(col, paste, collapse = " | ", character(1))
+    })
+    return(df)
+  }
+  
+  lipid_names <- as.character(df[[lipid_col]] %||% character(nrow(df)))
+  acyl_list <- if (acyl_col %in% colnames(df)) .ensure_listcol(df[[acyl_col]]) else rep(list(character(0)), nrow(df))
+  sphingoid_list <- if (sphingoid_col %in% colnames(df)) .ensure_listcol(df[[sphingoid_col]]) else rep(list(character(0)), nrow(df))
+  
+  long_rows <- Map(
+    function(name, acyl, sphingoid) {
+      chains <- .combine_chain_metadata(acyl = acyl, sphingoid = sphingoid)
+      if (!length(chains)) {
+        return(NULL)
+      }
+      data.frame(
+        name = rep(name, length(chains)),
+        chain_index = seq_along(chains),
+        chain = chains,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      )
+    },
+    name = lipid_names,
+    acyl = acyl_list,
+    sphingoid = sphingoid_list
+  )
+  
+  long_rows <- Filter(Negate(is.null), long_rows)
+  if (!length(long_rows)) {
+    return(data.frame(
+      name = character(0),
+      chain_index = integer(0),
+      chain = character(0),
+      stringsAsFactors = FALSE,
+      check.names = FALSE
+    ))
+  }
+  
+  out <- do.call(rbind, long_rows)
+  rownames(out) <- NULL
+  out
+}
+
 #' Launch a small Shiny app for lipid chain metadata extraction
 #'
 #' @param data A data frame containing a lipid name column. When `NULL`, the
@@ -137,6 +201,15 @@ run_lipid_metadata_app <- function(
           "sphingoid_col",
           "Sphingoid-base column name",
           value = "sphingoid_bases"
+        ),
+        shiny::selectInput(
+          "output_format",
+          "Output format",
+          choices = c(
+            "Long chain table" = "long",
+            "Annotated wide table" = "wide"
+          ),
+          selected = "long"
         ),
         shiny::helpText("Preview and download a table annotated with chain metadata."),
         shiny::helpText("If no file is uploaded, the example data frame is used."),
@@ -222,10 +295,15 @@ run_lipid_metadata_app <- function(
     
     output$table <- DT::renderDT({
       df <- annotated()
-      list_cols <- vapply(df, is.list, logical(1))
-      df[list_cols] <- lapply(df[list_cols], function(col) {
-        vapply(col, paste, collapse = " | ", character(1))
-      })
+      acyl_col <- if (nzchar(input$acyl_col)) input$acyl_col else "acyl_chains"
+      sphingoid_col <- if (nzchar(input$sphingoid_col)) input$sphingoid_col else "sphingoid_bases"
+      df <- .format_lipid_metadata_output(
+        df = df,
+        lipid_col = input$lipid_col,
+        acyl_col = acyl_col,
+        sphingoid_col = sphingoid_col,
+        output_format = input$output_format %||% "long"
+      )
       DT::datatable(
         df,
         filter = "top",
@@ -239,10 +317,15 @@ run_lipid_metadata_app <- function(
       },
       content = function(file) {
         df <- annotated()
-        list_cols <- vapply(df, is.list, logical(1))
-        df[list_cols] <- lapply(df[list_cols], function(col) {
-          vapply(col, paste, collapse = " | ", character(1))
-        })
+        acyl_col <- if (nzchar(input$acyl_col)) input$acyl_col else "acyl_chains"
+        sphingoid_col <- if (nzchar(input$sphingoid_col)) input$sphingoid_col else "sphingoid_bases"
+        df <- .format_lipid_metadata_output(
+          df = df,
+          lipid_col = input$lipid_col,
+          acyl_col = acyl_col,
+          sphingoid_col = sphingoid_col,
+          output_format = input$output_format %||% "long"
+        )
         utils::write.csv(df, file, row.names = FALSE, na = "")
       }
     )

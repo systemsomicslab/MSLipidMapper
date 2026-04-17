@@ -357,7 +357,7 @@ mod_upload_ui <- function(id) {
           ),
           shiny::tags$div(
             style = "margin-top:12px;text-align:right;color:#6b7280;font-size:12px;",
-            "Ver.1.20260414"
+            "Ver. 1.20260417"
           )
         ),
 
@@ -520,11 +520,6 @@ mod_upload_ui <- function(id) {
                     "Sample metadata file",
                     accept = c(".csv", ".tsv", ".txt")
                   ),
-                  shiny::checkboxInput(
-                    ns("reset_use"),
-                    "Reset 'use' by class after import\n(turn OFF for Blank/QC)",
-                    TRUE
-                  ),
                   shiny::uiOutput(ns("class_colpick_ui")),
                   shiny::actionButton(
                     ns("apply_class_map"),
@@ -533,6 +528,7 @@ mod_upload_ui <- function(id) {
                   ),
                   shiny::br(),
                   shiny::helpText("Required: one sample ID column and one primary grouping column. Other columns are also merged into colData."),
+                  shiny::helpText("Applying sample metadata preserves the current 'use' checkbox/filter state."),
                   shiny::br(),
                   shiny::verbatimTextOutput(ns("class_import_msg"))
                 ),
@@ -1236,12 +1232,6 @@ mod_upload_server <- function(id) {
         cd$use <- TRUE
       }
 
-      if (isTRUE(input$reset_use)) {
-        default_off <- c("Blank", "Quality control", "QC")
-        cd$use <- !(cd$class %in% default_off)
-        cd$use[is.na(cd$use)] <- TRUE
-      }
-
       others <- setdiff(colnames(cd), c("sample_id", "class", "use"))
       cd <- cd[, c("sample_id", "class", "use", others), drop = FALSE]
       SummarizedExperiment::colData(se_full) <- S4Vectors::DataFrame(cd, row.names = cd$sample_id)
@@ -1262,7 +1252,7 @@ mod_upload_server <- function(id) {
         )
       }
       output$class_import_msg <- shiny::renderText(msg)
-      shiny::showNotification("Sample metadata was merged into colData.", type = "message")
+      shiny::showNotification("Sample metadata was merged into colData without changing the current filter checkboxes.", type = "message")
     })
 
     shiny::observeEvent(input$tx_build, {

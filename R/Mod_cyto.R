@@ -197,6 +197,11 @@ mod_cyto_ui <- function(id) {
               selected = "dot",
               inline   = TRUE
             ),
+            shiny::checkboxInput(
+              ns("include_multiomics"),
+              "Overlay multi-omics data",
+              value = FALSE
+            ),
             open = TRUE
           ),
 
@@ -337,6 +342,7 @@ mod_cyto_server <- function(id,
     rv_nets        <- reactiveValues(map = list())
     rv_selected    <- reactiveVal(NULL)
     selected_node  <- reactiveVal(NULL)
+    examples_loaded <- FALSE
 
     # ---- Image URL builder (IMPORTANT: /static prefix) -----------------------
     CY_IMG_PORT   <- 7310L
@@ -372,12 +378,16 @@ mod_cyto_server <- function(id,
     add_network <- function(name, elements) {
       id <- make_id()
       rv_nets$map[[id]] <- list(id = id, name = name %||% id, elements_work = elements)
-      if (is.null(rv_selected())) rv_selected(id)
+      current_selected <- shiny::isolate(rv_selected())
+      if (is.null(current_selected)) {
+        rv_selected(id)
+        current_selected <- id
+      }
 
       updateSelectInput(
         session, "net_select",
         choices  = setNames(names(rv_nets$map), vapply(rv_nets$map, `[[`, character(1), "name")),
-        selected = rv_selected()
+        selected = current_selected
       )
     }
 
@@ -397,7 +407,7 @@ mod_cyto_server <- function(id,
       )
     }
 
-    .coerce_elements <- function(x) {
+        .coerce_elements <- function(x) {
       if (is.null(x)) return(NULL)
       if (is.function(x)) x <- x()
       if (is.null(x)) return(NULL)
@@ -410,6 +420,99 @@ mod_cyto_server <- function(id,
 
       stop("elements must be a Cytoscape elements list (nodes/edges) or a cyjs-like list.", call. = FALSE)
     }
+
+    .read_default_network <- function(path) {
+      obj <- jsonlite::read_json(path, simplifyVector = FALSE)
+      .ensure_positions_for_preset(.cyjs_to_elements(obj))
+    }
+
+    .default_network_specs <- function(include_multiomics = FALSE) {
+      include_multiomics <- isTRUE(include_multiomics)
+      list(
+        list(
+          name = "glycerophospholipids",
+          file = if (include_multiomics) "remodeling.cyjs" else "remodeling_lipidonly.cyjs"
+        ),
+        list(
+          name = "sphingolipids",
+          file = if (include_multiomics) "ceramidepathway.cyjs" else "ceramidepathway_lipidonly.cyjs"
+        ),
+        list(
+          name = "global pathway",
+          file = "global.cyjs"
+        )
+      )
+    }
+
+    .upsert_default_networks <- function(include_multiomics = FALSE, only_if_empty = FALSE) {
+      ex_dir <- .mslm_example_dir()
+      if (!nzchar(ex_dir) || !dir.exists(ex_dir)) return(invisible(FALSE))
+
+      should_skip <- isTRUE(only_if_empty) && length(rv_nets$map) > 0
+      if (should_skip) return(invisible(FALSE))
+
+      loaded_any <- FALSE
+      for (spec in .default_network_specs(include_multiomics = include_multiomics)) {
+        path <- file.path(ex_dir, spec$file)
+        if (!file.exists(path)) next
+
+        els <- .read_default_network(path)
+
+        id_hit <- NULL
+        for (nid in names(rv_nets$map)) {
+          if (identical(rv_nets$map[[nid]]$name, spec$name)) {
+            id_hit <- nid
+            break
+          }
+        }
+
+        if (is.null(id_hit)) {
+          add_network(spec$name, els)
+        } else {
+          rv_nets$map[[id_hit]]$elements_work <- els
+        }
+        loaded_any <- TRUE
+      }
+
+      if (loaded_any) {
+        examples_loaded <<- TRUE
+      }
+
+      invisible(loaded_any)
+    }
+
+    observe({
+      if (is.null(elements)) {
+        .upsert_default_networks(
+          include_multiomics = isTRUE(input$include_multiomics),
+          only_if_empty = TRUE
+        )
+      }
+    })
+
+    session$onFlushed(function() {
+      if (is.null(elements) && length(shiny::isolate(rv_nets$map)) == 0) {
+        .upsert_default_networks(
+          include_multiomics = isTRUE(shiny::isolate(input$include_multiomics)),
+          only_if_empty = TRUE
+        )
+      }
+    }, once = TRUE)
+
+    observeEvent(input$include_multiomics, {
+      req(is.null(elements))
+      if (!isTRUE(examples_loaded) && length(rv_nets$map) == 0) {
+        .upsert_default_networks(
+          include_multiomics = isTRUE(input$include_multiomics),
+          only_if_empty = TRUE
+        )
+      } else {
+        .upsert_default_networks(
+          include_multiomics = isTRUE(input$include_multiomics),
+          only_if_empty = FALSE
+        )
+      }
+    }, ignoreInit = TRUE)
 
     observeEvent(
       {
@@ -1049,6 +1152,13 @@ mod_cyto_server <- function(id,
 
     # ---- render selected network ---------------------------------------------
     observe({
+      if (is.null(rv_selected()) && is.null(elements) && length(rv_nets$map) == 0) {
+        .upsert_default_networks(
+          include_multiomics = isTRUE(input$include_multiomics),
+          only_if_empty = TRUE
+        )
+      }
+
       id <- rv_selected()
       req(id)
 

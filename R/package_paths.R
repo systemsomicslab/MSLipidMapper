@@ -10,6 +10,33 @@ mslipidmapper_example_path <- function() {
   p
 }
 
+.mslm_example_dir <- function() {
+  candidates <- c(
+    file.path(getwd(), "inst", "examples"),
+    file.path(getwd(), "inst", "extdata", "examples"),
+    file.path(getwd(), "example"),
+    file.path(getwd(), "examples")
+  )
+
+  for (p in candidates) {
+    if (dir.exists(p)) {
+      return(normalizePath(p, winslash = "/", mustWork = FALSE))
+    }
+  }
+
+  pkg_examples <- system.file("examples", package = "MSLipidMapper")
+  if (nzchar(pkg_examples) && dir.exists(pkg_examples)) {
+    return(normalizePath(pkg_examples, winslash = "/", mustWork = FALSE))
+  }
+
+  pkg_path <- system.file("extdata", "examples", package = "MSLipidMapper")
+  if (nzchar(pkg_path) && dir.exists(pkg_path)) {
+    return(normalizePath(pkg_path, winslash = "/", mustWork = FALSE))
+  }
+
+  ""
+}
+
 #' Get bundled lipid rules YAML path
 #'
 #' @return Absolute path to bundled lipid rules YAML.

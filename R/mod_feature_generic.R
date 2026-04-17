@@ -199,6 +199,47 @@ mod_feature_generic_server <- function(
       pal_tbl = NULL
     )
 
+    .build_palette_table <- function(groups, adv, current_tbl = NULL) {
+      groups <- as.character(groups %||% character(0))
+      groups <- groups[nzchar(groups) & !is.na(groups)]
+      groups <- unique(groups)
+      if (!length(groups)) return(NULL)
+
+      pal_map <- .merge_palette(groups, adv$palette_map)
+
+      lvl <- if (length(adv$manual_order)) {
+        ord <- intersect(adv$manual_order, groups)
+        if (length(ord)) {
+          rest <- setdiff(groups, ord)
+          match(groups, c(ord, rest))
+        } else {
+          seq_along(groups)
+        }
+      } else {
+        seq_along(groups)
+      }
+
+      out <- data.frame(
+        group = groups,
+        color = unname(pal_map[groups]),
+        level = lvl,
+        stringsAsFactors = FALSE
+      )
+
+      if (!is.null(current_tbl) && nrow(current_tbl)) {
+        current_tbl$group <- as.character(current_tbl$group)
+        current_tbl$color <- .norm_hex_vec(current_tbl$color)
+        current_tbl$level <- suppressWarnings(as.numeric(current_tbl$level))
+        idx <- match(out$group, current_tbl$group)
+        keep <- !is.na(idx)
+        out$color[keep] <- current_tbl$color[idx[keep]]
+        keep_level <- keep & !is.na(current_tbl$level[idx])
+        out$level[keep_level] <- current_tbl$level[idx[keep_level]]
+      }
+
+      out
+    }
+
     # ---- IMPORTANT: initialize palette_map early (before modal is opened) ---
     shiny::observe({
       dataset <- rv$dataset %||% "lipid"
@@ -215,6 +256,20 @@ mod_feature_generic_server <- function(
         adv$palette_map <- adv$palette_map %||% character(0)
       }
       rv$adv <- adv
+    })
+
+    shiny::observe({
+      groups <- .get_groups(rv$dataset %||% "lipid")
+      next_tbl <- .build_palette_table(groups, rv$adv, rv$pal_tbl)
+      cur_tbl <- rv$pal_tbl
+
+      same_tbl <- is.null(cur_tbl) && is.null(next_tbl)
+      if (!same_tbl && !is.null(cur_tbl) && !is.null(next_tbl)) {
+        same_tbl <- identical(cur_tbl, next_tbl)
+      }
+      if (!same_tbl) {
+        rv$pal_tbl <- next_tbl
+      }
     })
 
     # Dataset selection -> update state --------------------------------------
@@ -427,26 +482,7 @@ mod_feature_generic_server <- function(
       if (nzchar(sel_split) && !sel_split %in% split_choices) sel_split <- ""
       sel_split_ui <- if (nzchar(sel_split)) sel_split else .NO_SPLIT_CHOICE
 
-      # init palette table from adv (already initialized before modal)
-      pal_map <- .merge_palette(groups, adv$palette_map)
-
-      # init level from manual_order
-      lvl <- if (length(adv$manual_order)) {
-        ord <- intersect(adv$manual_order, groups)
-        if (length(ord)) {
-          rest <- setdiff(groups, ord)
-          match(groups, c(ord, rest))
-        } else seq_along(groups)
-      } else seq_along(groups)
-
-      rv$pal_tbl <- if (length(groups)) {
-        data.frame(
-          group = groups,
-          color = unname(pal_map[groups]),
-          level = lvl,
-          stringsAsFactors = FALSE
-        )
-      } else NULL
+      rv$pal_tbl <- .build_palette_table(groups, adv, rv$pal_tbl)
 
       shiny::modalDialog(
         title     = "Advanced settings (Shared)",

@@ -291,7 +291,6 @@ add_vip_group_direction <- function(vip_tbl_ranked, X, y) {
   colnames(mean_mat) <- group_levels
   
   vip_tbl_ranked$highest_group <- NA_character_
-  vip_tbl_ranked$lowest_group <- NA_character_
   matched <- match(as.character(vip_tbl_ranked$variable), rownames(mean_mat))
   for (i in seq_along(matched)) {
     j <- matched[i]
@@ -299,7 +298,6 @@ add_vip_group_direction <- function(vip_tbl_ranked, X, y) {
     vals <- mean_mat[j, ]
     if (!all(is.na(vals))) {
       vip_tbl_ranked$highest_group[i] <- names(which.max(vals))[1]
-      vip_tbl_ranked$lowest_group[i] <- names(which.min(vals))[1]
     }
   }
   
@@ -320,86 +318,60 @@ plot_vip <- function(
   topn2 <- min(topn, nrow(vip_tbl_ranked))
   vip_top <- vip_tbl_ranked %>%
     dplyr::slice_max(order_by = VIP, n = topn2, with_ties = FALSE)
-  vip_top$variable <- factor(vip_top$variable, levels = rev(vip_top$variable))
-  
-  p <- ggplot2::ggplot(
-    vip_top,
-    ggplot2::aes(x = VIP, y = variable)
-  ) +
-    ggplot2::geom_point(size = 3.2, color = "#00ba38") +
-    ggplot2::geom_segment(
-      ggplot2::aes(
-        x = 0,
-        xend = VIP,
-        y = variable,
-        yend = variable
-      ),
-      color = "#00ba38",
-      linewidth = 0.6,
-      alpha = 0.8
-    ) +
-    ggplot2::labs(
-      title = sprintf("Top %d VIP", nrow(vip_top)),
-      x = "VIP",
-      y = "Variable"
-    ) +
-    ggplot2::theme_classic(base_size = 15, base_family = base_family)
   
   group_levels <- as.character(group_levels %||% character(0))
   if (length(group_levels) >= 2 && "highest_group" %in% colnames(vip_top)) {
     group_levels <- group_levels[seq_len(2)]
-    x_max <- max(vip_top$VIP, na.rm = TRUE)
+    left_group <- group_levels[1]
+    right_group <- group_levels[2]
+    vip_top$direction <- ifelse(vip_top$highest_group == right_group, right_group, left_group)
+    vip_top$VIP_plot <- ifelse(vip_top$direction == right_group, vip_top$VIP, -vip_top$VIP)
+    vip_top <- vip_top[order(vip_top$VIP_plot, decreasing = TRUE), , drop = FALSE]
+    vip_top$variable <- factor(vip_top$variable, levels = rev(vip_top$variable))
+    fill_vals <- stats::setNames(c("#f8766d", "#00ba38"), c(left_group, right_group))
+    fill_labels <- stats::setNames(
+      paste0("Up in ", c(left_group, right_group)),
+      c(left_group, right_group)
+    )
+    x_max <- max(abs(vip_top$VIP_plot), na.rm = TRUE)
     x_max <- if (is.finite(x_max) && x_max > 0) x_max else 1
-    tile_gap <- x_max * 0.18
-    tile_step <- x_max * 0.16
-    tile_start <- x_max + tile_gap
-    tile_positions <- stats::setNames(tile_start + tile_step * seq(0, length(group_levels) - 1), group_levels)
-    
-    tile_df <- do.call(rbind, lapply(seq_len(nrow(vip_top)), function(i) {
-      data.frame(
-        variable = vip_top$variable[i],
-        Group = group_levels,
-        tile_x = unname(tile_positions[group_levels]),
-        direction = ifelse(
-          group_levels == vip_top$highest_group[i],
-          "Higher",
-          ifelse(group_levels == vip_top$lowest_group[i], "Lower", "Lower")
-        ),
-        stringsAsFactors = FALSE
-      )
-    }))
-    tile_df$variable <- factor(tile_df$variable, levels = levels(vip_top$variable))
-    tile_df$Group <- factor(tile_df$Group, levels = group_levels)
-    tile_df$direction <- factor(tile_df$direction, levels = c("Higher", "Lower"))
-    
-    p <- p +
-      ggplot2::geom_tile(
-        data = tile_df,
-        ggplot2::aes(x = tile_x, y = variable, fill = direction),
-        width = tile_step * 0.72,
-        height = 0.72,
-        color = "black",
-        inherit.aes = FALSE
+    breaks <- pretty(c(-x_max, x_max), n = 5)
+    breaks <- unique(c(breaks, 0))
+    p <- ggplot2::ggplot(
+      vip_top,
+      ggplot2::aes(x = stats::reorder(variable, VIP_plot), y = VIP_plot, fill = direction)
+    ) +
+      ggplot2::geom_col() +
+      ggplot2::coord_flip() +
+      ggplot2::geom_hline(yintercept = 0, linetype = "dashed") +
+      ggplot2::scale_fill_manual(
+        name = legend_title,
+        values = fill_vals,
+        breaks = c(left_group, right_group),
+        labels = fill_labels[c(left_group, right_group)],
+        drop = FALSE
       ) +
-      ggplot2::scale_fill_manual(values = c(Higher = "#B11001", Lower = "blue4"), drop = FALSE) +
-      ggplot2::annotate(
-        "text",
-        x = unname(tile_positions[group_levels]),
-        y = length(levels(vip_top$variable)) + 0.8,
-        label = group_levels,
-        angle = 45,
-        hjust = 0,
-        vjust = 1,
-        size = 4
+      ggplot2::scale_y_continuous(breaks = breaks, labels = function(x) abs(x)) +
+      ggplot2::labs(
+        title = sprintf("Top %d VIP", nrow(vip_top)),
+        x = "Variable",
+        y = "VIP"
       ) +
-      ggplot2::coord_cartesian(
-        xlim = c(0, max(unname(tile_positions[group_levels])) + tile_step * 0.9),
-        clip = "off"
+      ggplot2::theme_classic(base_size = 15, base_family = base_family)
+  } else {
+    vip_top$variable <- factor(vip_top$variable, levels = rev(vip_top$variable))
+    p <- ggplot2::ggplot(
+      vip_top,
+      ggplot2::aes(x = stats::reorder(variable, VIP), y = VIP)
+    ) +
+      ggplot2::geom_col(fill = "#00ba38") +
+      ggplot2::coord_flip() +
+      ggplot2::labs(
+        title = sprintf("Top %d VIP", nrow(vip_top)),
+        x = "Variable",
+        y = "VIP"
       ) +
-      ggplot2::theme(
-        plot.margin = ggplot2::margin(t = 20, r = 70, b = 10, l = 10),
-        legend.position = "none"
-      )
+      ggplot2::theme_classic(base_size = 15, base_family = base_family)
   }
   
   p

@@ -21,11 +21,12 @@ WORKDIR /srv/app
 COPY DESCRIPTION NAMESPACE LICENCE README.md /srv/app/
 
 # ---- R package deps install from DESCRIPTION ----
-# Install only required package dependencies so optional Suggests do not
-# pull in incompatible visualization stacks during image build.
+# Install Bioconductor core packages explicitly first so local package install
+# does not fail when remotes misses BioC resolution inside the container.
 RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); \
              install.packages(c('BiocManager', 'remotes')); \
              options(repos = BiocManager::repositories()); \
+             BiocManager::install(c('S4Vectors', 'SummarizedExperiment', 'clusterProfiler', 'ComplexHeatmap'), ask = FALSE, update = FALSE); \
              remotes::install_deps('.', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never')"
 
 # ---- App copy ----

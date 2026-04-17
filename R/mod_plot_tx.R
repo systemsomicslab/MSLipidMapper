@@ -29,8 +29,27 @@ suppressPackageStartupMessages({
 #' @export
 mod_plot_gene_ui <- function(id) {
   ns <- shiny::NS(id)
+  css_plot_frame <- "
+  .mslm-plot-frame {
+    width: 100%;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .mslm-plot-square {
+    width: min(100%, 360px);
+    height: 360px;
+  }
+  .mslm-plot-square .shiny-plot-output {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  "
 
   shiny::tagList(
+    shiny::tags$style(shiny::HTML(css_plot_frame)),
     shiny::h3("Gene feature"),
 
     shiny::fluidRow(
@@ -61,8 +80,13 @@ mod_plot_gene_ui <- function(id) {
         ),
 
         shiny::br(),
-
-        shiny::plotOutput(ns("plot_gene"), height = "360px"),
+        shiny::div(
+          class = "mslm-plot-frame",
+          shiny::div(
+            class = "mslm-plot-square",
+            shiny::plotOutput(ns("plot_gene"), height = "100%")
+          )
+        ),
         shiny::br(),
         shiny::downloadButton(ns("dl_gene_plot"), "Download SVG")
       ),
@@ -346,7 +370,7 @@ mod_plot_gene_server <- function(
         p_label    = adv$p_label
       ), extra)) +
         theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 1, strip_font) +
-        ggplot2::theme(legend.position = "none", aspect.ratio = 1) +
+        ggplot2::theme(legend.position = "none") +
         ggplot2::labs(title = paste0("Gene: ", input$gene_id), y = y_axis_label)
       p <- .apply_p_label_size(p, p_label_font)
 
@@ -361,7 +385,7 @@ mod_plot_gene_server <- function(
       filename = function() paste0("gene_plot_", input$gene_id %||% "gene", ".svg"),
       content  = function(file) {
         if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-        svglite::svglite(file, width = 6, height = 5)
+        svglite::svglite(file, width = 6, height = 6)
         on.exit(grDevices::dev.off(), add = TRUE)
         print(p_gene())
       }
