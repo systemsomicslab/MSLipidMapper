@@ -162,9 +162,14 @@ suppressPackageStartupMessages({
   list(plot_mat = t(base_mat), sample_on_rows = FALSE)
 }
 
-.hm_square_dims <- function(mat, cell_mm = 4.0, max_mm = 260) {
+.hm_square_dims <- function(mat) {
   nr <- max(1L, nrow(mat))
   nc <- max(1L, ncol(mat))
+
+  # Start from a readable tile size, then shrink proportionally when either
+  # matrix dimension would exceed the automatic body-size limit.
+  cell_mm <- 4.0
+  max_mm <- 260
   
   w_mm <- nc * cell_mm
   h_mm <- nr * cell_mm
@@ -181,10 +186,40 @@ suppressPackageStartupMessages({
   )
 }
 
-.hm_export_dims <- function(hm_w_mm, hm_h_mm, extra_w_mm = 25, extra_h_mm = 105) {
+.hm_axis_label_extents_mm <- function(
+    row_labels,
+    column_labels,
+    show_row_names = TRUE,
+    show_column_names = TRUE,
+    fontsize = 10
+) {
+  .extent <- function(labels, show) {
+    if (!isTRUE(show) || !length(labels)) return(0)
+    labels <- as.character(labels)
+    labels[is.na(labels)] <- ""
+    max_chars <- max(nchar(labels, type = "width"), 0)
+    min(180, max(10, max_chars * fontsize * 0.3528 * 0.62 + 8))
+  }
+
+  # ComplexHeatmap's default column labels are rotated, so their string width
+  # contributes to device height while row labels contribute to device width.
   list(
-    dev_w_mm = hm_w_mm + extra_w_mm,
-    dev_h_mm = hm_h_mm + extra_h_mm
+    extra_w_mm = .extent(row_labels, show_row_names),
+    extra_h_mm = .extent(column_labels, show_column_names)
+  )
+}
+
+.hm_export_dims <- function(
+    hm_w_mm,
+    hm_h_mm,
+    extra_w_mm = 35,
+    extra_h_mm = 65,
+    label_extra_w_mm = 0,
+    label_extra_h_mm = 0
+) {
+  list(
+    dev_w_mm = hm_w_mm + extra_w_mm + label_extra_w_mm,
+    dev_h_mm = hm_h_mm + extra_h_mm + label_extra_h_mm
   )
 }
 
@@ -230,18 +265,15 @@ mod_heatmap_ui <- function(id, title = "Heatmap") {
                 selected = "by_feature"
               ),
               
-              shiny::numericInput(ns("cell_mm_class"), "Tile size (mm)", value = 4.2, min = 1, max = 20, step = 0.2),
-              shiny::numericInput(ns("max_mm_class"),  "Max heatmap size (mm)", value = 260, min = 100, max = 600, step = 10),
-              
               shiny::checkboxInput(ns("use_shared_palette_class"), "Use shared class colors (Feature Advanced)", value = TRUE),
               
               shiny::checkboxInput(ns("cluster_samples_class"),  "Cluster samples", value = TRUE),
               shiny::checkboxInput(ns("cluster_features_class"), "Cluster subclasses", value = TRUE),
+              shiny::checkboxInput(ns("show_sample_names_class"), "Show sample names", value = FALSE),
               
-              shiny::actionButton(ns("update_class"), "Run", width = "100%", icon = shiny::icon("sync")),
+            shiny::actionButton(ns("update_class"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
               shiny::tags$hr(),
-              shiny::downloadButton(ns("dl_class_pdf"), "Download PDF", width = "100%"),
-              shiny::downloadButton(ns("dl_class_png"), "Download PNG", width = "100%")
+              shiny::downloadButton(ns("dl_class_pdf"), "Download PDF", width = "100%")
             )
           ),
           shiny::column(
@@ -286,20 +318,17 @@ mod_heatmap_ui <- function(id, title = "Heatmap") {
                 selected = "by_feature"
               ),
               
-              shiny::numericInput(ns("cell_mm_mol"), "Tile size (mm)", value = 3.6, min = 1, max = 20, step = 0.2),
-              shiny::numericInput(ns("max_mm_mol"),  "Max heatmap size (mm)", value = 260, min = 100, max = 600, step = 10),
-              
               shiny::checkboxInput(ns("use_shared_palette_mol"), "Use shared class colors (Feature Advanced)", value = TRUE),
               
               shiny::checkboxInput(ns("cluster_samples_mol"),  "Cluster samples", value = TRUE),
               shiny::checkboxInput(ns("cluster_features_mol"), "Cluster molecules", value = TRUE),
+              shiny::checkboxInput(ns("show_sample_names_mol"), "Show sample names", value = FALSE),
               
               shiny::checkboxInput(ns("add_mol_subclass_anno"), "Add molecule subclass annotation", value = TRUE),
               
-              shiny::actionButton(ns("update_mol"), "Run", width = "100%", icon = shiny::icon("sync")),
+            shiny::actionButton(ns("update_mol"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
               shiny::tags$hr(),
-              shiny::downloadButton(ns("dl_mol_pdf"), "Download PDF", width = "100%"),
-              shiny::downloadButton(ns("dl_mol_png"), "Download PNG", width = "100%")
+              shiny::downloadButton(ns("dl_mol_pdf"), "Download PDF", width = "100%")
             )
           ),
           shiny::column(
@@ -353,9 +382,9 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
     rect_gp_grey <- grid::gpar(col = "grey80", lwd = 0.5)
     
     .draw_bottom_legends <- function(ht) {
-      grid::grid.newpage()
       ComplexHeatmap::draw(
         ht,
+        newpage = TRUE,
         heatmap_legend_side = "bottom",
         annotation_legend_side = "bottom",
         merge_legends = TRUE,
@@ -432,18 +461,33 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       if (sample_on_rows) {
         left_anno <- ComplexHeatmap::rowAnnotation(
           SampleClass = grp_info$values,
-          col = list(SampleClass = grp_info$colors)
+          col = list(SampleClass = grp_info$colors),
+          annotation_legend_param = list(
+            SampleClass = list(direction = "horizontal", nrow = 1)
+          )
         )
       } else {
         top_anno <- ComplexHeatmap::HeatmapAnnotation(
           SampleClass = grp_info$values,
           col = list(SampleClass = grp_info$colors),
-          which = "column"
+          which = "column",
+          annotation_legend_param = list(
+            SampleClass = list(direction = "horizontal", nrow = 1)
+          )
         )
       }
       
       col_fun <- .hm_quantile_col_fun(mat)
-      dims <- .hm_square_dims(mat, cell_mm = input$cell_mm_class, max_mm = input$max_mm_class)
+      dims <- .hm_square_dims(mat)
+      show_sample_names <- isTRUE(input$show_sample_names_class)
+      show_row_names <- if (sample_on_rows) show_sample_names else TRUE
+      show_column_names <- if (sample_on_rows) TRUE else show_sample_names
+      label_extra <- .hm_axis_label_extents_mm(
+        row_labels = rownames(mat),
+        column_labels = colnames(mat),
+        show_row_names = show_row_names,
+        show_column_names = show_column_names
+      )
       
       ht <- ComplexHeatmap::Heatmap(
         mat,
@@ -457,11 +501,23 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         width  = dims$width,
         height = dims$height,
         row_title = if (sample_on_rows) "Samples" else .HM_SUBCLASS_COL,
-        column_title = if (sample_on_rows) .HM_SUBCLASS_COL else "Samples"
+        column_title = if (sample_on_rows) .HM_SUBCLASS_COL else "Samples",
+        show_row_names = show_row_names,
+        show_column_names = show_column_names,
+        heatmap_legend_param = list(
+          direction = "horizontal",
+          legend_width = grid::unit(55, "mm")
+        )
       )
       
-      list(ht = ht, hm_w_mm = dims$w_mm, hm_h_mm = dims$h_mm)
-    }, ignoreInit = TRUE)
+      list(
+        ht = ht,
+        hm_w_mm = dims$w_mm,
+        hm_h_mm = dims$h_mm,
+        label_extra_w_mm = label_extra$extra_w_mm,
+        label_extra_h_mm = label_extra$extra_h_mm
+      )
+    }, ignoreInit = FALSE)
     
     output$plot_class <- shiny::renderPlot({
       shiny::req(class_nonce() > 0)  # ?????????????????????????????????????????????????????????
@@ -474,26 +530,14 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       content = function(file) {
         shiny::req(class_nonce() > 0)
         obj <- class_obj()
-        d <- .hm_export_dims(obj$hm_w_mm, obj$hm_h_mm, extra_w_mm = 25, extra_h_mm = 105)
+        d <- .hm_export_dims(
+          obj$hm_w_mm, obj$hm_h_mm,
+          label_extra_w_mm = obj$label_extra_w_mm,
+          label_extra_h_mm = obj$label_extra_h_mm
+        )
         grDevices::pdf(file, width = .hm_mm_to_in(d$dev_w_mm), height = .hm_mm_to_in(d$dev_h_mm))
+        on.exit(grDevices::dev.off(), add = TRUE)
         .draw_bottom_legends(obj$ht)
-        grDevices::dev.off()
-      }
-    )
-    
-    output$dl_class_png <- shiny::downloadHandler(
-      filename = function() sprintf("heatmap_%s_scaled_%s.png", tolower(.HM_SUBCLASS_COL), Sys.Date()),
-      content = function(file) {
-        shiny::req(class_nonce() > 0)
-        obj <- class_obj()
-        d <- .hm_export_dims(obj$hm_w_mm, obj$hm_h_mm, extra_w_mm = 25, extra_h_mm = 105)
-        dpi <- 220
-        grDevices::png(file,
-                       width  = .hm_mm_to_px(d$dev_w_mm, dpi),
-                       height = .hm_mm_to_px(d$dev_h_mm, dpi),
-                       res = dpi)
-        .draw_bottom_legends(obj$ht)
-        grDevices::dev.off()
       }
     )
     
@@ -527,13 +571,19 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       if (sample_on_rows) {
         left_anno <- ComplexHeatmap::rowAnnotation(
           SampleClass = grp_info$values,
-          col = list(SampleClass = grp_info$colors)
+          col = list(SampleClass = grp_info$colors),
+          annotation_legend_param = list(
+            SampleClass = list(direction = "horizontal", nrow = 1)
+          )
         )
       } else {
         top_anno <- ComplexHeatmap::HeatmapAnnotation(
           SampleClass = grp_info$values,
           col = list(SampleClass = grp_info$colors),
-          which = "column"
+          which = "column",
+          annotation_legend_param = list(
+            SampleClass = list(direction = "horizontal", nrow = 1)
+          )
         )
       }
       
@@ -547,14 +597,21 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         
         if (sample_on_rows) {
           feat_anno_top <- ComplexHeatmap::HeatmapAnnotation(
-            MoleculeSubclass = sub_info$values,
-            col = list(MoleculeSubclass = sub_info$colors),
-            which = "column"
+            LipidSubclass = sub_info$values,
+            col = list(LipidSubclass = sub_info$colors),
+            which = "column",
+            annotation_name_side = "left",
+            annotation_legend_param = list(
+              LipidSubclass = list(direction = "horizontal", nrow = 1)
+            )
           )
         } else {
           feat_anno_left <- ComplexHeatmap::rowAnnotation(
-            MoleculeSubclass = sub_info$values,
-            col = list(MoleculeSubclass = sub_info$colors)
+            LipidSubclass = sub_info$values,
+            col = list(LipidSubclass = sub_info$colors),
+            annotation_legend_param = list(
+              LipidSubclass = list(direction = "horizontal", nrow = 1)
+            )
           )
         }
       }
@@ -569,7 +626,16 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       }
       
       col_fun <- .hm_quantile_col_fun(mat)
-      dims <- .hm_square_dims(mat, cell_mm = input$cell_mm_mol, max_mm = input$max_mm_mol)
+      dims <- .hm_square_dims(mat)
+      show_sample_names <- isTRUE(input$show_sample_names_mol)
+      show_row_names <- if (sample_on_rows) show_sample_names else TRUE
+      show_column_names <- if (sample_on_rows) TRUE else show_sample_names
+      label_extra <- .hm_axis_label_extents_mm(
+        row_labels = rownames(mat),
+        column_labels = colnames(mat),
+        show_row_names = show_row_names,
+        show_column_names = show_column_names
+      )
       
       ht <- ComplexHeatmap::Heatmap(
         mat,
@@ -584,11 +650,22 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         height = dims$height,
         row_title = if (sample_on_rows) "Samples (clustered)" else "Molecules (TopVar)",
         column_title = if (sample_on_rows) "Molecules (TopVar)" else "Samples (clustered)",
-        show_column_names = TRUE
+        show_row_names = show_row_names,
+        show_column_names = show_column_names,
+        heatmap_legend_param = list(
+          direction = "horizontal",
+          legend_width = grid::unit(55, "mm")
+        )
       )
       
-      list(ht = ht, hm_w_mm = dims$w_mm, hm_h_mm = dims$h_mm)
-    }, ignoreInit = TRUE)
+      list(
+        ht = ht,
+        hm_w_mm = dims$w_mm,
+        hm_h_mm = dims$h_mm,
+        label_extra_w_mm = label_extra$extra_w_mm,
+        label_extra_h_mm = label_extra$extra_h_mm
+      )
+    }, ignoreInit = FALSE)
     
     output$plot_mol <- shiny::renderPlot({
       shiny::req(mol_nonce() > 0)
@@ -601,26 +678,14 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       content = function(file) {
         shiny::req(mol_nonce() > 0)
         obj <- mol_obj()
-        d <- .hm_export_dims(obj$hm_w_mm, obj$hm_h_mm, extra_w_mm = 25, extra_h_mm = 115)
+        d <- .hm_export_dims(
+          obj$hm_w_mm, obj$hm_h_mm,
+          label_extra_w_mm = obj$label_extra_w_mm,
+          label_extra_h_mm = obj$label_extra_h_mm
+        )
         grDevices::pdf(file, width = .hm_mm_to_in(d$dev_w_mm), height = .hm_mm_to_in(d$dev_h_mm))
+        on.exit(grDevices::dev.off(), add = TRUE)
         .draw_bottom_legends(obj$ht)
-        grDevices::dev.off()
-      }
-    )
-    
-    output$dl_mol_png <- shiny::downloadHandler(
-      filename = function() sprintf("heatmap_topvar_scaled_%s.png", Sys.Date()),
-      content = function(file) {
-        shiny::req(mol_nonce() > 0)
-        obj <- mol_obj()
-        d <- .hm_export_dims(obj$hm_w_mm, obj$hm_h_mm, extra_w_mm = 25, extra_h_mm = 115)
-        dpi <- 220
-        grDevices::png(file,
-                       width  = .hm_mm_to_px(d$dev_w_mm, dpi),
-                       height = .hm_mm_to_px(d$dev_h_mm, dpi),
-                       res = dpi)
-        .draw_bottom_legends(obj$ht)
-        grDevices::dev.off()
       }
     )
   })

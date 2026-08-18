@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MSLipidMapper UI redesign sample</title>
+  <style>
+    :root {
+      --ink: #18202c;
+      --muted: #687385;
+      --line: #d9e0ea;
+      --panel: #ffffff;
+      --soft: #f4f7fb;
+      --soft-2: #edf3f8;
+      --brand: #174b63;
+      --brand-2: #0d7382;
+      --accent: #c5532d;
+      --ok: #2f7b58;
+      --warn: #ad741f;
+      --danger: #b94b55;
+      --shadow: 0 12px 34px rgba(31, 46, 66, .08);
+      --radius: 8px;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 264px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 18px 14px;
+      background: #0f2633;
+      color: #d7e7ed;
+      overflow: auto;
+    }
+
+    .brand {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 6px 8px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 14px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,0)),
+        linear-gradient(135deg, #e6a24f, #1fa1a8 58%, #2f6075);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 4px;
+      color: #9cb4bf;
+      font-size: 12px;
+    }
+
+    .nav-section {
+      margin: 16px 0 8px;
+      padding: 0 8px;
+      color: #8fa8b5;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .nav {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      gap: 9px;
+      align-items: center;
+      min-height: 38px;
+      border: 0;
+      border-radius: 7px;
+      color: #d7e7ed;
+      background: transparent;
+      padding: 8px 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .nav button:hover { background: rgba(255,255,255,.08); }
+    .nav button.active {
+      background: #eaf6f7;
+      color: #0f2633;
+      font-weight: 700;
+    }
+
+    .nav .num {
+      color: inherit;
+      opacity: .7;
+      font-weight: 700;
+    }
+
+    .pill {
+      justify-self: end;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 11px;
+      opacity: .72;
+    }
+
+    .workspace {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      padding: 12px 26px;
+      background: rgba(244,247,251,.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .crumb {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 0;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .crumb strong {
+      color: var(--ink);
+      font-size: 17px;
+    }
+
+    .status-strip {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 3px rgba(47,123,88,.12);
+    }
+
+    main {
+      min-width: 0;
+      padding: 22px 26px 34px;
+    }
+
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .page-head h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .page-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 850px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      min-height: 34px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      padding: 7px 11px;
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn.primary {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .btn.accent {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .btn.danger {
+      border-color: var(--danger);
+      background: #fff5f6;
+      color: var(--danger);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.layout-analysis { grid-template-columns: 320px minmax(0, 1fr); align-items: start; }
+    .grid.layout-three { grid-template-columns: 300px minmax(0, .95fr) minmax(0, 1.2fr); align-items: start; }
+
+    .analysis-board {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .analysis-board .settings-rail {
+      grid-row: span 2;
+    }
+
+    .analysis-board .wide-output {
+      grid-column: 2 / 4;
+    }
+
+    .plot-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .panel.tight { box-shadow: none; }
+
+    .panel-head {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-head h3 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    .panel-body {
+      padding: 14px;
+    }
+
+    .module-card {
+      min-height: 148px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(31,46,66,.05);
+    }
+
+    .module-card h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .module-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #405066;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid #cfd8e4;
+      border-radius: 7px;
+      background: #fff;
+      padding: 7px 9px;
+      color: var(--ink);
+    }
+
+    .segmented {
+      display: inline-grid;
+      grid-auto-flow: column;
+      gap: 2px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft-2);
+    }
+
+    .segmented button {
+      min-height: 30px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      padding: 5px 10px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .segmented button.active {
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 1px 8px rgba(31,46,66,.08);
+      font-weight: 700;
+    }
+
+    .subnav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft-2);
+    }
+
+    .subnav button {
+      min-height: 34px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .subnav button.active {
+      background: #fff;
+      color: var(--ink);
+      font-weight: 700;
+      box-shadow: 0 1px 8px rgba(31,46,66,.08);
+    }
+
+    .upload-page { display: none; }
+    .upload-page.active { display: block; }
+
+    .lipid-mode { display: none; }
+    .lipid-mode.active { display: grid; }
+
+    .check-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .check-list label {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 8px;
+      align-items: start;
+      color: #3d4a5c;
+      font-size: 13px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+
+    .kpi span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .kpi strong {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .plot {
+      position: relative;
+      min-height: 300px;
+      border-radius: var(--radius);
+      border: 1px solid #d6dfeb;
+      background:
+        linear-gradient(#edf3f8 1px, transparent 1px),
+        linear-gradient(90deg, #edf3f8 1px, transparent 1px),
+        #fff;
+      background-size: 42px 42px;
+      overflow: hidden;
+    }
+
+    .plot.square {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+    }
+
+    .plot.square.fit {
+      width: min(100%, 34vh, 360px);
+      margin: 0 auto;
+    }
+
+    .plot.heatmap-fit {
+      min-height: clamp(180px, 28vh, 320px);
+    }
+
+    .plot.short { min-height: 220px; }
+    .plot.tall { min-height: 560px; }
+
+    .scatter-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      box-shadow: 0 0 0 4px rgba(13,115,130,.14);
+    }
+
+    .bar {
+      position: absolute;
+      bottom: 42px;
+      width: 24px;
+      border-radius: 5px 5px 0 0;
+      background: var(--accent);
+    }
+
+    .heat-cell {
+      position: absolute;
+      border-radius: 3px;
+      background: #d8b365;
+    }
+
+    .plot-label {
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.88);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .network {
+      min-height: 560px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(13,115,130,.14), transparent 18%),
+        radial-gradient(circle at 74% 70%, rgba(197,83,45,.14), transparent 20%),
+        #fff;
+    }
+
+    .network.compact {
+      min-height: clamp(300px, 44vh, 480px);
+    }
+
+    .node {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      min-width: 82px;
+      height: 36px;
+      border: 2px solid var(--brand-2);
+      border-radius: 999px;
+      background: #f5fbfc;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .edge {
+      position: absolute;
+      height: 2px;
+      background: #a8bac8;
+      transform-origin: left center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid #e3e9f1;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      color: #405066;
+      background: #f7fafc;
+      font-size: 12px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .note {
+      border: 1px solid #ead59d;
+      border-radius: var(--radius);
+      background: #fff9e9;
+      padding: 10px 12px;
+      color: #604617;
+    }
+
+    .drawer {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: min(420px, calc(100vw - 36px));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(31,46,66,.22);
+      display: none;
+      z-index: 20;
+    }
+
+    .drawer.open { display: block; }
+
+    .drawer .panel-head {
+      background: #f7fafc;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid.cols-4, .grid.cols-3, .grid.layout-three, .grid.layout-analysis {
+        grid-template-columns: 1fr;
+      }
+      .analysis-board {
+        grid-template-columns: 1fr;
+      }
+      .analysis-board .settings-rail,
+      .analysis-board .wide-output {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .topbar, .page-head {
+        grid-template-columns: 1fr;
+      }
+      .toolbar, .status-strip { justify-content: flex-start; }
+      main { padding: 18px 14px 28px; }
+      .nav { grid-template-columns: 1fr; }
+      .grid.cols-2, .form-grid.two, .kpis, .plot-pair { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">MS</div>
+        <div>
+          <h1>MSLipidMapper</h1>
+          <span>lipidomics workflow</span>
+        </div>
+      </div>
+
+      <div class="nav-section">Workflow</div>
+      <div class="nav">
+        <button class="active" data-view="upload"><span class="num">1</span><span>Upload</span><span class="pill">data</span></button>
+        <button data-view="normalize"><span class="num">2</span><span>Normalize</span><span class="pill">QC</span></button>
+      </div>
+
+      <div class="nav-section">Analysis</div>
+      <div class="nav">
+        <button data-view="analysis"><span class="num">3</span><span>Analysis hub</span><span></span></button>
+        <button data-view="pca"><span class="num">PC</span><span>PCA</span><span></span></button>
+        <button data-view="opls"><span class="num">OP</span><span>OPLS-DA</span><span></span></button>
+        <button data-view="feature"><span class="num">FT</span><span>Feature</span><span></span></button>
+        <button data-view="heatmap"><span class="num">HM</span><span>Heatmap</span><span></span></button>
+        <button data-view="correlation"><span class="num">CR</span><span>Correlation</span><span></span></button>
+        <button data-view="volcano"><span class="num">VC</span><span>Volcano</span><span></span></button>
+        <button data-view="enrich"><span class="num">EN</span><span>Enrichment</span><span></span></button>
+        <button data-view="decoupled"><span class="num">DC</span><span>Decoupled chains</span><span></span></button>
+        <button data-view="pathway"><span class="num">NW</span><span>Pathway analysis</span><span></span></button>
+      </div>
+
+      <div class="nav-section">Utility</div>
+      <div class="nav">
+        <button data-view="utility"><span class="num">4</span><span>Utility hub</span><span></span></button>
+        <button data-view="ontology"><span class="num">ON</span><span>Ontology builder</span><span></span></button>
+        <button data-view="editor"><span class="num">CY</span><span>Pathway editor</span><span></span></button>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="crumb"><strong id="page-title">Upload</strong><span>/</span><span id="page-subtitle">prepare lipidomics and transcriptome inputs</span></div>
+        <div class="status-strip">
+          <span class="status"><span class="dot"></span>Lipid SE ready</span>
+          <span class="status">128 samples</span>
+          <span class="status">2,418 lipids</span>
+          <button class="btn" id="advanced-top">Advanced</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="view active" id="upload">
+          <div class="page-head">
+            <div>
+              <h2>Upload and curate data</h2>
+              <p>Upload is split into dedicated pages because input parsing, sample selection, metadata mapping, feature preview, and transcriptome alignment are separate decisions.</p>
+            </div>
+            <div class="toolbar">
+              <button class="btn" data-view="ontology">Ontology builder</button>
+              <button class="btn primary" data-upload-page="upload-samples">Next: sample selection</button>
+            </div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><span>Samples</span><strong>128</strong></div>
+            <div class="kpi"><span>Analysis samples</span><strong>112</strong></div>
+            <div class="kpi"><span>Lipid features</span><strong>2,418</strong></div>
+            <div class="kpi"><span>Classes</span><strong>6</strong></div>
+          </div>
+
+          <div class="subnav">
+            <button class="active" data-upload-page="upload-input">1. Lipidomics input</button>
+            <button data-upload-page="upload-samples">2. Select samples</button>
+            <button data-upload-page="upload-metadata">3. Metadata and class</button>
+            <button data-upload-page="upload-features">4. Feature preview</button>
+            <button data-upload-page="upload-transcriptome">5. Transcriptome</button>
+          </div>
+
+          <div class="upload-page active" id="upload-input">
+            <div class="grid cols-2">
+              <div class="panel">
+                <div class="panel-head">
+                  <h3>Lipidomics input</h3>
+                  <div class="segmented"><button class="active" data-lipid-mode="msdial">MS-DIAL</button><button data-lipid-mode="generic">Generic</button></div>
+                </div>
+                <div class="panel-body form-grid">
+                  <div class="lipid-mode active form-grid" id="lipid-mode-msdial">
+                    <div class="field"><label>MS-DIAL alignment CSV</label><input value="Lipid_AlignmentTable.csv"></div>
+                    <div class="form-grid two">
+                      <div class="field"><label>Annotation columns</label><input value="1:35"></div>
+                      <div class="field"><label>Data start row</label><input value="6"></div>
+                    </div>
+                    <button class="btn primary">Submit MS-DIAL</button>
+                    <div class="note">MS-DIAL mode parses the alignment CSV and then adds acyl-chain metadata when lipid rules are available.</div>
+                  </div>
+                  <div class="lipid-mode form-grid" id="lipid-mode-generic">
+                    <div class="field"><label>Assay CSV, wide: samples x lipids</label><input value="assay.csv"></div>
+                    <div class="field"><label>Feature/Ontology CSV</label><input value="feature_ontology.csv"></div>
+                    <div class="form-grid two">
+                      <div class="field"><label>Sample ID column</label><select><option>sample_id</option></select></div>
+                      <div class="field"><label>Sample class column</label><select><option>class</option><option>None</option></select></div>
+                    </div>
+                    <div class="form-grid two">
+                      <div class="field"><label>Feature name column</label><select><option>Metabolite name</option></select></div>
+                      <div class="field"><label>Ontology column</label><select><option>Ontology</option></select></div>
+                    </div>
+                    <div class="toolbar" style="justify-content:flex-start"><button class="btn">Go to Ontology builder</button><button class="btn primary">Submit Generic</button></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-head"><h3>Sample metadata input</h3><button class="btn primary">Apply sample metadata</button></div>
+                <div class="panel-body form-grid">
+                  <div class="segmented"><button class="active">CSV</button><button>TSV</button></div>
+                  <div class="field"><label>Sample metadata file</label><input value="Metadata.csv"></div>
+                  <div class="form-grid two">
+                    <div class="field"><label>Column for sample_id</label><select><option>sample_id</option></select></div>
+                    <div class="field"><label>Primary grouping column</label><select><option>class</option><option>condition</option></select></div>
+                  </div>
+                  <div class="table-wrap">
+                    <table><thead><tr><th>sample_id</th><th>class</th><th>batch</th><th>matched</th></tr></thead><tbody><tr><td>S01</td><td>Control</td><td>A</td><td>yes</td></tr><tr><td>S02</td><td>Treated</td><td>A</td><td>yes</td></tr><tr><td>S99</td><td>Treated</td><td>C</td><td>pending</td></tr></tbody></table>
+                  </div>
+                  <div class="note">Metadata can be applied immediately after lipidomics input and preserves the current use checkbox/filter state.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="upload-page" id="upload-samples">
+            <div class="page-head" style="margin-bottom:12px;">
+              <div>
+                <h2 style="font-size:20px;">Select samples for analysis</h2>
+                <p>This page mirrors the existing master sample table, used-sample table, and apply-edits workflow without forcing it into the first upload panel.</p>
+              </div>
+              <div class="toolbar"><button class="btn">Select all non-QC</button><button class="btn accent">Apply edits and update analysis samples</button></div>
+            </div>
+            <div class="grid layout-analysis">
+              <div class="panel">
+                <div class="panel-head"><h3>Class quick filter</h3><button class="btn">Apply class table</button></div>
+                <div class="panel-body">
+                  <div class="check-list">
+                    <label><input type="checkbox" checked>Control <span class="status">42</span></label>
+                    <label><input type="checkbox" checked>Treated <span class="status">45</span></label>
+                    <label><input type="checkbox" checked>Dose High <span class="status">25</span></label>
+                    <label><input type="checkbox">Quality control <span class="status">8</span></label>
+                    <label><input type="checkbox">Blank <span class="status">8</span></label>
+                  </div>
+                  <div class="note" style="margin-top:12px;">Class-level toggles write back to the per-sample use column, matching the current class table behavior.</div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><h3>Master sample table</h3><span class="status">editable use/class/metadata</span></div>
+                <div class="panel-body table-wrap">
+                  <table>
+                    <thead><tr><th>use</th><th>sample_id</th><th>class</th><th>batch</th><th>sex</th><th>note</th></tr></thead>
+                    <tbody>
+                      <tr><td><input type="checkbox" checked></td><td>S01</td><td>Control</td><td>A</td><td>F</td><td></td></tr>
+                      <tr><td><input type="checkbox" checked></td><td>S02</td><td>Treated</td><td>A</td><td>M</td><td></td></tr>
+                      <tr><td><input type="checkbox" checked></td><td>S03</td><td>Dose High</td><td>B</td><td>F</td><td></td></tr>
+                      <tr><td><input type="checkbox"></td><td>QC01</td><td>Quality control</td><td>B</td><td></td><td>auto off</td></tr>
+                      <tr><td><input type="checkbox"></td><td>Blank01</td><td>Blank</td><td>B</td><td></td><td>auto off</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="panel" style="margin-top:14px;">
+              <div class="panel-head"><h3>Samples currently used for analysis</h3><span class="status">read-only preview</span></div>
+              <div class="panel-body table-wrap">
+                <table>
+                  <thead><tr><th>sample_id</th><th>class</th><th>batch</th><th>source</th></tr></thead>
+                  <tbody><tr><td>S01</td><td>Control</td><td>A</td><td>lipidomics + transcriptome</td></tr><tr><td>S02</td><td>Treated</td><td>A</td><td>lipidomics + transcriptome</td></tr><tr><td>S03</td><td>Dose High</td><td>B</td><td>lipidomics only</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="upload-page" id="upload-metadata">
+            <div class="grid cols-2">
+              <div class="panel">
+                <div class="panel-head"><h3>Import sample metadata</h3><button class="btn primary">Apply sample metadata</button></div>
+                <div class="panel-body form-grid">
+                  <div class="segmented"><button class="active">CSV</button><button>TSV</button></div>
+                  <div class="field"><label>Sample metadata file</label><input value="Metadata.csv"></div>
+                  <div class="form-grid two">
+                    <div class="field"><label>Column for sample_id</label><select><option>sample_id</option></select></div>
+                    <div class="field"><label>Primary grouping column</label><select><option>class</option><option>condition</option></select></div>
+                  </div>
+                  <div class="note">Applying sample metadata preserves the current use checkbox/filter state and merges extra columns into colData.</div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><h3>Import preview and mapping status</h3></div>
+                <div class="panel-body">
+                  <div class="table-wrap">
+                    <table><thead><tr><th>sample_id</th><th>condition</th><th>batch</th><th>matched</th></tr></thead><tbody><tr><td>S01</td><td>Control</td><td>A</td><td>yes</td></tr><tr><td>S02</td><td>Treated</td><td>A</td><td>yes</td></tr><tr><td>S99</td><td>Treated</td><td>C</td><td>no</td></tr></tbody></table>
+                  </div>
+                  <div class="note" style="margin-top:12px;">Mapped class to 112/128 samples. Unmatched sample IDs are shown before applying.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="upload-page" id="upload-features">
+            <div class="grid cols-2">
+              <div class="panel">
+                <div class="panel-head"><h3>rowData preview</h3><span class="status">first 200 rows</span></div>
+                <div class="panel-body table-wrap">
+                  <table><thead><tr><th>feature_id</th><th>Metabolite name</th><th>Ontology</th><th>subclass</th><th>acyl_chains</th></tr></thead><tbody><tr><td>L001</td><td>PC 34:1</td><td>PC</td><td>PC</td><td>16:0;18:1</td></tr><tr><td>L002</td><td>Cer 42:2</td><td>Cer</td><td>Cer</td><td>18:1;24:1</td></tr><tr><td>L003</td><td>PE 36:2</td><td>PE</td><td>PE</td><td>18:1;18:1</td></tr></tbody></table>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><h3>Feature checks</h3></div>
+                <div class="panel-body">
+                  <div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+                    <div class="kpi"><span>Duplicated features</span><strong>0</strong></div>
+                    <div class="kpi"><span>Unknown ontology</span><strong>17</strong></div>
+                    <div class="kpi"><span>With acyl chains</span><strong>2,201</strong></div>
+                    <div class="kpi"><span>SPB detected</span><strong>84</strong></div>
+                  </div>
+                  <div class="note">This page gives the user a stopping point to check parsed ontology and acyl-chain annotation before moving to normalization.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="upload-page" id="upload-transcriptome">
+            <div class="grid layout-analysis">
+              <div class="panel">
+                <div class="panel-head"><h3>Transcriptome input</h3><button class="btn primary">Submit transcriptome</button></div>
+                <div class="panel-body form-grid">
+                  <div class="field"><label>Transcriptome CSV</label><input value="Transcriptome.csv"></div>
+                  <div class="field"><label>Organism</label><select><option>mmusculus</option><option>hsapiens</option></select></div>
+                  <div class="form-grid two">
+                    <div class="field"><label>Symbol column</label><input value="1"></div>
+                    <div class="field"><label>Ensembl column</label><input value="2"></div>
+                  </div>
+                  <div class="note">Transcriptome samples are automatically re-synchronized when lipidomics sample/class selection changes.</div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-head"><h3>Transcriptome alignment preview</h3><span class="status">kept 110, dropped 18</span></div>
+                <div class="panel-body">
+                  <div class="table-wrap">
+                    <table><thead><tr><th>sample_id</th><th>class</th><th>lipidomics</th><th>transcriptome</th><th>status</th></tr></thead><tbody><tr><td>S01</td><td>Control</td><td>yes</td><td>yes</td><td>kept</td></tr><tr><td>S02</td><td>Treated</td><td>yes</td><td>yes</td><td>kept</td></tr><tr><td>S03</td><td>Dose High</td><td>yes</td><td>no</td><td>lipid only</td></tr></tbody></table>
+                  </div>
+                  <div class="plot short" style="margin-top:12px;"><span class="plot-label">Gene rowData / colData preview area</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="normalize">
+          <div class="page-head">
+            <div><h2>Normalize and inspect QC</h2><p>Method selection, explanation, QC visualization, figure download, and normalized data export are arranged as one continuous task.</p></div>
+            <div class="toolbar"><button class="btn primary">Apply normalization</button><button class="btn">Download data</button></div>
+          </div>
+          <div class="grid layout-analysis">
+            <div class="panel">
+              <div class="panel-head"><h3>Settings</h3></div>
+              <div class="panel-body form-grid">
+                <div class="field"><label>Method</label><select><option>none</option><option>sum</option><option>median</option></select></div>
+                <div class="field"><label>X label angle</label><input type="range" min="0" max="90" value="45"></div>
+                <div class="note">sum scales each sample column so total intensity equals a common target.</div>
+                <div class="field"><label>Plot format</label><select><option>PNG</option><option>PDF</option></select></div>
+                <button class="btn primary">Download plot</button>
+                <div class="field"><label>Download data format</label><select><option>Matrix CSV</option><option>Matrix TSV</option><option>SummarizedExperiment RDS</option></select></div>
+                <button class="btn">Download normalized data</button>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3>Per-sample intensity after normalization</h3></div>
+              <div class="panel-body">
+                <div class="plot tall">
+                  <span class="plot-label">QC box/dot plot</span>
+                  <div class="bar" style="left:9%;height:62%;"></div><div class="bar" style="left:17%;height:58%;"></div><div class="bar" style="left:25%;height:70%;"></div><div class="bar" style="left:33%;height:53%;"></div><div class="bar" style="left:41%;height:61%;"></div><div class="bar" style="left:49%;height:66%;"></div><div class="bar" style="left:57%;height:57%;"></div><div class="bar" style="left:65%;height:68%;"></div><div class="bar" style="left:73%;height:55%;"></div><div class="bar" style="left:81%;height:63%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="analysis">
+          <div class="page-head">
+            <div><h2>Analysis hub</h2><p>All existing analysis modules are kept, but the hub uses denser cards with clearer grouping and direct action placement.</p></div>
+          </div>
+          <div class="grid cols-4">
+            <article class="module-card"><h3>PCA</h3><p>Sample structure, loadings, and loading heatmap.</p><button class="btn primary" data-view="pca">Open PCA</button></article>
+            <article class="module-card"><h3>OPLS-DA</h3><p>Score plot, VIP plot, VIP CSV, and heatmap.</p><button class="btn primary" data-view="opls">Open OPLS-DA</button></article>
+            <article class="module-card"><h3>Feature</h3><p>Lipid and gene feature plots with shared Advanced settings.</p><button class="btn primary" data-view="feature">Open Feature</button></article>
+            <article class="module-card"><h3>Heatmap</h3><p>Class-level and molecule-level heatmaps.</p><button class="btn primary" data-view="heatmap">Open Heatmap</button></article>
+            <article class="module-card"><h3>Correlation</h3><p>Single pair, focused lists, and all-pair scan.</p><button class="btn primary" data-view="correlation">Open Correlation</button></article>
+            <article class="module-card"><h3>Volcano</h3><p>Group comparison, ggplot/plotly, table export.</p><button class="btn primary" data-view="volcano">Open Volcano</button></article>
+            <article class="module-card"><h3>Enrichment</h3><p>ORA for lipid classes and acyl-chain terms.</p><button class="btn primary" data-view="enrich">Open Enrichment</button></article>
+            <article class="module-card"><h3>Decoupled chains</h3><p>Chain correlation heatmap and decoupling panels.</p><button class="btn primary" data-view="decoupled">Open Decoupled</button></article>
+            <article class="module-card"><h3>Pathway analysis</h3><p>Cytoscape network mapping and export.</p><button class="btn primary" data-view="pathway">Open Pathway</button></article>
+          </div>
+        </section>
+
+        <section class="view" id="pca">
+          <div class="page-head"><div><h2>PCA</h2><p>Settings stay on the left; score, loading, and loading heatmap remain visible without oversized gutters.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run PCA</button></div></div>
+          <div class="analysis-board">
+            <div class="panel settings-rail"><div class="panel-head"><h3>PCA settings</h3></div><div class="panel-body form-grid"><div class="field"><label>Dataset</label><select><option>Lipid</option><option>Gene</option></select></div><div class="form-grid two"><div class="field"><label>PC X</label><input value="1"></div><div class="field"><label>PC Y</label><input value="2"></div></div><div class="field"><label>Point size</label><input type="range" value="3"></div><div class="form-grid two"><div class="field"><label>Loading PC</label><input value="1"></div><div class="field"><label>Top-N</label><input value="10"></div></div><div class="form-grid two"><div class="field"><label>Heatmap top</label><input value="20"></div><div class="field"><label>Z-limit</label><input value="2"></div></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>Score plot</h3><button class="btn">PDF</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">PC1 vs PC2</span><i class="scatter-dot" style="left:28%;top:35%"></i><i class="scatter-dot" style="left:44%;top:52%;background:#c5532d"></i><i class="scatter-dot" style="left:62%;top:42%;background:#2f7b58"></i><i class="scatter-dot" style="left:53%;top:66%"></i></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>Loading plot</h3><button class="btn">PDF</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">Top loadings</span><div class="bar" style="left:12%;height:30%"></div><div class="bar" style="left:22%;height:52%;background:#0d7382"></div><div class="bar" style="left:32%;height:44%"></div><div class="bar" style="left:42%;height:70%;background:#0d7382"></div><div class="bar" style="left:52%;height:35%"></div><div class="bar" style="left:62%;height:60%;background:#0d7382"></div></div></div></div>
+            <div class="panel wide-output"><div class="panel-head"><h3>Loading heatmap</h3><button class="btn">Download heatmap PDF</button></div><div class="panel-body"><div class="plot heatmap-fit"><span class="plot-label">Variables shown in loading plot are included</span></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="opls">
+          <div class="page-head"><div><h2>OPLS-DA</h2><p>Score plot, VIP plot, VIP CSV, and heatmap outputs are preserved.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run OPLS-DA</button></div></div>
+          <div class="analysis-board">
+            <div class="panel settings-rail"><div class="panel-head"><h3>Model view settings</h3></div><div class="panel-body form-grid"><div class="field"><label>Dataset</label><select><option>Lipid</option><option>Transcriptome</option></select></div><div class="field"><label>Groups to compare (class)</label><select><option>Control + Treated</option><option>Control + Dose High</option></select></div><div class="field"><label>Score point size</label><input value="5"></div><div class="field"><label>VIP threshold</label><input value="1"></div><div class="form-grid two"><div class="field"><label>Top VIP</label><input value="20"></div><div class="field"><label>Heatmap top</label><input value="25"></div></div><div class="field"><label>Heatmap Z-limit</label><input value="2"></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>OPLS-DA score</h3><button class="btn">PDF</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">Score plot</span><i class="scatter-dot" style="left:31%;top:38%"></i><i class="scatter-dot" style="left:63%;top:48%;background:#c5532d"></i><i class="scatter-dot" style="left:56%;top:61%;background:#c5532d"></i></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>VIP plot</h3><div class="toolbar"><button class="btn">PDF</button><button class="btn">CSV</button></div></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">VIP variables</span><div class="bar" style="left:14%;height:70%"></div><div class="bar" style="left:26%;height:64%"></div><div class="bar" style="left:38%;height:45%"></div><div class="bar" style="left:50%;height:39%"></div></div></div></div>
+            <div class="panel wide-output"><div class="panel-head"><h3>VIP heatmap</h3><button class="btn">Download heatmap PDF</button></div><div class="panel-body"><div class="plot heatmap-fit"></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="feature">
+          <div class="page-head"><div><h2>Feature</h2><p>Lipid and gene plotting remain under one module; plot type and feature selection sit close to the output.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Update plot</button></div></div>
+          <div class="plot-pair">
+            <div class="panel"><div class="panel-head"><h3>Class-level plot</h3><button class="btn">Download SVG</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">Class-level single feature</span></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>Molecule-level plot</h3><button class="btn">Download SVG</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">Selected molecule</span></div></div></div>
+          </div>
+          <div class="grid layout-analysis" style="margin-top:12px;">
+            <div class="panel"><div class="panel-head"><h3>Plot settings</h3><div class="segmented"><button class="active">Lipid</button><button>Gene</button></div></div><div class="panel-body form-grid"><div class="field"><label>Plot type</label><select><option>dot</option><option>box</option><option>violin</option></select></div><div class="field"><label>Lipid class</label><select><option>PC</option><option>Cer</option><option>PE</option></select></div><div class="field"><label>Molecule</label><select><option>PC 34:1</option></select></div><div class="form-grid two"><div class="field"><label>Top-N molecules</label><input value="40"></div><div class="field"><label>Top-N chains</label><input value="12"></div></div><div class="check-list"><label><input type="checkbox" checked>Remove odd-carbon chains</label><label><input type="checkbox">Require all selected chains</label></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>Top molecules in selected lipid class</h3><div class="segmented"><button class="active">Heatmap</button><button>Bar</button><button>Chains</button></div></div><div class="panel-body"><div class="plot heatmap-fit"><span class="plot-label">Heatmap / bar / acyl-chain composition</span></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="heatmap">
+          <div class="page-head"><div><h2>Heatmap</h2><p>Class and molecule heatmaps keep their tabs, clustering options, shared palette option, and PDF/PNG export.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Heatmap settings</h3><div class="segmented"><button class="active">Class</button><button>Molecule TopVar</button></div></div><div class="panel-body form-grid"><div class="field"><label>Aggregation</label><select><option>sum</option><option>mean</option></select></div><div class="field"><label>Top N molecules</label><input value="80"></div><div class="field"><label>Variability metric</label><select><option>var</option><option>mad</option></select></div><div class="field"><label>Samples on</label><select><option>rows (y-axis)</option><option>columns (x-axis)</option></select></div><div class="field"><label>Scaling</label><select><option>Scale by feature</option><option>Scale by sample</option></select></div><div class="form-grid two"><div class="field"><label>Tile size (mm)</label><input value="4.2"></div><div class="field"><label>Max heatmap size (mm)</label><input value="260"></div></div><div class="check-list"><label><input type="checkbox" checked>Use shared class colors</label><label><input type="checkbox" checked>Cluster samples</label><label><input type="checkbox" checked>Cluster subclasses / molecules</label><label><input type="checkbox" checked>Add molecule subclass annotation</label></div><button class="btn">Download PDF</button><button class="btn">Download PNG</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Heatmap output</h3></div><div class="panel-body"><div class="plot tall"><span class="plot-label">ComplexHeatmap output</span></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="correlation">
+          <div class="page-head"><div><h2>Correlation</h2><p>Single pair, focused correlation lists, and all-pair scan are available as compact tabs.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Correlation controls</h3><div class="segmented"><button class="active">Single</button><button>Focus</button><button>All pair</button></div></div><div class="panel-body form-grid"><div class="field"><label>Single mode</label><select><option>Lipid vs gene</option><option>Lipid ratio vs gene</option><option>Lipid vs lipid</option><option>Gene vs gene</option></select></div><div class="form-grid two"><div class="field"><label>X / numerator</label><select><option>PC 34:1</option></select></div><div class="field"><label>Y / denominator / gene</label><select><option>Fasn</option></select></div></div><div class="field"><label>Method</label><select><option>pearson</option><option>spearman</option></select></div><div class="field"><label>Transform</label><select><option>Log2</option><option>None</option></select></div><div class="field"><label>View</label><select><option>Static ggplot</option><option>Interactive plotly</option></select></div><div class="form-grid two"><div class="field"><label>Min |r|</label><input value="0.6"></div><div class="field"><label>Max FDR</label><input value="0.1"></div></div><div class="form-grid two"><div class="field"><label>Top N pairs</label><input value="200"></div><div class="field"><label>Max lipids / genes heatmap</label><input value="30"></div></div><button class="btn">Download ggplot PDF</button><button class="btn">Download all results CSV</button><button class="btn">Download filtered CSV</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Scatter, heatmap, and result table</h3></div><div class="panel-body"><div class="plot square"><span class="plot-label">Scatter plot, square</span></div><div class="table-wrap" style="margin-top:12px;"><table><thead><tr><th>lipid</th><th>gene</th><th>rho</th><th>p_adj</th></tr></thead><tbody><tr><td>PC 34:1</td><td>Fasn</td><td>0.72</td><td>0.004</td></tr><tr><td>Cer 42:2</td><td>Sptlc1</td><td>0.65</td><td>0.012</td></tr></tbody></table></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="volcano">
+          <div class="page-head"><div><h2>Volcano</h2><p>Group comparison, statistical test, p-value adjustment, plot/table tabs, and downloads stay intact.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Comparison</h3></div><div class="panel-body form-grid"><div class="field"><label>Dataset</label><select><option>Lipid</option><option>Gene</option></select></div><div class="form-grid two"><div class="field"><label>Group A (baseline)</label><select><option>Control</option></select></div><div class="field"><label>Group B (compare)</label><select><option>Treated</option></select></div></div><div class="field"><label>Test</label><select><option>wilcox</option><option>t</option></select></div><div class="field"><label>P-value adjustment</label><select><option>BH</option><option>bonferroni</option><option>holm</option><option>fdr</option><option>BY</option><option>hochberg</option></select></div><div class="field"><label>P-value used in volcano</label><select><option>Adjusted (padj)</option><option>Raw (p)</option></select></div><div class="form-grid two"><div class="field"><label>P-value threshold</label><input value="0.05"></div><div class="field"><label>FC threshold</label><input value="2"></div></div><div class="field"><label>Point size</label><input value="2.0"></div><div class="field"><label>View</label><select><option>plotly</option><option>ggplot</option></select></div><button class="btn">Download plot PDF</button><button class="btn">Download table CSV</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Volcano plot and table</h3></div><div class="panel-body"><div class="plot square"><span class="plot-label">log2FC vs -log10(P), square</span><i class="scatter-dot" style="left:38%;top:42%"></i><i class="scatter-dot" style="left:68%;top:24%;background:#c5532d"></i><i class="scatter-dot" style="left:24%;top:30%;background:#0d7382"></i></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="enrich">
+          <div class="page-head"><div><h2>Enrichment</h2><p>File input and SE-backed enrichment workflows retain background/significant terms, chain-term generation, plot, and CSV exports.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run enrichment</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Inputs and options</h3></div><div class="panel-body form-grid"><div class="field"><label>Background CSV/TSV</label><input value="background.csv"></div><div class="field"><label>Significant CSV/TSV</label><input value="significant.csv"></div><div class="field"><label>Background lipid name/ID column</label><select><option>Metabolite name</option></select></div><div class="field"><label>Background Ontology column</label><select><option>Ontology</option></select></div><div class="field"><label>Significant lipid name/ID column</label><select><option>Metabolite name</option></select></div><div class="check-list"><label><input type="checkbox" checked>Generate acyl_chains and include Chain terms</label><label><input type="checkbox" checked>Drop missing Ontology</label></div><div class="field"><label>p-adjust method</label><select><option>BH</option><option>bonferroni</option><option>holm</option><option>hochberg</option><option>hommel</option><option>BY</option><option>fdr</option><option>none</option></select></div><div class="field"><label>adjusted p cutoff</label><input value="0.05"></div><div class="field"><label>Plot type</label><select><option>Barplot</option><option>UpSet</option></select></div><div class="form-grid two"><div class="field"><label>Barplot font size</label><input value="12"></div><div class="field"><label>UpSet max terms</label><input value="15"></div></div><div class="form-grid two"><div class="field"><label>UpSet text scale</label><input value="2.0"></div><div class="field"><label>UpSet point size</label><input value="3.0"></div></div><button class="btn">Download significant terms</button><button class="btn">Download background+acyl_chains</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Metadata / Plot / Table</h3><button class="btn">Download plot PDF</button></div><div class="panel-body"><div class="segmented"><button class="active">Metadata</button><button>Plot</button><button>Table</button></div><div class="plot short" style="margin-top:12px;"><span class="plot-label">Barplot or UpSet plot</span></div><div class="table-wrap" style="margin-top:12px;"><table><thead><tr><th>term</th><th>type</th><th>odds_ratio</th><th>p_adj</th></tr></thead><tbody><tr><td>PC</td><td>Ontology</td><td>2.8</td><td>0.006</td></tr><tr><td>Chain 18:1</td><td>Chain</td><td>2.1</td><td>0.018</td></tr></tbody></table></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="decoupled">
+          <div class="page-head"><div><h2>Decoupled chains</h2><p>Correlation heatmap and chain-vs-class-total panel plot remain separate views with export controls.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Run</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Controls</h3><div class="segmented"><button class="active">Heatmap</button><button>Panels</button></div></div><div class="panel-body form-grid"><div class="field"><label>Heatmap chains</label><select><option>All detected chains</option><option>18:1, 18:2</option></select></div><div class="field"><label>Subclass</label><select><option>PC</option><option>Cer</option></select></div><div class="field"><label>Chains</label><select><option>18:1 + 18:2</option><option>16:0 + 18:1</option></select></div><div class="field"><label>Correlation method</label><select><option>pearson</option><option>spearman</option></select></div><div class="field"><label>Compare to</label><select><option>Total: subset vs class total</option><option>Rest: subset vs class total minus subset</option></select></div><div class="form-grid two"><div class="field"><label>min_species_total</label><input value="1"></div><div class="field"><label>min_species_chain</label><input value="1"></div></div><div class="field"><label>min_chain_fraction_median</label><input value="0.01"></div><div class="form-grid two"><div class="field"><label>Point size</label><input value="3"></div><div class="field"><label>Point alpha</label><input value="0.8"></div></div><div class="check-list"><label><input type="checkbox">Drop outliers</label><label><input type="checkbox" checked>use lm R2</label><label><input type="checkbox">log10(raw + pseudo)</label></div><div class="form-grid two"><div class="field"><label>Outlier method</label><select><option>mad_resid</option><option>iqr_resid</option><option>cook</option></select></div><div class="field"><label>Outlier k</label><input value="4"></div></div><div class="form-grid two"><div class="field"><label>Base font size</label><input value="12"></div><div class="field"><label>Value label size</label><input value="3"></div></div><button class="btn">Export PDF</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Decoupling output</h3></div><div class="panel-body"><div class="plot short"><span class="plot-label">Correlation heatmap</span></div><div class="grid cols-2" style="margin-top:12px;"><div class="plot square"><span class="plot-label">Chain panel, square</span></div><div class="plot square"><span class="plot-label">Chain panel, square</span></div></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="pathway">
+          <div class="page-head"><div><h2>Pathway analysis</h2><p>Network import, fit/delete, SVG pathway mapping, enrichment/differential overlays, chain filtering, plot popups, and export actions are retained.</p></div><div class="toolbar"><button class="btn" data-advanced>Advanced</button><button class="btn primary">Pathway Mapping</button><button class="btn">Export PDF</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Network controls</h3></div><div class="panel-body form-grid"><div class="field"><label>Import networks (.cyjs/.gml/.gpml)</label><input value="remodeling.cyjs"></div><div class="field"><label>Network select</label><select><option>remodeling</option><option>ceramidepathway</option><option>global</option></select></div><div class="field"><label>Plot type</label><select><option>dot</option><option>violin</option><option>box</option></select></div><div class="check-list"><label><input type="checkbox" checked>Overlay multi-omics data</label><label><input type="checkbox">Exclude odd-carbon chains or SPB</label><label><input type="checkbox">Require all selected chains</label></div><div class="field"><label>Import enrichment CSV</label><input value="enrichment.csv"></div><div class="field"><label>Differential groups</label><select><option>B - A</option><option>Treated - Control</option></select></div><div class="field"><label>Aggregation (class-level)</label><select><option>sum</option><option>mean</option><option>median</option></select></div><div class="field"><label>Heatmap: #molecules</label><input value="20"></div><div class="toolbar" style="justify-content:flex-start"><button class="btn">Delete network</button><button class="btn">Fit</button><button class="btn primary">Pathway Mapping</button><button class="btn">Apply enrichment</button><button class="btn">Apply differential</button><button class="btn danger">Delete selected</button><button class="btn">Clear overlays</button></div></div></div>
+            <div class="panel"><div class="panel-head"><h3>Cytoscape pathway canvas</h3><div class="toolbar"><button class="btn">PDF with popups</button><button class="btn">Download plot</button></div></div><div class="panel-body"><div class="plot network compact"><span class="plot-label">interactive network</span><div class="edge" style="left:22%;top:34%;width:220px;transform:rotate(18deg)"></div><div class="edge" style="left:43%;top:48%;width:180px;transform:rotate(-25deg)"></div><div class="node" style="left:16%;top:28%">PC</div><div class="node" style="left:43%;top:40%;border-color:#c5532d">DAG</div><div class="node" style="left:68%;top:25%;border-color:#2f7b58">Cer</div><div class="node" style="left:61%;top:64%">PE</div></div><div class="plot-pair" style="margin-top:12px;"><div class="panel tight"><div class="panel-head"><h3>Selected node: class plot</h3><button class="btn">Download</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">left popup plot</span></div></div></div><div class="panel tight"><div class="panel-head"><h3>Selected node: molecule plot</h3><button class="btn">Download</button></div><div class="panel-body"><div class="plot square fit"><span class="plot-label">right popup plot</span></div></div></div></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="utility">
+          <div class="page-head"><div><h2>Utility hub</h2><p>Supporting tools remain available without competing with the main analysis workflow.</p></div></div>
+          <div class="grid cols-2">
+            <article class="module-card"><h3>Ontology builder</h3><p>Parse lipid names and export feature CSV with Ontology plus failed list.</p><button class="btn primary" data-view="ontology">Open Ontology builder</button></article>
+            <article class="module-card"><h3>Pathway editor</h3><p>Import, align, reset, fit, and export Cytoscape .cyjs pathway maps.</p><button class="btn primary" data-view="editor">Open Pathway editor</button></article>
+          </div>
+        </section>
+
+        <section class="view" id="ontology">
+          <div class="page-head"><div><h2>Ontology builder</h2><p>CSV/TSV parsing, lipid-name column selection, separator choice, parsing status, and downloads are preserved.</p></div><div class="toolbar"><button class="btn primary">Parse and build ontology</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Builder controls</h3></div><div class="panel-body form-grid"><div class="field"><label>Input mode</label><select><option>Upload file</option><option>Paste names</option></select></div><div class="field"><label>CSV/TSV file</label><input value="lipids.csv"></div><div class="segmented"><button class="active">CSV</button><button>TSV</button></div><div class="field"><label>Column containing lipid names</label><select><option>Metabolite name</option></select></div><button class="btn">Download feature CSV</button><button class="btn">Download failed list</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Preview and status</h3></div><div class="panel-body table-wrap"><table><thead><tr><th>name</th><th>Ontology</th><th>status</th></tr></thead><tbody><tr><td>PC 34:1</td><td>PC</td><td>parsed</td></tr><tr><td>Unknown lipid</td><td></td><td>failed</td></tr></tbody></table></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="editor">
+          <div class="page-head"><div><h2>Pathway editor</h2><p>Cytoscape-based layout editing keeps import, reset layout, fit, alignment, and .cyjs export controls.</p></div><div class="toolbar"><button class="btn">Fit to view</button><button class="btn primary">Export .cyjs</button></div></div>
+          <div class="grid layout-analysis">
+            <div class="panel"><div class="panel-head"><h3>Editor tools</h3></div><div class="panel-body form-grid"><div class="field"><label>Import .cyjs/.gml/.gpml</label><input value="pathway.cyjs"></div><div class="check-list"><label><input type="checkbox" checked>Fit after import</label></div><button class="btn">Load file (replace)</button><div class="field"><label>Edit mode</label><select><option>Move (drag only)</option><option>Add node</option><option>Add edge</option><option>Delete</option></select></div><button class="btn">Reset layout (cose)</button><button class="btn">Fit to view</button><button class="btn">Align selected: Horizontal</button><button class="btn">Align selected: Vertical</button><div class="field"><label>Export file name</label><input value="pathway.cyjs"></div><button class="btn primary">Export as .cyjs</button></div></div>
+            <div class="panel"><div class="panel-head"><h3>Editable pathway canvas</h3></div><div class="panel-body"><div class="plot network"><span class="plot-label">drag nodes, align, export</span><div class="node" style="left:22%;top:30%">Node A</div><div class="node" style="left:52%;top:42%">Node B</div><div class="node" style="left:38%;top:68%">Node C</div><div class="edge" style="left:30%;top:36%;width:210px;transform:rotate(14deg)"></div></div></div></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <aside class="drawer" id="advanced-drawer">
+    <div class="panel-head">
+      <h3>Advanced settings</h3>
+      <button class="btn" id="advanced-close">Close</button>
+    </div>
+    <div class="panel-body">
+      <div class="form-grid">
+        <h3>Colors / order</h3>
+        <div class="field"><label>Shared palette table</label><input value="Control #2f7b58, Treated #c5532d, QC #687385"></div>
+        <div class="field"><label>Manual x-axis order level</label><input value="Control=1, Treated=2, QC=99"></div>
+        <div class="field"><label>Panel split by sample metadata</label><select><option>Do not split</option><option>batch</option><option>sex</option></select></div>
+        <h3>Statistics</h3>
+        <div class="check-list"><label><input type="checkbox" checked>Show p-values</label></div>
+        <div class="field"><label>Test</label><select><option>wilcox</option><option>t.test</option></select></div>
+        <div class="field"><label>Label</label><select><option>p</option><option>stars</option><option>both</option></select></div>
+        <div class="field"><label>Label font size</label><input value="3.5"></div>
+        <div class="field"><label>Comparison mode</label><select><option>All pairwise comparisons</option><option>Reference vs others</option><option>Manual pairs</option></select></div>
+        <h3>Plot styling</h3>
+        <div class="form-grid two"><div class="field"><label>Base font size</label><input value="12"></div><div class="field"><label>Split label font size</label><input value="12"></div></div>
+        <div class="form-grid two"><div class="field"><label>Lipid y-axis label</label><input value="Abundance"></div><div class="field"><label>Gene y-axis label</label><input value="Abundance"></div></div>
+        <div class="form-grid two"><div class="field"><label>Dot point size / alpha</label><input value="2.4 / 0.75"></div><div class="field"><label>Dot jitter width</label><input value="0.12"></div></div>
+        <div class="form-grid two"><div class="field"><label>Box width / alpha</label><input value="0.65 / 0.55"></div><div class="field"><label>Box show points</label><select><option>TRUE</option><option>FALSE</option></select></div></div>
+        <div class="form-grid two"><div class="field"><label>Violin width / alpha</label><input value="0.85 / 0.45"></div><div class="field"><label>Violin trim / points</label><select><option>trim + show points</option><option>no trim</option></select></div></div>
+        <h3>Heatmap</h3>
+        <div class="check-list">
+          <label><input type="checkbox" checked>Show median line</label>
+          <label><input type="checkbox">Row z-score heatmaps</label>
+        </div>
+        <div class="field"><label>Top-N genes / molecules</label><input value="50"></div>
+      </div>
+      <div class="footer-actions">
+        <button class="btn">Reset</button>
+        <button class="btn primary">Apply</button>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    const titles = {
+      upload: ["Upload", "prepare lipidomics and transcriptome inputs"],
+      normalize: ["Normalize", "normalize lipidome data and inspect QC"],
+      analysis: ["Analysis hub", "choose an analysis module"],
+      pca: ["PCA", "scores, loadings, and loading heatmap"],
+      opls: ["OPLS-DA", "scores, VIPs, and VIP heatmap"],
+      feature: ["Feature", "lipid and gene feature visualization"],
+      heatmap: ["Heatmap", "class and molecule heatmaps"],
+      correlation: ["Correlation", "single, focus, and all-pair analysis"],
+      volcano: ["Volcano", "group comparison and differential table"],
+      enrich: ["Enrichment", "ORA and chain-term enrichment"],
+      decoupled: ["Decoupled chains", "chain correlation and decoupling"],
+      pathway: ["Pathway analysis", "network mapping and export"],
+      utility: ["Utility hub", "supporting tools"],
+      ontology: ["Ontology builder", "build lipid ontology tables"],
+      editor: ["Pathway editor", "edit and export .cyjs maps"]
+    };
+
+    function showView(id) {
+      document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === id));
+      document.querySelectorAll(".nav button").forEach(b => b.classList.toggle("active", b.dataset.view === id));
+      const t = titles[id] || titles.upload;
+      document.getElementById("page-title").textContent = t[0];
+      document.getElementById("page-subtitle").textContent = t[1];
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showUploadPage(id) {
+      showView("upload");
+      document.querySelectorAll(".upload-page").forEach(v => v.classList.toggle("active", v.id === id));
+      document.querySelectorAll("[data-upload-page]").forEach(b => b.classList.toggle("active", b.dataset.uploadPage === id));
+    }
+
+    document.querySelectorAll("[data-view]").forEach(el => {
+      el.addEventListener("click", () => showView(el.dataset.view));
+    });
+
+    document.querySelectorAll("[data-upload-page]").forEach(el => {
+      el.addEventListener("click", () => showUploadPage(el.dataset.uploadPage));
+    });
+
+    document.querySelectorAll("[data-lipid-mode]").forEach(el => {
+      el.addEventListener("click", () => {
+        const mode = el.dataset.lipidMode;
+        document.querySelectorAll("[data-lipid-mode]").forEach(b => b.classList.toggle("active", b.dataset.lipidMode === mode));
+        document.querySelectorAll(".lipid-mode").forEach(panel => panel.classList.toggle("active", panel.id === `lipid-mode-${mode}`));
+      });
+    });
+
+    const drawer = document.getElementById("advanced-drawer");
+    document.querySelectorAll("[data-advanced], #advanced-top").forEach(el => {
+      el.addEventListener("click", () => drawer.classList.add("open"));
+    });
+    document.getElementById("advanced-close").addEventListener("click", () => drawer.classList.remove("open"));
+  </script>
+</body>
+</html>

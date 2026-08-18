@@ -277,13 +277,7 @@ mod_volcano_ui <- function(id, title = "Volcano") {
           status = "primary",
           solidHeader = TRUE,
 
-          radioButtons(
-            ns("dataset"),
-            "Dataset",
-            choices = c("Lipid" = "lipid", "Gene" = "gene"),
-            selected = "lipid",
-            inline = TRUE
-          ),
+          uiOutput(ns("dataset_ui")),
 
           uiOutput(ns("ui_groups")),
 
@@ -306,7 +300,7 @@ mod_volcano_ui <- function(id, title = "Volcano") {
 
           selectInput(ns("view"), "View", choices = c("ggplot", "plotly"), selected = "plotly"),
 
-          actionButton(ns("run"), "Run", icon = icon("play"), width = "100%"),
+          actionButton(ns("run"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
 
           tags$hr(),
           downloadButton(ns("dl_plot"),  "Download plot (PDF)",  width = "100%"),
@@ -359,6 +353,25 @@ mod_volcano_server <- function(
   }
 
   moduleServer(id, function(input, output, session) {
+
+    output$dataset_ui <- renderUI({
+      tx <- .get_se(se_tx)
+      has_transcriptome <- !is.null(tx) && methods::is(tx, "SummarizedExperiment")
+
+      choices <- c("Lipid" = "lipid")
+      if (has_transcriptome) choices <- c(choices, "Other omics" = "gene")
+
+      current <- isolate(input$dataset %||% "lipid")
+      selected <- if (current %in% unname(choices)) current else "lipid"
+
+      radioButtons(
+        session$ns("dataset"),
+        "Dataset",
+        choices = choices,
+        selected = selected,
+        inline = TRUE
+      )
+    })
 
     se_selected <- reactive({
       if (identical(input$dataset, "gene")) .get_se(se_tx) else .get_se(se_lipid)

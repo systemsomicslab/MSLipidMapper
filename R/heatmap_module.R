@@ -1,7 +1,7 @@
 .make_heatmap_for_class <- function(
     se, class_col, class_name,
     x_var = "class", x_order = NULL,
-    order_by = c("none","abundance_mean","abundance_median","alphabetical"),
+    order_by = c("none","alphabetical"),
     decreasing = FALSE,
     topN = 40, row_z = TRUE,
     base_font = 22,   

@@ -41,7 +41,8 @@ mod_pca_generic_ui <- function(id, title = "PCA") {
     tags$style(HTML("
       .pca-plot-square { position: relative; width: 100%; padding-bottom: 100%; }
       .pca-plot-square-inner { position: absolute; inset: 0; }
-      .pca-download-row { margin-top: 8px; }
+      .pca-download-row { display:flex; gap:8px; margin-top:8px; }
+      .pca-download-row .btn { flex:1 1 0; }
     ")),
 
     fluidRow(
@@ -82,8 +83,8 @@ mod_pca_generic_ui <- function(id, title = "PCA") {
 
           hr(),
 
-          actionButton(ns("run_pca"), "Run PCA", icon = icon("play"),
-                       class = "btn-primary", width = "100%"),
+          actionButton(ns("run_pca"), "Run",
+                       class = "btn-primary mslm-run-btn", width = "100%"),
           uiOutput(ns("run_msg"))
         )
       ),
@@ -133,8 +134,12 @@ mod_pca_generic_ui <- function(id, title = "PCA") {
             downloadButton(
               ns("download_pca_loadings_pdf"),
               "Download PDF",
-              class = "btn-default",
-              width = "100%"
+              class = "btn-default"
+            ),
+            downloadButton(
+              ns("download_pca_loadings_csv"),
+              "Download loadings CSV",
+              class = "btn-default"
             )
           )
         )
@@ -360,9 +365,16 @@ mod_pca_generic_server <- function(id,
 
       labels <- .get_feature_labels_from_se(se, feature_ids = X_colnames, label_col = label_col)
 
+      rd <- SummarizedExperiment::rowData(se)
+      alignment_ids <- rep(NA_character_, length(X_colnames))
+      if ("Alignment ID" %in% colnames(rd)) {
+        alignment_ids <- as.character(rd[["Alignment ID"]][match(X_colnames, rownames(se))])
+      }
+
       df <- data.frame(
         feature_id = X_colnames,
         label      = as.character(labels),
+        alignment_id = alignment_ids,
         loading    = as.numeric(loading_all),
         stringsAsFactors = FALSE
       )
@@ -376,6 +388,10 @@ mod_pca_generic_server <- function(id,
 
       df
     }
+
+    # One semantic palette is shared by the loading bar plot and the loading
+    # annotation beside the heatmap.
+    .loading_colors <- c(above = "#00BA38", below = "#F8766D")
 
     .plot_loadings <- function(df_loading, pc_index, top_n_each) {
       top_n_each <- max(1L, as.integer(top_n_each))
@@ -397,9 +413,9 @@ mod_pca_generic_server <- function(id,
       ggplot2::ggplot(df, ggplot2::aes(x = label, y = loading)) +
         ggplot2::geom_bar(stat = "identity", ggplot2::aes(fill = value_types), width = 0.8) +
         ggplot2::scale_fill_manual(
-          name   = "Legend",
+          name   = "Loading direction",
           labels = c("Positive", "Negative"),
-          values = c("above" = "#00ba38", "below" = "#f8766d")
+          values = .loading_colors
         ) +
         ggplot2::theme_classic(base_size = 15) +
         ggplot2::labs(title = paste0("Loading plot: PC", pc_index), x = "Features", y = "Loading") +
@@ -473,28 +489,44 @@ mod_pca_generic_server <- function(id,
       names(y) <- rownames(cd)
       y <- y[colnames(mat_z)]
 
-      # Loading color scale: adapt when all-positive or all-negative
+      # Loading color scale uses the same sign colors as the loading bar plot.
       lv <- load_vec
       if (all(lv >= 0, na.rm = TRUE)) {
         mx <- max(lv, na.rm = TRUE); if (!is.finite(mx) || mx == 0) mx <- 1
-        col_load <- circlize::colorRamp2(c(0, mx), c("white", "#c30010"))
+        col_load <- circlize::colorRamp2(c(0, mx), c("white", .loading_colors[["above"]]))
       } else if (all(lv <= 0, na.rm = TRUE)) {
         mn <- min(lv, na.rm = TRUE); if (!is.finite(mn) || mn == 0) mn <- -1
-        col_load <- circlize::colorRamp2(c(mn, 0), c("blue4", "white"))
+        col_load <- circlize::colorRamp2(c(mn, 0), c(.loading_colors[["below"]], "white"))
       } else {
         maxabs <- max(abs(lv), na.rm = TRUE); if (!is.finite(maxabs) || maxabs == 0) maxabs <- 1
-        col_load <- circlize::colorRamp2(c(-maxabs, 0, maxabs), c("blue4", "white", "#c30010"))
+        col_load <- circlize::colorRamp2(
+          c(-maxabs, 0, maxabs),
+          c(.loading_colors[["below"]], "white", .loading_colors[["above"]])
+        )
       }
 
 ha_left <- ComplexHeatmap::rowAnnotation(
   Loading = ComplexHeatmap::anno_simple(load_vec, col = col_load, border = TRUE),
   width = grid::unit(10, "mm"),
-  annotation_legend_param = list(
-    title = "Loading",
-    direction = "horizontal",
-    title_gp  = grid::gpar(fontsize = 10),
-    labels_gp = grid::gpar(fontsize = 9)
-  )
+  show_legend = FALSE,
+  annotation_name_side = "bottom",
+  annotation_name_gp = grid::gpar(fontsize = 10, fontface = "bold")
+)
+
+loading_direction_legend <- ComplexHeatmap::Legend(
+  title = "Loading direction",
+  labels = c("Negative", "Positive"),
+  legend_gp = grid::gpar(
+    fill = c(.loading_colors[["below"]], .loading_colors[["above"]]),
+    col = "#667789"
+  ),
+  direction = "horizontal",
+  nrow = 1,
+  grid_width = grid::unit(4, "mm"),
+  grid_height = grid::unit(4, "mm"),
+  gap = grid::unit(2, "mm"),
+  title_gp = grid::gpar(fontsize = 10, fontface = "bold"),
+  labels_gp = grid::gpar(fontsize = 9)
 )
 
 ha_top <- ComplexHeatmap::HeatmapAnnotation(
@@ -541,6 +573,7 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
         selected_feature_ids = df_sel$feature_id,
         selected_labels = sel_labels,
         selected_loadings = load_vec,
+        loading_legend = loading_direction_legend,
         pc_index = pc_index
       )
     }
@@ -548,12 +581,13 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
     # ---------------------------
     # Legend-safe draw (avoid overlap)
     # ---------------------------
-    .draw_heatmap_safe <- function(ht) {
+    .draw_heatmap_safe <- function(hm) {
       grid::grid.newpage()
       ComplexHeatmap::draw(
-        ht,
+        hm$ht,
         heatmap_legend_side = "bottom",
         annotation_legend_side = "bottom",
+        annotation_legend_list = list(hm$loading_legend),
         merge_legends = TRUE,
         padding = grid::unit(c(3, 3, 3, 3), "mm")
       )
@@ -575,7 +609,7 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
       if (!is.null(se_tx)) {
         s2 <- try(se_tx(), silent = TRUE)
         if (!inherits(s2, "try-error") && !is.null(s2) && methods::is(s2, "SummarizedExperiment")) {
-          labs   <- c(labs,   "Transcriptome")
+          labs   <- c(labs,   "Other omics")
           values <- c(values, "tx")
         }
       }
@@ -773,20 +807,7 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
       req(res)
 
       hm <- res$heatmap
-      .draw_heatmap_safe(hm$ht)
-
-      if (!is.null(hm$loading_min) && !is.null(hm$loading_max)) {
-        try({
-          ComplexHeatmap::decorate_annotation("Loading", {
-            grid::grid.text(hm$loading_max,
-                            x = grid::unit(-2, "mm"), y = grid::unit(0.98, "npc"),
-                            just = "right", gp = grid::gpar(cex = 0.8))
-            grid::grid.text(hm$loading_min,
-                            x = grid::unit(-2, "mm"), y = grid::unit(0.02, "npc"),
-                            just = "right", gp = grid::gpar(cex = 0.8))
-          })
-        }, silent = TRUE)
-      }
+      .draw_heatmap_safe(hm)
     })
 
     #---------------------------
@@ -823,6 +844,29 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
       }
     )
 
+    output$download_pca_loadings_csv <- downloadHandler(
+      filename = function() {
+        stem <- paste0("pca_loadings_", current_dataset_label(), "_PC", input$pc_loading %||% 1)
+        paste0(.safe_file_stem(stem), ".csv")
+      },
+      content = function(file) {
+        res <- fit_res()
+        req(res)
+
+        out <- as.data.frame(res$loading_table, stringsAsFactors = FALSE)
+        selected_ids <- .select_ids_for_barplot(out, input$top_n_each %||% 10)
+        out$pc <- paste0("PC", as.integer(input$pc_loading %||% 1))
+        out$direction <- ifelse(out$loading < 0, "Negative", "Positive")
+        out$shown_in_plot <- out$feature_id %in% selected_ids
+        out <- out[order(abs(out$loading), decreasing = TRUE), , drop = FALSE]
+        out <- out[, c("alignment_id", "label", "pc", "loading", "direction", "shown_in_plot"), drop = FALSE]
+        names(out)[names(out) == "label"] <- "Metabolite name"
+        names(out)[names(out) == "alignment_id"] <- "Alignment ID"
+
+        utils::write.csv(out, file, row.names = FALSE, na = "")
+      }
+    )
+
     output$download_pca_heatmap_pdf <- downloadHandler(
       filename = function() {
         stem <- paste0(
@@ -843,6 +887,7 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
           hm$ht,
           heatmap_legend_side = "bottom",
           annotation_legend_side = "bottom",
+          annotation_legend_list = list(hm$loading_legend),
           merge_legends = TRUE,
           padding = grid::unit(c(3, 3, 3, 3), "mm")
         )

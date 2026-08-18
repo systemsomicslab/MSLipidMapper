@@ -24,8 +24,7 @@
 #' @param title character. App title.
 #' @param verbose_api logical. Verbose for API.
 #' @return (invisibly) result of shiny::runApp().
-#' @export
-run_mslipidmapper_app <- function(
+.run_mslipidmapper_app <- function(
   launch.browser = TRUE,
   host = "0.0.0.0",
   port = 3838,
@@ -309,13 +308,14 @@ run_mslipidmapper_app <- function(
 
   .boxTitleWithAdv <- function(title_text, btn_id) {
     shiny::div(
+      class = "mslm-box-title-row",
       style = "display:flex; align-items:center; width:100%; gap:8px;",
       shiny::span(title_text, style = "font-weight:600;"),
       shiny::div(
         style = "margin-left:auto;",
         shiny::actionButton(
           inputId = btn_id,
-          label   = "Advanced",
+          label   = "Advanced setting",
           icon    = .ic("sliders-h"),
           class   = "btn btn-default btn-xs"
         )
@@ -335,7 +335,7 @@ run_mslipidmapper_app <- function(
         id = "tabs",
 
         shinydashboard::menuItem("1. Upload",    tabName = "upload",    icon = .ic("upload")),
-        shinydashboard::menuItem("2. Normalize", tabName = "normalize", icon = .ic("sliders")),
+        shinydashboard::menuItem("2. Normalization", tabName = "normalize", icon = .ic("sliders")),
 
         shinydashboard::menuItem(
           "3. Analysis",
@@ -350,7 +350,7 @@ run_mslipidmapper_app <- function(
           shinydashboard::menuSubItem("Correlation",      tabName = "analysis_cor",        icon = .ic("chart-line")),
           shinydashboard::menuSubItem("Volcano",          tabName = "analysis_volcano",    icon = .ic("fire")),
           shinydashboard::menuSubItem("Enrichment",       tabName = "analysis_enrich",     icon = .ic("magnifying-glass")),
-          shinydashboard::menuSubItem("Decoupled chains", tabName = "analysis_decoupled",  icon = .ic("shuffle")),
+          shinydashboard::menuSubItem("Acyl chain analysis", tabName = "analysis_decoupled",  icon = .ic("shuffle")),
           shinydashboard::menuSubItem("Pathway analysis", tabName = "analysis_network",    icon = .ic("code-branch"))
         ),
 
@@ -388,6 +388,198 @@ run_mslipidmapper_app <- function(
 .box { border-radius: 8px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 .box.box-solid.box-primary > .box-header { background-color: #143554; color: #ffffff; }
 .box.box-solid.box-primary { border: none; }
+
+/* Analysis run buttons */
+.mslm-run-btn,
+.mslm-run-btn.btn,
+.mslm-run-btn.btn-primary,
+.mslm-run-btn.btn-info,
+.mslm-run-btn.btn-success {
+  background-color: #143554 !important;
+  border-color: #143554 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  min-height: 38px;
+  padding: 8px 16px !important;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(20, 53, 84, 0.18);
+}
+.mslm-run-btn:hover,
+.mslm-run-btn:focus,
+.mslm-run-btn:active {
+  background-color: #1b4b75 !important;
+  border-color: #1b4b75 !important;
+  color: #ffffff !important;
+}
+.mslm-run-btn.btn-sm { font-size: 14px !important; padding: 8px 16px !important; }
+
+/* MSLipidMapper Next: resilient application shell ---------------------- */
+:root {
+  --mslm-ink: #172432;
+  --mslm-muted: #64778a;
+  --mslm-line: #d4dde5;
+  --mslm-surface: #ffffff;
+  --mslm-canvas: #eef3f7;
+  --mslm-navy: #0d1924;
+  --mslm-navy-2: #142536;
+  --mslm-blue: #2388bf;
+  --mslm-blue-soft: #dceffa;
+  --mslm-radius: 9px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body,
+.wrapper,
+.main-sidebar,
+.main-header,
+.content-wrapper {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+}
+body { color: var(--mslm-ink); background: var(--mslm-canvas); }
+.wrapper { min-height: 100vh; background: var(--mslm-canvas); }
+.main-header { max-height: none; min-height: 4rem; }
+.main-header .logo {
+  width: 15rem;
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1.15rem;
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.main-header .navbar {
+  min-height: 4rem;
+  margin-left: 15rem;
+  border: 0;
+  box-shadow: inset 0 -1px rgba(255,255,255,0.08);
+}
+.main-header .sidebar-toggle { padding: 1.4rem 1.25rem; }
+.skin-blue .main-header .logo,
+.skin-blue .main-header .logo:hover,
+.skin-blue .main-header .navbar { background: var(--mslm-navy); }
+.main-sidebar {
+  width: 15rem;
+  padding-top: 4rem;
+  background: var(--mslm-navy) !important;
+  border-right: 1px solid #253747;
+}
+.sidebar-menu { padding: 1rem 0.7rem; }
+.skin-blue .sidebar-menu > li { margin: 0.18rem 0; }
+.skin-blue .sidebar-menu > li > a {
+  display: flex;
+  align-items: center;
+  min-height: 2.7rem;
+  padding: 0.68rem 0.8rem;
+  border: 0;
+  border-radius: 0.45rem;
+  color: #a9b8c6;
+  font-size: 0.84rem;
+}
+.skin-blue .sidebar-menu > li > a > .fa,
+.skin-blue .sidebar-menu > li > a > .fas,
+.skin-blue .sidebar-menu > li > a > .far { width: 1.35rem; color: #7890a5; }
+.skin-blue .sidebar-menu > li.active > a,
+.skin-blue .sidebar-menu > li:hover > a {
+  background: #153a53;
+  color: #8bd2ff;
+}
+.skin-blue .sidebar-menu > li.active > a { box-shadow: inset 2px 0 #48b8f2; }
+.skin-blue .sidebar-menu > li > .treeview-menu {
+  margin: 0.25rem 0 0.4rem;
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  background: transparent;
+}
+.skin-blue .treeview-menu > li > a {
+  padding: 0.55rem 0.7rem;
+  color: #8295a7;
+  font-size: 0.78rem;
+}
+.skin-blue .treeview-menu > li.active > a,
+.skin-blue .treeview-menu > li > a:hover { color: #8bd2ff; }
+.content-wrapper, .right-side {
+  min-height: calc(100vh - 4rem) !important;
+  margin-left: 15rem;
+  padding-top: 4rem;
+  background: radial-gradient(circle at 48% 12%, #ffffff 0, var(--mslm-canvas) 55%);
+}
+.content { max-width: 1600px; margin: 0 auto; padding: 1.15rem; }
+.tab-content { min-width: 0; }
+.row { margin-right: -0.4rem; margin-left: -0.4rem; }
+.row > [class*=col-] { min-width: 0; padding-right: 0.4rem; padding-left: 0.4rem; }
+.box {
+  margin-bottom: 0.85rem;
+  overflow: hidden;
+  border: 1px solid var(--mslm-line);
+  border-radius: var(--mslm-radius);
+  background: var(--mslm-surface);
+  box-shadow: 0 4px 18px rgba(28, 47, 65, 0.055);
+}
+.box-header {
+  min-height: 3rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e2e8ed;
+}
+.box-header .box-title { font-size: 0.86rem; font-weight: 600; }
+.box-header .box-title:has(.mslm-box-title-row) {
+  display: block;
+  width: 100%;
+}
+.mslm-box-title-row > div:last-child {
+  margin-left: auto !important;
+  flex: 0 0 auto;
+}
+.box-body { min-width: 0; padding: 1rem; }
+.box.box-solid.box-primary > .box-header {
+  background: var(--mslm-navy-2);
+  color: #eef5fa;
+}
+label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
+.form-control,
+.selectize-input,
+.selectize-control.single .selectize-input,
+.btn {
+  min-height: 2.35rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+}
+.form-control,
+.selectize-input,
+.selectize-control.single .selectize-input {
+  border-color: #cbd6df;
+  box-shadow: none;
+}
+.form-control:focus,
+.selectize-input.focus {
+  border-color: #4e9fc9;
+  box-shadow: 0 0 0 3px rgba(35,136,191,0.12);
+}
+.btn-default { border-color: #c8d4de; background: #f8fafc; color: #3d5265; }
+.btn-primary, .mslm-run-btn { background: var(--mslm-blue) !important; border-color: var(--mslm-blue) !important; }
+.table { width: 100%; color: var(--mslm-ink); font-size: 0.78rem; }
+.table > thead > tr > th { border-bottom: 1px solid #cfd9e2; color: #5d7184; font-size: 0.72rem; }
+.table > tbody > tr > td { border-top-color: #e4e9ee; }
+.dataTables_wrapper { width: 100%; overflow-x: auto; }
+.plotly, .html-widget, .shiny-plot-output, .shiny-bound-output { max-width: 100%; }
+@media (max-width: 991px) {
+  .main-header .logo { width: 100%; min-height: 3.5rem; justify-content: center; }
+  .main-header .navbar { min-height: 3.5rem; margin-left: 0; }
+  .main-sidebar { width: 15rem; padding-top: 7rem; transform: translate(-15rem, 0); }
+  .sidebar-open .main-sidebar { transform: translate(0, 0); }
+  .content-wrapper, .right-side { margin-left: 0; padding-top: 7rem; }
+}
+@media (max-width: 767px) {
+  html { font-size: 15px; }
+  .content { padding: 0.7rem; }
+  .box-body { padding: 0.75rem; }
+  .row { margin-right: -0.25rem; margin-left: -0.25rem; }
+  .row > [class*=col-] { padding-right: 0.25rem; padding-left: 0.25rem; }
+  [class*=col-sm-], [class*=col-md-], [class*=col-lg-] { width: 100%; float: none; }
+}
         "))
       ),
 
@@ -420,7 +612,7 @@ run_mslipidmapper_app <- function(
           tabName = "normalize",
           shiny::fluidRow(
             shinydashboard::box(
-              title = "Step 2: Normalize",
+              title = "Step 2: Normalization",
               width = 12,
               status = "primary",
               solidHeader = TRUE,
@@ -501,9 +693,9 @@ run_mslipidmapper_app <- function(
             shiny::column(
               width = 3,
               shinydashboard::box(
-                title = "Decoupled chains", width = 12, status = "primary", solidHeader = TRUE,
+                title = "Acyl chain analysis", width = 12, status = "primary", solidHeader = TRUE,
                 shiny::p("Scatter panels for chain vs class total (decoupling)."),
-                shiny::actionButton("go_decoupled", "Go to Decoupled chains", width = "100%", icon = .ic("shuffle"))
+                shiny::actionButton("go_decoupled", "Go to Acyl chain analysis", width = "100%", icon = .ic("shuffle"))
               )
             )
           ),
@@ -608,9 +800,9 @@ run_mslipidmapper_app <- function(
           tabName = "analysis_decoupled",
           shiny::fluidRow(
             shinydashboard::box(
-              title = .boxTitleWithAdv("Step 3: Analysis - Decoupled chains", "open_adv_decoupled"),
+              title = .boxTitleWithAdv("Step 3: Analysis - Acyl chain analysis", "open_adv_decoupled"),
               width = 12, status = "primary", solidHeader = TRUE,
-              maybe_ui("mod_decoupled_chains_ui", "dc", title = "Decoupled chains")
+              maybe_ui("mod_decoupled_chains_ui", "dc", title = "Acyl chain analysis")
             )
           )
         ),

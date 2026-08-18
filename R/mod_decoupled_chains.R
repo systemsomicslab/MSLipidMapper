@@ -15,7 +15,7 @@
 #    (Both can be the "rest-enabled" versions; wrappers below also work if old versions)
 # ============================================================
 
-mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
+mod_decoupled_chains_ui <- function(id, title = "Acyl chain analysis") {
   ns <- shiny::NS(id)
 
   return(
@@ -101,7 +101,7 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
             shiny::numericInput(ns("min_species_chain"), "min_species_chain", value = 1, min = 1, step = 1),
             shiny::numericInput(ns("min_chain_frac_med"), "min_chain_fraction_median", value = 0.01, min = 0, step = 0.001),
             shiny::tags$hr(),
-            shiny::actionButton(ns("run"), "Run", icon = shiny::icon("play")),
+            shiny::actionButton(ns("run"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
             shiny::downloadButton(ns("download_pdf"), "Export PDF")
           ),
           shinydashboard::box(
@@ -162,7 +162,7 @@ mod_decoupled_chains_ui <- function(id, title = "Decoupled chains") {
 
       shiny::tags$hr(),
 
-      shiny::actionButton(ns("run"), "Run", icon = shiny::icon("play")),
+      shiny::actionButton(ns("run"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
       shiny::downloadButton(ns("download_pdf"), "Export PDF")
     ),
 
@@ -384,7 +384,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       shiny::validate(shiny::need(!is.null(out), "No heatmap data available."))
       res <- as.data.frame(out$results)
       shiny::validate(shiny::need(nrow(res) > 0, "No heatmap data available."))
-      shiny::validate(shiny::need(cor_col %in% names(res), paste0("Correlation column ", cor_col, " is missing in the decoupled-chain results.")))
+      shiny::validate(shiny::need(cor_col %in% names(res), paste0("Correlation column ", cor_col, " is missing in the acyl-chain results.")))
 
       res$subclass <- trimws(as.character(res$subclass))
       res$chain    <- trimws(as.character(res$chain))
@@ -397,9 +397,9 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       shiny::validate(shiny::need(nrow(res) > 0, "No lipid classes with plottable correlations remain for the heatmap."))
 
       heatmap_title <- if (identical(heatmap_compare_to, "rest")) {
-        "Decoupled chain heatmap (cor_rest: subset vs rest)"
+        "Acyl chain heatmap (cor_rest: subset vs rest)"
       } else {
-        "Decoupled chain heatmap (cor_total: subset vs class total)"
+        "Acyl chain heatmap (cor_total: subset vs class total)"
       }
 
       ggplot2::ggplot(res, ggplot2::aes(x = .data$chain, y = .data$subclass, fill = .data$cor_val)) +
@@ -651,7 +651,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
 
     output$download_heatmap_pdf <- shiny::downloadHandler(
       filename = function() {
-        paste0("decoupled_chain_heatmap_", format(Sys.Date(), "%Y%m%d"), ".pdf")
+        paste0("acyl_chain_heatmap_", format(Sys.Date(), "%Y%m%d"), ".pdf")
       },
       content = function(file) {
         p <- .build_heatmap_plot()
@@ -736,7 +736,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
     # download PDF (same as screen)
     # ============================================================
     output$download_pdf <- shiny::downloadHandler(
-      filename = function() paste0("decoupled_chain_panels_", Sys.Date(), ".pdf"),
+      filename = function() paste0("acyl_chain_panels_", Sys.Date(), ".pdf"),
       content = function(file) {
         out <- rv$out
         shiny::validate(shiny::need(!is.null(out), "Press Run first."))

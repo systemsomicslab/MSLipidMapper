@@ -135,7 +135,7 @@ mod_ccd_analysis_ui <- function(id, title = "Class x chain-subset divergence") {
         shiny::numericInput(ns("top_classes"), "Top classes in heatmap", value = 20, min = 5, step = 1),
         shiny::numericInput(ns("top_subsets"), "Top subsets in heatmap", value = 20, min = 5, step = 1),
         shiny::checkboxInput(ns("verbose"), "Verbose", value = FALSE),
-        shiny::actionButton(ns("run"), "Run", icon = shiny::icon("play"), class = "btn btn-primary")
+      shiny::actionButton(ns("run"), "Run", width = "100%", class = "btn-primary mslm-run-btn")
       )
     ),
 

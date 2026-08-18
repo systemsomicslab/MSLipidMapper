@@ -478,7 +478,9 @@ mod_plot_lipid_server <- function(
       x_var        <- "class"
       facet_var    <- adv$facet_var %||% ""
       x_order      <- adv$manual_order
-      order_by_eff <- if (length(x_order)) "none" else adv$order_by
+      order_by_eff <- adv$order_by %||% "none"
+      if (!order_by_eff %in% c("none", "alphabetical")) order_by_eff <- "none"
+      if (length(x_order)) order_by_eff <- "none"
       
       groups <- .get_x_groups(se, x_var = x_var)
       pal    <- .make_palette(groups, adv)

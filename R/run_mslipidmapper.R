@@ -7,7 +7,7 @@
 #' @param api_host character. API host.
 #' @param api_port integer. API port.
 #' @param api_public_host character. Public API host embedded into URLs.
-#' @param ... Additional arguments passed to [run_mslipidmapper_app()].
+#' @param ... Additional advanced arguments passed to the internal app runner.
 #'
 #' @return Invisibly, the result of [shiny::runApp()].
 #' @export
@@ -21,7 +21,7 @@ run_mslipidmapper <- function(
   api_public_host = host,
   ...
 ) {
-  run_mslipidmapper_app(
+  .run_mslipidmapper_app(
     launch.browser = launch.browser,
     host = host,
     port = port,

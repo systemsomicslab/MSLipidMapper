@@ -23,181 +23,177 @@ mod_normalize_ui <- function(id) {
   method_area_id <- ns("method_area")
   dl_id <- ns("dl_controls")
   
-  css <- sprintf(
-    "
-    /* ===== Method row alignment ===== */
-    #%s.method-row{
-      display:flex;
-      align-items:flex-end;
-      gap:12px;
-      flex-wrap:wrap;
+  css <- "
+    .norm-settings-grid{
+      display:grid;
+      grid-template-columns:minmax(240px,1.1fr) 100px minmax(190px,.8fr) minmax(270px,1.2fr);
+      gap:8px;
+      align-items:start;
+      padding:9px;
+      margin-bottom:10px;
+      border:1px solid #dbe3ea;
+      border-radius:6px;
+      background:#f7f9fb;
     }
-    #%s.method-row .form-group{ margin-bottom:0; }
-    #%s.method-row .desc-wrap label{
+    .norm-setting-group{
+      min-width:0;
+      padding:0 8px;
+      border-right:1px solid #e1e7ec;
+    }
+    .norm-setting-group:last-child{ border-right:0; }
+    .norm-setting-group > label{
       display:block;
-      margin-bottom:5px;
-      visibility:hidden; /* keep height, hide text */
+      margin:0 0 4px;
+      color:#526678;
+      font-size:10px;
+      font-weight:600;
     }
-
-    /* ===== Download row alignment ===== */
-    #%s.dl-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      align-items:flex-end;
+    .norm-control-line{ display:flex; align-items:center; gap:6px; }
+    .norm-control-line .form-group{ flex:1 1 auto; min-width:0; margin:0; }
+    .norm-control-line .selectize-control{ margin:0; }
+    .norm-control-line .selectize-input,
+    .norm-control-line .form-control{
+      min-height:31px;
+      padding:5px 8px;
+      font-size:11px;
     }
-    #%s.dl-row .form-group{ margin-bottom:0; }
-    #%s.dl-row .dl-item{ min-width:220px; }
-    #%s.dl-row .btn-wrap label{
-      display:block;
-      margin-bottom:5px;
-      visibility:hidden; /* keep height, hide text */
+    .norm-control-line .btn{
+      min-height:31px;
+      padding:5px 9px;
+      white-space:nowrap;
+      font-size:11px;
     }
-    ",
-    method_area_id, method_area_id, method_area_id,
-    dl_id, dl_id, dl_id, dl_id
-  )
+    .norm-method-desc{
+      margin-top:4px;
+      color:#6a7c8d;
+      font-size:10px;
+      line-height:1.3;
+    }
+    .norm-angle .form-group{ margin:0; }
+    .norm-angle input{ min-height:31px; padding:5px 7px; font-size:11px; }
+    @media (max-width:1050px){
+      .norm-settings-grid{ grid-template-columns:repeat(2,minmax(220px,1fr)); }
+      .norm-setting-group:nth-child(2){ border-right:0; }
+    }
+    @media (max-width:650px){
+      .norm-settings-grid{ grid-template-columns:1fr; }
+      .norm-setting-group{ padding:4px; border-right:0; border-bottom:1px solid #e1e7ec; }
+      .norm-setting-group:last-child{ border-bottom:0; }
+    }
+  "
   
   shiny::tagList(
-    shiny::h3("Step 2: Lipidome data normalization"),
-    
     # Inject scoped CSS once per module instance
     shiny::tags$style(shiny::HTML(css)),
-    
-    # --- Upper: settings card ---
-    shiny::fluidRow(
-      shinydashboard::box(
-        title       = "Normalization settings",
-        width       = 12,
-        status      = "primary",
-        solidHeader = TRUE,
-        
-        # Method selector + description (aligned)
+
+    # Settings and QC output live directly in the tab-level panel.
+
         shiny::tags$div(
           id = method_area_id,
-          class = "method-row",
-          
+          class = "norm-settings-grid",
+
           shiny::div(
-            style = "min-width:260px;",
-            shiny::selectInput(
-              ns("method"), "Method",
-              c("none", "sum", "median"),
-              selected = "none"
+            class = "norm-setting-group",
+            shiny::tags$label("Normalization"),
+            shiny::div(
+              class = "norm-control-line",
+              shiny::selectInput(
+                ns("method"), NULL,
+                c("none", "sum", "median"),
+                selected = "none"
+              ),
+              shiny::actionButton(
+                ns("apply"), "Apply",
+                class = "btn-primary btn-sm"
+              )
+            ),
+            shiny::uiOutput(ns("method_desc")),
+            shiny::conditionalPanel(
+              sprintf("input['%s'] == 'log2'", ns("method")),
+              shiny::numericInput(
+                ns("offset"), "log2 offset",
+                value = 1e-9, min = 0, step = 1e-9,
+                width = "130px"
+              )
             )
           ),
-          
+
           shiny::div(
-            class = "desc-wrap",
-            style = "flex:1; min-width:280px;",
-            shiny::tags$label("\u00A0"),   # invisible label line to align with "Method"
-            shiny::uiOutput(ns("method_desc"))
+            class = "norm-setting-group norm-angle",
+            shiny::tags$label("X label angle"),
+            shiny::numericInput(
+              ns("x_angle"), NULL,
+              value = 45, min = 0, max = 90, step = 5,
+              width = "100%"
+            )
+          ),
+
+          shiny::div(
+            class = "norm-setting-group",
+            shiny::tags$label("Plot export"),
+            shiny::div(
+              class = "norm-control-line",
+              shiny::selectInput(
+                ns("plot_format"), NULL,
+                choices = c("PNG" = "png", "PDF" = "pdf"),
+                selected = "png"
+              ),
+              shiny::downloadButton(
+                ns("download_qc"), "Plot",
+                icon = shiny::icon("download"),
+                class = "btn-default btn-sm"
+              )
+            )
+          ),
+
+          shiny::div(
+            id = dl_id,
+            class = "norm-setting-group",
+            shiny::tags$label("Data export"),
+            shiny::div(
+              class = "norm-control-line",
+              shiny::selectInput(
+                ns("dl_format"), NULL,
+                choices = c(
+                  "CSV matrix" = "matrix_csv",
+                  "TSV matrix" = "matrix_tsv",
+                  "SE (RDS)" = "se_rds"
+                ),
+                selected = "matrix_csv"
+              ),
+              shiny::downloadButton(
+                ns("download_norm"), "Data",
+                icon = shiny::icon("download"),
+                class = "btn-default btn-sm"
+              )
+            )
           )
-        ),
-        
-        # log2 offset
-        shiny::conditionalPanel(
-          sprintf("input['%s'] == 'log2'", ns("method")),
-          shiny::numericInput(
-            ns("offset"), "log2 offset",
-            value = 1e-9, min = 0, step = 1e-9
-          )
-        ),
-        
-        shiny::actionButton(
-          ns("apply"),
-          "Apply Normalization",
-          class = "btn-success"
-        )
-      )
-    ),
-    
-    # --- Lower: QC plot card (downloads under the plot) ---
-    shiny::fluidRow(
-      shinydashboard::box(
-        title       = "Per-sample intensity after normalization (log10)",
-        width       = 12,
-        status      = "primary",
-        solidHeader = TRUE,
-        
-        shiny::sliderInput(
-          ns("x_angle"),
-          "X label angle",
-          min = 0, max = 90, value = 45, step = 5
         ),
         
         shiny::plotOutput(ns("qc_boxdot"), height = "600px"),
         
-        shiny::tags$hr(),
-        
         # Simple note: "half of the minimum positive value" (+ lower bound)
         shiny::tags$div(
-          style = "margin-bottom:10px; color:#374151;",
+          style = "margin-top:8px; color:#667789; font-size:11px;",
           shiny::HTML(
             "Note: For log10 visualization, an offset <code>pseudo</code> is added as
-             <code>pseudo = max(0.5 × (minimum positive value), 1e-9)</code>, then we plot <code>log10(value + pseudo)</code>."
-          )
-        ),
-        
-        shiny::tags$div(
-          id = dl_id,
-          class = "dl-row",
-          
-          # Plot format
-          shiny::tags$div(
-            class = "dl-item",
-            shiny::selectInput(
-              ns("plot_format"),
-              "Plot format",
-              choices = c("PNG" = "png", "PDF" = "pdf"),
-              selected = "png"
-            )
-          ),
-          
-          # Download plot (gray)
-          shiny::tags$div(
-            class = "dl-item btn-wrap",
-            shiny::tags$label("\u00A0"),
-            shiny::downloadButton(
-              ns("download_qc"),
-              "Download plot",
-              class = "btn-default"
-            )
-          ),
-          
-          # Data format
-          shiny::tags$div(
-            class = "dl-item",
-            shiny::selectInput(
-              ns("dl_format"),
-              "Download data format",
-              choices = c(
-                "Matrix (CSV)" = "matrix_csv",
-                "Matrix (TSV)" = "matrix_tsv",
-                "SummarizedExperiment (RDS)" = "se_rds"
-              ),
-              selected = "matrix_csv"
-            )
-          ),
-          
-          # Download data (gray)
-          shiny::tags$div(
-            class = "dl-item btn-wrap",
-            shiny::tags$label("\u00A0"),
-            shiny::downloadButton(
-              ns("download_norm"),
-              "Download normalized data",
-              class = "btn-default"
-            )
+             <code>pseudo = max(0.5 ï¿½ (minimum positive value), 1e-9)</code>, then we plot <code>log10(value + pseudo)</code>."
           )
         )
-      )
-    )
   )
 }
 
 #' @export
 mod_normalize_server <- function(id, se_in) {
   shiny::moduleServer(id, function(input, output, session) {
+    
+    input_version <- shiny::reactiveVal(0L)
+    applied_input_version <- shiny::reactiveVal(NA_integer_)
+    
+    shiny::observeEvent(se_in(), {
+      input_version(shiny::isolate(input_version()) + 1L)
+      applied_input_version(NA_integer_)
+    }, ignoreInit = FALSE)
     
     # ---- Method explanations ----
     .method_explain <- function(m) {
@@ -211,7 +207,7 @@ mod_normalize_server <- function(id, se_in) {
       html <- desc[[m]] %||% ""
       htmltools::HTML(
         sprintf(
-          '<div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:10px;">%s</div>',
+          '<div class="norm-method-desc">%s</div>',
           html
         )
       )
@@ -228,6 +224,7 @@ mod_normalize_server <- function(id, se_in) {
       
       # Keep original if "none"
       if (identical(input$method, "none")) {
+        applied_input_version(input_version())
         shiny::showNotification("Normalization applied: none (raw)", type = "message", duration = 2)
         return(se)
       }
@@ -238,6 +235,7 @@ mod_normalize_server <- function(id, se_in) {
       )
       
       se2 <- normalize_se(se, method = input$method, control = ctl)
+      applied_input_version(input_version())
       
       shiny::showNotification(
         paste0("Normalization applied: ", input$method),
@@ -397,7 +395,7 @@ mod_normalize_server <- function(id, se_in) {
     
     list(
       se    = shiny::reactive(se_norm()),
-      ready = shiny::reactive(!is.null(se_norm()))
+      ready = shiny::reactive(!is.null(se_norm()) && identical(applied_input_version(), input_version()))
     )
   })
 }

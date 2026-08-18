@@ -218,7 +218,6 @@ plot_lipid_class_bar <- function(
   
   fmt_p <- function(pp) {
     if (!is.finite(pp)) return("p=NA")
-    if (pp < 10^(-digits)) return(paste0("p<", format(10^(-digits), scientific = FALSE)))
     paste0("p=", formatC(pp, digits = digits, format = "g"))
   }
 
@@ -379,12 +378,12 @@ plot_lipid_class_bar <- function(
 
 #' Set x-axis order for plots
 #' - If x_order is given: use it (others appended)
-#' - Else: order by summary of abundance per group
+#' - Else: preserve existing group order unless alphabetical is requested
 #' @keywords internal
 .set_x_order_for_plot <- function(tidy,
                                   x_var = "class",
                                   x_order = NULL,
-                                  order_by = c("none","abundance_mean","abundance_median","alphabetical"),
+                                  order_by = c("none","alphabetical"),
                                   decreasing = FALSE) {
   if (!is.data.frame(tidy)) return(tidy)
   if (!x_var %in% names(tidy)) return(tidy)
@@ -413,22 +412,7 @@ plot_lipid_class_bar <- function(
     return(tidy)
   }
   
-  # abundance-based order
-  if (!"abundance" %in% names(tidy)) {
-    tidy[[x_var]] <- factor(as.character(tidy[[x_var]]), levels = levs)
-    return(tidy)
-  }
-  
-  stat_fun <- if (order_by == "abundance_median") stats::median else base::mean
-  grp <- split(tidy$abundance, tidy[[x_var]])
-  sc <- vapply(grp, function(v) stat_fun(v, na.rm = TRUE), numeric(1))
-  sc <- sc[is.finite(sc)]
-  
-  levs_new <- names(sort(sc, decreasing = isTRUE(decreasing)))
-  # include missing levels (all NA groups etc.)
-  levs_new <- unique(c(levs_new, levs[!levs %in% levs_new]))
-  
-  tidy[[x_var]] <- factor(as.character(tidy[[x_var]]), levels = levs_new)
+  tidy[[x_var]] <- factor(as.character(tidy[[x_var]]), levels = levs)
   tidy
 }
 
@@ -442,7 +426,7 @@ plot_dot_se <- function(se, feature_id,
                         x_var        = "class",
                         facet_var    = NULL,
                         x_order      = NULL,
-                        order_by     = c("none","abundance_mean","abundance_median","alphabetical"),
+                        order_by     = c("none","alphabetical"),
                         decreasing   = FALSE,
                         palette      = NULL,
                         add_p        = FALSE,
@@ -521,7 +505,7 @@ plot_box_se <- function(se, feature_id,
                         x_var        = "class",
                         facet_var    = NULL,
                         x_order      = NULL,
-                        order_by     = c("none","abundance_mean","abundance_median","alphabetical"),
+                        order_by     = c("none","alphabetical"),
                         decreasing   = FALSE,
                         palette      = NULL,
                         add_p        = FALSE,
@@ -595,7 +579,7 @@ plot_violin_se <- function(se, feature_id,
                            x_var        = "class",
                            facet_var    = NULL,
                            x_order      = NULL,
-                           order_by     = c("none","abundance_mean","abundance_median","alphabetical"),
+                           order_by     = c("none","alphabetical"),
                            decreasing   = FALSE,
                            palette      = NULL,
                            add_p        = FALSE,
@@ -684,7 +668,7 @@ plot_violin_se <- function(se, feature_id,
 #' @export
 make_class_heatmap_CH <- function(se, class_col, class_name,
                                   x_var = "class", x_order = NULL,
-                                  order_by = c("none","abundance_mean","abundance_median","alphabetical"),
+                                  order_by = c("none","alphabetical"),
                                   decreasing = FALSE,
                                   topN = 40, row_z = TRUE,
                                   row_total_fun = c("mean", "sum"),

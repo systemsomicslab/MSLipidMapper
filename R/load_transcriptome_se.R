@@ -14,8 +14,8 @@
 #' @param csv_path Character. Path to the transcriptome CSV file.
 #' @param symbol_col Integer. Column index for the gene symbol column.
 #' @param ensembl_col Integer. Column index for the Ensembl ID column.
-#' @param organism Character. One of c("mmusculus", "hsapiens").
-#'   Used for Ensembl ID format validation.
+#' @param organism Optional character value retained for backward compatibility.
+#'   When NULL, Human, Mouse, and Rat Ensembl prefixes are detected automatically.
 #' @param none_tokens Character vector. Values treated as missing Ensembl IDs.
 #' @param keep_unmapped Character. How to handle rows with missing Ensembl IDs.
 #'   One of c("drop", "keep_na", "error").
@@ -30,8 +30,7 @@
 #' se <- load_transcriptome_se_from_symbol_ensembl(
 #'   csv_path    = "counts.csv",
 #'   symbol_col  = 1,
-#'   ensembl_col = 2,
-#'   organism    = "hsapiens"
+#'   ensembl_col = 2
 #' )
 #' }
 #' @export
@@ -39,11 +38,13 @@ load_transcriptome_se_from_symbol_ensembl <- function(
     csv_path,
     symbol_col      = 1,
     ensembl_col     = 2,
-    organism        = c("mmusculus", "hsapiens"),
+    organism        = NULL,
     none_tokens     = c("none", "na", "n/a", "-", "."),
     keep_unmapped   = c("drop", "keep_na", "error")
 ) {
-  organism <- match.arg(organism)
+  if (!is.null(organism)) {
+    organism <- match.arg(organism, c("hsapiens", "mmusculus", "rnorvegicus"))
+  }
   keep_unmapped <- match.arg(keep_unmapped)
 
   # Read input CSV
@@ -126,17 +127,40 @@ load_transcriptome_se_from_symbol_ensembl <- function(
     ens      <- ens[keep_data]
   }
 
-  # Validate Ensembl ID format, skipping NA values
-  ok_prefix <- if (organism == "hsapiens") "^ENSG\\d+" else "^ENSMUSG\\d+"
-  bad <- which(!is.na(ens) & !grepl(ok_prefix, ens))
+  # Validate recognized Ensembl prefixes without asking the user to select an
+  # organism. Non-Ensembl identifiers are accepted without species validation.
+  ensembl_patterns <- c(
+    hsapiens = "^ENSG\\d+",
+    mmusculus = "^ENSMUSG\\d+",
+    rnorvegicus = "^ENSRNOG\\d+"
+  )
+  ens_present <- ens[!is.na(ens)]
 
-  if (length(bad)) {
-    stop(sprintf(
-      "Found %d Ensembl IDs inconsistent with organism '%s'. Example(s): %s",
-      length(bad),
-      organism,
-      paste(unique(ens[bad][1:min(3, length(bad))]), collapse = ", ")
-    ))
+  if (length(ens_present)) {
+    if (is.null(organism)) {
+      detected <- names(ensembl_patterns)[vapply(
+        ensembl_patterns,
+        function(pattern) any(grepl(pattern, ens_present)),
+        logical(1)
+      )]
+      if (length(detected) > 1) {
+        stop("Multiple organism-specific Ensembl ID prefixes were detected in the same file.")
+      }
+      if (length(detected) == 1) organism <- detected
+    }
+
+    if (!is.null(organism)) {
+      ok_prefix <- ensembl_patterns[[organism]]
+      bad <- which(!is.na(ens) & !grepl(ok_prefix, ens))
+      if (length(bad)) {
+        stop(sprintf(
+          "Found %d IDs inconsistent with the detected Ensembl prefix for '%s'. Example(s): %s",
+          length(bad),
+          organism,
+          paste(unique(ens[bad][1:min(3, length(bad))]), collapse = ", ")
+        ))
+      }
+    }
   }
 
   # Use gene symbols as row names and make them unique

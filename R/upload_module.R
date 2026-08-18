@@ -590,27 +590,18 @@ mod_upload_ui <- function(id) {
         shiny::helpText("Upload a transcriptome count table. Must contain a 'GeneID' column."),
         shiny::fluidRow(
           shiny::column(
-            width = 4,
+            width = 6,
             shiny::fileInput(ns("tx_file"), "Transcriptome CSV", accept = ".csv")
           ),
           shiny::column(
-            width = 4,
-            shiny::selectInput(
-              ns("tx_organism"), "Organism",
-              choices = c(
-                "Human (hsapiens)"  = "hsapiens",
-                "Mouse (mmusculus)" = "mmusculus",
-                "Rat (rnorvegicus)" = "rnorvegicus"
-              ),
-              selected = "mmusculus"
-            ),
+            width = 3,
             shiny::div(
-              style = "margin-top: 6px;",
+              style = "margin-top: 25px;",
               shiny::actionButton(ns("tx_build"), "Submit Transcriptome data", class = "btn btn-primary")
             )
           ),
           shiny::column(
-            width = 4,
+            width = 3,
             shiny::h4("Summary"),
             shiny::htmlOutput(ns("tx_summary_html"))
           )
@@ -1257,25 +1248,19 @@ mod_upload_server <- function(id) {
 
     shiny::observeEvent(input$tx_build, {
       req(input$tx_file)
-      org <- input$tx_organism %||% "mmusculus"
 
       se_tx_raw <- try(
         {
           if (exists("load_transcriptome_se_from_symbol_ensembl", mode = "function")) {
             load_transcriptome_se_from_symbol_ensembl(
               csv_path      = input$tx_file$datapath,
-              organism      = org,
               symbol_col    = 1,
               ensembl_col   = 2,
               none_tokens   = "none",
               keep_unmapped = "keep_na"
             )
           } else {
-            load_transcriptome_se(
-              csv_path = input$tx_file$datapath,
-              organism = org,
-              target   = "ENSG"
-            )
+            stop("The multiomics data loader is not available.")
           }
         },
         silent = TRUE

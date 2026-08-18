@@ -140,10 +140,25 @@ fit_oplsda <- function(
 
   n <- nrow(X)
   if (n < 2) stop("Too few samples for OPLS-DA (need >=2).")
+  y <- droplevels(factor(y))
+  group_counts <- table(y)
+  if (length(group_counts) != 2) {
+    stop("OPLS-DA currently supports exactly 2 groups.")
+  }
+  if (min(group_counts) < 3) {
+    stop("OPLS-DA requires at least 3 samples in each group.")
+  }
 
   cv <- suppressWarnings(as.integer(crossvalI))
   if (is.na(cv) || cv < 2) cv <- 2L
-  if (cv > n) cv <- n
+  cv <- min(cv, as.integer(min(group_counts)))
+
+  perm <- suppressWarnings(as.integer(permI))
+  if (is.na(perm) || perm < 0) perm <- 0L
+  log_n_arrangements <- lchoose(sum(group_counts), group_counts[[1]])
+  if (is.finite(log_n_arrangements) && log_n_arrangements < log(perm + 2)) {
+    perm <- max(0L, as.integer(round(exp(log_n_arrangements))) - 1L)
+  }
 
   ropls::opls(
     X, y,
@@ -151,7 +166,7 @@ fit_oplsda <- function(
     orthoI = orthoI,
     scaleC = scaleC,
     crossvalI = cv,
-    permI = permI
+    permI = perm
   )
 }
 
@@ -315,15 +330,44 @@ plot_vip <- function(
   if (!requireNamespace("dplyr", quietly = TRUE)) stop("Package 'dplyr' is required.")
   if (nrow(vip_tbl_ranked) == 0) stop("No VIP variables available after filtering.")
 
-  topn2 <- min(topn, nrow(vip_tbl_ranked))
-  vip_top <- vip_tbl_ranked %>%
-    dplyr::slice_max(order_by = VIP, n = topn2, with_ties = FALSE)
-  
   group_levels <- as.character(group_levels %||% character(0))
-  if (length(group_levels) >= 2 && "highest_group" %in% colnames(vip_top)) {
+  topn2 <- min(topn, nrow(vip_tbl_ranked))
+
+  if (length(group_levels) >= 2 && "highest_group" %in% colnames(vip_tbl_ranked)) {
     group_levels <- group_levels[seq_len(2)]
     left_group <- group_levels[1]
     right_group <- group_levels[2]
+
+    # Select VIPs within each class so that one class cannot dominate the plot.
+    # For an odd Top-N, the extra slot goes to the class with the larger next VIP.
+    candidates <- lapply(group_levels, function(gr) {
+      z <- vip_tbl_ranked[
+        !is.na(vip_tbl_ranked$highest_group) & vip_tbl_ranked$highest_group == gr,
+        ,
+        drop = FALSE
+      ]
+      z[order(z$VIP, decreasing = TRUE), , drop = FALSE]
+    })
+    names(candidates) <- group_levels
+
+    quota <- stats::setNames(rep(floor(topn2 / 2), 2), group_levels)
+    if ((topn2 %% 2) == 1) {
+      next_vip <- vapply(group_levels, function(gr) {
+        pos <- quota[[gr]] + 1L
+        if (nrow(candidates[[gr]]) >= pos) candidates[[gr]]$VIP[pos] else -Inf
+      }, numeric(1))
+      quota[[names(which.max(next_vip))[1]]] <- quota[[names(which.max(next_vip))[1]]] + 1L
+    }
+
+    vip_top <- do.call(
+      rbind,
+      lapply(group_levels, function(gr) {
+        utils::head(candidates[[gr]], quota[[gr]])
+      })
+    )
+    rownames(vip_top) <- NULL
+    if (!nrow(vip_top)) stop("No class-specific VIP variables are available for plotting.")
+
     vip_top$direction <- ifelse(vip_top$highest_group == right_group, right_group, left_group)
     vip_top$VIP_plot <- ifelse(vip_top$direction == right_group, vip_top$VIP, -vip_top$VIP)
     vip_top <- vip_top[order(vip_top$VIP_plot, decreasing = TRUE), , drop = FALSE]
@@ -359,6 +403,8 @@ plot_vip <- function(
       ) +
       ggplot2::theme_classic(base_size = 15, base_family = base_family)
   } else {
+    vip_top <- vip_tbl_ranked %>%
+      dplyr::slice_max(order_by = VIP, n = topn2, with_ties = FALSE)
     vip_top$variable <- factor(vip_top$variable, levels = rev(vip_top$variable))
     p <- ggplot2::ggplot(
       vip_top,
@@ -450,6 +496,8 @@ make_vip_heatmap <- function(
   ha_left <- ComplexHeatmap::rowAnnotation(
     VIP = ComplexHeatmap::anno_simple(vip_vec_anno, col = col_vip, border = TRUE),
     width = grid::unit(10, "mm"),
+    annotation_name_side = "bottom",
+    annotation_name_gp = grid::gpar(fontsize = 10, fontface = "bold"),
     annotation_legend_param = list(
       title = "VIP",
       direction = "horizontal",

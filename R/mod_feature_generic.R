@@ -73,7 +73,7 @@ suppressPackageStartupMessages({
   list(
     facet_var    = "",
     # --- X-axis ordering -----------------------------------------------------
-    order_by     = "abundance_median",  # "abundance_median" / "none"
+    order_by     = "none",              # "none" / "alphabetical"
     decreasing   = FALSE,
     manual_order = character(0),        # manual x-axis order (group names)
     palette_map  = character(0),        # group -> "#RRGGBB"
@@ -163,6 +163,25 @@ mod_feature_generic_server <- function(
     } else {
       shiny::reactive(NULL)
     }
+
+    output$dataset_ui <- shiny::renderUI({
+      tx <- se_tx_r()
+      has_gene <- !is.null(tx) && methods::is(tx, "SummarizedExperiment")
+
+      choices <- c("Lipid" = "lipid")
+      if (has_gene) choices <- c(choices, "Other omics" = "gene")
+
+      current <- shiny::isolate(input$feature_dataset %||% "lipid")
+      selected <- if (current %in% unname(choices)) current else "lipid"
+
+      shiny::radioButtons(
+        ns("feature_dataset"),
+        label = "Dataset",
+        choices = choices,
+        selected = selected,
+        inline = TRUE
+      )
+    })
 
     # Get groups (class column in colData) -----------------------------------
     .get_groups <- function(dataset = c("lipid", "gene")) {
@@ -335,143 +354,85 @@ mod_feature_generic_server <- function(
       )
     })
 
+    shiny::observeEvent(input$adv_comp_mode, {
+      mode <- input$adv_comp_mode %||% "ref"
+      if (!identical(rv$adv$comp_mode %||% "ref", mode)) {
+        adv <- rv$adv
+        adv$comp_mode <- mode
+        rv$adv <- adv
+      }
+    }, ignoreInit = TRUE)
+
     output$adv_color_pickers <- shiny::renderUI({
       df <- rv$pal_tbl
       if (is.null(df) || !nrow(df)) {
         return(shiny::helpText("No groups found for colData$class."))
       }
-      shiny::tagList(lapply(seq_len(nrow(df)), function(i) {
-        gid <- df$group[i]
-        col <- df$color[i]
-        inputId <- ns(paste0("adv_col_", .idify(gid)))
-        if (requireNamespace("colourpicker", quietly = TRUE)) {
-          colourpicker::colourInput(
-            inputId,
-            label = gid,
-            value = col,
-            showColour = "both"
-          )
-        } else {
-          shiny::textInput(inputId, label = gid, value = col, placeholder = "#RRGGBB")
-        }
-      }))
+      shiny::tagList(
+        shiny::tags$style(shiny::HTML("\
+          .adv-palette-list{display:grid;gap:6px;max-width:640px;}\
+          .adv-palette-row{display:grid;grid-template-columns:minmax(140px,1fr) 64px 90px;gap:10px;align-items:center;padding:7px 9px;border:1px solid #e1e7ec;border-radius:6px;background:#f8fafc;}\
+          .adv-palette-row strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;}\
+          .adv-palette-row input[type=color]{width:54px;height:32px;padding:2px;border:1px solid #cbd6df;border-radius:5px;background:#fff;cursor:pointer;}\
+          .adv-palette-row .form-group{margin:0;}\
+          .adv-palette-row .form-control{height:32px;padding:5px 7px;font-size:11px;}\
+        ")),
+        shiny::div(
+          class = "adv-palette-list",
+          lapply(seq_len(nrow(df)), function(i) {
+            gid <- as.character(df$group[i])
+            shiny::div(
+              class = "adv-palette-row",
+              shiny::strong(gid),
+              shiny::tags$input(
+                id = ns(paste0("adv_col_", .idify(gid))),
+                type = "color",
+                value = .norm_hex1(df$color[i]),
+                onchange = "Shiny.setInputValue(this.id,this.value,{priority:'event'});"
+              ),
+              shiny::numericInput(
+                ns(paste0("adv_level_", .idify(gid))),
+                label = NULL,
+                value = df$level[i],
+                min = 1,
+                step = 1
+              )
+            )
+          })
+        )
+      )
     })
 
-    output$adv_palette_table <- if (requireNamespace("rhandsontable", quietly = TRUE)) {
-      rhandsontable::renderRHandsontable({
-        df <- rv$pal_tbl
-        if (is.null(df) || !nrow(df)) return(NULL)
-        rhandsontable::rhandsontable(df, rowHeaders = NULL, stretchH = "all") |>
-          rhandsontable::hot_col("group", readOnly = TRUE) |>
-          rhandsontable::hot_col(
-            "color",
-            type      = "text",
-            validator = "function(value){return /^#?[0-9A-Fa-f]{6}$/.test(value);}"
-          ) |>
-          rhandsontable::hot_col("level", type = "numeric")
-      })
-    } else {
-      shiny::renderUI({
-        df <- rv$pal_tbl
-        txt <- if (!is.null(df) && nrow(df)) {
-          paste(apply(df, 1, function(r) paste(r[1], r[2], r[3], sep = "\t")), collapse = "\n")
-        } else ""
-        shiny::textAreaInput(
-          ns("adv_palette_text"),
-          "Palette table (group\\t#RRGGBB\\tlevel), one row per line",
-          value = txt,
-          rows  = 10,
-          width = "100%"
-        )
-      })
-    }
-
-    # rhandsontable -> update rv$pal_tbl --------------------------------------
-    if (requireNamespace("rhandsontable", quietly = TRUE)) {
-      shiny::observeEvent(input$adv_palette_table, {
-        if (isTRUE(syncing())) return()
-        newdf <- try(rhandsontable::hot_to_r(input$adv_palette_table), silent = TRUE)
-        if (!inherits(newdf, "try-error") && !is.null(newdf) && nrow(newdf)) {
-          newdf$color <- .norm_hex_vec(newdf$color)
-          newdf$level <- suppressWarnings(as.numeric(newdf$level))
-
-          # keep row order stable by group
-          old <- rv$pal_tbl
-          if (!is.null(old) && nrow(old)) {
-            keep <- intersect(old$group, newdf$group)
-            newdf <- newdf[match(keep, newdf$group), , drop = FALSE]
-          }
-
-          syncing(TRUE); on.exit(syncing(FALSE), add = TRUE)
-          rv$pal_tbl <- newdf
-        }
-      }, ignoreInit = TRUE)
-    } else {
-      shiny::observeEvent(input$adv_palette_text, {
-        if (isTRUE(syncing())) return()
-        txt <- input$adv_palette_text %||% ""
-        rows <- strsplit(txt, "\n", fixed = TRUE)[[1]]
-        rows <- rows[nzchar(trimws(rows))]
-
-        if (!length(rows)) return()
-
-        parts <- strsplit(rows, "\t", fixed = TRUE)
-        df <- do.call(rbind, lapply(parts, function(p) {
-          p <- c(p, NA, NA)[1:3]
-          data.frame(
-            group = trimws(p[1]),
-            color = .norm_hex1(p[2]),
-            level = suppressWarnings(as.numeric(p[3])),
-            stringsAsFactors = FALSE
-          )
-        }))
-        df <- df[nzchar(df$group), , drop = FALSE]
-        if (nrow(df)) {
-          syncing(TRUE); on.exit(syncing(FALSE), add = TRUE)
-          rv$pal_tbl <- df
-        }
-      }, ignoreInit = TRUE)
-    }
-
-    # Color picker -> table sync ----------------------------------------------
+    # Native browser inputs -> palette state. Deliberately one-way to avoid
+    # picker/table feedback loops while the user is dragging a color.
     shiny::observe({
-      if (isTRUE(syncing())) return()
       df <- rv$pal_tbl
       if (is.null(df) || !nrow(df)) return()
 
-      pick <- vapply(df$group, function(g) {
-        id <- paste0("adv_col_", .idify(g))
-        .norm_hex1(input[[id]] %||% "")
-      }, FUN.VALUE = character(1))
+      next_color <- vapply(df$group, function(g) {
+        value <- input[[paste0("adv_col_", .idify(g))]]
+        if (is.null(value)) NA_character_ else .norm_hex1(value)
+      }, character(1))
+      next_level <- vapply(df$group, function(g) {
+        value <- input[[paste0("adv_level_", .idify(g))]]
+        if (is.null(value)) NA_real_ else suppressWarnings(as.numeric(value))
+      }, numeric(1))
 
-      idx <- which(!is.na(pick) & pick != df$color)
-      if (length(idx)) {
-        syncing(TRUE); on.exit(syncing(FALSE), add = TRUE)
-        df$color[idx] <- pick[idx]
+      changed <- FALSE
+      valid_color <- !is.na(next_color) & next_color != df$color
+      if (any(valid_color)) {
+        df$color[valid_color] <- next_color[valid_color]
+        changed <- TRUE
+      }
+      valid_level <- is.finite(next_level) & (is.na(df$level) | next_level != df$level)
+      if (any(valid_level)) {
+        df$level[valid_level] <- next_level[valid_level]
+        changed <- TRUE
+      }
+      if (changed) {
         rv$pal_tbl <- df
       }
     })
-
-    # table -> Color picker sync ----------------------------------------------
-    shiny::observeEvent(rv$pal_tbl, {
-      if (isTRUE(syncing())) return()
-      df <- rv$pal_tbl
-      if (is.null(df) || !nrow(df)) return()
-
-      syncing(TRUE); on.exit(syncing(FALSE), add = TRUE)
-
-      for (i in seq_len(nrow(df))) {
-        gid <- df$group[i]
-        val <- df$color[i] %||% ""
-        id  <- paste0("adv_col_", .idify(gid))
-
-        if (requireNamespace("colourpicker", quietly = TRUE)) {
-          if (!is.null(input[[id]])) colourpicker::updateColourInput(session, inputId = id, value = val)
-        } else {
-          if (!is.null(input[[id]])) shiny::updateTextInput(session, inputId = id, value = val)
-        }
-      }
-    }, ignoreInit = TRUE)
 
     # Build modal dialog -------------------------------------------------------
     feature_adv_modal <- function() {
@@ -485,7 +446,7 @@ mod_feature_generic_server <- function(
       rv$pal_tbl <- .build_palette_table(groups, adv, rv$pal_tbl)
 
       shiny::modalDialog(
-        title     = "Advanced settings (Shared)",
+        title     = "Advanced settings",
         size      = "l",
         easyClose = TRUE,
         footer    = shiny::tagList(
@@ -497,21 +458,9 @@ mod_feature_generic_server <- function(
 
           shiny::tabPanel(
             "Colors / order",
-            shiny::helpText("Current sample grouping column: colData$class"),
-            shiny::fluidRow(
-              shiny::column(6, shiny::h4("Color / order"), shiny::uiOutput(ns("adv_color_pickers"))),
-              shiny::column(
-                6,
-                shiny::h4("Palette table (edit colors / order)"),
-                if (requireNamespace("rhandsontable", quietly = TRUE)) {
-                  rhandsontable::rHandsontableOutput(ns("adv_palette_table"), height = 420)
-                } else {
-                  shiny::uiOutput(ns("adv_palette_table"))
-                }
-              )
-            ),
-            shiny::hr(),
-            shiny::helpText("Use the 'level' column to define a manual x-axis order for colData$class (smaller comes first)."),
+            shiny::h4("Group colors and order"),
+            shiny::helpText("Choose a color and enter the display order for each group."),
+            shiny::uiOutput(ns("adv_color_pickers")),
             shiny::hr(),
             shiny::h4("Panel split"),
             shiny::selectInput(
@@ -630,15 +579,6 @@ mod_feature_generic_server <- function(
                 shiny::textInput(ns("adv_violin_median_color"),    "median line color",   adv$violin_median_color)
               )
             )
-          ),
-
-          shiny::tabPanel(
-            "Heatmap",
-            shiny::h4("High-variance gene heatmap / Lipid Top-N"),
-            shiny::fluidRow(
-              shiny::column(4, shiny::checkboxInput(ns("adv_hm_row_z"), "row z-score", value = isTRUE(adv$hm_row_z))),
-              shiny::column(4, shiny::numericInput(ns("adv_hm_topN"), "Top-N genes / molecules", value = adv$hm_topN, min = 5, step = 5))
-            )
           )
         )
       )
@@ -745,12 +685,6 @@ mod_feature_generic_server <- function(
       adv$violin_median_size  <- input$adv_violin_median_size
       adv$violin_median_color <- input$adv_violin_median_color %||% "#222222"
 
-      # Heatmap
-      adv$hm_row_z <- isTRUE(input$adv_hm_row_z)
-      topN_in <- input$adv_hm_topN
-      if (is.null(topN_in) || !is.finite(topN_in) || topN_in <= 0) topN_in <- 50
-      adv$hm_topN <- as.integer(topN_in)
-
       # Commit state
       rv$adv <- adv
 
@@ -828,13 +762,7 @@ mod_feature_generic_ui <- function(id, title = "Feature") {
       shiny::column(
         width = 12,
         shiny::wellPanel(
-          shiny::radioButtons(
-            ns("feature_dataset"),
-            label    = "Dataset",
-            choices  = c("Lipid" = "lipid", "Gene" = "gene"),
-            selected = "lipid",
-            inline   = TRUE
-          )
+          shiny::uiOutput(ns("dataset_ui"))
         )
       )
     ),

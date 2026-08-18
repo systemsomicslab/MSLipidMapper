@@ -630,7 +630,7 @@ mod_lipid_enrich_ui <- function(id, title = "Lipid enrichment (file input)") {
           uiOutput(ns("summary_box")),
           
           tags$hr(),
-          actionButton(ns("run"), "Run enrichment", icon = icon("play"), width = "100%", class = "btn-primary"),
+          actionButton(ns("run"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
           
           tags$hr(),
           downloadButton(ns("download_plot"), "Download plot (PDF)", width = "100%"),

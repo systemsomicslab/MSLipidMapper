@@ -8,7 +8,7 @@
 #   * ignore_sum_only: TRUE => if "sum-only like" (1 chain token, no delimiter/suffix evidence) => character(0)
 #   * exclude_first_chain: TRUE => drop 1st chain ONLY when length(chains) >= 2
 # - Supports delimiter logic:
-#   * split="auto": "/" if present else "_" if present else whitespace else unsplit
+#   * split="auto": "/" and/or "_" if present else whitespace else unsplit
 # - Handles "A|B" notation by choosing the alternative with the most chain tokens
 #   * optional prefer_molecular_notation: true => add bonus for "_" or "/" in alt
 # - Suffix extraction:
@@ -20,6 +20,8 @@
 # Provides:
 # - load_lipid_rules()
 # - extract_acyl_chains_from_name()
+# - extract_lipid_chain_metadata_from_name()
+# - lipid_names_to_chain_table()
 # - add_chain_list_to_se()
 # - build_chain_dict_from_se()
 # - filter_se_by_chain()
@@ -113,8 +115,7 @@ select_rule <- function(lipid_class, rules) {
   if (is.null(split) || !nzchar(split)) return(x)
   
   if (identical(split, "auto")) {
-    if (str_detect(x, fixed("/"))) return(unlist(str_split(x, fixed("/"))))
-    if (str_detect(x, fixed("_"))) return(unlist(str_split(x, fixed("_"))))
+    if (str_detect(x, "[/_]"))     return(unlist(str_split(x, "[/_]")))
     if (str_detect(x, "\\s+"))     return(unlist(str_split(x, "\\s+")))
     return(x)
   }
@@ -234,7 +235,7 @@ select_rule <- function(lipid_class, rules) {
     acyl_chains = character(0),
     sphingoid_bases = character(0)
   )
-  if (!nzchar(nm)) return(empty_meta)
+  if (is.na(nm) || !nzchar(nm)) return(empty_meta)
   
   class_raw <- str_extract(nm, "^[A-Za-z0-9\\-\\+;_]+") %||% ""
   class_raw <- str_trim(class_raw)
@@ -350,14 +351,144 @@ select_rule <- function(lipid_class, rules) {
 }
 
 # ------------------------------------------------------------
-# Extract acyl chains from ONE lipid name (ALWAYS character vec)
+# Extract chain metadata from lipid name(s).
+# A single lipid name returns one metadata list; multiple names return a named list.
+# ------------------------------------------------------------
+extract_lipid_chain_metadata_from_name <- function(lipid_name, rules) {
+  lipid_name <- as.character(lipid_name %||% "")
+  if (length(lipid_name) > 1L) {
+    out <- lapply(lipid_name, .parse_lipid_chain_metadata, rules = rules)
+    names(out) <- lipid_name
+    return(out)
+  }
+  .parse_lipid_chain_metadata(lipid_name, rules)
+}
+
+# ------------------------------------------------------------
+# Extract acyl chains from lipid name(s)
+# - include_sphingoid=TRUE returns acyl chains and sphingoid bases together
+# - a single lipid name returns one character vector; multiple names return a named list
 # - obeys: no_chain / ignore_sum_only / exclude_first_chain (>=2 only)
 # - suffix extraction:
 #     detect_fa_suffix: parentheses
 #     detect_fa_tail  : "... FA 20:4" (no parentheses)
 # ------------------------------------------------------------
-extract_acyl_chains_from_name <- function(lipid_name, rules) {
-  .parse_lipid_chain_metadata(lipid_name, rules)$acyl_chains
+extract_acyl_chains_from_name <- function(lipid_name, rules, include_sphingoid = FALSE) {
+  lipid_name <- as.character(lipid_name %||% "")
+  get_chains <- function(x) {
+    meta <- .parse_lipid_chain_metadata(x, rules)
+    chains <- meta$acyl_chains
+    if (isTRUE(include_sphingoid)) {
+      chains <- c(chains, meta$sphingoid_bases)
+    }
+    unique(chains[!is.na(chains) & nzchar(chains)])
+  }
+  
+  if (length(lipid_name) > 1L) {
+    out <- lapply(lipid_name, get_chains)
+    names(out) <- lipid_name
+    return(out)
+  }
+  
+  get_chains(lipid_name)
+}
+
+.infer_lipid_class_from_name <- function(lipid_name, class_map = NULL) {
+  nm <- as.character(lipid_name %||% "")
+  nm <- str_trim(nm)
+  if (is.na(nm) || !nzchar(nm)) return(NA_character_)
+  
+  if (!is.null(class_map) && length(class_map) > 0L) {
+    map_names <- names(class_map)
+    if (!is.null(map_names)) {
+      hit_idx <- match(nm, map_names)
+      if (!is.na(hit_idx)) {
+        hit <- class_map[[hit_idx]]
+        if (length(hit) > 0L && !is.na(hit[[1]]) && nzchar(as.character(hit[[1]]))) {
+          return(as.character(hit[[1]]))
+        }
+      }
+    }
+  }
+  
+  class_raw <- str_extract(nm, "^[A-Za-z0-9\\-\\+;_]+") %||% NA_character_
+  class_raw <- str_trim(class_raw)
+  if (is.na(class_raw) || !nzchar(class_raw)) NA_character_ else class_raw
+}
+
+.strip_chain_oxygen_for_table <- function(chain) {
+  chain <- as.character(chain %||% "")
+  is_spb <- str_detect(chain, "^SPB")
+  out <- chain
+  out[!is_spb] <- str_replace_all(out[!is_spb], ";O\\d*", "")
+  out[!is_spb] <- str_replace_all(out[!is_spb], ";\\d+O(?=\\D|$)", "")
+  out
+}
+
+# ------------------------------------------------------------
+# Convert lipid name(s) to a long chain metadata table.
+# - keep_empty=TRUE keeps lipids with no chain metadata as one NA row
+# - class_map can provide exact-name class overrides, e.g.
+#     c("25-hydroxycholecalciferol" = "Vitamin_D")
+# ------------------------------------------------------------
+lipid_names_to_chain_table <- function(lipid_name,
+                                       rules,
+                                       annotation = "MS1",
+                                       include_sphingoid = TRUE,
+                                       class_map = NULL,
+                                       keep_empty = TRUE) {
+  lipid_name <- as.character(lipid_name %||% "")
+  
+  rows <- lapply(lipid_name, function(nm) {
+    meta <- .parse_lipid_chain_metadata(nm, rules)
+    chains <- as.character(meta$acyl_chains %||% character(0))
+    if (isTRUE(include_sphingoid)) {
+      chains <- c(chains, as.character(meta$sphingoid_bases %||% character(0)))
+    }
+    chains <- unique(chains[!is.na(chains) & nzchar(chains)])
+    chains <- .strip_chain_oxygen_for_table(chains)
+    
+    lipid_class <- .infer_lipid_class_from_name(nm, class_map = class_map)
+    if (!length(chains)) {
+      if (!isTRUE(keep_empty)) return(NULL)
+      return(data.frame(
+        name = nm,
+        class = lipid_class,
+        chain_index = NA_integer_,
+        chain = NA_character_,
+        Annotation = annotation,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      ))
+    }
+    
+    data.frame(
+      name = rep(nm, length(chains)),
+      class = rep(lipid_class, length(chains)),
+      chain_index = seq_along(chains),
+      chain = chains,
+      Annotation = rep(annotation, length(chains)),
+      stringsAsFactors = FALSE,
+      check.names = FALSE
+    )
+  })
+  
+  rows <- Filter(Negate(is.null), rows)
+  if (!length(rows)) {
+    return(data.frame(
+      name = character(0),
+      class = character(0),
+      chain_index = integer(0),
+      chain = character(0),
+      Annotation = character(0),
+      stringsAsFactors = FALSE,
+      check.names = FALSE
+    ))
+  }
+  
+  out <- do.call(rbind, rows)
+  rownames(out) <- NULL
+  out
 }
 
 # ------------------------------------------------------------

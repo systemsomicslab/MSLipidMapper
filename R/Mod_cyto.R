@@ -187,7 +187,7 @@ mod_cyto_ui <- function(id) {
               class = "cy-actions",
               shiny::actionButton(ns("net_delete"), "Delete network", class = "btn-xs"),
               shiny::actionButton(ns("fit"), "Fit network", class = "btn-xs"),
-              shiny::actionButton(ns("map_local_svgs"), "Pathway Mapping", class = "btn-primary btn-sm")
+                shiny::actionButton(ns("map_local_svgs"), "Pathway Mapping", class = "btn-primary btn-sm")
             ),
             br(),
             shiny::radioButtons(

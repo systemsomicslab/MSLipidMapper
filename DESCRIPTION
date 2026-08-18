@@ -1,7 +1,7 @@
 Package: MSLipidMapper
 Type: Package
-Title: Interactive Shiny Dashboard for Lipidomics Data Exploration
-Version: 0.0.0.9000
+Title: Responsive Lipidomics Analysis Workspace
+Version: 0.1.0.9000
 Authors@R:
     person(
       given = "Systems Omics Lab",

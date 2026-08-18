@@ -44,7 +44,7 @@ suppressPackageStartupMessages({
 }
 
 # ----------------------------------------------------------------------
-# Compute all lipid × gene correlations
+# Compute all lipid Ã— gene correlations
 # ----------------------------------------------------------------------
 compute_all_lipid_gene_cor <- function(
     se_lipid,
@@ -85,8 +85,8 @@ compute_all_lipid_gene_cor <- function(
   mat_lip <- SummarizedExperiment::assay(se_lipid, assay_name_lipid)[, idx_lip, drop = FALSE]
   mat_tx  <- SummarizedExperiment::assay(se_tx,    assay_name_tx)[,  idx_tx,  drop = FALSE]
   
-  X <- t(mat_lip)  # n_sample × n_lipid
-  Y <- t(mat_tx)   # n_sample × n_gene
+  X <- t(mat_lip)  # n_sample Ã— n_lipid
+  Y <- t(mat_tx)   # n_sample Ã— n_gene
   
   cor_mat <- stats::cor(X, Y, use = "pairwise.complete.obs", method = method)
   
@@ -136,7 +136,7 @@ compute_focus_lipid_lipid_cor <- function(
     stop(sprintf("Lipid '%s' is not found in the lipid SE.", target_lipid))
   }
   
-  X <- t(mat_lip)  # n_sample × n_lipid
+  X <- t(mat_lip)  # n_sample Ã— n_lipid
   lipid_ids <- colnames(X)
   
   target_idx <- match(target_lipid, lipid_ids)
@@ -152,7 +152,7 @@ compute_focus_lipid_lipid_cor <- function(
   
   x_ok <- !is.na(X[, target_idx])
   Y_ok <- !is.na(X)
-  n_vec <- as.numeric(crossprod(x_ok, Y_ok))  # 1 × n_lipid
+  n_vec <- as.numeric(crossprod(x_ok, Y_ok))  # 1 Ã— n_lipid
   
   df_vec <- pmax(0, n_vec - 2L)
   denom  <- pmax(1e-12, 1 - r_vec^2)
@@ -225,7 +225,15 @@ mod_plot_cor_ui <- function(id) {
   $(window).on('resize', function(){ resize_%s(); });
   $(document).on('shown.bs.tab', 'a[data-toggle=\"tab\"]', function(){ setTimeout(resize_%s, 80); });
   $(document).on('shiny:connected', function(){ setTimeout(resize_%s, 200); });
-", fn_id, wrap_id, ns("scatter_plot"), ns("scatter_plotly"), fn_id, fn_id, fn_id)))
+  $(document).on('shiny:value', function(e){
+    if(e.name === '%s' || e.name === '%s'){
+      setTimeout(resize_%s, 0);
+      setTimeout(resize_%s, 160);
+    }
+  });
+", fn_id, wrap_id, ns("scatter_plot"), ns("scatter_plotly"),
+   fn_id, fn_id, fn_id,
+   ns("scatter_plot"), ns("scatter_plotly"), fn_id, fn_id)))
     ),
     
     shinydashboard::tabBox(
@@ -301,7 +309,7 @@ mod_plot_cor_ui <- function(id) {
                   selectize = FALSE
                 ),
                 
-                shiny::actionButton(ns("run_cor_single"), "Run", class = "btn btn-primary btn-sm"),
+                shiny::actionButton(ns("run_cor_single"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
                 shiny::tags$div(style = "height:6px;"),
                 shiny::downloadButton(ns("download_scatter_gg"), "Download ggplot (PDF)", class = "btn btn-default btn-sm")
               )
@@ -341,7 +349,7 @@ mod_plot_cor_ui <- function(id) {
           shiny::tabPanel(
             title = "Lipid to lipids",
             shinydashboard::box(
-              width=12, title="Focus lipid to correlated lipids (lipid × lipid)",
+              width=12, title="Focus lipid to correlated lipids (lipid Ã— lipid)",
               status="info", solidHeader=TRUE,
               shiny::fluidRow(
                 shiny::column(6, shiny::selectInput(ns("focus_lipid_ll"), "Focus lipid (row in lipid SE)", choices=NULL)),
@@ -349,8 +357,8 @@ mod_plot_cor_ui <- function(id) {
                 shiny::column(3, shiny::numericInput(ns("focus_lipid_ll_fdr_max"), "Max FDR", value=0.1, min=0, max=1, step=0.01))
               ),
               shiny::div(style="margin-bottom:5px; display:flex; gap:8px; align-items:center;",
-                         shiny::actionButton(ns("run_focus_lipid_ll"), "List correlated lipids", class="btn btn-primary btn-sm"),
-                         shiny::downloadButton(ns("download_focus_csv"), "Download focus results (CSV)", class="btn btn-default btn-sm")
+                         shiny::actionButton(ns("run_focus_lipid_ll"), "Run", class="btn-primary mslm-run-btn"),
+                         shiny::downloadButton(ns("download_focus_lipid_ll_csv"), "Download table (CSV)", class="btn btn-default btn-sm")
               ),
               DT::dataTableOutput(ns("tbl_focus_lipid_ll"))
             )
@@ -359,15 +367,16 @@ mod_plot_cor_ui <- function(id) {
           shiny::tabPanel(
             title = "Lipid to genes",
             shinydashboard::box(
-              width=12, title="Focus lipid to correlated genes (lipid × gene)",
+              width=12, title="Focus lipid to correlated genes (lipid Ã— gene)",
               status="info", solidHeader=TRUE,
               shiny::fluidRow(
                 shiny::column(6, shiny::selectInput(ns("focus_lipid"), "Focus lipid (row in lipid SE)", choices=NULL)),
                 shiny::column(3, shiny::numericInput(ns("focus_abs_r_min"), "Min |r|", value=0.6, min=0, max=1, step=0.05)),
                 shiny::column(3, shiny::numericInput(ns("focus_fdr_max"), "Max FDR", value=0.1, min=0, max=1, step=0.01))
               ),
-              shiny::div(style="margin-bottom:5px;",
-                         shiny::actionButton(ns("run_focus_lipid"), "List correlated genes", class="btn btn-primary btn-sm")
+              shiny::div(style="margin-bottom:5px; display:flex; gap:8px; align-items:center;",
+                         shiny::actionButton(ns("run_focus_lipid"), "Run", class="btn-primary mslm-run-btn"),
+                         shiny::downloadButton(ns("download_focus_lipid_gene_csv"), "Download table (CSV)", class="btn btn-default btn-sm")
               ),
               DT::dataTableOutput(ns("tbl_focus_lipid"))
             )
@@ -376,15 +385,16 @@ mod_plot_cor_ui <- function(id) {
           shiny::tabPanel(
             title = "Gene to lipids",
             shinydashboard::box(
-              width=12, title="Focus gene to correlated lipids (gene × lipid)",
+              width=12, title="Focus gene to correlated lipids (gene Ã— lipid)",
               status="info", solidHeader=TRUE,
               shiny::fluidRow(
                 shiny::column(6, shiny::selectInput(ns("focus_gene"), "Focus gene (row in tx SE)", choices=NULL)),
                 shiny::column(3, shiny::numericInput(ns("focus_gene_abs_r_min"), "Min |r|", value=0.6, min=0, max=1, step=0.05)),
                 shiny::column(3, shiny::numericInput(ns("focus_gene_fdr_max"), "Max FDR", value=0.1, min=0, max=1, step=0.01))
               ),
-              shiny::div(style="margin-bottom:5px;",
-                         shiny::actionButton(ns("run_focus_gene"), "List correlated lipids", class="btn btn-primary btn-sm")
+              shiny::div(style="margin-bottom:5px; display:flex; gap:8px; align-items:center;",
+                         shiny::actionButton(ns("run_focus_gene"), "Run", class="btn-primary mslm-run-btn"),
+                         shiny::downloadButton(ns("download_focus_gene_lipid_csv"), "Download table (CSV)", class="btn btn-default btn-sm")
               ),
               DT::dataTableOutput(ns("tbl_focus_gene"))
             )
@@ -400,7 +410,7 @@ mod_plot_cor_ui <- function(id) {
             width = 12,
             shinydashboard::box(
               width       = 12,
-              title       = "All pair correlation (lipid × gene, heatmap + table)",
+              title       = "All pair correlation (lipid Ã— gene, heatmap + table)",
               status      = "info",
               solidHeader = TRUE,
               
@@ -424,8 +434,9 @@ mod_plot_cor_ui <- function(id) {
               
               shiny::div(
                 style="margin-bottom:5px; display:flex; gap:8px; align-items:center;",
-                shiny::actionButton(ns("run_screen"), "Run all-pair scan", class="btn btn-info btn-sm"),
-                shiny::downloadButton(ns("download_allpair_csv"), "Download all-pair results (CSV)", class="btn btn-primary btn-sm")
+                shiny::actionButton(ns("run_screen"), "Run", class="btn-primary mslm-run-btn"),
+                shiny::downloadButton(ns("download_allpair_all_csv"), "Download all results (CSV)", class="btn btn-primary btn-sm"),
+                shiny::downloadButton(ns("download_allpair_filtered_csv"), "Download filtered results (CSV)", class="btn btn-default btn-sm")
               ),
               
               shiny::plotOutput(ns("cor_heatmap"), height="320px"),
@@ -506,6 +517,18 @@ mod_plot_cor_server <- function(
       lipid_ll   = NULL,
       lipid_gene = NULL,
       gene_lipid = NULL
+    )
+    
+    shiny::observeEvent(
+      list(se_lipid_reactive(), se_tx_reactive()),
+      {
+        rv_all$df <- NULL
+        rv_all$method <- NULL
+        rv_focus$lipid_ll <- NULL
+        rv_focus$lipid_gene <- NULL
+        rv_focus$gene_lipid <- NULL
+      },
+      ignoreInit = TRUE
     )
     
     # --------------------------------------------------------------
@@ -820,7 +843,7 @@ mod_plot_cor_server <- function(
       
       if (is.null(se_tx_)) {
         shiny::showNotification(
-          "Transcript SummarizedExperiment is not provided, so all-pair (lipid × gene) scan is not available.",
+          "Transcript SummarizedExperiment is not provided, so all-pair (lipid Ã— gene) scan is not available.",
           type = "warning"
         )
         return(NULL)
@@ -922,8 +945,17 @@ mod_plot_cor_server <- function(
       ComplexHeatmap::draw(ht)
     })
     
-    output$download_allpair_csv <- shiny::downloadHandler(
-      filename = function() paste0("all_pair_results_", Sys.Date(), ".csv"),
+    output$download_allpair_all_csv <- shiny::downloadHandler(
+      filename = function() paste0("all_pair_all_results_", Sys.Date(), ".csv"),
+      content = function(file) {
+        df <- rv_all$df
+        shiny::req(df)
+        utils::write.csv(df, file, row.names = FALSE, fileEncoding = "UTF-8")
+      }
+    )
+    
+    output$download_allpair_filtered_csv <- shiny::downloadHandler(
+      filename = function() paste0("all_pair_filtered_results_", Sys.Date(), ".csv"),
       content = function(file) {
         df <- filtered_res()
         shiny::req(df)
@@ -1076,6 +1108,87 @@ mod_plot_cor_server <- function(
       colnames(view) <- c("Lipid", "r", "p_value", "FDR", "n")
       DT::datatable(view, options = list(pageLength = 20, scrollX = TRUE), selection = "single")
     })
+    
+    # --------------------------------------------------------------
+    # Focus table downloads
+    # --------------------------------------------------------------
+    safe_focus_filename <- function(prefix, value) {
+      value <- value %||% "focus"
+      value <- gsub("[^A-Za-z0-9._-]+", "_", as.character(value))
+      paste0(prefix, "_", value, "_", Sys.Date(), ".csv")
+    }
+    
+    focus_lipid_ll_download_data <- shiny::reactive({
+      df <- rv_focus$lipid_ll
+      if (is.null(df)) return(NULL)
+      data.frame(
+        Focus_Lipid = rep(input$focus_lipid_ll %||% NA_character_, nrow(df)),
+        Lipid       = df$lipid_id,
+        r           = df$r,
+        p_value     = df$p_value,
+        FDR         = df$fdr,
+        n           = df$n,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      )
+    })
+    
+    focus_lipid_gene_download_data <- shiny::reactive({
+      df <- rv_focus$lipid_gene
+      if (is.null(df)) return(NULL)
+      data.frame(
+        Focus_Lipid = rep(input$focus_lipid %||% NA_character_, nrow(df)),
+        Gene        = df$gene_id,
+        r           = df$r,
+        p_value     = df$p_value,
+        FDR         = df$fdr,
+        n           = df$n,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      )
+    })
+    
+    focus_gene_lipid_download_data <- shiny::reactive({
+      df <- rv_focus$gene_lipid
+      if (is.null(df)) return(NULL)
+      data.frame(
+        Focus_Gene = rep(input$focus_gene %||% NA_character_, nrow(df)),
+        Lipid      = df$lipid_id,
+        r          = df$r,
+        p_value    = df$p_value,
+        FDR        = df$fdr,
+        n          = df$n,
+        stringsAsFactors = FALSE,
+        check.names = FALSE
+      )
+    })
+    
+    output$download_focus_lipid_ll_csv <- shiny::downloadHandler(
+      filename = function() safe_focus_filename("focus_lipid_to_lipids", input$focus_lipid_ll),
+      content = function(file) {
+        df <- focus_lipid_ll_download_data()
+        shiny::req(df)
+        utils::write.csv(df, file, row.names = FALSE, fileEncoding = "UTF-8")
+      }
+    )
+    
+    output$download_focus_lipid_gene_csv <- shiny::downloadHandler(
+      filename = function() safe_focus_filename("focus_lipid_to_genes", input$focus_lipid),
+      content = function(file) {
+        df <- focus_lipid_gene_download_data()
+        shiny::req(df)
+        utils::write.csv(df, file, row.names = FALSE, fileEncoding = "UTF-8")
+      }
+    )
+    
+    output$download_focus_gene_lipid_csv <- shiny::downloadHandler(
+      filename = function() safe_focus_filename("focus_gene_to_lipids", input$focus_gene),
+      content = function(file) {
+        df <- focus_gene_lipid_download_data()
+        shiny::req(df)
+        utils::write.csv(df, file, row.names = FALSE, fileEncoding = "UTF-8")
+      }
+    )
     
     # --------------------------------------------------------------
     # Focus CSV download (ONE handler)

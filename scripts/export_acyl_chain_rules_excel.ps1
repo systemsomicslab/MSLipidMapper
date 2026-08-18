@@ -197,7 +197,7 @@ function Get-RuleBehaviorSummary {
     $splitValue = Get-PropValue -Object $Rule -Name "split" -Default $null
     $split = if ($null -ne $splitValue -and "$splitValue".Trim() -ne "") { "$splitValue" } else { "auto" }
     if ($split -eq "auto") {
-      $parts.Add("Split order: '/' -> '_' -> whitespace -> unsplit.")
+      $parts.Add("Split delimiters: '/' and '_' when present; otherwise whitespace -> unsplit.")
     } else {
       $splitModeValue = Get-PropValue -Object $Rule -Name "split_mode" -Default $null
       $splitMode = if ($null -ne $splitModeValue -and "$splitModeValue".Trim() -ne "") { " ($splitModeValue)" } else { "" }
@@ -337,7 +337,7 @@ function Get-NotationText {
     return "No chain notation is parsed."
   }
   if ($Row.split -eq "auto") {
-    return "Molecular-species notation is parsed using '/' first, then '_', then whitespace if needed."
+    return "Molecular-species notation is parsed using '/' and '_' when present, then whitespace if needed."
   }
   if ($Row.split -eq "/") {
     return "Slash-delimited notation is parsed explicitly."
@@ -419,7 +419,7 @@ function Get-RepresentativeInterpretationText {
 function Get-ParserNotesRows {
   return @(
     [pscustomobject]@{ section = "Rule precedence"; note = "If multiple YAML patterns match the same lipid class, the highest internal score is selected, following the .score_rule logic implemented in the parser." },
-    [pscustomobject]@{ section = "Auto split"; note = "For classes with split='auto', chain parsing tries '/' first, then '_', then whitespace, and otherwise leaves the remaining string unsplit." },
+    [pscustomobject]@{ section = "Auto split"; note = "For classes with split='auto', chain parsing splits on '/' and '_' when either delimiter is present, then tries whitespace, and otherwise leaves the remaining string unsplit." },
     [pscustomobject]@{ section = "Sum composition"; note = "When ignore_sum_only=TRUE, names with only one chain token and without '/', '_', FA suffixes, or tail FA annotations are treated as sum-composition-only and no chain metadata are returned." },
     [pscustomobject]@{ section = "Alternative notation"; note = "If a lipid name contains 'A|B', the parser keeps the alternative containing the largest number of chain-like tokens." },
     [pscustomobject]@{ section = "Chain normalization"; note = "Reported chain tokens are normalized by removing FA, O-, and P- prefixes; converting ';2O' to ';O2'; converting '18:1(2OH)' to '18:1;(2OH)'; and discarding 0:0 placeholder chains." },

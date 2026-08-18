@@ -34,7 +34,8 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
     tags$style(HTML("
       .opls-plot-square { position: relative; width: 100%; padding-bottom: 100%; }
       .opls-plot-square-inner { position: absolute; inset: 0; }
-      .opls-download-row { margin-top: 8px; }
+      .opls-download-row { display:flex; gap:8px; margin-top:8px; }
+      .opls-download-row .btn { flex:1 1 0; }
     ")),
 
     fluidRow(
@@ -63,8 +64,8 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
 
           hr(),
 
-          actionButton(ns("run_opls"), "Run OPLS-DA", icon = icon("play"),
-                       class = "btn-primary", width = "100%"),
+          actionButton(ns("run_opls"), "Run",
+                       class = "btn-primary mslm-run-btn", width = "100%"),
           uiOutput(ns("run_msg"))
         )
       ),
@@ -83,7 +84,7 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
           ),
           div(class = "opls-download-row",
               downloadButton(ns("download_scores_pdf"), "Download PDF",
-                             class = "btn-default", width = "100%"))
+                             class = "btn-default"))
         )
       ),
 
@@ -101,10 +102,9 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
           ),
           div(class = "opls-download-row",
               downloadButton(ns("download_vip_pdf"), "Download PDF",
-                             class = "btn-default", width = "100%")),
-          div(class = "opls-download-row",
+                             class = "btn-default"),
               downloadButton(ns("download_vip_csv"), "Download VIP CSV",
-                             class = "btn-default", width = "100%"))
+                             class = "btn-default"))
         )
       )
     ),
@@ -156,6 +156,30 @@ mod_oplsda_generic_server <- function(id,
     merge_legends = TRUE,
     padding = grid::unit(c(3, 3, 3, 3), "mm")
   )
+}
+
+.decorate_vip_values <- function(hm) {
+  if (is.null(hm$vip_min) || is.null(hm$vip_max)) return(invisible(NULL))
+  try({
+    ComplexHeatmap::decorate_annotation("VIP", {
+      .vip_label <- function(label, y) {
+        grid::grid.roundrect(
+          x = grid::unit(0.5, "npc"), y = grid::unit(y, "npc"),
+          width = grid::unit(8.5, "mm"), height = grid::unit(3.5, "mm"),
+          r = grid::unit(0.6, "mm"),
+          gp = grid::gpar(fill = grDevices::adjustcolor("white", alpha.f = 0.82), col = NA)
+        )
+        grid::grid.text(
+          label,
+          x = grid::unit(0.5, "npc"), y = grid::unit(y, "npc"),
+          gp = grid::gpar(fontsize = 8, fontface = "bold", col = "#243342")
+        )
+      }
+      .vip_label(hm$vip_max, 0.96)
+      .vip_label(hm$vip_min, 0.04)
+    })
+  }, silent = TRUE)
+  invisible(NULL)
 }
 
     .get_adv <- function() {
@@ -215,7 +239,7 @@ mod_oplsda_generic_server <- function(id,
       if (!is.null(se_tx)) {
         s2 <- try(se_tx(), silent = TRUE)
         if (!inherits(s2, "try-error") && !is.null(s2) && methods::is(s2, "SummarizedExperiment")) {
-          labs   <- c(labs,   "Transcriptome")
+          labs   <- c(labs,   "Other omics")
           values <- c(values, "tx")
         }
       }
@@ -282,17 +306,54 @@ mod_oplsda_generic_server <- function(id,
           choices = g,
           selected = sel,
           multiple = TRUE,
-          options = list(maxItems = 8, placeholder = "Select >=2 groups")
+          options = list(maxItems = 2, placeholder = "Select exactly 2 groups")
         )
       }
     })
 
+    .selected_group_info <- reactive({
+      se <- current_se()
+      kg <- input$keep_groups
+      if (is.null(se) || !methods::is(se, "SummarizedExperiment") || length(kg) != 2) return(NULL)
+
+      cd <- as.data.frame(SummarizedExperiment::colData(se))
+      if (!("class" %in% colnames(cd))) return(NULL)
+
+      counts <- table(factor(as.character(cd$class), levels = kg))
+      min_n <- min(as.integer(counts))
+      cv <- min(as.integer(MODEL_DEFAULT$crossvalI), min_n)
+
+      # For two groups, do not request more permutations than distinct
+      # rearrangements of the observed group labels (excluding the original).
+      log_n_arrangements <- lchoose(sum(counts), counts[[1]])
+      perm <- if (is.finite(log_n_arrangements) && log_n_arrangements < log(MODEL_DEFAULT$permI + 2)) {
+        max(0L, as.integer(round(exp(log_n_arrangements))) - 1L)
+      } else {
+        as.integer(MODEL_DEFAULT$permI)
+      }
+
+      list(counts = counts, min_n = min_n, crossvalI = cv, permI = perm)
+    })
+
     output$run_msg <- renderUI({
       kg <- input$keep_groups
-      if (is.null(kg) || length(kg) < 2) {
-        tags$div(style="color:#b30000;", "Select at least 2 groups.")
+      if (is.null(kg) || length(kg) != 2) {
+        tags$div(style="color:#b30000;", "Select exactly 2 groups.")
       } else {
-        tags$div(style="color:#666;", paste0("Selected: ", paste(kg, collapse = ", ")))
+        info <- .selected_group_info()
+        if (is.null(info)) return(tags$div(style="color:#b30000;", "Sample counts are unavailable."))
+
+        count_text <- paste0(names(info$counts), ": n=", as.integer(info$counts), collapse = " / ")
+        if (info$min_n < 3) {
+          tags$div(style="color:#b30000;", count_text, tags$br(), "At least 3 samples per group are required.")
+        } else if (info$min_n <= 4) {
+          tags$div(style="color:#b36b00;", count_text, tags$br(),
+                   paste0("Small-sample analysis: results may be unstable. CV=", info$crossvalI,
+                          ", permutations=", info$permI, "."))
+        } else {
+          tags$div(style="color:#666;", count_text, tags$br(),
+                   paste0("CV=", info$crossvalI, ", permutations=", info$permI, "."))
+        }
       }
     })
 
@@ -311,9 +372,22 @@ mod_oplsda_generic_server <- function(id,
       }
 
       keep_groups <- input$keep_groups
-      if (is.null(keep_groups) || length(keep_groups) < 2) {
-        showNotification("Select at least 2 groups.", type = "error", duration = 8)
+      if (is.null(keep_groups) || length(keep_groups) != 2) {
+        showNotification("Select exactly 2 groups.", type = "error", duration = 8)
         return(NULL)
+      }
+
+      group_info <- .selected_group_info()
+      if (is.null(group_info) || group_info$min_n < 3) {
+        showNotification("OPLS-DA requires at least 3 samples in each group.", type = "error", duration = 10)
+        return(NULL)
+      }
+      if (group_info$min_n <= 4) {
+        showNotification(
+          "Only 3-4 samples are available in the smallest group. The model and VIP ranking may be unstable.",
+          type = "warning",
+          duration = 12
+        )
       }
 
       vip_thres <- as.numeric(input$vip_thres %||% 1)
@@ -345,8 +419,8 @@ mod_oplsda_generic_server <- function(id,
             predI       = MODEL_DEFAULT$predI,
             orthoI      = MODEL_DEFAULT$orthoI,
             scaleC      = MODEL_DEFAULT$scaleC,
-            crossvalI   = MODEL_DEFAULT$crossvalI,
-            permI       = MODEL_DEFAULT$permI,
+            crossvalI   = group_info$crossvalI,
+            permI       = group_info$permI,
 
             vip_thres   = vip_thres,
             topn_vip    = topn_vip,
@@ -391,19 +465,7 @@ mod_oplsda_generic_server <- function(id,
       req(res)
 
       .draw_heatmap_safe(res$heatmap$ht)
-
-      if (!is.null(res$heatmap$vip_min) && !is.null(res$heatmap$vip_max)) {
-        try({
-          ComplexHeatmap::decorate_annotation("VIP", {
-            grid::grid.text(res$heatmap$vip_max,
-                            x = grid::unit(-2, "mm"), y = grid::unit(0.98, "npc"),
-                            just = "right", gp = grid::gpar(cex = 0.8))
-            grid::grid.text(res$heatmap$vip_min,
-                            x = grid::unit(-2, "mm"), y = grid::unit(0.02, "npc"),
-                            just = "right", gp = grid::gpar(cex = 0.8))
-          })
-        }, silent = TRUE)
-      }
+      .decorate_vip_values(res$heatmap)
     })
 
     output$download_scores_pdf <- downloadHandler(
@@ -442,7 +504,30 @@ mod_oplsda_generic_server <- function(id,
       },
       content = function(file) {
         res <- fit_res(); req(res)
-        utils::write.csv(res$vip_tables$vip_tbl_ranked, file, row.names = FALSE)
+        out <- as.data.frame(res$vip_tables$vip_tbl_ranked, stringsAsFactors = FALSE)
+        rd <- SummarizedExperiment::rowData(res$data$se)
+        feature_match <- match(as.character(out$variable), rownames(res$data$se))
+
+        metabolite_name <- as.character(out$variable)
+        name_candidates <- c("Metabolite name", "Metabolite.name", "Name", "name")
+        name_col <- name_candidates[name_candidates %in% colnames(rd)][1]
+        if (length(name_col)) {
+          metabolite_name <- as.character(rd[[name_col]][feature_match])
+        }
+
+        alignment_id <- rep(NA_character_, nrow(out))
+        if ("Alignment ID" %in% colnames(rd)) {
+          alignment_id <- as.character(rd[["Alignment ID"]][feature_match])
+        }
+
+        out <- data.frame(
+          `Alignment ID` = alignment_id,
+          `Metabolite name` = metabolite_name,
+          out[, setdiff(colnames(out), "variable"), drop = FALSE],
+          check.names = FALSE,
+          stringsAsFactors = FALSE
+        )
+        utils::write.csv(out, file, row.names = FALSE, na = "")
       }
     )
 
@@ -457,6 +542,7 @@ mod_oplsda_generic_server <- function(id,
         grDevices::pdf(file, width = 10, height = 8, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
         .draw_heatmap_safe(res$heatmap$ht)
+        .decorate_vip_values(res$heatmap)
       }
     )
 

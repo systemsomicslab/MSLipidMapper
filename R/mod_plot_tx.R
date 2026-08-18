@@ -194,17 +194,10 @@ mod_plot_gene_server <- function(
         }
       }
 
-      # 2) order_by = abundance_median
-      if (!is.null(adv$order_by) &&
-          identical(adv$order_by, "abundance_median") &&
-          !is.null(y_for_median)) {
-        med <- tapply(y_for_median, cls_chr, stats::median, na.rm = TRUE)
-        med <- med[is.finite(med)]
-        if (length(med)) {
-          dec <- isTRUE(adv$decreasing)
-          lv  <- names(sort(med, decreasing = dec))
-          return(factor(cls_chr, levels = lv))
-        }
+      # 2) alphabetical
+      if (!is.null(adv$order_by) && identical(adv$order_by, "alphabetical")) {
+        lv <- sort(unique(groups))
+        return(factor(cls_chr, levels = lv))
       }
 
       # 3) fallback
