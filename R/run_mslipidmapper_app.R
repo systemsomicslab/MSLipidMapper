@@ -415,7 +415,7 @@
 }
 .mslm-run-btn.btn-sm { font-size: 14px !important; padding: 8px 16px !important; }
 
-/* MSLipidMapper Next: resilient application shell ---------------------- */
+/* MSLipidMapper: resilient application shell --------------------------- */
 :root {
   --mslm-ink: #172432;
   --mslm-muted: #64778a;

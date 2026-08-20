@@ -1,10 +1,10 @@
-MSLipidMapper Next
+MSLipidMapper
 
 <p align="center">
   <img src="docs/MSLipidMapper.png" width="900" alt="MSLipidMapper">
 </p>
 
-MSLipidMapper Next is a responsive redesign of the interactive Shiny dashboard for lipidomics data exploration.
+MSLipidMapper is an interactive Shiny dashboard for lipidomics and multi-omics data exploration.
 It converts uploaded tables into a project built on `SummarizedExperiment` and provides normalization, exploratory plots, differential analysis, and Cytoscape.js-based pathway visualization.
 
 This edition keeps the existing analysis workflow while introducing a more consistent application shell, scalable typography, responsive cards and controls, and safer behavior under browser zoom.
