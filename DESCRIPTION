@@ -42,6 +42,7 @@ Imports:
     stringr,
     yaml,
     jsonlite,
+    processx,
     xml2,
     svglite,
     matrixStats,

@@ -357,7 +357,7 @@ mod_upload_ui <- function(id) {
           ),
           shiny::tags$div(
             style = "margin-top:12px;text-align:right;color:#6b7280;font-size:12px;",
-            "Ver. 1.20260417"
+            "Ver. 1.20260818"
           )
         ),
 
@@ -369,6 +369,7 @@ mod_upload_ui <- function(id) {
               "Lipidomics data format",
               choices = c(
                 "MS-DIAL alignment CSV"     = "msdial",
+                "MS-DIAL mzTab-M"           = "mztab_m",
                 "Generic (wide + ontology)" = "generic"
               ),
               selected = "msdial"
@@ -392,6 +393,25 @@ mod_upload_ui <- function(id) {
                   width = 2,
                   style = "margin-top: 35px;",
                   shiny::actionButton(ns("build"), "Submit (MS-DIAL)", class = "btn btn-primary")
+                )
+              )
+            ),
+
+            shiny::conditionalPanel(
+              condition = sprintf("input['%s'] == 'mztab_m'", ns("lipid_format")),
+              shiny::fluidRow(
+                shiny::column(
+                  width = 5,
+                  shiny::helpText("Upload an mzTab-M file exported by MS-DIAL."),
+                  shiny::fileInput(
+                    ns("mztab_file"), NULL, accept = c(".mztab", ".mzTab"),
+                    buttonLabel = "Browse...", placeholder = "No file selected"
+                  )
+                ),
+                shiny::column(
+                  width = 2,
+                  style = "margin-top: 35px;",
+                  shiny::actionButton(ns("build_mztab"), "Submit (mzTab-M)", class = "btn btn-primary")
                 )
               )
             ),
@@ -865,6 +885,90 @@ mod_upload_server <- function(id) {
       se_sel_r(.update_selected_from_use(se))
 
       shiny::showNotification("SE built successfully (MS-DIAL).", type = "message")
+    })
+
+    shiny::observeEvent(input$build_mztab, {
+      if (!identical(input$lipid_format, "mztab_m")) return()
+      req(input$mztab_file)
+
+      path <- input$mztab_file$datapath
+      parsed <- try(
+        mztab_to_se(
+          filename = path,
+          identifier = "name",
+          verbose = FALSE
+        ),
+        silent = TRUE
+      )
+
+      if (inherits(parsed, "try-error")) {
+        shiny::showModal(
+          shiny::modalDialog(
+            title = "Failed to read mzTab-M",
+            easyClose = TRUE,
+            footer = shiny::modalButton("OK"),
+            shiny::p("An error occurred while parsing the mzTab-M file:"),
+            shiny::code(as.character(parsed))
+          )
+        )
+        return(invisible(NULL))
+      }
+
+      se <- try(
+        mztab_se_to_lipidomics_se(parsed, verbose = FALSE),
+        silent = TRUE
+      )
+
+      if (inherits(se, "try-error")) {
+        shiny::showModal(
+          shiny::modalDialog(
+            title = "Failed to build SE from mzTab-M",
+            easyClose = TRUE,
+            footer = shiny::modalButton("OK"),
+            shiny::p("The mzTab-M file was read, but conversion to the MSLipidMapper structure failed:"),
+            shiny::code(as.character(se))
+          )
+        )
+        return(invisible(NULL))
+      }
+
+      if (!methods::is(se, "SummarizedExperiment") ||
+          !"abundance" %in% SummarizedExperiment::assayNames(se)) {
+        shiny::showNotification("Invalid SummarizedExperiment structure (mzTab-M).", type = "error")
+        return(invisible(NULL))
+      }
+
+      cd <- as.data.frame(SummarizedExperiment::colData(se))
+      if (!"sample_id" %in% names(cd)) cd$sample_id <- rownames(cd)
+      if (!"class" %in% names(cd)) cd$class <- NA_character_
+
+      default_off <- c("Blank", "Quality control", "QC")
+      cd$use <- !(cd$class %in% default_off)
+
+      others <- setdiff(colnames(cd), c("sample_id", "class", "use"))
+      cd <- cd[, c("sample_id", "class", "use", others), drop = FALSE]
+      SummarizedExperiment::colData(se) <- S4Vectors::DataFrame(cd, row.names = cd$sample_id)
+
+      se <- .add_acyl_chains_if_available(se)
+
+      se_full_r(se)
+      se_sel_r(.update_selected_from_use(se))
+
+      rd <- as.data.frame(SummarizedExperiment::rowData(se))
+      ontology_n <- if ("subclass" %in% names(rd)) {
+        sum(!(is.na(rd$subclass) | rd$subclass == "" | rd$subclass == "Unknown"))
+      } else {
+        0L
+      }
+      used <- parsed$identifier_used %||% "name"
+      shiny::showNotification(
+        sprintf(
+          "mzTab-M loaded: %d features, %d samples, %d classified; identifier=%s.",
+          nrow(se), ncol(se), ontology_n, used
+        ),
+        type = "message",
+        duration = 7
+      )
     })
 
     shiny::observeEvent(input$build_generic, {

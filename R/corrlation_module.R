@@ -308,7 +308,8 @@ mod_plot_cor_ui <- function(id) {
                   selected  = "ggplot",
                   selectize = FALSE
                 ),
-                
+                shiny::checkboxInput(ns("show_scatter_legend"), "Show legend", value = TRUE),
+
                 shiny::actionButton(ns("run_cor_single"), "Run", width = "100%", class = "btn-primary mslm-run-btn"),
                 shiny::tags$div(style = "height:6px;"),
                 shiny::downloadButton(ns("download_scatter_gg"), "Download ggplot (PDF)", class = "btn btn-default btn-sm")
@@ -763,10 +764,22 @@ mod_plot_cor_server <- function(
         theme(legend.position = "bottom", aspect.ratio = 1)
     })
     
+    shiny::observeEvent(cor_res_single(), {
+      res <- cor_res_single()
+      shiny::req(res)
+      cols_fill <- get_group_colors(res$data$Group)
+      shiny::updateCheckboxInput(
+        session,
+        "show_scatter_legend",
+        value = !.is_dense_categorical_legend(cols_fill)
+      )
+    }, ignoreInit = TRUE)
+
     output$scatter_plot <- shiny::renderPlot({
       p <- scatter_gg()
       shiny::req(p)
-      p
+      legend_position <- if (isTRUE(input$show_scatter_legend)) "bottom" else "none"
+      p + ggplot2::theme(legend.position = legend_position)
     })
     
     output$scatter_plotly <- plotly::renderPlotly({
@@ -818,6 +831,7 @@ mod_plot_cor_server <- function(
             text = ann_txt, showarrow = FALSE,
             xanchor = "right", yanchor = "top"
           )),
+          showlegend = isTRUE(input$show_scatter_legend),
           legend = list(orientation = "h", x = 0, y = -0.2)
         )
     })
@@ -827,9 +841,17 @@ mod_plot_cor_server <- function(
       content = function(file) {
         p <- scatter_gg()
         shiny::req(p)
-        grDevices::pdf(file, width = 7, height = 7, useDingbats = FALSE)
-        print(p)
-        grDevices::dev.off()
+        res <- cor_res_single()
+        shiny::req(res)
+        cols_fill <- get_group_colors(res$data$Group)
+        .export_ggplot_with_adaptive_legend(
+          file = file,
+          plot = p,
+          colors = cols_fill,
+          width = 7,
+          height = 7,
+          key_title = paste0(res$group_col, " color key")
+        )
       }
     )
     

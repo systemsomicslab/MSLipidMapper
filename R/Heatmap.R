@@ -182,7 +182,22 @@ suppressPackageStartupMessages({
     width  = grid::unit(w_mm, "mm"),
     height = grid::unit(h_mm, "mm"),
     w_mm = w_mm,
-    h_mm = h_mm
+    h_mm = h_mm,
+    cell_w_mm = w_mm / nc,
+    cell_h_mm = h_mm / nr
+  )
+}
+
+.hm_auto_name_fontsizes <- function(dims, min_pt = 4, max_pt = 10) {
+  # Keep labels visually proportional to their tiles. The factor leaves a
+  # small gap between adjacent labels after converting millimetres to points.
+  .from_cell <- function(cell_mm) {
+    pt <- as.numeric(cell_mm) * 72 / 25.4 * 0.72
+    max(min_pt, min(max_pt, pt))
+  }
+  list(
+    row = .from_cell(dims$cell_h_mm),
+    column = .from_cell(dims$cell_w_mm)
   )
 }
 
@@ -191,9 +206,10 @@ suppressPackageStartupMessages({
     column_labels,
     show_row_names = TRUE,
     show_column_names = TRUE,
-    fontsize = 10
+    row_fontsize = 10,
+    column_fontsize = 10
 ) {
-  .extent <- function(labels, show) {
+  .extent <- function(labels, show, fontsize) {
     if (!isTRUE(show) || !length(labels)) return(0)
     labels <- as.character(labels)
     labels[is.na(labels)] <- ""
@@ -204,8 +220,8 @@ suppressPackageStartupMessages({
   # ComplexHeatmap's default column labels are rotated, so their string width
   # contributes to device height while row labels contribute to device width.
   list(
-    extra_w_mm = .extent(row_labels, show_row_names),
-    extra_h_mm = .extent(column_labels, show_column_names)
+    extra_w_mm = .extent(row_labels, show_row_names, row_fontsize),
+    extra_h_mm = .extent(column_labels, show_column_names, column_fontsize)
   )
 }
 
@@ -479,6 +495,7 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       
       col_fun <- .hm_quantile_col_fun(mat)
       dims <- .hm_square_dims(mat)
+      name_fontsizes <- .hm_auto_name_fontsizes(dims)
       show_sample_names <- isTRUE(input$show_sample_names_class)
       show_row_names <- if (sample_on_rows) show_sample_names else TRUE
       show_column_names <- if (sample_on_rows) TRUE else show_sample_names
@@ -486,7 +503,9 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         row_labels = rownames(mat),
         column_labels = colnames(mat),
         show_row_names = show_row_names,
-        show_column_names = show_column_names
+        show_column_names = show_column_names,
+        row_fontsize = name_fontsizes$row,
+        column_fontsize = name_fontsizes$column
       )
       
       ht <- ComplexHeatmap::Heatmap(
@@ -504,6 +523,8 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         column_title = if (sample_on_rows) .HM_SUBCLASS_COL else "Samples",
         show_row_names = show_row_names,
         show_column_names = show_column_names,
+        row_names_gp = grid::gpar(fontsize = name_fontsizes$row),
+        column_names_gp = grid::gpar(fontsize = name_fontsizes$column),
         heatmap_legend_param = list(
           direction = "horizontal",
           legend_width = grid::unit(55, "mm")
@@ -627,6 +648,7 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
       
       col_fun <- .hm_quantile_col_fun(mat)
       dims <- .hm_square_dims(mat)
+      name_fontsizes <- .hm_auto_name_fontsizes(dims)
       show_sample_names <- isTRUE(input$show_sample_names_mol)
       show_row_names <- if (sample_on_rows) show_sample_names else TRUE
       show_column_names <- if (sample_on_rows) TRUE else show_sample_names
@@ -634,7 +656,9 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         row_labels = rownames(mat),
         column_labels = colnames(mat),
         show_row_names = show_row_names,
-        show_column_names = show_column_names
+        show_column_names = show_column_names,
+        row_fontsize = name_fontsizes$row,
+        column_fontsize = name_fontsizes$column
       )
       
       ht <- ComplexHeatmap::Heatmap(
@@ -652,6 +676,8 @@ mod_heatmap_server <- function(id, se_lipid, adv_reactive = NULL) {
         column_title = if (sample_on_rows) "Molecules (TopVar)" else "Samples (clustered)",
         show_row_names = show_row_names,
         show_column_names = show_column_names,
+        row_names_gp = grid::gpar(fontsize = name_fontsizes$row),
+        column_names_gp = grid::gpar(fontsize = name_fontsizes$column),
         heatmap_legend_param = list(
           direction = "horizontal",
           legend_width = grid::unit(55, "mm")

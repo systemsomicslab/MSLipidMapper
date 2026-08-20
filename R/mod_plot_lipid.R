@@ -611,10 +611,48 @@ mod_plot_lipid_server <- function(
         topN       = adv$hm_topN,
         row_z      = isTRUE(adv$hm_row_z),
         row_total_fun = "mean",
-        palette    = pal
+        palette    = pal,
+        show_heatmap_legend = TRUE,
+        show_annotation_legend = TRUE
       )
-      
-      list(p_class = p_class, p_mol = p_mol, ht = ht, pal = pal, x_order = x_order)
+
+      ht_no_legend <- make_class_heatmap_CH(
+        se         = se,
+        class_col  = class_col,
+        class_name = input$lipid_class,
+        x_var      = x_var,
+        x_order    = x_order_hm,
+        order_by   = order_by_hm,
+        decreasing = decreasing_hm,
+        topN       = adv$hm_topN,
+        row_z      = isTRUE(adv$hm_row_z),
+        row_total_fun = "mean",
+        palette    = pal,
+        show_heatmap_legend = FALSE,
+        show_annotation_legend = FALSE
+      )
+
+      ht_value_legend <- make_class_heatmap_CH(
+        se         = se,
+        class_col  = class_col,
+        class_name = input$lipid_class,
+        x_var      = x_var,
+        x_order    = x_order_hm,
+        order_by   = order_by_hm,
+        decreasing = decreasing_hm,
+        topN       = adv$hm_topN,
+        row_z      = isTRUE(adv$hm_row_z),
+        row_total_fun = "mean",
+        palette    = pal,
+        show_heatmap_legend = TRUE,
+        show_annotation_legend = FALSE
+      )
+
+      list(
+        p_class = p_class, p_mol = p_mol,
+        ht = ht, ht_no_legend = ht_no_legend, ht_value_legend = ht_value_legend,
+        pal = pal, x_order = x_order
+      )
     })
     
     # ==== Outputs =======================================================
@@ -859,9 +897,17 @@ mod_plot_lipid_server <- function(
     }
     
     # ==== Heatmap / Bar plot / chain composition output ================
+    observeEvent(plot_components(), {
+      pcs <- plot_components(); req(pcs)
+      show_by_default <- !.is_dense_categorical_legend(pcs$pal)
+      updateCheckboxInput(session, "show_heatmap_legend", value = show_by_default)
+      updateCheckboxInput(session, "show_bar_legend", value = show_by_default)
+    }, ignoreInit = FALSE)
+
     output$plot_heatmap <- renderPlot({
       pcs  <- plot_components()
-      req(pcs$ht)
+      ht <- if (isTRUE(input$show_heatmap_legend)) pcs$ht else pcs$ht_no_legend
+      req(ht)
       if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
         plot.new(); text(0.5, 0.5, "ComplexHeatmap is not installed.")
         return()
@@ -872,7 +918,7 @@ mod_plot_lipid_server <- function(
       }
       grid::grid.newpage()
       ComplexHeatmap::draw(
-        pcs$ht,
+        ht,
         newpage = FALSE,
         heatmap_legend_side    = "bottom",
         annotation_legend_side = "bottom",
@@ -882,6 +928,8 @@ mod_plot_lipid_server <- function(
 
     output$plot_bar <- renderPlot({
       p_bar <- .make_bar_plot()
+      legend_position <- if (isTRUE(input$show_bar_legend)) "right" else "none"
+      p_bar <- p_bar + ggplot2::theme(legend.position = legend_position)
       print(p_bar)
     })
 
@@ -891,35 +939,39 @@ mod_plot_lipid_server <- function(
     })
 
     output$dl_heatmap <- downloadHandler(
-      filename = function() paste0("heatmap_", input$lipid_class, ".svg"),
+      filename = function() paste0("heatmap_", input$lipid_class, ".pdf"),
       content  = function(file) {
-        if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-
-        svglite::svglite(file, width = 7, height = 7)
-        on.exit(grDevices::dev.off(), add = TRUE)
-
         pcs <- plot_components(); req(pcs$ht)
         if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) stop("Please install ComplexHeatmap.")
         if (!requireNamespace("grid", quietly = TRUE)) stop("grid is required.")
-        grid::grid.newpage()
+        dense <- .is_dense_categorical_legend(pcs$pal)
+        grDevices::pdf(file, width = if (dense) 11 else 7, height = if (dense) 8.5 else 7,
+                       onefile = TRUE, useDingbats = FALSE)
+        on.exit(grDevices::dev.off(), add = TRUE)
         ComplexHeatmap::draw(
-          pcs$ht,
-          newpage = FALSE,
-          heatmap_legend_side    = "bottom",
+          if (dense) pcs$ht_value_legend else pcs$ht,
+          newpage = TRUE,
+          heatmap_legend_side = "bottom",
           annotation_legend_side = "bottom",
-          merge_legends          = TRUE
+          merge_legends = TRUE
         )
+        if (dense) .draw_categorical_key_pages(pcs$pal, "Heatmap class color key")
       }
     )
 
     output$dl_bar <- downloadHandler(
-      filename = function() paste0("barplot_", input$lipid_class, ".svg"),
+      filename = function() paste0("barplot_", input$lipid_class, ".pdf"),
       content  = function(file) {
-        if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-        svglite::svglite(file, width = 7, height = 7)
-        on.exit(grDevices::dev.off(), add = TRUE)
         p_bar <- .make_bar_plot()
-        print(p_bar)
+        pcs <- plot_components(); req(pcs$pal)
+        .export_ggplot_with_adaptive_legend(
+          file = file,
+          plot = p_bar,
+          colors = pcs$pal,
+          width = 7,
+          height = 7,
+          key_title = "Bar plot class color key"
+        )
       }
     )
 
@@ -1042,6 +1094,19 @@ mod_plot_lipid_ui <- function(id) {
   .mslm-plot-square-lg .shiny-plot-output {
     width: 100% !important;
     height: 100% !important;
+  }
+  .mslm-legend-download-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .mslm-legend-download-row .form-group,
+  .mslm-legend-download-row .checkbox { margin: 0; }
+  .mslm-legend-download-row .btn {
+    height: 34px;
+    min-height: 34px;
+    padding: 6px 12px;
   }
   "
   
@@ -1197,8 +1262,11 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
               class = "mslm-plot-frame-lg",
               shiny::plotOutput(ns("plot_heatmap"), height = "100%")
             ),
-            shiny::br(),
-            shiny::downloadButton(ns("dl_heatmap"), "Download SVG")
+            shiny::div(
+              class = "mslm-legend-download-row",
+              shiny::checkboxInput(ns("show_heatmap_legend"), "Show legend", value = TRUE),
+              shiny::downloadButton(ns("dl_heatmap"), "Download PDF")
+            )
           ),
           shiny::tabPanel(
             title = "Bar plot",
@@ -1207,8 +1275,11 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
               class = "mslm-plot-frame-lg",
               shiny::plotOutput(ns("plot_bar"), height = "100%")
             ),
-            shiny::br(),
-            shiny::downloadButton(ns("dl_bar"), "Download SVG")
+            shiny::div(
+              class = "mslm-legend-download-row",
+              shiny::checkboxInput(ns("show_bar_legend"), "Show legend", value = TRUE),
+              shiny::downloadButton(ns("dl_bar"), "Download PDF")
+            )
           ),
           shiny::tabPanel(
             title = "Acyl chain composition",

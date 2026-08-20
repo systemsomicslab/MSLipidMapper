@@ -16,9 +16,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-0 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN curl -fsSL -o /tmp/google-chrome.deb \
+      https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends /tmp/google-chrome.deb \
+  && rm -f /tmp/google-chrome.deb \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV MSLIPIDMAPPER_BROWSER=/usr/bin/google-chrome
+
 # ---- Dependency metadata copy (cache-friendly) ----
 WORKDIR /srv/app
-COPY DESCRIPTION NAMESPACE LICENCE README.md /srv/app/
+COPY DESCRIPTION NAMESPACE LICENSE README.md /srv/app/
 
 # ---- R package deps install from DESCRIPTION ----
 # Install Bioconductor core packages explicitly first so local package install
@@ -26,7 +36,8 @@ COPY DESCRIPTION NAMESPACE LICENCE README.md /srv/app/
 RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); \
              install.packages(c('BiocManager', 'remotes')); \
              options(repos = BiocManager::repositories()); \
-             BiocManager::install(c('S4Vectors', 'SummarizedExperiment', 'clusterProfiler', 'ComplexHeatmap'), ask = FALSE, update = FALSE); \
+             BiocManager::install(c('S4Vectors', 'SummarizedExperiment', 'clusterProfiler', 'ComplexHeatmap', 'ropls', 'rgoslin'), ask = FALSE, update = FALSE); \
+             install.packages(c('UpSetR', 'patchwork', 'ggrepel', 'ggpmisc', 'ggprism', 'colourpicker'), repos = 'https://cloud.r-project.org'); \
              remotes::install_deps('.', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never')"
 
 # ---- App copy ----

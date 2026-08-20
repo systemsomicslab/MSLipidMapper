@@ -1,241 +1,190 @@
-MSLipidMapper
+# MSLipidMapper
 
 <p align="center">
-  <img src="docs/MSLipidMapper.png" width="900" alt="MSLipidMapper">
+  <img src="docs/MSLipidMapper.png" width="900" alt="MSLipidMapper application overview">
 </p>
 
-MSLipidMapper is an interactive Shiny dashboard for lipidomics and multi-omics data exploration.
-It converts uploaded tables into a project built on `SummarizedExperiment` and provides normalization, exploratory plots, differential analysis, and Cytoscape.js-based pathway visualization.
+MSLipidMapper is an interactive Shiny workspace for lipidomics analysis.
+Uploaded data are converted to
+`SummarizedExperiment` objects and used throughout normalization, exploratory
+analysis, differential analysis, acyl-chain analysis, enrichment, and
+Cytoscape.js-based pathway visualization.
 
-This edition keeps the existing analysis workflow while introducing a more consistent application shell, scalable typography, responsive cards and controls, and safer behavior under browser zoom.
+MSLipidMapper accepts processed abundance tables. It does not process raw mass
+spectrometry files.
 
----
+## Main features
 
-## Features
+- Import an MS-DIAL Alignment Table CSV
+- Import an MS-DIAL mzTab-M file directly
+- Import generic sample-by-lipid data with a separate lipid-to-Ontology table
+- Edit sample metadata and include or exclude samples from analysis
+- Normalize abundances and export normalized data
+- Visualize lipidomics data interactively
+- Perform enrichment and acyl-chain-level analysis
+- View, edit, and export Cytoscape.js pathway networks
+- Render pathway PDFs from the command line without starting Shiny
 
-- Import lipidomics tables from MS-DIAL alignment tables or generic wide-format CSV files
-- `SummarizedExperiment`-based project structure
-- Sample metadata editor for `sample_id` and `class`
-- Normalization workflow with downloadable normalized data
-- Analysis panels such as PCA, Heatmap, Volcano, and Correlation
-- Pathway/network viewer with Cytoscape.js-based export
+## Installation
 
----
+### Install as an R package
 
-## Installation and launch
-
-MSLipidMapper can be used in two ways:
-
-- as an R package installed from GitHub
-- as a Dockerized Shiny application
-
-### Option 1: Install as an R package from GitHub
-
-This is the recommended option if you want to run MSLipidMapper directly from R.
+R 4.3 or later is required. Install the Bioconductor dependencies first, then
+install MSLipidMapper from GitHub.
 
 ```r
-install.packages("BiocManager")
-install.packages("remotes")
+install.packages(c("BiocManager", "remotes"))
 
 BiocManager::install(c(
   "SummarizedExperiment",
   "S4Vectors",
   "ComplexHeatmap",
   "clusterProfiler",
-  "rgoslin",
+  "GO.db",
   "ropls",
-  "GO.db"
+  "rgoslin"
 ), ask = FALSE, update = FALSE)
 
-remotes::install_github("systemsomicslab/MSLipidMapper", dependencies = TRUE)
+remotes::install_github(
+  "systemsomicslab/MSLipidMapper",
+  dependencies = TRUE
+)
 ```
 
-Launch the app with:
+Launch the application with:
 
 ```r
 MSLipidMapper::run_mslipidmapper()
 ```
 
-Notes:
+The Shiny application uses port `3838` by default. Bundled example files,
+pathway networks, and `lipid_rules.yaml` are installed with the package.
 
-- bundled example data and `lipid_rules.yaml` are included in the package
-- no manual path configuration is required for standard use
-- package dependencies are managed through `DESCRIPTION`
-- the app launches on port `3838` by default
+### Run with Docker
 
-### Option 2: Run with Docker
-
-Docker remains available for users who prefer a containerized runtime.
-
-#### Clone this repository
+Docker Desktop or another Docker runtime must already be running.
 
 ```bash
-git clone "https://github.com/systemsomicslab/MSLipidMapper.git"
+git clone https://github.com/systemsomicslab/MSLipidMapper.git
 cd MSLipidMapper
-```
-
-#### Windows launcher
-
-Windows users can start the container by double-clicking:
-
-- `MSLipidMapper.bat`
-
-Important:
-
-- Docker Desktop must already be running
-
-#### Manual Docker start
-
-```bash
 docker build -t mslipidmapper .
 docker run --rm -p 3838:3838 -p 7310:7310 mslipidmapper
 ```
 
-The Docker image installs MSLipidMapper as an R package and resolves dependencies from `DESCRIPTION` during build.
-
 Open:
 
-- Shiny app: `http://localhost:3838`
-- Static server used for node images and related assets: `http://localhost:7310`
+- Shiny application: `http://localhost:3838`
+- Plot/static asset API: `http://localhost:7310`
 
-If you see `address already in use`, the port is already occupied.
+On Windows, `MSLipidMapper.bat` builds and starts the container. Docker Desktop
+must be running before the launcher is used.
 
----
+## Lipidomics input
 
-## Prepare input files
+Choose one of the following formats on the Upload page.
 
-MSLipidMapper does not accept raw MS files directly.
-Prepare a table exported from MS-DIAL or a generic wide-format CSV file.
+### MS-DIAL Alignment Table CSV
 
-### Supported input types
+Upload an Alignment Table exported by MS-DIAL as CSV. MSLipidMapper reads the
+MS-DIAL annotation fields and sample abundance columns and builds an
+analysis-ready `SummarizedExperiment`.
 
-#### A) MS-DIAL alignment table (recommended)
+The current loader expects the standard MS-DIAL Alignment Table layout,
+including its multi-row header and annotation columns. A manually simplified
+CSV should be imported with the Generic option instead.
 
-- Export the alignment result table from MS-DIAL as CSV or TSV
-- The file should include:
-  - annotation columns such as lipid name and class
-  - sample intensity columns, one column per sample
+### MS-DIAL mzTab-M
 
-MSLipidMapper reads the intensity matrix and constructs an analysis-ready object.
+Upload an MS-DIAL mzTab-M file (`.mztab` or `.mzTab`) directly. MSLipidMapper
+reads the abundance data, sample information, and lipid annotations and builds
+the same analysis-ready structure used by the other input formats.
 
-#### B) Generic wide-format CSV
+### Generic CSV with Ontology table
 
-A generic matrix is supported when your data are arranged as:
+Generic import uses two files.
 
-- rows: lipid molecules or features
-- columns: samples
-- cells: abundances or intensities
+#### Assay CSV
 
-Minimum requirements:
+The assay table is arranged as samples by lipids:
 
-- first column: feature ID such as a lipid name or unique identifier
-- remaining columns: numeric intensities for samples
-
-Tip:
-
-- keep sample IDs consistent across lipidome, metadata, and transcriptome files
-
----
-
-## Optional input files
-
-### Sample metadata CSV
-
-You can upload metadata separately for grouping, coloring, and statistical comparisons.
-
-Requirements:
+| sample_id | class | PC 34:1 | PE 36:2 |
+|---|---|---:|---:|
+| Sample_1 | Control | 1200 | 820 |
+| Sample_2 | Treatment | 950 | 1100 |
 
 - one row per sample
-- must contain a column matching the sample IDs in the lipidomics table
-- additional columns may contain group, condition, timepoint, batch, or other metadata
+- one `sample_id` column
+- an optional `class` column
+- all remaining selected columns are numeric lipid abundances
 
-In the app, you will map:
+#### Feature/Ontology CSV
 
-- `sample_id`
-- `class`
+The feature table maps assay column names to lipid Ontology values:
 
-### Transcriptome CSV
+| lipid | Ontology |
+|---|---|
+| PC 34:1 | PC |
+| PE 36:2 | PE |
 
-You can optionally load transcriptome data.
-The app attempts to align samples by `sample_id` when possible.
+Lipid names must match the abundance-column names in the assay CSV.
 
-This is used by multi-omics panels such as lipid-gene correlation when those modules are enabled.
 
----
+## Command-line pathway mapping
 
-## App workflow
+Pathway PDFs can be generated from a YAML configuration without starting the
+Shiny application. A complete example is installed at
+`inst/extdata/examples/pathway-cli.yml`.
 
-### 1. Upload and edit
+From an installed package:
 
-1. Choose input type: MS-DIAL or Generic.
-2. Upload the lipidomics file.
-3. Optionally upload sample metadata and transcriptome data.
-4. Enter a unique project name.
-5. Click `Submit` to build the project.
+```bash
+Rscript -e "quit(status=MSLipidMapper::mslipidmapper_cli(commandArgs(TRUE)))" pathway --config parameters.yml
+```
 
-After upload, you can edit the sample table (`colData`) in the app.
+From a source checkout after installing the package:
 
-Common fields:
+```bash
+Rscript inst/scripts/mslipidmapper.R pathway --config inst/extdata/examples/pathway-cli.yml
+```
 
-- `sample_id`: unique sample identifier used across datasets
-- `class`: group label used for coloring and comparisons
-- `use`: `TRUE` or `FALSE` to include or exclude samples in downstream analysis
+Input, network, and output paths can be overridden at execution time:
 
-Notes:
+```bash
+Rscript inst/scripts/mslipidmapper.R pathway \
+  --config parameters-mztab.yml \
+  --input data/results.mzTab \
+  --network pathways/custom.cyjs \
+  --output results/custom-pathway.pdf
+```
 
-- samples with `use = FALSE` are excluded from downstream analysis outputs
-- columns assigned as `sample_id` or `class` are treated as metadata, not numeric assay values
+Useful options:
 
-### 2. Normalize
+- `--input`: overrides the lipidomics input path
+- `--network`, `--cyjs`, or `-n`: uses one custom network
+- `--output` or `-o`: overrides the PDF file or output directory
 
-Go to the `Normalize` tab and run normalization to generate the normalized dataset.
+The CLI accepts both MS-DIAL Alignment Table CSV and MS-DIAL mzTab-M input.
 
-- normalization is applied to the analysis-ready matrix
-- normalized data can be downloaded from the app
-
-### 3. Analysis
-
-Depending on enabled modules, analysis may include:
-
-- PCA and exploratory plots
-- Heatmap views at class or molecule level
-- Volcano and differential analysis
-- Correlation analysis, including lipid-lipid and lipid-gene analysis
-
----
-
-## Pathway analysis
-
-Typical usage:
-
-1. Load a network or pathway file such as `.cyjs`, `.gml`, or `.gpml`.
-2. Nodes may represent lipid classes, molecules, genes, or pathway entities.
-3. Clicking a node opens plots and related information.
-
-Export options may include:
-
-- PDF export of the network
-- export of node-linked plots or images
-
----
+When no custom network is specified, the bundled remodeling, ceramide, and
+global pathway networks are rendered. The YAML file controls normalization,
+group inclusion or exclusion, plot type (`dot`, `box`, or `violin`), colors,
+fonts, and output dimensions. Chrome or Chromium is required for network PDF
+rendering; use `pathway.browser` or the `MSLIPIDMAPPER_BROWSER` environment
+variable if it is not detected automatically.
 
 ## Example data
 
-Bundled example inputs are available with the project.
-
-Repository layout:
-
-- `inst/examples/`
-
-Installed R package layout:
-
-- `system.file("extdata", "examples", package = "MSLipidMapper")`
-
-Example R usage:
+Examples are available in `inst/extdata/examples/` and can be located from an
+installed package with:
 
 ```r
 example_dir <- system.file("extdata", "examples", package = "MSLipidMapper")
-list.files(example_dir)
+list.files(example_dir, recursive = TRUE)
 ```
 
----
+Bundled examples include MS-DIAL-style lipidomics data, sample metadata,
+Cytoscape networks, a pathway CLI configuration, and example pathway PDFs.
+
+## License
+
+See [LICENSE](LICENSE).

@@ -36,6 +36,15 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
       .opls-plot-square-inner { position: absolute; inset: 0; }
       .opls-download-row { display:flex; gap:8px; margin-top:8px; }
       .opls-download-row .btn { flex:1 1 0; }
+      .opls-score-controls { align-items:center; }
+      .opls-score-controls .form-group { flex:0 0 auto; margin:0; }
+      .opls-score-controls .checkbox { margin:0; }
+      .opls-score-controls .btn {
+        width:auto !important;
+        height:34px;
+        min-height:34px;
+        padding:6px 12px;
+      }
     ")),
 
     fluidRow(
@@ -82,7 +91,8 @@ mod_oplsda_generic_ui <- function(id, title = "OPLS-DA") {
             div(class = "opls-plot-square-inner",
                 plotOutput(ns("opls_scores"), height = "100%", width = "100%"))
           ),
-          div(class = "opls-download-row",
+          div(class = "opls-download-row opls-score-controls",
+              checkboxInput(ns("show_scores_legend"), "Show legend", value = TRUE),
               downloadButton(ns("download_scores_pdf"), "Download PDF",
                              class = "btn-default"))
         )
@@ -147,8 +157,33 @@ mod_oplsda_generic_server <- function(id,
       seed      = 123L
     )
 
+    model_failure_message <- paste(
+      "An OPLS-DA model could not be built for the selected groups.",
+      "This can occur when the sample size is small or the groups cannot be separated reliably."
+    )
+
+    .draw_model_failure <- function() {
+      grid::grid.newpage()
+      grid::grid.text(
+        paste0(
+          "OPLS-DA model was not created.\n\n",
+          "The selected groups could not be separated reliably.\n",
+          "Try adding more samples, reviewing the selected groups,\n",
+          "or checking data quality and normalization."
+        ),
+        x = 0.5,
+        y = 0.55,
+        gp = grid::gpar(col = "#6b7280", fontsize = 13, lineheight = 1.35)
+      )
+      invisible(NULL)
+    }
+
 
 .draw_heatmap_safe <- function(ht) {
+  if (is.null(ht)) {
+    .draw_model_failure()
+    return(invisible(NULL))
+  }
   ComplexHeatmap::draw(
     ht,
     heatmap_legend_side = "bottom",
@@ -344,9 +379,13 @@ mod_oplsda_generic_server <- function(id,
         if (is.null(info)) return(tags$div(style="color:#b30000;", "Sample counts are unavailable."))
 
         count_text <- paste0(names(info$counts), ": n=", as.integer(info$counts), collapse = " / ")
-        if (info$min_n < 3) {
-          tags$div(style="color:#b30000;", count_text, tags$br(), "At least 3 samples per group are required.")
+        if (info$min_n < 2) {
+          tags$div(style="color:#b30000;", count_text, tags$br(), "At least 2 samples per group are required.")
         } else if (info$min_n <= 4) {
+          tags$div(style="color:#b30000;", count_text, tags$br(),
+                   paste0("Very small sample size: a significant OPLS-DA model may not be built. CV=", info$crossvalI,
+                          ", permutations=", info$permI, "."))
+        } else if (info$min_n <= 6) {
           tags$div(style="color:#b36b00;", count_text, tags$br(),
                    paste0("Small-sample analysis: results may be unstable. CV=", info$crossvalI,
                           ", permutations=", info$permI, "."))
@@ -378,13 +417,13 @@ mod_oplsda_generic_server <- function(id,
       }
 
       group_info <- .selected_group_info()
-      if (is.null(group_info) || group_info$min_n < 3) {
-        showNotification("OPLS-DA requires at least 3 samples in each group.", type = "error", duration = 10)
+      if (is.null(group_info) || group_info$min_n < 2) {
+        showNotification("OPLS-DA requires at least 2 samples in each group.", type = "error", duration = 10)
         return(NULL)
       }
-      if (group_info$min_n <= 4) {
+      if (group_info$min_n <= 6) {
         showNotification(
-          "Only 3-4 samples are available in the smallest group. The model and VIP ranking may be unstable.",
+          "Only 2-6 samples are available in the smallest group. A significant model may not be built, and the model and VIP ranking may be unstable.",
           type = "warning",
           duration = 12
         )
@@ -438,8 +477,12 @@ mod_oplsda_generic_server <- function(id,
         incProgress(0.8)
 
         if (inherits(res, "error")) {
-          showNotification(conditionMessage(res), type = "error", duration = 10)
-          return(NULL)
+          message("OPLS-DA model build failed: ", conditionMessage(res))
+          showNotification(model_failure_message, type = "warning", duration = 10)
+          return(list(
+            model_failed = TRUE,
+            error_detail = conditionMessage(res)
+          ))
         }
 
         incProgress(0.1)
@@ -448,21 +491,45 @@ mod_oplsda_generic_server <- function(id,
 
     }, ignoreInit = TRUE)
 
+    observeEvent(fit_res(), {
+      res <- fit_res()
+      req(res)
+      if (isTRUE(res$model_failed)) return()
+      updateCheckboxInput(
+        session,
+        "show_scores_legend",
+        value = !.is_dense_categorical_legend(res$colors)
+      )
+    }, ignoreInit = TRUE)
+
     output$opls_scores <- renderPlot({
       res <- fit_res()
       req(res)
-      print(res$plots$score)
+      if (isTRUE(res$model_failed) || is.null(res$plots) || is.null(res$plots$score)) {
+        .draw_model_failure()
+        return(invisible(NULL))
+      }
+      legend_position <- if (isTRUE(input$show_scores_legend)) "bottom" else "none"
+      print(res$plots$score + ggplot2::theme(legend.position = legend_position))
     })
 
     output$opls_vip <- renderPlot({
       res <- fit_res()
       req(res)
+      if (isTRUE(res$model_failed) || is.null(res$plots) || is.null(res$plots$vip)) {
+        .draw_model_failure()
+        return(invisible(NULL))
+      }
       print(res$plots$vip)
     })
 
     output$opls_heatmap <- renderPlot({
       res <- fit_res()
       req(res)
+      if (isTRUE(res$model_failed) || is.null(res$heatmap) || is.null(res$heatmap$ht)) {
+        .draw_model_failure()
+        return(invisible(NULL))
+      }
 
       .draw_heatmap_safe(res$heatmap$ht)
       .decorate_vip_values(res$heatmap)
@@ -475,10 +542,15 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".pdf")
       },
       content = function(file) {
-        res <- fit_res(); req(res)
-        grDevices::pdf(file, width = 6.5, height = 6.5, useDingbats = FALSE)
-        on.exit(grDevices::dev.off(), add = TRUE)
-        print(res$plots$score)
+        res <- fit_res(); req(res); req(!isTRUE(res$model_failed)); req(!is.null(res$plots$score))
+        .export_ggplot_with_adaptive_legend(
+          file = file,
+          plot = res$plots$score,
+          colors = res$colors,
+          width = 6.5,
+          height = 6.5,
+          key_title = "OPLS-DA class color key"
+        )
       }
     )
 
@@ -489,7 +561,7 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".pdf")
       },
       content = function(file) {
-        res <- fit_res(); req(res)
+        res <- fit_res(); req(res); req(!isTRUE(res$model_failed)); req(!is.null(res$plots$vip))
         grDevices::pdf(file, width = 8.5, height = 6.5, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
         print(res$plots$vip)
@@ -503,7 +575,7 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".csv")
       },
       content = function(file) {
-        res <- fit_res(); req(res)
+        res <- fit_res(); req(res); req(!isTRUE(res$model_failed)); req(!is.null(res$vip_tables$vip_tbl_ranked))
         out <- as.data.frame(res$vip_tables$vip_tbl_ranked, stringsAsFactors = FALSE)
         rd <- SummarizedExperiment::rowData(res$data$se)
         feature_match <- match(as.character(out$variable), rownames(res$data$se))
@@ -538,7 +610,7 @@ mod_oplsda_generic_server <- function(id,
         paste0(.safe_file_stem(stem), ".pdf")
       },
       content = function(file) {
-        res <- fit_res(); req(res)
+        res <- fit_res(); req(res); req(!isTRUE(res$model_failed)); req(!is.null(res$heatmap$ht))
         grDevices::pdf(file, width = 10, height = 8, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
         .draw_heatmap_safe(res$heatmap$ht)

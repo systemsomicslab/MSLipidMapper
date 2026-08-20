@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>MSLipidMapper Cytoscape export</title>
+<style>html,body,#cy{width:100%;height:100%;margin:0;background:white}#result{display:none}</style>
+<script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+<script src="/vendor/cytoscape-pdf-export.js"></script>
+<script src="/vendor/mslm-cytoscape-style.js"></script>
+</head><body><div id="cy"></div><pre id="result">WAITING</pre>
+<script>
+(async function(){
+  const result = document.getElementById("result");
+  try {
+    const plugin = window.cytoscapePdfExport || window.cytoscapePDFExport ||
+      window.cytoscapePdf || window.cytoscape_pdf_export || window.pdfExport;
+    if (plugin) window.cytoscape.use(plugin.default || plugin);
+    const job = await (await fetch("/job.json", {cache:"no-store"})).json();
+    const cy = window.cytoscape({
+      container: document.getElementById("cy"), elements: job.elements,
+      layout: {name: job.layout || "preset"},
+      style: window.MSLipidMapperCyDefaultStyle(),
+      wheelSensitivity: 0.2, minZoom: 0.1, maxZoom: 3
+    });
+    await new Promise(resolve => cy.ready(resolve));
+    cy.fit();
+    await new Promise(resolve => setTimeout(resolve, 2500));
+    if (typeof cy.pdf !== "function") throw new Error("cy.pdf is unavailable");
+    const blob = await cy.pdf({
+      full:true, bg:"white", paperSize:job.paper_size || "A4",
+      orientation:job.orientation || "LANDSCAPE", save:false,
+      fileName:"pathway.pdf", includeSvgLayers:false, debug:false
+    });
+    const reader = new FileReader();
+    reader.onloadend = function(){ result.textContent = "EXPORT_BASE64:" + String(reader.result).split(",")[1]; };
+    reader.readAsDataURL(blob);
+  } catch (e) {
+    result.textContent = "EXPORT_ERROR:" + (e && e.stack ? e.stack : String(e));
+  }
+})();
+</script></body></html>

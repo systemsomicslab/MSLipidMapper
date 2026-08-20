@@ -145,8 +145,8 @@ fit_oplsda <- function(
   if (length(group_counts) != 2) {
     stop("OPLS-DA currently supports exactly 2 groups.")
   }
-  if (min(group_counts) < 3) {
-    stop("OPLS-DA requires at least 3 samples in each group.")
+  if (min(group_counts) < 2) {
+    stop("OPLS-DA requires at least 2 samples in each group.")
   }
 
   cv <- suppressWarnings(as.integer(crossvalI))
@@ -160,7 +160,7 @@ fit_oplsda <- function(
     perm <- max(0L, as.integer(round(exp(log_n_arrangements))) - 1L)
   }
 
-  ropls::opls(
+  model <- ropls::opls(
     X, y,
     predI = predI,
     orthoI = orthoI,
@@ -168,19 +168,76 @@ fit_oplsda <- function(
     crossvalI = cv,
     permI = perm
   )
+
+  model_df <- if ("modelDF" %in% methods::slotNames(model)) model@modelDF else NULL
+  score_mn <- if ("scoreMN" %in% methods::slotNames(model)) model@scoreMN else NULL
+  if (is.null(model_df) || !nrow(model_df) || is.null(score_mn) || !length(score_mn)) {
+    stop(
+      "No significant predictive component was found, so an OPLS-DA model could not be built. ",
+      "Consider increasing the sample size or reviewing data quality and group separation."
+    )
+  }
+
+  model
 }
 
 extract_model_stats <- function(op) {
   mdf <- op@modelDF
-  req <- c("R2X(cum)", "R2Y(cum)", "Q2(cum)")
-  if (!all(req %in% colnames(mdf))) stop("Required columns (R2X/R2Y/Q2) not found in op@modelDF.")
+  sdf <- if ("summaryDF" %in% methods::slotNames(op)) op@summaryDF else NULL
+
+  .normalized_names <- function(x) {
+    tolower(gsub("[^[:alnum:]]+", "", as.character(x)))
+  }
+  .get_values <- function(df, candidates) {
+    if (is.null(df) || !nrow(df) || !ncol(df)) return(numeric(0))
+    idx <- match(.normalized_names(candidates), .normalized_names(colnames(df)))
+    idx <- idx[!is.na(idx)]
+    if (!length(idx)) return(numeric(0))
+    suppressWarnings(as.numeric(df[[idx[1]]]))
+  }
+  .last_finite <- function(x, default = NA_real_) {
+    x <- x[is.finite(x)]
+    if (length(x)) x[length(x)] else default
+  }
+  .first_finite <- function(x, default = NA_real_) {
+    x <- x[is.finite(x)]
+    if (length(x)) x[1] else default
+  }
+
+  # ropls keeps cumulative model statistics in summaryDF, while modelDF
+  # contains component-level details. Some small models do not expose every
+  # cumulative column in modelDF, so neither table should be mandatory.
+  r2x_total <- .last_finite(.get_values(sdf, c("R2X(cum)", "R2Xcum", "R2X")))
+  if (!is.finite(r2x_total)) {
+    r2x_total <- .last_finite(.get_values(mdf, c("R2X(cum)", "R2Xcum", "R2X")))
+  }
+
+  r2x_pred <- .first_finite(.get_values(mdf, c("R2X", "R2X(cum)", "R2Xcum")))
+  if (!is.finite(r2x_pred)) r2x_pred <- r2x_total
+
+  r2y <- .last_finite(.get_values(sdf, c("R2Y(cum)", "R2Ycum", "R2Y")))
+  if (!is.finite(r2y)) {
+    r2y <- .last_finite(.get_values(mdf, c("R2Y(cum)", "R2Ycum", "R2Y")))
+  }
+
+  q2 <- .last_finite(.get_values(sdf, c("Q2(cum)", "Q2cum", "Q2")))
+  if (!is.finite(q2)) {
+    q2 <- .last_finite(.get_values(mdf, c("Q2(cum)", "Q2cum", "Q2")))
+  }
+
+  r2x_ortho <- if (is.finite(r2x_total) && is.finite(r2x_pred)) {
+    max(0, r2x_total - r2x_pred)
+  } else {
+    NA_real_
+  }
 
   list(
-    r2x_pred_pct  = round(mdf[1, "R2X(cum)"] * 100, 1),
-    r2x_ortho_pct = if (nrow(mdf) >= 2) round((mdf[2, "R2X(cum)"] - mdf[1, "R2X(cum)"]) * 100, 1) else 0,
-    r2y = round(mdf[1, "R2Y(cum)"], 3),
-    q2  = round(mdf[1, "Q2(cum)"], 3),
-    modelDF = mdf
+    r2x_pred_pct  = if (is.finite(r2x_pred)) round(r2x_pred * 100, 1) else NA_real_,
+    r2x_ortho_pct = if (is.finite(r2x_ortho)) round(r2x_ortho * 100, 1) else NA_real_,
+    r2y = if (is.finite(r2y)) round(r2y, 3) else NA_real_,
+    q2  = if (is.finite(q2)) round(q2, 3) else NA_real_,
+    modelDF = mdf,
+    summaryDF = sdf
   )
 }
 
@@ -209,13 +266,23 @@ plot_opls_scores <- function(
   )
 
   cols <- .align_colors(levels(y), colors)
+  .stat_label <- function(x, digits = 3) {
+    if (length(x) && is.finite(x)) format(round(x, digits), trim = TRUE) else "not available"
+  }
+  .score_axis_label <- function(label, pct) {
+    if (length(pct) && is.finite(pct)) {
+      paste0(label, " [", .stat_label(pct, 1), "%]")
+    } else {
+      label
+    }
+  }
 
   p <- ggplot2::ggplot(df_plot, ggplot2::aes(t1, to1, fill = Group)) +
     ggplot2::geom_point(size = point_size, shape = 21, stroke = stroke, alpha = alpha, color = "black") +
     ggplot2::labs(
       title = "OPLS-DA score plot",
-      x = paste0("Predictive score (t1) [", st$r2x_pred_pct, "%]"),
-      y = paste0("Orthogonal score (to1) [", st$r2x_ortho_pct, "%]")
+      x = .score_axis_label("Predictive score (t1)", st$r2x_pred_pct),
+      y = .score_axis_label("Orthogonal score (to1)", st$r2x_ortho_pct)
     ) +
     ggplot2::theme_classic(base_family = base_family) +
     ggplot2::theme(
@@ -229,7 +296,7 @@ plot_opls_scores <- function(
       "text",
       x = -Inf, y = Inf,
       hjust = -0.05, vjust = 1.1,
-      label = paste0("R2Y = ", st$r2y, "\nQ2 = ", st$q2),
+      label = paste0("R2Y = ", .stat_label(st$r2y), "\nQ2 = ", .stat_label(st$q2)),
       size = 4
     )
 

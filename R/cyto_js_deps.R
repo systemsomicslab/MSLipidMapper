@@ -33,6 +33,7 @@ cyto_js_deps <- function(container_id_css) {
   shiny::tagList(
     shiny::tags$script(src = "https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"),
     if (nzchar(vendor_dir)) shiny::tags$script(src = "/vendor/cytoscape-pdf-export.js"),
+    if (nzchar(vendor_dir)) shiny::tags$script(src = "/vendor/mslm-cytoscape-style.js"),
     shiny::tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"),
     shiny::tags$script(src = "https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"),
     shiny::tags$style(shiny::HTML(sprintf("
@@ -150,6 +151,7 @@ cyto_js_deps <- function(container_id_css) {
   }
 
   function defaultStyle(){
+    if (window.MSLipidMapperCyDefaultStyle) return window.MSLipidMapperCyDefaultStyle();
     return [
       { selector: "node", style: {
           "border-width": "data(BorderWidth)",

@@ -43,6 +43,15 @@ mod_pca_generic_ui <- function(id, title = "PCA") {
       .pca-plot-square-inner { position: absolute; inset: 0; }
       .pca-download-row { display:flex; gap:8px; margin-top:8px; }
       .pca-download-row .btn { flex:1 1 0; }
+      .pca-score-controls { align-items:center; }
+      .pca-score-controls .form-group { flex:0 0 auto; margin:0; }
+      .pca-score-controls .checkbox { margin:0; }
+      .pca-score-controls .btn {
+        width:auto !important;
+        height:34px;
+        min-height:34px;
+        padding:6px 12px;
+      }
     ")),
 
     fluidRow(
@@ -104,7 +113,12 @@ mod_pca_generic_ui <- function(id, title = "PCA") {
             )
           ),
           div(
-            class = "pca-download-row",
+            class = "pca-download-row pca-score-controls",
+            checkboxInput(
+              ns("show_scores_legend"),
+              "Show legend",
+              value = TRUE
+            ),
             downloadButton(
               ns("download_pca_scores_pdf"),
               "Download PDF",
@@ -790,10 +804,21 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
     #---------------------------
     # Render plots
     #---------------------------
+    observeEvent(fit_res(), {
+      res <- fit_res()
+      req(res)
+      updateCheckboxInput(
+        session,
+        "show_scores_legend",
+        value = !.is_dense_categorical_legend(res$colors)
+      )
+    }, ignoreInit = TRUE)
+
     output$pca_scores <- renderPlot({
       res <- fit_res()
       req(res)
-      print(res$plots$scores)
+      legend_position <- if (isTRUE(input$show_scores_legend)) "bottom" else "none"
+      print(res$plots$scores + ggplot2::theme(legend.position = legend_position))
     })
 
     output$pca_loadings <- renderPlot({
@@ -824,9 +849,14 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
       content = function(file) {
         res <- fit_res()
         req(res)
-        grDevices::pdf(file, width = 6.5, height = 6.5, useDingbats = FALSE)
-        on.exit(grDevices::dev.off(), add = TRUE)
-        print(res$plots$scores)
+        .export_ggplot_with_adaptive_legend(
+          file = file,
+          plot = res$plots$scores,
+          colors = res$colors,
+          width = 6.5,
+          height = 6.5,
+          key_title = "PCA class color key"
+        )
       }
     )
 

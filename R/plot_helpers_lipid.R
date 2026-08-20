@@ -672,7 +672,9 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
                                   decreasing = FALSE,
                                   topN = 40, row_z = TRUE,
                                   row_total_fun = c("mean", "sum"),
-                                  palette = NULL) {
+                                  palette = NULL,
+                                  show_heatmap_legend = TRUE,
+                                  show_annotation_legend = TRUE) {
   
   order_by      <- match.arg(order_by)
   row_total_fun <- match.arg(row_total_fun)
@@ -794,6 +796,7 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   ha_top <- ComplexHeatmap::HeatmapAnnotation(
     class = sample_class,
     col   = list(class = pal_use),
+    show_legend = isTRUE(show_annotation_legend),
     show_annotation_name = FALSE,
     simple_anno_size = grid::unit(3, "mm")
   )
@@ -820,6 +823,7 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
     mat,
     name = if (row_z) "z-score" else "mean",
     col  = col_fun,
+    show_heatmap_legend = isTRUE(show_heatmap_legend),
     top_annotation   = ha_top,
     right_annotation = ra_right,
     cluster_rows      = FALSE,
