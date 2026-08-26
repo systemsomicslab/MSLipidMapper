@@ -162,6 +162,8 @@ Useful options:
 - `--input`: overrides the lipidomics input path
 - `--network`, `--cyjs`, or `-n`: uses one custom network
 - `--output` or `-o`: overrides the PDF file or output directory
+- `--acyl-chains` or `-a`: retains molecules containing exact acyl chains
+- `--acyl-match`: selects `any` or `all` matching for multiple chains
 
 The CLI accepts both MS-DIAL Alignment Table CSV and MS-DIAL mzTab-M input.
 
@@ -171,6 +173,12 @@ group inclusion or exclusion, plot type (`dot`, `box`, or `violin`), colors,
 fonts, and output dimensions. Chrome or Chromium is required for network PDF
 rendering; use `pathway.browser` or the `MSLIPIDMAPPER_BROWSER` environment
 variable if it is not detected automatically.
+
+Molecule-level acyl-chain filtering can also be set in YAML with
+`analysis.acyl_chain_filter.chains` and `match: any|all`. It is applied before
+normalization and lipid-class aggregation. Only explicitly parsed acyl chains
+are matched: total-composition names such as `PC 34:1` are not guessed, and
+sphingoid bases are not treated as acyl chains.
 
 ## Example data
 

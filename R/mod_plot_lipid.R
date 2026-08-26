@@ -84,7 +84,8 @@ mod_plot_lipid_server <- function(
     .get_x_groups <- function(se, x_var = "class") {
       cd <- as.data.frame(SummarizedExperiment::colData(se))
       if (!x_var %in% colnames(cd)) return(character(0))
-      unique(as.character(cd[[x_var]]))
+      groups <- unique(as.character(cd[[x_var]]))
+      groups[!is.na(groups) & nzchar(trimws(groups))]
     }
     
     aggregate_to_class_se <- function(se, class_col, fun = c("sum","mean","median"), assay_name = NULL) {
@@ -183,7 +184,8 @@ mod_plot_lipid_server <- function(
     }
     
     .make_palette <- function(groups, adv) {
-      groups <- unique(groups)
+      groups <- unique(as.character(groups))
+      groups <- groups[!is.na(groups) & nzchar(trimws(groups))]
       n <- length(groups)
       if (!n) return(NULL)
       
@@ -193,7 +195,9 @@ mod_plot_lipid_server <- function(
       
       if (!is.null(adv$palette_map) && length(adv$palette_map)) {
         nm <- intersect(names(adv$palette_map), groups)
-        pal[nm] <- adv$palette_map[nm]
+        custom <- as.character(adv$palette_map[nm])
+        valid <- !is.na(custom) & nzchar(custom)
+        pal[nm[valid]] <- custom[valid]
       }
       pal
     }

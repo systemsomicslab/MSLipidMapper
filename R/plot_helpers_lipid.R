@@ -720,6 +720,9 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   )
   # store x levels (reuse later)
   x_levels <- levels(tidy[[x_var]])
+  x_levels <- as.character(x_levels)
+  x_levels <- x_levels[!is.na(x_levels) & nzchar(trimws(x_levels))]
+  if (!length(x_levels)) return(NULL)
   
   # ---- Mean abundance: molecule ﾗ class ----
   M <- tidy |>
@@ -781,7 +784,9 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   
   # ---- palette for class annotation ----
   if (!is.null(palette) && length(palette)) {
-    pal_use <- palette
+    pal_use <- as.character(palette)
+    names(pal_use) <- names(palette)
+    pal_use <- pal_use[!is.na(pal_use) & nzchar(pal_use)]
     missing <- setdiff(x_levels, names(pal_use))
     if (length(missing)) pal_use[missing] <- "#BBBBBB"
     pal_use <- pal_use[x_levels]
@@ -790,6 +795,8 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
     pal_use <- grDevices::hcl(h = hues, l = 65, c = 100)[1:length(x_levels)]
     names(pal_use) <- x_levels
   }
+  pal_use <- as.character(pal_use)
+  names(pal_use) <- x_levels
   
   # ---- column annotation (class colors) ----
   sample_class <- factor(colnames(mat), levels = x_levels)

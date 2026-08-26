@@ -157,6 +157,7 @@ mod_normalize_ui <- function(id) {
                 choices = c(
                   "CSV matrix" = "matrix_csv",
                   "TSV matrix" = "matrix_tsv",
+                  "mzTab-M" = "mztab_m",
                   "SE (RDS)" = "se_rds"
                 ),
                 selected = "matrix_csv"
@@ -335,6 +336,7 @@ mod_normalize_server <- function(id, se_in) {
         ext <- switch(input$dl_format,
                       matrix_csv = "csv",
                       matrix_tsv = "tsv",
+                      mztab_m    = "mztab",
                       se_rds     = "rds"
         )
         paste0(
@@ -362,6 +364,12 @@ mod_normalize_server <- function(id, se_in) {
           
         } else if (identical(input$dl_format, "se_rds")) {
           saveRDS(se, file)
+        } else if (identical(input$dl_format, "mztab_m")) {
+          write_mztab_m(
+            se,
+            file,
+            normalized_by = input$method %||% "none"
+          )
         }
       }
     )

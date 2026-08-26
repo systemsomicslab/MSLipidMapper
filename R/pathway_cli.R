@@ -13,10 +13,16 @@
 #' @param output_path Optional output override. It is a PDF path for a custom
 #'   network and a directory path for the three default pathways. Relative
 #'   paths are resolved from the current working directory.
+#' @param acyl_chains Optional character vector of exact acyl-chain codes, such
+#'   as `c("16:0", "18:1")`, overriding `analysis.acyl_chain_filter.chains`.
+#' @param acyl_match Optional matching mode (`"any"` or `"all"`) overriding
+#'   `analysis.acyl_chain_filter.match`.
 #' @return Invisibly, a summary list containing the output path and mapping
 #'   counts.
 #' @export
-render_pathway_from_config <- function(config, input_path = NULL, network_path = NULL, output_path = NULL) {
+render_pathway_from_config <- function(config, input_path = NULL, network_path = NULL,
+                                       output_path = NULL, acyl_chains = NULL,
+                                       acyl_match = NULL) {
   config <- normalizePath(config, winslash = "/", mustWork = TRUE)
   cfg <- yaml::read_yaml(config)
   if (!is.list(cfg)) stop("The parameter file must contain a YAML mapping.", call. = FALSE)
@@ -173,6 +179,49 @@ render_pathway_from_config <- function(config, input_path = NULL, network_path =
   se <- se[, keep, drop = FALSE]
   groups <- groups[keep]
 
+  features_before_acyl_filter <- nrow(se)
+  acyl_cfg <- analysis$acyl_chain_filter %||% list()
+  if (!is.list(acyl_cfg)) stop("analysis.acyl_chain_filter must be a YAML mapping.", call. = FALSE)
+  selected_acyl_chains <- acyl_chains %||% acyl_cfg$chains %||% character(0)
+  selected_acyl_chains <- trimws(as.character(unlist(selected_acyl_chains, use.names = FALSE)))
+  selected_acyl_chains <- unique(selected_acyl_chains[!is.na(selected_acyl_chains) & nzchar(selected_acyl_chains)])
+  selected_acyl_match <- tolower(as.character(acyl_match %||% acyl_cfg$match %||% "any"))[1]
+  selected_acyl_match <- match.arg(selected_acyl_match, c("any", "all"))
+  if (length(selected_acyl_chains)) {
+    rules_path <- acyl_cfg$rules %||% .mslm_rules_yaml_path()
+    if (!is.null(acyl_cfg$rules)) rules_path <- resolve_path(rules_path, "analysis.acyl_chain_filter.rules")
+    if (is.null(rules_path) || !nzchar(rules_path) || !file.exists(rules_path)) {
+      stop("Lipid rules YAML was not found for acyl-chain filtering.", call. = FALSE)
+    }
+    rules <- load_lipid_rules(rules_path)
+    lipid_col <- as.character(acyl_cfg$lipid_name_column %||% .resolve_lipid_name_col(se))[1]
+    if (is.na(lipid_col) || !nzchar(lipid_col)) {
+      stop("No lipid-name column was found for acyl-chain filtering.", call. = FALSE)
+    }
+    se <- add_chain_list_to_se(se, rules, lipid_col = lipid_col, out_col = "acyl_chains")
+    chain_values <- as.list(SummarizedExperiment::rowData(se)[["acyl_chains"]])
+    chain_values <- lapply(chain_values, function(x) unique(trimws(as.character(x))))
+    available_chains <- sort(unique(unlist(chain_values, use.names = FALSE)))
+    unavailable <- setdiff(selected_acyl_chains, available_chains)
+    if (length(unavailable)) {
+      stop(
+        "Requested acyl chains were not found in molecule-level annotations: ",
+        paste(unavailable, collapse = ", "),
+        call. = FALSE
+      )
+    }
+    keep_features <- vapply(chain_values, function(chains) {
+      if (identical(selected_acyl_match, "all")) {
+        all(selected_acyl_chains %in% chains)
+      } else {
+        any(selected_acyl_chains %in% chains)
+      }
+    }, logical(1))
+    if (!any(keep_features)) stop("Acyl-chain filtering removed every lipid molecule.", call. = FALSE)
+    se <- se[keep_features, , drop = FALSE]
+  }
+  features_after_acyl_filter <- nrow(se)
+
   normalization <- tolower(as.character(analysis$normalization %||% "none"))[1]
   se <- normalize_se(se, method = normalization)
 
@@ -297,7 +346,13 @@ render_pathway_from_config <- function(config, input_path = NULL, network_path =
     mapped_nodes = as.list(mapped),
     total_nodes = as.list(total_nodes),
     groups = group_levels,
-    excluded_groups = setdiff(available_groups, unique(groups))
+    excluded_groups = setdiff(available_groups, unique(groups)),
+    acyl_chain_filter = list(
+      chains = selected_acyl_chains,
+      match = selected_acyl_match,
+      features_before = features_before_acyl_filter,
+      features_after = features_after_acyl_filter
+    )
   )
   if (custom_network) summary$pdf <- unname(output_paths[[1]])
   invisible(summary)
@@ -409,8 +464,8 @@ render_pathway_from_config <- function(config, input_path = NULL, network_path =
 mslipidmapper_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
   usage <- paste(
     "Usage:",
-    "  mslipidmapper pathway --config parameters.yml [--input data.csv] [--network pathway.cyjs] [--output result.pdf]",
-    "  mslipidmapper pathway --config parameters.yml [--input data.mzTab] [--network pathway.cyjs] [--output result.pdf]",
+    "  mslipidmapper pathway --config parameters.yml [--input data.csv] [--network pathway.cyjs] [--output result.pdf] [--acyl-chains 16:0,18:1]",
+    "  mslipidmapper pathway --config parameters.yml [--input data.mzTab] [--network pathway.cyjs] [--output result.pdf] [--acyl-chains 16:0,18:1]",
     "",
     "Commands:",
     "  pathway    Render a pathway projection PDF from a YAML parameter file.",
@@ -421,6 +476,9 @@ mslipidmapper_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
     "  -n, --network FILE   Override pathway.network with a CYJS/JSON file.",
     "      --cyjs FILE      Alias for --network.",
     "  -o, --output PATH    Output PDF (custom network) or directory (default pathways).",
+    "  -a, --acyl-chains X  Exact chain codes, comma-separated (for example 16:0,18:1).",
+    "      --acyl-chain X   Alias for --acyl-chains.",
+    "      --acyl-match M   Match any or all selected chains (default: YAML/any).",
     sep = "\n"
   )
   if (!length(args) || args[1] %in% c("-h", "--help", "help")) {
@@ -456,7 +514,12 @@ mslipidmapper_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
   input_opt <- parse_option(c("--input", "-i"), "--input")
   network_opt <- parse_option(c("--network", "--cyjs", "-n"), "--network")
   output_opt <- parse_option(c("--output", "-o"), "--output")
-  consumed <- unique(c(1L, config_opt$consumed, input_opt$consumed, network_opt$consumed, output_opt$consumed))
+  acyl_opt <- parse_option(c("--acyl-chains", "--acyl-chain", "-a"), "--acyl-chains")
+  acyl_match_opt <- parse_option(c("--acyl-match"), "--acyl-match")
+  consumed <- unique(c(
+    1L, config_opt$consumed, input_opt$consumed, network_opt$consumed,
+    output_opt$consumed, acyl_opt$consumed, acyl_match_opt$consumed
+  ))
   unknown <- args[setdiff(seq_along(args), consumed)]
   if (length(unknown)) stop("Unknown option: ", unknown[1], "\n", usage, call. = FALSE)
 
@@ -477,11 +540,27 @@ mslipidmapper_cli <- function(args = commandArgs(trailingOnly = TRUE)) {
   if (!is.null(output_override)) {
     output_override <- absolute_cli_path(output_override, must_exist = FALSE)
   }
+  acyl_override <- acyl_opt$value
+  if (!is.null(acyl_override)) {
+    acyl_override <- trimws(unlist(strsplit(acyl_override, ",", fixed = TRUE), use.names = FALSE))
+    if (!length(acyl_override) || any(!nzchar(acyl_override))) {
+      stop("--acyl-chains requires one or more comma-separated chain codes.\n", usage, call. = FALSE)
+    }
+  }
+  acyl_match_override <- acyl_match_opt$value
+  if (!is.null(acyl_match_override)) {
+    acyl_match_override <- tolower(acyl_match_override)
+    if (!acyl_match_override %in% c("any", "all")) {
+      stop("--acyl-match must be any or all.\n", usage, call. = FALSE)
+    }
+  }
   result <- render_pathway_from_config(
     config_opt$value,
     input_path = input_override,
     network_path = network_override,
-    output_path = output_override
+    output_path = output_override,
+    acyl_chains = acyl_override,
+    acyl_match = acyl_match_override
   )
   cat(jsonlite::toJSON(result, auto_unbox = TRUE, pretty = TRUE), "\n")
   0L

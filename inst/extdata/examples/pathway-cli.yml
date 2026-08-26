@@ -13,6 +13,11 @@ analysis:
   exclude_groups:
     - Blank
     - Quality control
+  # Optional molecule-level acyl-chain filter. Total-composition entries such
+  # as PC 34:1 are not guessed; only explicitly parsed chains are matched.
+  # acyl_chain_filter:
+  #   chains: ["16:0"]
+  #   match: any
 
 pathway:
   # Omit network to render the three bundled lipid-only pathways:

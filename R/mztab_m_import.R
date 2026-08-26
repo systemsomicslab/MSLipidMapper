@@ -23,6 +23,123 @@
 # - "chemical_name" is preferred as the primary metabolite name source when available.
 # ============================================================
 
+#' Write a SummarizedExperiment as mzTab-M
+#'
+#' Writes the abundance assay and the sample/feature annotations needed by
+#' MSLipidMapper as an mzTab-M 2.0-M small-molecule (SML) table. Sample groups
+#' are represented as study variables and lipid ontology is written to
+#' `opt_global_Ontology`.
+#'
+#' @param se A SummarizedExperiment.
+#' @param file Output path or writable connection.
+#' @param assay_name Preferred assay name. The first assay is used when this
+#'   name is unavailable.
+#' @param sample_id_col Preferred column in `colData(se)` for sample names.
+#' @param class_col Preferred column in `colData(se)` for study-variable names.
+#' @param normalized_by Optional label describing the normalization method.
+#'
+#' @return The output path or connection, invisibly.
+#' @export
+write_mztab_m <- function(
+    se,
+    file,
+    assay_name = "abundance",
+    sample_id_col = "sample_id",
+    class_col = "class",
+    normalized_by = NULL
+) {
+  if (!inherits(se, "SummarizedExperiment")) {
+    stop("`se` must be a SummarizedExperiment.", call. = FALSE)
+  }
+
+  assay_names <- SummarizedExperiment::assayNames(se)
+  if (!length(assay_names)) stop("No assays found in SummarizedExperiment.", call. = FALSE)
+  assay_index <- if (assay_name %in% assay_names) assay_name else 1L
+  mat <- as.matrix(SummarizedExperiment::assay(se, assay_index))
+  if (!nrow(mat) || !ncol(mat)) stop("The assay must contain features and samples.", call. = FALSE)
+
+  cd <- as.data.frame(SummarizedExperiment::colData(se), stringsAsFactors = FALSE)
+  rd <- as.data.frame(SummarizedExperiment::rowData(se), stringsAsFactors = FALSE)
+
+  clean <- function(x, fallback = "null") {
+    x <- as.character(x)
+    x[is.na(x) | !nzchar(trimws(x))] <- fallback
+    x <- gsub("[\t\r\n]+", " ", x)
+    x
+  }
+  pick <- function(df, candidates, fallback) {
+    hit <- candidates[candidates %in% names(df)]
+    if (length(hit)) clean(df[[hit[1]]], fallback) else rep(fallback, nrow(df))
+  }
+
+  sample_names <- if (sample_id_col %in% names(cd)) {
+    clean(cd[[sample_id_col]], "")
+  } else {
+    clean(colnames(mat), "")
+  }
+  missing_sample <- !nzchar(sample_names)
+  sample_names[missing_sample] <- paste0("sample_", which(missing_sample))
+  sample_names <- make.unique(sample_names)
+
+  groups <- if (class_col %in% names(cd)) clean(cd[[class_col]], "Unknown") else rep("Unknown", ncol(mat))
+  group_levels <- unique(groups)
+  group_index <- match(groups, group_levels)
+
+  mtd <- list(
+    c("MTD", "mzTab-version", "2.0.0-M"),
+    c("MTD", "mzTab-ID", paste0("MSLipidMapper-", format(Sys.time(), "%Y%m%d%H%M%S"))),
+    c("MTD", "software[1]", "[,,MSLipidMapper,]"),
+    c("MTD", "small_molecule-quantification_unit", "[,,abundance,]")
+  )
+  if (!is.null(normalized_by) && nzchar(normalized_by)) {
+    mtd <- append(mtd, list(c("MTD", "comment[1]", paste0("Normalization: ", clean(normalized_by)))))
+  }
+  for (i in seq_len(ncol(mat))) {
+    mtd <- append(mtd, list(c("MTD", sprintf("assay[%d]", i), sample_names[i])))
+  }
+  for (i in seq_along(group_levels)) {
+    refs <- paste0("assay[", which(group_index == i), "]", collapse = "|")
+    mtd <- append(mtd, list(
+      c("MTD", sprintf("study_variable[%d]", i), group_levels[i]),
+      c("MTD", sprintf("study_variable[%d]-assay_refs", i), refs),
+      c("MTD", sprintf("study_variable[%d]-description", i), group_levels[i])
+    ))
+  }
+
+  matrix_row_names <- rownames(mat)
+  if (is.null(matrix_row_names)) matrix_row_names <- paste0("feature_", seq_len(nrow(mat)))
+  feature_names <- pick(rd, c("Metabolite name", "chemical_name"), "null")
+  missing_feature <- feature_names == "null"
+  feature_names[missing_feature] <- clean(matrix_row_names[missing_feature], "null")
+  ontology <- pick(rd, c("opt_global_Ontology", "Ontology", "subclass"), "null")
+  formula <- pick(rd, c("chemical_formula", "Formula", "formula"), "null")
+  smiles <- pick(rd, c("smiles", "SMILES"), "null")
+  inchi <- pick(rd, c("inchi", "InChI"), "null")
+  mass <- pick(rd, c("theoretical_neutral_mass", "Precursor m/z", "m/z", "mz"), "null")
+  adduct <- pick(rd, c("adduct_ions", "Adduct type", "adduct"), "null")
+  database_id <- pick(rd, c("database_identifier", "Database identifier"), "null")
+
+  assay_headers <- paste0("abundance_assay[", seq_len(ncol(mat)), "]")
+  smh <- c(
+    "SMH", "SML_ID", "SMF_ID_REFS", "database_identifier",
+    "chemical_formula", "smiles", "inchi", "chemical_name", "uri",
+    "theoretical_neutral_mass", "adduct_ions", "reliability",
+    "best_id_confidence_measure", "best_id_confidence_value",
+    assay_headers, "opt_global_Ontology"
+  )
+  sml <- lapply(seq_len(nrow(mat)), function(i) c(
+    "SML", as.character(i), as.character(i), database_id[i], formula[i],
+    smiles[i], inchi[i], feature_names[i], "null", mass[i], adduct[i],
+    "null", "null", "null", clean(mat[i, ], "null"), ontology[i]
+  ))
+
+  con <- if (inherits(file, "connection")) file else base::file(file, open = "wb")
+  close_on_exit <- !inherits(file, "connection")
+  if (close_on_exit) on.exit(close(con), add = TRUE)
+  writeLines(vapply(c(mtd, list(smh), sml), paste, collapse = "\t", FUN.VALUE = character(1)), con)
+  invisible(file)
+}
+
 
 #' Read an MS-DIAL mzTab-M file and split into each table (MTD/SMH/SML/SFH/SMF)
 #'
@@ -313,9 +430,9 @@ mztab_to_se <- function(
     smh <- mztab.table[startsWith(as.character(mztab.table$V1), "SMH"), , drop = FALSE]
     sml <- mztab.table[startsWith(as.character(mztab.table$V1), "SML"), , drop = FALSE]
 
-    # Switch to feature table if SML is empty or single-row
-    if (nrow(sml) < 2) {
-      msg <- c(msg, "Small molecule table is empty or single-row. Using Small Molecule Feature table!")
+    # Switch to feature table only if SML is empty; a one-feature export is valid.
+    if (nrow(sml) < 1) {
+      msg <- c(msg, "Small molecule table is empty. Using Small Molecule Feature table!")
       identifier <- "feature"
     }
   }

@@ -1316,12 +1316,19 @@ mod_upload_server <- function(id) {
       # Merge all imported metadata columns so plot modules can use multiple sample classes.
       incoming_cols <- setdiff(colnames(map), "sample_id")
       for (nm in incoming_cols) {
+        incoming <- map[[nm]]
+        if (is.factor(incoming)) incoming <- as.character(incoming)
         if (!nm %in% colnames(cd)) {
-          cd[[nm]] <- NA
+          # Preserve the imported column type. A bare logical NA leaves text
+          # fields logical when no sample matches and later breaks colour maps.
+          cd[[nm]] <- rep(incoming[NA_integer_], nrow(cd))
+        } else if (is.factor(cd[[nm]])) {
+          cd[[nm]] <- as.character(cd[[nm]])
         }
-        cd[[nm]][matched] <- map[[nm]][key[matched]]
+        cd[[nm]][matched] <- incoming[key[matched]]
       }
-      cd$class[matched] <- map$class[key[matched]]
+      cd$class <- as.character(cd$class)
+      cd$class[matched] <- as.character(map$class[key[matched]])
 
       if (!"use" %in% names(cd)) {
         cd$use <- TRUE
