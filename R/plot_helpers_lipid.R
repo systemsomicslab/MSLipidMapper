@@ -765,6 +765,7 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   M_wide <- M_wide[, x_levels, drop = FALSE]
   
   mat <- as.matrix(M_wide)
+  storage.mode(mat) <- "numeric"
   rownames(mat) <- rn
   
   # ---- choose row_total (mean or sum) ----
@@ -781,12 +782,25 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   if (isTRUE(row_z)) {
     mat <- t(scale(t(mat)))
   }
+
+  # ComplexHeatmap cannot construct a useful color mapping for an empty or
+  # entirely non-finite matrix.  This can occur after filtering sparse input
+  # or when every value in a selected class is missing.
+  finite_mat <- is.finite(mat)
+  if (!any(finite_mat)) return(NULL)
+  mat[!finite_mat] <- NA_real_
   
   # ---- palette for class annotation ----
-  if (!is.null(palette) && length(palette)) {
-    pal_use <- as.character(palette)
-    names(pal_use) <- names(palette)
-    pal_use <- pal_use[!is.na(pal_use) & nzchar(pal_use)]
+  if (!is.null(palette) && length(palette) && !is.null(names(palette)) &&
+      (is.atomic(palette) || is.list(palette))) {
+    palette_names <- names(palette)
+    pal_use <- as.character(unlist(palette, use.names = FALSE))
+    names(pal_use) <- palette_names
+    valid_color <- vapply(pal_use, function(x) {
+      if (is.na(x) || !nzchar(trimws(x))) return(FALSE)
+      !inherits(try(grDevices::col2rgb(x), silent = TRUE), "try-error")
+    }, logical(1))
+    pal_use <- pal_use[valid_color]
     missing <- setdiff(x_levels, names(pal_use))
     if (length(missing)) pal_use[missing] <- "#BBBBBB"
     pal_use <- pal_use[x_levels]
@@ -820,8 +834,14 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   )
   
   # ---- color scale ----
-  rng <- range(mat, na.rm = TRUE)
+  rng <- range(mat, na.rm = TRUE, finite = TRUE)
   mid <- if (isTRUE(row_z)) 0 else stats::median(mat, na.rm = TRUE)
+  if (!is.finite(mid)) mid <- mean(rng)
+  if (diff(rng) == 0) {
+    eps <- max(abs(rng[1]) * 1e-6, 1e-6)
+    rng <- rng + c(-eps, eps)
+    mid <- mean(rng)
+  }
   brks <- c(rng[1], mid, rng[2])
   col_fun <- circlize::colorRamp2(brks, c("#2C7BB6", "white", "#D7191C"))
   
