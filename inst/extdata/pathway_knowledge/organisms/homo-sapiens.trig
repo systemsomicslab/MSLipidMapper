@@ -1,0 +1,30 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix res: <https://systemomicslab.github.io/MSLipidMapper/resource/> .
+@prefix rh: <http://rdf.rhea-db.org/> .
+@prefix taxon: <http://purl.uniprot.org/taxonomy/> .
+@prefix up: <http://purl.uniprot.org/uniprot/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+res:graph_taxon_9606 {
+  res:human_PTDSS1_RHEA_45088 a mslm:OrganismReactionAssertion ;
+    mslm:organism taxon:9606 ; mslm:rheaReaction rh:45088 ;
+    mslm:enzymeProtein up:P48651 ; mslm:enzymeName "phosphatidylserine synthase 1" ;
+    mslm:geneSymbol "PTDSS1" ; mslm:lipidSubclass res:Phosphatidylcholine, res:Phosphatidylserine ;
+    prov:wasDerivedFrom rh:45088, up:P48651 .
+  res:human_PTDSS2_RHEA_27606 a mslm:OrganismReactionAssertion ;
+    mslm:organism taxon:9606 ; mslm:rheaReaction rh:27606 ;
+    mslm:enzymeProtein up:Q9BVG9 ; mslm:enzymeName "phosphatidylserine synthase 2" ;
+    mslm:geneSymbol "PTDSS2" ; mslm:lipidSubclass res:Phosphatidylethanolamine, res:Phosphatidylserine ;
+    prov:wasDerivedFrom rh:27606, up:Q9BVG9 .
+  res:human_PISD_RHEA_20828 a mslm:OrganismReactionAssertion ;
+    mslm:organism taxon:9606 ; mslm:rheaReaction rh:20828 ;
+    mslm:enzymeProtein up:Q9UG56 ; mslm:enzymeName "phosphatidylserine decarboxylase proenzyme, mitochondrial" ;
+    mslm:geneSymbol "PISD" ; mslm:lipidSubclass res:Phosphatidylserine, res:Phosphatidylethanolamine ;
+    prov:wasDerivedFrom rh:20828, up:Q9UG56 .
+  res:human_PEMT_RHEA_11164 a mslm:OrganismReactionAssertion ;
+    mslm:organism taxon:9606 ; mslm:rheaReaction rh:11164 ;
+    mslm:enzymeProtein up:Q9UBM1 ; mslm:enzymeName "phosphatidylethanolamine N-methyltransferase" ;
+    mslm:geneSymbol "PEMT" ; mslm:lipidSubclass res:Phosphatidylethanolamine ;
+    prov:wasDerivedFrom rh:11164, up:Q9UBM1 .
+}

@@ -1,0 +1,159 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mslm: a owl:Ontology ;
+  dcterms:title "MSLipidMapper pathway knowledge ontology"@en ;
+  dcterms:description "Minimal vocabulary for provenance-aware lipid entities, reactions, participants and curation."@en ;
+  owl:versionInfo "0.1.0" .
+
+mslm:LipidEntity a owl:Class ; rdfs:label "lipid entity"@en .
+mslm:MSDialMappableLipidEntity a owl:Class ;
+  rdfs:subClassOf mslm:LipidEntity ;
+  rdfs:label "MS-DIAL mappable lipid entity"@en .
+mslm:Reaction a owl:Class ; rdfs:label "reaction"@en .
+mslm:LipidReaction a owl:Class ; rdfs:subClassOf mslm:Reaction ; rdfs:label "lipid reaction"@en .
+mslm:ReactionTraversalProjection a owl:Class ;
+  rdfs:subClassOf mslm:Reaction ;
+  rdfs:label "reaction traversal projection"@en .
+mslm:ReactionParticipant a owl:Class ; rdfs:label "reaction participant"@en .
+mslm:Enzyme a owl:Class ; rdfs:label "enzyme"@en .
+mslm:Gene a owl:Class ; rdfs:label "gene"@en .
+mslm:CellularCompartment a owl:Class ; rdfs:label "cellular compartment"@en .
+mslm:SourceAssertion a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "source assertion"@en .
+mslm:CurationRecord a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "curation record"@en .
+mslm:OrganismReactionAssertion a owl:Class ;
+  rdfs:subClassOf prov:Entity ; rdfs:label "organism-specific enzyme-reaction assertion"@en .
+mslm:AcylSelectivityObservation a owl:Class ;
+  rdfs:subClassOf prov:Entity ; rdfs:label "acyl-chain selectivity observation"@en .
+mslm:Study a owl:Class ; rdfs:label "study"@en .
+mslm:Dataset a owl:Class ; rdfs:label "dataset"@en .
+mslm:Comparison a owl:Class ; rdfs:label "experimental comparison"@en .
+mslm:LipidSubclassObservation a owl:Class ;
+  rdfs:subClassOf prov:Entity ; rdfs:label "lipid subclass observation"@en .
+
+mslm:DetectionStatus a owl:Class .
+mslm:Observed a mslm:DetectionStatus .
+mslm:NotDetected a mslm:DetectionStatus .
+mslm:NotMeasured a mslm:DetectionStatus .
+mslm:Unmapped a mslm:DetectionStatus .
+
+mslm:ParticipantRole a owl:Class .
+mslm:Substrate a mslm:ParticipantRole ; rdfs:label "substrate"@en .
+mslm:Product a mslm:ParticipantRole ; rdfs:label "product"@en .
+mslm:Cofactor a mslm:ParticipantRole ; rdfs:label "cofactor"@en .
+
+mslm:ResolutionLevel a owl:Class .
+mslm:ClassLevel a mslm:ResolutionLevel .
+mslm:SubclassLevel a mslm:ResolutionLevel .
+mslm:SumCompositionLevel a mslm:ResolutionLevel .
+mslm:MolecularSpeciesLevel a mslm:ResolutionLevel .
+mslm:SnResolvedLevel a mslm:ResolutionLevel .
+
+mslm:Directionality a owl:Class .
+mslm:Forward a mslm:Directionality .
+mslm:Reverse a mslm:Directionality .
+mslm:Reversible a mslm:Directionality .
+mslm:UnknownDirection a mslm:Directionality .
+
+mslm:CurationStatus a owl:Class .
+mslm:Draft a mslm:CurationStatus .
+mslm:Reviewed a mslm:CurationStatus .
+mslm:Validated a mslm:CurationStatus .
+mslm:Rejected a mslm:CurationStatus .
+
+mslm:AssertionMethod a owl:Class .
+mslm:DatabaseCurated a mslm:AssertionMethod .
+mslm:LiteratureCurated a mslm:AssertionMethod .
+mslm:ManuallyCurated a mslm:AssertionMethod .
+mslm:RuleInstantiated a mslm:AssertionMethod .
+mslm:StructureInferred a mslm:AssertionMethod .
+mslm:Heuristic a mslm:AssertionMethod .
+
+mslm:hasParticipant a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ; rdfs:range mslm:ReactionParticipant .
+mslm:participantEntity a owl:ObjectProperty ;
+  rdfs:domain mslm:ReactionParticipant .
+mslm:participantRole a owl:ObjectProperty ;
+  rdfs:domain mslm:ReactionParticipant ; rdfs:range mslm:ParticipantRole .
+mslm:catalyzedBy a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ; rdfs:range mslm:Enzyme .
+mslm:encodedBy a owl:ObjectProperty ;
+  rdfs:domain mslm:Enzyme ; rdfs:range mslm:Gene .
+mslm:occursIn a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ; rdfs:range mslm:CellularCompartment .
+mslm:directionality a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ; rdfs:range mslm:Directionality .
+mslm:resolutionLevel a owl:ObjectProperty ;
+  rdfs:range mslm:ResolutionLevel .
+mslm:curationStatus a owl:ObjectProperty ;
+  rdfs:range mslm:CurationStatus .
+mslm:assertionMethod a owl:ObjectProperty ;
+  rdfs:range mslm:AssertionMethod .
+mslm:hasSourceAssertion a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ; rdfs:range mslm:SourceAssertion .
+mslm:hasCurationRecord a owl:ObjectProperty ;
+  rdfs:range mslm:CurationRecord .
+mslm:sourceDatabase a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:sourceIdentifier a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:sourceUrl a owl:DatatypeProperty ; rdfs:range xsd:anyURI .
+mslm:stoichiometry a owl:DatatypeProperty ;
+  rdfs:domain mslm:ReactionParticipant ; rdfs:range xsd:decimal .
+mslm:reviewedOn a owl:DatatypeProperty ; rdfs:range xsd:date .
+mslm:reviewNote a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:msdialOntologyLabel a owl:DatatypeProperty ;
+  rdfs:domain mslm:MSDialMappableLipidEntity ; rdfs:range xsd:string .
+mslm:lipidMapsCategoryCode a owl:DatatypeProperty ;
+  rdfs:domain mslm:LipidEntity ; rdfs:range xsd:string .
+mslm:lipidMapsMainClassCode a owl:DatatypeProperty ;
+  rdfs:domain mslm:LipidEntity ; rdfs:range xsd:string .
+mslm:lipidMapsSubClassCode a owl:DatatypeProperty ;
+  rdfs:domain mslm:LipidEntity ; rdfs:range xsd:string .
+mslm:lipidMapsId a owl:DatatypeProperty ;
+  rdfs:domain mslm:LipidEntity ; rdfs:range xsd:string ;
+  rdfs:comment "Individual LIPID MAPS structure identifier (LM_ID); it must not be populated with a classification code."@en .
+mslm:lipidMapsClassificationUrl a owl:DatatypeProperty ;
+  rdfs:domain mslm:LipidEntity ; rdfs:range xsd:anyURI .
+mslm:rheaReaction a owl:ObjectProperty ; rdfs:range mslm:Reaction .
+mslm:rheaParentReaction a owl:ObjectProperty ;
+  rdfs:comment "Links an acyl-resolved Rhea reaction to its generic Rhea reaction class."@en .
+mslm:organism a owl:ObjectProperty .
+mslm:enzymeProtein a owl:ObjectProperty ;
+  rdfs:comment "UniProtKB protein URI that carries the catalytic-activity annotation."@en .
+mslm:enzymeName a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:geneSymbol a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:lipidSubclass a owl:ObjectProperty ; rdfs:range mslm:LipidEntity .
+mslm:acylChainSignature a owl:DatatypeProperty ;
+  rdfs:comment "Machine-readable chain signature such as 18:3/18:3 or 16:0/22:6; sn order is asserted only when supported."@en ;
+  rdfs:range xsd:string .
+mslm:selectivityFor a owl:ObjectProperty .
+mslm:selectivityMeasure a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:selectivityValue a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+mslm:selectivityUnit a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:evidencePubMed a owl:ObjectProperty .
+mslm:inStudy a owl:ObjectProperty ; rdfs:range mslm:Study .
+mslm:inDataset a owl:ObjectProperty ; rdfs:range mslm:Dataset .
+mslm:inComparison a owl:ObjectProperty ; rdfs:range mslm:Comparison .
+mslm:observedLipidSubclass a owl:ObjectProperty ; rdfs:range mslm:LipidEntity .
+mslm:detectionStatus a owl:ObjectProperty ; rdfs:range mslm:DetectionStatus .
+mslm:conditionA a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:conditionB a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:meanA a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+mslm:meanB a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+mslm:effectSize a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+mslm:effectSizeType a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:pValue a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+mslm:adjustedPValue a owl:DatatypeProperty ; rdfs:range xsd:decimal .
+mslm:sampleSizeA a owl:DatatypeProperty ; rdfs:range xsd:integer .
+mslm:sampleSizeB a owl:DatatypeProperty ; rdfs:range xsd:integer .
+mslm:aggregationMethod a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:hasSubstrateEntity a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ;
+  rdfs:comment "Direct traversal edge derived from substrate ReactionParticipant nodes."@en .
+mslm:hasProductEntity a owl:ObjectProperty ;
+  rdfs:domain mslm:Reaction ;
+  rdfs:comment "Direct traversal edge derived from product ReactionParticipant nodes."@en .

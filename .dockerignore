@@ -11,3 +11,5 @@ tmp
 *.tmp
 *.bak
 *.swp
+.api-validation
+mslipidmapper-jobs

@@ -53,6 +53,7 @@ RUN chmod +x /usr/local/bin/start.sh \
 
 EXPOSE 3838
 EXPOSE 7310
+EXPOSE 8000
 
 HEALTHCHECK --interval=5s --timeout=3s --start-period=20s --retries=20 \
   CMD curl -fsS http://localhost:3838/ >/dev/null || exit 1

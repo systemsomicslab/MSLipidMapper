@@ -1,0 +1,24 @@
+PREFIX rh: <http://rdf.rhea-db.org/>
+PREFIX taxon: <http://purl.uniprot.org/taxonomy/>
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# Replace __TAXON_ID__. The UniProt SERVICE supplies the organism-specific
+# enzyme assertion; Rhea supplies the canonical reaction and equation.
+SELECT DISTINCT ?protein ?proteinName ?gene ?rhea ?accession ?equation WHERE {
+  SERVICE <https://sparql.uniprot.org/sparql> {
+    GRAPH <http://sparql.uniprot.org/uniprot> {
+      ?protein a up:Protein ; up:reviewed true ;
+        up:organism taxon:__TAXON_ID__ ;
+        up:annotation/up:catalyticActivity/up:catalyzedReaction ?rhea .
+      OPTIONAL { ?protein up:recommendedName/up:fullName ?proteinName }
+      OPTIONAL { ?protein up:encodedBy/skos:prefLabel ?gene }
+    }
+  }
+  ?rhea rdfs:subClassOf rh:Reaction ; rh:accession ?accession ; rh:equation ?equation .
+  FILTER (?rhea IN (
+    rh:45088, rh:27606, rh:20828, rh:11164, rh:32735, rh:32739
+  ))
+}
+ORDER BY ?accession ?protein

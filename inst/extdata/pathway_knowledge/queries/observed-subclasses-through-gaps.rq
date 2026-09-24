@@ -1,0 +1,16 @@
+PREFIX mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/>
+
+# Finds pairs of observed subclasses connected by one or more reaction stages.
+# Intermediate subclasses need not have an Observed statistical node.
+SELECT DISTINCT ?fromSubclass ?toSubclass WHERE {
+  ?fromObservation a mslm:LipidSubclassObservation ;
+    mslm:inComparison ?comparison ;
+    mslm:detectionStatus mslm:Observed ;
+    mslm:observedLipidSubclass ?fromSubclass .
+  ?toObservation a mslm:LipidSubclassObservation ;
+    mslm:inComparison ?comparison ;
+    mslm:detectionStatus mslm:Observed ;
+    mslm:observedLipidSubclass ?toSubclass .
+  ?fromSubclass (^mslm:hasSubstrateEntity/mslm:hasProductEntity)+ ?toSubclass .
+  FILTER (?fromSubclass != ?toSubclass)
+}

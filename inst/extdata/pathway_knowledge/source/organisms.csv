@@ -1,0 +1,6 @@
+taxon_id,scientific_name,short_name,reviewed_only
+9606,Homo sapiens,human,true
+10090,Mus musculus,mouse,true
+10116,Rattus norvegicus,rat,true
+559292,Saccharomyces cerevisiae S288C,yeast,true
+83333,Escherichia coli K-12,E_coli_K12,true

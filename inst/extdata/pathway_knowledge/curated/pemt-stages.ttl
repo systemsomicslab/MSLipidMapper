@@ -1,0 +1,29 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix res: <https://systemomicslab.github.io/MSLipidMapper/resource/> .
+@prefix rh: <http://rdf.rhea-db.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+res:Phosphatidylmonomethylethanolamine a mslm:LipidEntity ;
+  rdfs:label "diacyl phosphatidylmonomethylethanolamine"@en ;
+  mslm:resolutionLevel mslm:SubclassLevel .
+res:Phosphatidyldimethylethanolamine a mslm:LipidEntity ;
+  rdfs:label "diacyl phosphatidyldimethylethanolamine"@en ;
+  mslm:resolutionLevel mslm:SubclassLevel .
+
+# Direct edges are a traversal projection of the canonical Rhea stages.
+res:pemt_stage_1 a mslm:ReactionTraversalProjection ;
+  mslm:rheaReaction rh:11164 ;
+  mslm:hasSubstrateEntity res:Phosphatidylethanolamine ;
+  mslm:hasProductEntity res:Phosphatidylmonomethylethanolamine ;
+  prov:wasDerivedFrom rh:11164 .
+res:pemt_stage_2 a mslm:ReactionTraversalProjection ;
+  mslm:rheaReaction rh:32735 ;
+  mslm:hasSubstrateEntity res:Phosphatidylmonomethylethanolamine ;
+  mslm:hasProductEntity res:Phosphatidyldimethylethanolamine ;
+  prov:wasDerivedFrom rh:32735 .
+res:pemt_stage_3 a mslm:ReactionTraversalProjection ;
+  mslm:rheaReaction rh:32739 ;
+  mslm:hasSubstrateEntity res:Phosphatidyldimethylethanolamine ;
+  mslm:hasProductEntity res:Phosphatidylcholine ;
+  prov:wasDerivedFrom rh:32739 .

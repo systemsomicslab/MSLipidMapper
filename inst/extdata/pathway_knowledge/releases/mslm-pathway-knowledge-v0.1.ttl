@@ -1,0 +1,13 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix release: <https://systemomicslab.github.io/MSLipidMapper/release/> .
+
+release:pathway-knowledge-0.1.0 a owl:Ontology ;
+  dcterms:title "MSLipidMapper pathway knowledge release 0.1.0"@en ;
+  owl:versionInfo "0.1.0" ;
+  owl:imports
+    <../ontology/mslm-core.ttl>,
+    <../curated/ceramide-pilot.ttl>,
+    <../curated/phospholipid-pilot.ttl>,
+    <../curated/acyl-selectivity-pilot.ttl>,
+    <../curated/pemt-stages.ttl> .

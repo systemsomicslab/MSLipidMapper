@@ -24,6 +24,7 @@ spectrometry files.
 - Perform enrichment and acyl-chain-level analysis
 - View, edit, and export Cytoscape.js pathway networks
 - Render pathway PDFs from the command line without starting Shiny
+- Submit lipidomics files through a standalone REST API and retrieve pathway PDFs
 
 ## Installation
 
@@ -78,6 +79,24 @@ Open:
 
 On Windows, `MSLipidMapper.bat` builds and starts the container. Docker Desktop
 must be running before the launcher is used.
+
+## Standalone REST API
+
+The analysis REST service is separate from Shiny and the existing port-7310
+plot/static API. It accepts multipart POST uploads of an MS-DIAL CSV or mzTab-M
+file plus YAML settings, runs a background analysis job, and provides status and
+PDF downloads. The default Compose configuration supports direct lab-network
+access without a token.
+
+```bash
+unset MSLIPIDMAPPER_API_TOKEN
+docker compose -f compose.api.yml up -d --build
+```
+
+Call `http://SERVER_LAN_IP:8000` from another lab computer. Compose publishes
+port 8000 on all server interfaces by default; set `MSLIPIDMAPPER_BIND_ADDRESS`
+to a specific LAN IP if desired. See [REST API documentation](docs/rest-api.md) for POST examples,
+configuration, authentication, persistence and server operation.
 
 ## Lipidomics input
 
@@ -166,6 +185,26 @@ Useful options:
 - `--acyl-match`: selects `any` or `all` matching for multiple chains
 
 The CLI accepts both MS-DIAL Alignment Table CSV and MS-DIAL mzTab-M input.
+
+### RIKEN Lipidomics Excel to mzTab-M
+
+The RIKEN workbooks have variable annotation widths (including ion-mobility
+columns) and two abundance blocks separated by `Lipid IS` (or the legacy
+`standard class` label). The converter finds
+the header and section boundaries by label, preserves the workbook sample
+metadata as assay custom fields, and writes one mzTab-M file per worksheet.
+
+```powershell
+python scripts/riken_xlsx_to_mztab.py `
+  "../RIKEN Lipidomics/RIKEN_LIPIDOMICS_dataset/dataset" `
+  "results/riken_mztab"
+```
+
+Normalized abundance and samples marked `Public` are selected by default. Use
+`--abundance raw`, `--privacy all`, `--sheet NAME`, or
+`--group-by "Category,Tissue/Species,Genotype/Background"` when needed. Invalid
+workbooks are reported and skipped in batch mode; add `--strict` to stop on the
+first error. The script requires Python 3.10+ and `openpyxl`.
 
 When no custom network is specified, the bundled remodeling, ceramide, and
 global pathway networks are rendered. The YAML file controls normalization,

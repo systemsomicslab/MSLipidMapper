@@ -1,0 +1,88 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mslm:ReactionShape a sh:NodeShape ;
+  sh:targetClass mslm:LipidReaction ;
+  sh:property [
+    sh:path mslm:hasParticipant ;
+    sh:minCount 2 ;
+    sh:class mslm:ReactionParticipant ;
+    sh:message "A lipid reaction requires at least two typed participants."@en
+  ] ;
+  sh:property [ sh:path mslm:directionality ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:resolutionLevel ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:curationStatus ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:hasSourceAssertion ; sh:minCount 1 ] .
+
+mslm:ParticipantShape a sh:NodeShape ;
+  sh:targetClass mslm:ReactionParticipant ;
+  sh:property [ sh:path mslm:participantEntity ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:participantRole ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [
+    sh:path mslm:stoichiometry ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:decimal ;
+    sh:minExclusive 0
+  ] .
+
+mslm:SourceAssertionShape a sh:NodeShape ;
+  sh:targetClass mslm:SourceAssertion ;
+  sh:property [ sh:path mslm:sourceDatabase ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:sourceIdentifier ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:sourceUrl ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:assertionMethod ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+mslm:MSDialMappableLipidShape a sh:NodeShape ;
+  sh:targetClass mslm:MSDialMappableLipidEntity ;
+  sh:property [
+    sh:path mslm:msdialOntologyLabel ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ; sh:minLength 1
+  ] ;
+  sh:property [
+    sh:path mslm:lipidMapsCategoryCode ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ; sh:pattern "^[A-Z]{2}$"
+  ] ;
+  sh:property [
+    sh:path mslm:lipidMapsMainClassCode ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ; sh:pattern "^[A-Z]{2}[0-9]{2}$"
+  ] ;
+  sh:property [
+    sh:path mslm:lipidMapsSubClassCode ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ; sh:pattern "^[A-Z]{2}[0-9]{4}$"
+  ] ;
+  sh:property [ sh:path mslm:lipidMapsClassificationUrl ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+mslm:OrganismReactionAssertionShape a sh:NodeShape ;
+  sh:targetClass mslm:OrganismReactionAssertion ;
+  sh:property [ sh:path mslm:organism ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:rheaReaction ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:enzymeProtein ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:enzymeName ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:lipidSubclass ; sh:minCount 1 ] ;
+  sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ] .
+
+mslm:AcylSelectivityObservationShape a sh:NodeShape ;
+  sh:targetClass mslm:AcylSelectivityObservation ;
+  sh:property [ sh:path mslm:enzymeProtein ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:selectivityFor ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:acylChainSignature ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:evidencePubMed ; sh:minCount 1 ] .
+
+mslm:LipidSubclassObservationShape a sh:NodeShape ;
+  sh:targetClass mslm:LipidSubclassObservation ;
+  sh:property [ sh:path mslm:inDataset ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:inComparison ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:observedLipidSubclass ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path mslm:detectionStatus ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:or (
+    [ sh:property [ sh:path mslm:detectionStatus ; sh:hasValue mslm:NotMeasured ] ]
+    [ sh:property [ sh:path mslm:detectionStatus ; sh:hasValue mslm:NotDetected ] ]
+    [
+      sh:property [ sh:path mslm:detectionStatus ; sh:hasValue mslm:Observed ] ;
+      sh:property [ sh:path mslm:effectSize ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ] ;
+      sh:property [ sh:path mslm:effectSizeType ; sh:minCount 1 ; sh:maxCount 1 ]
+    ]
+  ) .

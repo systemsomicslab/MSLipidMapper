@@ -1,0 +1,15 @@
+input:
+  format: msdial
+  annotation_cols: "1:35"
+  header_rows: 5
+  data_start_row: 6
+analysis:
+  normalization: none
+  aggregation: sum
+  group_column: class
+  exclude_groups: [Blank, Quality control]
+plot:
+  type: dot
+output:
+  paper_size: A4
+  orientation: landscape
