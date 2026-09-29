@@ -1,0 +1,28 @@
+services:
+  api:
+    build: .
+    image: mslipidmapper:rest
+    command: ["Rscript", "/srv/app/inst/scripts/mslipidmapper-api.R"]
+    init: true
+    restart: unless-stopped
+    environment:
+      MSLIPIDMAPPER_API_HOST: "0.0.0.0"
+      MSLIPIDMAPPER_API_PORT: "8000"
+      MSLIPIDMAPPER_API_TOKEN: "${MSLIPIDMAPPER_API_TOKEN:-}"
+      MSLIPIDMAPPER_JOB_DIR: /var/lib/mslipidmapper/jobs
+      MSLIPIDMAPPER_MAX_UPLOAD_MB: "100"
+      MSLIPIDMAPPER_JOB_TIMEOUT: "900"
+      MSLIPIDMAPPER_MAX_PENDING: "32"
+    ports:
+      - "${MSLIPIDMAPPER_BIND_ADDRESS:-0.0.0.0}:8000:8000"
+    volumes:
+      - api-jobs:/var/lib/mslipidmapper/jobs
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+volumes:
+  api-jobs:
