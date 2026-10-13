@@ -1,0 +1,12 @@
+input:
+  format: mztab-m
+analysis:
+  normalization: none
+  aggregation: sum
+  group_column: class
+output:
+  format: jsonld
+measurements:
+  include_subsets: true
+  acyl_chains: ["18:0", "24:1"]
+  unit: arbitrary

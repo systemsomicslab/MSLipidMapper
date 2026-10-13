@@ -1,0 +1,52 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mslm:measurementVocabulary a owl:Ontology ; owl:versionInfo "2.0.0" ;
+  rdfs:comment "Comparison-independent pathway and sample measurements. Extends mslm-core.ttl." .
+mslm:Pathway a owl:Class .
+mslm:PathwayEntity a owl:Class .
+mslm:PathwayLipidNode a owl:Class ; rdfs:subClassOf mslm:PathwayEntity .
+mslm:PathwayJunction a owl:Class .
+mslm:PathwayConnection a owl:Class ;
+  rdfs:comment "Imported topology connection; not necessarily a curated biochemical reaction." .
+mslm:Sample a owl:Class .
+mslm:MolecularFeature a owl:Class .
+mslm:LipidMeasurementScope a owl:Class .
+mslm:SampleMeasurement a owl:Class .
+mslm:ValueStatus a owl:Class .
+mslm:AvailableValue a mslm:ValueStatus .
+mslm:MissingValue a mslm:ValueStatus .
+mslm:ImportedPathway a mslm:AssertionMethod .
+
+mslm:pathway a owl:ObjectProperty ; rdfs:range mslm:Pathway .
+mslm:inPathway a owl:ObjectProperty ; rdfs:range mslm:Pathway .
+mslm:representsEntity a owl:ObjectProperty .
+mslm:canonicalEntity a owl:ObjectProperty .
+mslm:sourceEntity a owl:ObjectProperty .
+mslm:targetEntity a owl:ObjectProperty .
+mslm:inSample a owl:ObjectProperty ; rdfs:range mslm:Sample .
+mslm:measuredEntity a owl:ObjectProperty .
+mslm:onPathwayNode a owl:ObjectProperty ; rdfs:range mslm:PathwayLipidNode .
+mslm:memberFeature a owl:ObjectProperty ; rdfs:range mslm:MolecularFeature .
+mslm:valueStatus a owl:ObjectProperty ; rdfs:range mslm:ValueStatus .
+mslm:value a owl:DatatypeProperty ; rdfs:range xsd:double .
+mslm:validFeatureCount a owl:DatatypeProperty ; rdfs:range xsd:integer .
+mslm:sampleGroup a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:sampleMetadata a owl:DatatypeProperty ; rdfs:range rdf:JSON .
+mslm:identifier a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:label a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:schemaVersion a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:scopeType a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:matchMode a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:normalization a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:unit a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:assayName a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:groupColumn a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:missingValuePolicy a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:excludedSampleClass a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:interaction a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:ensemblId a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:reactionId a owl:DatatypeProperty ; rdfs:range xsd:string .

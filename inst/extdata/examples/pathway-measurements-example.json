@@ -1,0 +1,2226 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://systemomicslab.github.io/MSLipidMapper/ontology/",
+    "mslm": "https://systemomicslab.github.io/MSLipidMapper/ontology/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "value": {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/value",
+      "@type": "xsd:double"
+    },
+    "validFeatureCount": {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/validFeatureCount",
+      "@type": "xsd:integer"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example",
+      "@type": "mslm:Dataset",
+      "schemaVersion": "2.0.0",
+      "identifier": "synthetic_example",
+      "groupColumn": "class",
+      "assayName": "abundance",
+      "normalization": "none",
+      "unit": "arbitrary",
+      "aggregationMethod": "sum",
+      "missingValuePolicy": "null; aggregate finite values; all missing remains null",
+      "excludedSampleClass": [],
+      "pathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported",
+      "@type": "mslm:Pathway",
+      "label": "Imported metabolic pathway",
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1",
+      "@type": "mslm:Sample",
+      "identifier": "S1",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "sampleGroup": "Control",
+      "sampleMetadata": {
+        "@value": {
+          "class": "Control"
+        },
+        "@type": "@json"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2",
+      "@type": "mslm:Sample",
+      "identifier": "S2",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "sampleGroup": "Control",
+      "sampleMetadata": {
+        "@value": {
+          "class": "Control"
+        },
+        "@type": "@json"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3",
+      "@type": "mslm:Sample",
+      "identifier": "S3",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "sampleGroup": "Treatment",
+      "sampleMetadata": {
+        "@value": {
+          "class": "Treatment"
+        },
+        "@type": "@json"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4",
+      "@type": "mslm:Sample",
+      "identifier": "S4",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "sampleGroup": "Treatment",
+      "sampleMetadata": {
+        "@value": {
+          "class": "Treatment"
+        },
+        "@type": "@json"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC",
+      "@type": "mslm:MSDialMappableLipidEntity",
+      "label": "PC",
+      "msdialOntologyLabel": "PC",
+      "resolutionLevel": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/SubclassLevel"
+      },
+      "canonicalEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylcholine"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PE",
+      "@type": "mslm:MSDialMappableLipidEntity",
+      "label": "PE",
+      "msdialOntologyLabel": "PE",
+      "resolutionLevel": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/SubclassLevel"
+      },
+      "canonicalEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylethanolamine"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PS",
+      "@type": "mslm:MSDialMappableLipidEntity",
+      "label": "PS",
+      "msdialOntologyLabel": "PS",
+      "resolutionLevel": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/SubclassLevel"
+      },
+      "canonicalEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylserine"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001",
+      "@type": "mslm:MolecularFeature",
+      "identifier": "L001",
+      "label": "PC 16:0_24:1",
+      "lipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC"
+      },
+      "acylChainSignature": [
+        "16:0",
+        "24:1"
+      ],
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 10
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 12
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 20
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 22
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002",
+      "@type": "mslm:MolecularFeature",
+      "identifier": "L002",
+      "label": "PC 18:0_18:1",
+      "lipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC"
+      },
+      "acylChainSignature": [
+        "18:0",
+        "18:1"
+      ],
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 5
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 8
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003",
+      "@type": "mslm:MolecularFeature",
+      "identifier": "L003",
+      "label": "PE 18:0_24:1",
+      "lipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PE"
+      },
+      "acylChainSignature": [
+        "18:0",
+        "24:1"
+      ],
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 7
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 9
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 11
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 13
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344",
+      "@type": "mslm:PathwayLipidNode",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "PC",
+      "representsEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC"
+      },
+      "scopeType": "subclass",
+      "matchMode": "any",
+      "acylChainSignature": [],
+      "aggregationMethod": "sum",
+      "memberFeature": [
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001"
+        },
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002"
+        }
+      ],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Observed"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 15,
+      "validFeatureCount": 2
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 12,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 20,
+      "validFeatureCount": 2
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 30,
+      "validFeatureCount": 2
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC"
+      },
+      "scopeType": "acyl_subset",
+      "matchMode": "any",
+      "acylChainSignature": [
+        "18:0"
+      ],
+      "aggregationMethod": "sum",
+      "memberFeature": [
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L002"
+        }
+      ],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Observed"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 5,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 0,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 8,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PC"
+      },
+      "scopeType": "acyl_subset",
+      "matchMode": "any",
+      "acylChainSignature": [
+        "24:1"
+      ],
+      "aggregationMethod": "sum",
+      "memberFeature": [
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L001"
+        }
+      ],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Observed"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 10,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 12,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 20,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 22,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/398",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/395",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/392",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "CDP-DAG"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/383",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "PA"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/380",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "DG"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/377",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "TG"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374",
+      "@type": "mslm:PathwayLipidNode",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "PS",
+      "representsEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PS"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PS"
+      },
+      "scopeType": "subclass",
+      "matchMode": "any",
+      "acylChainSignature": [],
+      "aggregationMethod": "sum",
+      "memberFeature": [],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/NotMeasured"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PS"
+      },
+      "scopeType": "acyl_subset",
+      "matchMode": "any",
+      "acylChainSignature": [
+        "18:0"
+      ],
+      "aggregationMethod": "sum",
+      "memberFeature": [],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/NotMeasured"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PS"
+      },
+      "scopeType": "acyl_subset",
+      "matchMode": "any",
+      "acylChainSignature": [
+        "24:1"
+      ],
+      "aggregationMethod": "sum",
+      "memberFeature": [],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/NotMeasured"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/MissingValue"
+      },
+      "value": null,
+      "validFeatureCount": 0
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/371",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "PI"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/368",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "PG"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350",
+      "@type": "mslm:PathwayLipidNode",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "PE",
+      "representsEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PE"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PE"
+      },
+      "scopeType": "subclass",
+      "matchMode": "any",
+      "acylChainSignature": [],
+      "aggregationMethod": "sum",
+      "memberFeature": [
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+        }
+      ],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Observed"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 7,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 9,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 11,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/whole"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 13,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PE"
+      },
+      "scopeType": "acyl_subset",
+      "matchMode": "any",
+      "acylChainSignature": [
+        "18:0"
+      ],
+      "aggregationMethod": "sum",
+      "memberFeature": [
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+        }
+      ],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Observed"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 7,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 9,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 11,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-18%3A0"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 13,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1",
+      "@type": "mslm:LipidMeasurementScope",
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "onPathwayNode": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "observedLipidSubclass": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/subclass/PE"
+      },
+      "scopeType": "acyl_subset",
+      "matchMode": "any",
+      "acylChainSignature": [
+        "24:1"
+      ],
+      "aggregationMethod": "sum",
+      "memberFeature": [
+        {
+          "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/feature/L003"
+        }
+      ],
+      "detectionStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Observed"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1/sample/S1",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S1"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 7,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1/sample/S2",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S2"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 9,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1/sample/S3",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S3"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 11,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1/sample/S4",
+      "@type": "mslm:SampleMeasurement",
+      "measuredEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350/scope/acyl-24%3A1"
+      },
+      "inSample": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/sample/S4"
+      },
+      "inDataset": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/dataset/synthetic_example"
+      },
+      "valueStatus": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/AvailableValue"
+      },
+      "value": 13,
+      "validFeatureCount": 1
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/983",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "983"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/977",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherPS"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/971",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherLPA"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/955",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherPC"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/949",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherDG"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/943",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherPI"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/937",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherPA"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/853",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "EtherLPA"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/832",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "Acyl-DHAP"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/826",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "Alkyl-DHAP"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/812",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "DHAP"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/389",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "G3P"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/386",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LPA"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/365",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "CL"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/362",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LCL"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/359",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LPG"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/356",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LPI"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/353",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LPS"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/347",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LPE"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/341",
+      "@type": "mslm:PathwayEntity",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "label": "LPC"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/242",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/215",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/296",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/287",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/275",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/260",
+      "@type": "mslm:PathwayJunction",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      }
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/1",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/380"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/2",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/395"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/398"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/3",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/380"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/377"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/4",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/395"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/5",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/380"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/6",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/392"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/368"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/7",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/383"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/380"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/8",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/392"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/371"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/9",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/383"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/392"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/10",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/398"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/11",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/12",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/368"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/359"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/13",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/347"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/242"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/14",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/949"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/983"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/15",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/353"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/16",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/260"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/374"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/17",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/386"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/383"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/18",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/341"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/215"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/19",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/341"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/20",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/356"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/275"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/21",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/389"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/386"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/22",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/287"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/368"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/23",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/812"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/832"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/24",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/296"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/365"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/25",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/242"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/26",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/215"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/344"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/27",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/359"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/287"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/28",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/365"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/362"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/29",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/362"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/296"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/30",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/353"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/260"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/31",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/853"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/937"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/32",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/937"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/949"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/33",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/350"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/347"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/34",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/832"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/826"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/35",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/832"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/386"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/36",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/826"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/853"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/37",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/275"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/371"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/38",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/368"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/365"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    },
+    {
+      "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/connection/39",
+      "@type": "mslm:PathwayConnection",
+      "inPathway": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway/imported"
+      },
+      "sourceEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/371"
+      },
+      "targetEntity": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/dataset/synthetic_example/pathway-node/356"
+      },
+      "assertionMethod": {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ImportedPathway"
+      },
+      "interaction": "interacts with"
+    }
+  ]
+}

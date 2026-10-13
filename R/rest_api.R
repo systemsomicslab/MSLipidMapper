@@ -48,7 +48,8 @@
     pathway = c("timeout_seconds", "plot_type"),
     plot = c("type", "x_order", "font_size", "strip_font_size", "p_label_font_size",
              "y_axis_label", "svg_width", "svg_height", "palette", "dot", "box", "violin"),
-    output = c("directory", "pdf", "paper_size", "orientation", "palette")
+    output = c("directory", "pdf", "paper_size", "orientation", "palette", "format"),
+    measurements = c("include_subsets", "acyl_chains", "unit")
   )
   if (length(setdiff(names(cfg), names(allowed)))) bad("Unknown config section.")
   for (section in names(allowed)) {
@@ -72,6 +73,28 @@
   # CLI paths are intentionally discarded; the API owns every input/output path.
   cfg$input[c("lipidomics", "file", "mztab")] <- NULL
   cfg$output[c("directory", "pdf")] <- NULL
+  cfg$output$format <- cfg$output$format %||% "pdf"
+  if (!is.character(cfg$output$format) || length(cfg$output$format) != 1L ||
+      is.na(cfg$output$format) || !cfg$output$format %in% c("pdf", "jsonld", "both")) {
+    bad("output.format must be pdf, jsonld or both.")
+  }
+  cfg$measurements$include_subsets <- cfg$measurements$include_subsets %||% FALSE
+  enabled <- cfg$measurements$include_subsets
+  if (!is.logical(enabled) || length(enabled) != 1L || is.na(enabled)) {
+    bad("measurements.include_subsets must be true or false.")
+  }
+  chains <- cfg$measurements$acyl_chains
+  if (!is.null(chains)) {
+    if (!is.character(chains) || !length(chains) || anyNA(chains) ||
+        any(!grepl("^(?:O-|P-)?[0-9]+:[0-9]+(?:;O[0-9]*)?$", chains, perl = TRUE))) {
+      bad("measurements.acyl_chains must contain chain strings such as '18:0'.")
+    }
+    if (!enabled) bad("measurements.acyl_chains requires include_subsets: true.")
+    cfg$measurements$acyl_chains <- unique(chains)
+  }
+  if (!is.null(cfg$measurements$unit) && (!is.character(cfg$measurements$unit) ||
+      length(cfg$measurements$unit) != 1L || is.na(cfg$measurements$unit) ||
+      !nzchar(cfg$measurements$unit))) bad("measurements.unit must be a non-empty string.")
   bounded <- function(x, lower, upper, label) {
     if (!is.numeric(x) || length(x) != 1L || !is.finite(x) || x < lower || x > upper) {
       bad(paste(label, "must be between", lower, "and", upper))
@@ -117,16 +140,54 @@
 
 .mslm_api_worker <- function(dir) {
   request <- readRDS(file.path(dir, "request.rds"))
-  # Only server-generated paths and sanitized configuration reach the CLI.
-  result <- render_pathway_from_config(
-    file.path(dir, "config.yml"), input_path = file.path(dir, request$input),
-    output_path = file.path(dir, "artifacts")
-  )
+  config_path <- file.path(dir, "config.yml")
+  cfg <- yaml::read_yaml(config_path)
+  format <- cfg$output$format %||% "pdf"
+  input_path <- file.path(dir, request$input)
+  artifact_dir <- file.path(dir, "artifacts")
+  dir.create(artifact_dir, recursive = TRUE, showWarnings = FALSE)
+  result <- list(artifacts = character())
+  if (format %in% c("pdf", "both")) {
+    # Only server-generated paths and sanitized configuration reach the CLI.
+    result <- render_pathway_from_config(config_path, input_path = input_path,
+      output_path = artifact_dir)
+  }
+  if (format %in% c("jsonld", "both")) {
+    exported <- .mslm_api_measurements(cfg, input_path, artifact_dir, basename(dir))
+    result$artifacts <- c(result$artifacts, exported$artifacts)
+    result$measurements <- exported$summary
+  }
   result$artifacts <- basename(result$artifacts)
   result$pdf <- NULL
   jsonlite::write_json(result, file.path(dir, "result.json"), auto_unbox = TRUE,
                        null = "null", pretty = TRUE)
   invisible(NULL)
+}
+
+.mslm_api_measurements <- function(cfg, input_path, artifact_dir, dataset_id) {
+  prepared <- .mslm_prepare_pathway_data(cfg$input, cfg$analysis,
+    cfg$input$format, input_path)
+  example_dir <- .mslm_example_dir()
+  networks <- c(remodeling = "remodeling_lipidonly.cyjs",
+    ceramide = "ceramidepathway_lipidonly.cyjs", global = "global.cyjs")
+  enabled <- isTRUE(cfg$measurements$include_subsets)
+  chains <- if (enabled) cfg$measurements$acyl_chains else character()
+  outputs <- file.path(artifact_dir, paste0(names(networks), "-measurements.json"))
+  summaries <- list()
+  for (i in seq_along(networks)) {
+    out <- mztab_pathway_measurements(prepared$se, file.path(example_dir, networks[i]),
+      output_file = outputs[i], group_col = prepared$group_col,
+      acyl_chains = chains, aggregate = cfg$analysis$aggregation %||% "sum",
+      dataset_id = paste0(dataset_id, "-", names(networks)[i]),
+      normalization = prepared$normalization, unit = cfg$measurements$unit %||% "unspecified")
+    summaries[[names(networks)[i]]] <- list(
+      measured_nodes = sum(out$node_mapping$status == "measured"),
+      subset_chains = unname(as.list(out$acyl_coverage$acyl_chain)))
+  }
+  list(artifacts = outputs, summary = list(format = "jsonld", include_subsets = enabled,
+    samples = ncol(prepared$se), features = nrow(prepared$se),
+    aggregation = cfg$analysis$aggregation %||% "sum", normalization = prepared$normalization,
+    pathways = summaries))
 }
 
 .mslm_api_manager <- function(data_dir, job_timeout, max_pending, worker_script) {
@@ -174,9 +235,13 @@
         dir <- pending[order(times)][1]
         .mslm_api_record(dir, "running")
         tryCatch({
+          # Preserve native runtime settings (PATH, temporary directories and
+          # R environment), overriding only the selected library paths.
+          worker_env <- Sys.getenv()
+          worker_env["R_LIBS"] <- paste(.libPaths(), collapse = .Platform$path.sep)
           p <- processx::process$new(file.path(R.home("bin"), "Rscript"),
             c("--vanilla", worker_script, dir),
-            env = c(R_LIBS = paste(.libPaths(), collapse = .Platform$path.sep)),
+            env = worker_env,
             wd = dir, stdout = file.path(dir, "worker.log"), stderr = "2>&1",
             cleanup = TRUE, cleanup_tree = TRUE, supervise = TRUE)
           active <<- list(process = p, dir = dir, started = Sys.time())
@@ -276,7 +341,7 @@
     if (!identical(.mslm_api_state(dir)$status, "succeeded")) {
       .mslm_api_abort(409L, "Artifacts are available only after successful analysis.")
     }
-    files <- list.files(file.path(dir, "artifacts"), pattern = "\\.pdf$", full.names = FALSE)
+    files <- list.files(file.path(dir, "artifacts"), pattern = "\\.(pdf|json)$", full.names = FALSE)
     list(dir = dir, files = files)
   }
   pr$handle("GET", "/v1/jobs/<id>/artifacts", guard(function(req, res, id) {
@@ -288,11 +353,11 @@
   }))
   pr$handle("GET", "/v1/jobs/<id>/artifacts/<name>", guard(function(req, res, id, name) {
     a <- artifacts(id)
-    if (!name %in% a$files || !grepl("^[A-Za-z0-9_-]+\\.pdf$", name)) {
+    if (!name %in% a$files || !grepl("^[A-Za-z0-9_-]+\\.(pdf|json)$", name)) {
       .mslm_api_abort(404L, "Artifact not found.")
     }
     path <- file.path(a$dir, "artifacts", name)
-    res$setHeader("Content-Type", "application/pdf")
+    res$setHeader("Content-Type", if (endsWith(name, ".json")) "application/ld+json" else "application/pdf")
     res$setHeader("Content-Disposition", paste0('attachment; filename="', name, '"'))
     res$setHeader("Cache-Control", "no-store")
     res$body <- readBin(path, "raw", n = file.info(path)$size)

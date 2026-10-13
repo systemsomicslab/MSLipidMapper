@@ -21,6 +21,62 @@ test_that("API configuration cannot select server paths or executables", {
   expect_identical(parse("{}", "mztab")$input$format, "mztab-m")
 })
 
+test_that("JSON-LD output and subset options are validated", {
+  parse <- function(x) .mslm_api_config(charToRaw(x), "mztab")
+  expect_identical(parse("{}")$output$format, "pdf")
+  expect_false(parse("output:\n  format: jsonld")$measurements$include_subsets)
+  cfg <- parse('output:\n  format: both\nmeasurements:\n  include_subsets: true\n  acyl_chains: ["18:0", "24:1"]')
+  expect_true(cfg$measurements$include_subsets)
+  expect_equal(cfg$measurements$acyl_chains, c("18:0", "24:1"))
+  expect_error(parse("output:\n  format: rds"), "output.format")
+  expect_error(parse('measurements:\n  include_subsets: "true"'), "true or false")
+  expect_error(parse('measurements:\n  include_subsets: true\n  acyl_chains: ["../file"]'), "chain strings")
+  expect_error(parse('measurements:\n  acyl_chains: ["18:0"]'), "requires")
+  expect_error(parse('measurements:\n  rules: /etc/passwd'), "Unsupported")
+})
+
+test_that("JSON-LD workers export whole subclasses and optional subsets without a browser", {
+  root <- tempfile("jsonld-job-")
+  dir.create(root)
+  on.exit(unlink(root, recursive = TRUE), add = TRUE)
+  rows <- c("MTD\tmzTab-version\t2.0.0-M",
+    "MTD\tassay[1]\tS1", "MTD\tassay[2]\tS2",
+    "MTD\tstudy_variable[1]\tControl",
+    "MTD\tstudy_variable[1]-assay_refs\tassay[1]",
+    "MTD\tstudy_variable[1]-description\tControl",
+    "MTD\tstudy_variable[2]\tTreatment",
+    "MTD\tstudy_variable[2]-assay_refs\tassay[2]",
+    "MTD\tstudy_variable[2]-description\tTreatment",
+    "SMH\tSML_ID\tchemical_name\tchemical_formula\ttheoretical_neutral_mass\tabundance_assay[1]\tabundance_assay[2]\topt_global_Ontology",
+    "SML\t1\tPC 16:0_18:1\tC42H82NO8P\t759.5778\t10\t20\tPC",
+    "SML\t2\tPC 18:0_18:1\tC42H82NO8P\t759.5778\t5\t0\tPC")
+  writeLines(rows, file.path(root, "input.mztab"))
+  saveRDS(list(input = "input.mztab"), file.path(root, "request.rds"))
+  cfg <- .mslm_api_config(charToRaw("input:\n  use_rgoslin_if_no_ontology: false\noutput:\n  format: jsonld"), "mztab")
+  scopes <- function(doc) Filter(function(n) identical(n[["@type"]], "mslm:LipidMeasurementScope"), doc[["@graph"]])
+  for (enabled in c(FALSE, TRUE)) {
+    cfg$measurements$include_subsets <- enabled
+    yaml::write_yaml(cfg, file.path(root, "config.yml"))
+    .mslm_api_worker(root)
+    result <- jsonlite::read_json(file.path(root, "result.json"))
+    expect_equal(unlist(result$artifacts), c("remodeling-measurements.json", "ceramide-measurements.json", "global-measurements.json"))
+    expect_identical(result$measurements$include_subsets, enabled)
+    doc <- jsonlite::read_json(file.path(root, "artifacts", "remodeling-measurements.json"))
+    scope_types <- vapply(scopes(doc), function(n) n$scopeType, character(1))
+    expect_true("subclass" %in% scope_types)
+    expect_identical("acyl_subset" %in% scope_types, enabled)
+    if (enabled) expect_equal(unlist(result$measurements$pathways$remodeling$subset_chains), c("16:0", "18:0", "18:1"))
+    expect_null(doc$elements)
+  }
+  cfg$measurements$acyl_chains <- "18:0"
+  cfg$analysis$include_groups <- "Control"
+  yaml::write_yaml(cfg, file.path(root, "config.yml"))
+  .mslm_api_worker(root)
+  result <- jsonlite::read_json(file.path(root, "result.json"))
+  expect_equal(result$measurements$samples, 1L)
+  expect_equal(unlist(result$measurements$pathways$remodeling$subset_chains), "18:0")
+})
+
 test_that("persistent queue is locked and restart preserves queued jobs", {
   root <- tempfile("api-manager-")
   dir.create(root)
@@ -57,12 +113,16 @@ test_that("persistent queue is locked and restart preserves queued jobs", {
 })
 
 test_that("scheduler progresses without HTTP polling and handles worker failures", {
+  previous <- Sys.getenv("MSLM_API_WORKER_ENV_TEST", unset = NA_character_)
+  Sys.setenv(MSLM_API_WORKER_ENV_TEST = "inherited")
+  on.exit(if (is.na(previous)) Sys.unsetenv("MSLM_API_WORKER_ENV_TEST") else
+    Sys.setenv(MSLM_API_WORKER_ENV_TEST = previous), add = TRUE)
   root <- tempfile("api-workers-")
   dir.create(root)
   on.exit(unlink(root, recursive = TRUE), add = TRUE)
   script <- file.path(root, "worker.R")
   writeLines(c('dir <- commandArgs(TRUE)[1]',
-    'writeLines("{}", file.path(dir, "result.json"))'), script)
+    'writeLines(Sys.getenv("MSLM_API_WORKER_ENV_TEST"), file.path(dir, "result.json"))'), script)
   manager <- .mslm_api_manager(root, 10, 3, script)
   on.exit(manager$close(), add = TRUE)
   upload <- list(input = charToRaw("data"), extension = "csv", config = list())
@@ -76,6 +136,7 @@ test_that("scheduler progresses without HTTP polling and handles worker failures
     Sys.sleep(0.1)
   }
   expect_identical(.mslm_api_state(manager$lookup(first))$status, "succeeded")
+  expect_identical(readLines(file.path(manager$lookup(first), "result.json")), "inherited")
   writeLines('quit(status = 1)', script)
   failed <- manager$submit(upload)
   deadline <- Sys.time() + 10

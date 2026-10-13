@@ -46,6 +46,13 @@ subclasses across any number of unobserved intermediate subclasses.
 
 ## mzTab-M to metabolic-state observations
 
+For comparison-independent exports, use `mztab_pathway_measurements()`.
+It reads pathway connections from cyjs and exports RDF as JSON-LD, connecting
+lipid nodes to sample-level whole-subclass and acyl-subset measurements, original
+molecular values and sample metadata. Display attributes are excluded, and it
+computes no FC or p-values. See `docs/pathway-measurements.md` for the data contract.
+The pairwise RDF function below remains a separate entry point.
+
 `mztab_pairwise_subclass_rdf()` accepts an mzTab-M path or a
 `SummarizedExperiment`. It computes every pair of sample classes and returns a
 statistics table plus Turtle RDF. Subclass abundance is aggregated per sample

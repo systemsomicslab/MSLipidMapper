@@ -43,6 +43,7 @@ def main():
     parser.add_argument("--upload-limit-mb", type=int)
     parser.add_argument("--no-auth", action="store_true", help="Test the lab-network service without a token")
     parser.add_argument("--output", default=".api-validation")
+    parser.add_argument("--jsonld-only", action="store_true", help="Exercise JSON-LD jobs without PDF/browser rendering")
     args = parser.parse_args()
     token = "" if args.no_auth else os.environ["MSLIPIDMAPPER_API_TOKEN"]
     root = Path(__file__).resolve().parents[2]
@@ -64,6 +65,8 @@ def main():
         with response:
             body = response.read()
             assert response.status == expected, (path, response.status, body[:500])
+            if expected == 200 and path.endswith("-measurements.json"):
+                assert response.headers.get_content_type() == "application/ld+json"
             if response.headers.get_content_type() == "application/json":
                 return json.loads(body)
             return body
@@ -91,7 +94,9 @@ def main():
     request("/v1/jobs", method="POST", parts=[("input", "x.csv", b"x"),
             ("config", "config.yml", b"x" * (1024**2 + 1))], expected=413)
     for config in [b"pathway:\n  browser: /bin/sh", b"pathway:\n  network: /etc/passwd",
-                   b"analysis:\n  acyl_chain_filter:\n    rules: /etc/passwd", b"[unterminated"]:
+                   b"analysis:\n  acyl_chain_filter:\n    rules: /etc/passwd", b"[unterminated",
+                   b"output:\n  format: rds", b'measurements:\n  include_subsets: "true"',
+                   b'measurements:\n  acyl_chains: ["18:0"]']:
         request("/v1/jobs", method="POST", parts=[("input", "x.csv", b"x"),
                 ("config", "config.yml", config)], expected=400)
     if args.upload_limit_mb:
@@ -127,6 +132,39 @@ def main():
     wait(bad, "failed")
 
     examples = root / "inst/extdata/examples"
+    if args.jsonld_only:
+        base = b"input:\n  format: mztab-m\n  use_rgoslin_if_no_ontology: false\noutput:\n  format: jsonld\n"
+        variants = [
+            ("whole", "fixture.mzTab", mztab_fixture(), base, False),
+            ("subsets", "fixture.mzTab", mztab_fixture(), base +
+             b'measurements:\n  include_subsets: true\n  acyl_chains: ["18:0"]\n', True),
+            ("auto", "fixture.mzTab", mztab_fixture(), base +
+             b'measurements:\n  include_subsets: true\n', True),
+            ("csv-whole", "alignment.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
+             b"output:\n  format: jsonld\n", False)
+        ]
+        for label, filename, data, config, subsets in variants:
+            status = wait(submit(filename, data, config), "succeeded")
+            assert status["result"]["measurements"]["include_subsets"] is subsets
+            listing = request(status["artifacts_url"])
+            assert {a["name"] for a in listing["artifacts"]} == {
+                "remodeling-measurements.json", "ceramide-measurements.json", "global-measurements.json"}
+            for artifact in listing["artifacts"]:
+                payload = request(artifact["url"])
+                doc = json.loads(payload)
+                assert "@context" in doc and "@graph" in doc and "elements" not in doc
+                scopes = [n for n in doc["@graph"] if n["@type"] == "mslm:LipidMeasurementScope"]
+                if scopes:
+                    assert any(n["scopeType"] == "subclass" for n in scopes)
+                    assert any(n["scopeType"] == "acyl_subset" for n in scopes) is subsets
+                else:
+                    pathway = artifact['name'].split('-')[0]
+                    assert status['result']['measurements']['pathways'][pathway]['measured_nodes'] == 0
+                assert len(payload) == artifact["size_bytes"]
+                (output / f"{label}-{artifact['name']}").write_bytes(payload)
+            request(status["artifacts_url"] + "/worker.log", expected=404)
+        print("PASS: CSV/mzTab-M JSON-LD jobs, disabled/selected/automatic subsets and 12 downloads", flush=True)
+        return
     csv = submit("Lipid_AlignmentTable.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
                  (examples / "pathway-api.yml").read_bytes())
     mz = submit("fixture.mzTab", mztab_fixture(),

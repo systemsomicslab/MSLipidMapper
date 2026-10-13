@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MSLipidMapper pathway measurements RDF / JSON-LD v2.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["@context", "@graph"],
+  "properties": {
+    "@context": {"type": "object", "required": ["@vocab", "mslm"], "properties": {"@version": {"const": 1.1}, "@vocab": {"const": "https://systemomicslab.github.io/MSLipidMapper/ontology/"}, "mslm": {"const": "https://systemomicslab.github.io/MSLipidMapper/ontology/"}}},
+    "@graph": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/resource"}}
+  },
+  "$defs": {
+    "reference": {"type": "object", "additionalProperties": false, "required": ["@id"], "properties": {"@id": {"type": "string", "format": "uri"}}},
+    "resource": {
+      "type": "object", "required": ["@id", "@type"],
+      "propertyNames": {"not": {"enum": ["path", "pathpng", "position", "style", "SUID", "zoom", "selected", "elements"]}},
+      "properties": {
+        "@id": {"type": "string", "format": "uri"},
+        "@type": {"enum": ["mslm:Dataset", "mslm:Pathway", "mslm:Sample", "mslm:MSDialMappableLipidEntity", "mslm:MolecularFeature", "mslm:PathwayLipidNode", "mslm:PathwayEntity", "mslm:PathwayJunction", "mslm:LipidMeasurementScope", "mslm:SampleMeasurement", "mslm:PathwayConnection"]},
+        "value": {"type": ["number", "null"]},
+        "validFeatureCount": {"type": "integer", "minimum": 0},
+        "inSample": {"$ref": "#/$defs/reference"},
+        "inDataset": {"$ref": "#/$defs/reference"},
+        "measuredEntity": {"$ref": "#/$defs/reference"},
+        "sourceEntity": {"$ref": "#/$defs/reference"},
+        "targetEntity": {"$ref": "#/$defs/reference"},
+        "memberFeature": {"type": "array", "items": {"$ref": "#/$defs/reference"}},
+        "acylChainSignature": {"type": "array", "items": {"type": "string"}},
+        "sampleMetadata": {"type": "object", "required": ["@value", "@type"], "properties": {"@type": {"const": "@json"}}}
+      },
+      "allOf": [
+        {"if": {"properties": {"@type": {"const": "mslm:Dataset"}}}, "then": {"required": ["schemaVersion", "identifier", "pathway"], "properties": {"schemaVersion": {"const": "2.0.0"}}}},
+        {"if": {"properties": {"@type": {"const": "mslm:SampleMeasurement"}}}, "then": {"required": ["inSample", "inDataset", "measuredEntity", "valueStatus", "value"]}},
+        {"if": {"properties": {"@type": {"const": "mslm:LipidMeasurementScope"}}}, "then": {"required": ["scopeType", "memberFeature", "aggregationMethod", "observedLipidSubclass", "onPathwayNode", "detectionStatus"]}},
+        {"if": {"properties": {"@type": {"const": "mslm:PathwayConnection"}}}, "then": {"required": ["sourceEntity", "targetEntity", "inPathway", "assertionMethod"]}},
+        {"if": {"properties": {"@type": {"const": "mslm:Sample"}}}, "then": {"required": ["identifier", "inDataset", "sampleMetadata"]}}
+      ]
+    }
+  }
+}

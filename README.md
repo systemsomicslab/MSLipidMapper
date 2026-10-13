@@ -85,7 +85,9 @@ must be running before the launcher is used.
 The analysis REST service is separate from Shiny and the existing port-7310
 plot/static API. It accepts multipart POST uploads of an MS-DIAL CSV or mzTab-M
 file plus YAML settings, runs a background analysis job, and provides status and
-PDF downloads. The default Compose configuration supports direct lab-network
+PDF or RDF/JSON-LD downloads. Set `output.format: jsonld` and
+`measurements.include_subsets: true|false` to control sample-level subset exports.
+The default Compose configuration supports direct lab-network
 access without a token.
 
 ```bash
@@ -218,6 +220,13 @@ Molecule-level acyl-chain filtering can also be set in YAML with
 normalization and lipid-class aggregation. Only explicitly parsed acyl chains
 are matched: total-composition names such as `PC 34:1` are not guessed, and
 sphingoid bases are not treated as acyl chains.
+
+## Pathway structure with sample-level measurements
+
+`mztab_pathway_measurements()` reads an existing cyjs pathway and exports RDF as
+JSON-LD with sample metadata, molecular abundances and whole-subclass/acyl-subset
+measurements. Display attributes are excluded; no FC or p-values are computed.
+See [the data contract and usage](docs/pathway-measurements.md).
 
 ## Example data
 
