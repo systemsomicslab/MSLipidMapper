@@ -1,6 +1,6 @@
-# Compact export intended as LLM input. Unlike the JSON-LD measurements it uses
-# plain names instead of URIs, stores values as arrays aligned to one sample
-# order, and represents conversions as explicit reaction nodes.
+# Compact per-pathway export intended as LLM input. Unlike the JSON-LD
+# measurements it uses plain names instead of URIs, stores values as arrays
+# aligned to one sample order, and represents conversions as reaction nodes.
 
 # Reactions from a Cytoscape pathway. Junction nodes (no label, "Node 1"-style
 # or purely numeric labels) are reaction points; junctions joined to each other
@@ -64,7 +64,8 @@
   Filter(length, reaction)
 }
 
-.mslm_llm_summary <- function(prepared, networks, output_file = NULL, dataset = list(),
+# One summary per pathway: only that pathway's lipids and reactions.
+.mslm_llm_summary <- function(prepared, network, pathway, output_file = NULL, dataset = list(),
                               aggregate = "sum", include_subsets = FALSE,
                               acyl_chains = character(), include_features = FALSE,
                               annotations = .mslm_reaction_annotations()) {
@@ -107,15 +108,14 @@
     acyl_chains <- sort(unique(unlist(chains, use.names = FALSE)))
   }
 
-  parsed <- lapply(networks, function(path) .mslm_network_reactions(jsonlite::fromJSON(path, simplifyVector = FALSE)))
-  pathways_of <- function(name) as.list(names(parsed)[vapply(parsed, function(p) name %in% p$entities, logical(1))])
+  parsed <- .mslm_network_reactions(jsonlite::fromJSON(network, simplifyVector = FALSE))
 
   lipids <- list()
-  for (cls in unique(c(sort(unique(subclasses)), unlist(lapply(parsed, `[[`, "entities"))))) {
+  for (cls in parsed$entities) {
     ii <- which(subclasses == cls)
-    entry <- list(pathways = pathways_of(cls))
+    entry <- list()
     if (length(ii)) {
-      entry <- c(entry, measured(ii))
+      entry <- measured(ii)
       if (isTRUE(include_subsets)) {
         subsets <- lapply(acyl_chains, function(ch) {
           jj <- ii[vapply(chains[ii], function(z) ch %in% z, logical(1))]
@@ -131,39 +131,31 @@
     lipids[[cls]] <- entry
   }
 
-  # Identical conversions appearing in several pathways are listed once.
-  reactions <- list()
-  for (pw in names(parsed)) for (r in parsed[[pw]]$reactions) {
-    key <- paste(paste(sort(r$substrates), collapse = "+"), paste(sort(r$products), collapse = "+"), sep = ">")
-    if (is.null(reactions[[key]])) {
-      reactions[[key]] <- list(substrates = as.list(r$substrates), products = as.list(r$products), pathways = list(pw))
-    } else {
-      reactions[[key]]$pathways <- c(reactions[[key]]$pathways, list(pw))
-    }
-  }
-  reactions <- unname(lapply(reactions, function(r) {
-    r <- .mslm_annotate_reaction(r, annotations)
-    r$pathways <- unique(r$pathways)
-    r
-  }))
+  # A conversion drawn more than once in the map is listed once.
+  keys <- vapply(parsed$reactions, function(r) paste(paste(sort(r$substrates), collapse = "+"),
+                                                     paste(sort(r$products), collapse = "+"), sep = ">"), character(1))
+  reactions <- lapply(parsed$reactions[!duplicated(keys)], function(r) .mslm_annotate_reaction(
+    list(substrates = as.list(r$substrates), products = as.list(r$products)), annotations))
   reactions <- Map(function(r, i) c(list(id = paste0("R", i)), r), reactions, seq_along(reactions))
+  on_map <- subclasses %in% parsed$entities
 
   summary <- list(
     format = "mslipidmapper-llm-summary/1",
     about = paste(
-      "Lipidomics measurements mapped onto lipid pathways.",
-      "'lipids' holds per-sample values aligned to samples.ids, per-group mean/sd/n, and the pathways containing each lipid;",
-      "lipids with status not_measured appear in a pathway but not in the data.",
+      "Lipidomics measurements mapped onto the", pathway, "lipid pathway.",
+      "'lipids' holds the pathway's lipids with per-sample values aligned to samples.ids and per-group mean/sd/n;",
+      "lipids with status not_measured appear in the pathway but not in the data.",
       "'reactions' convert substrates into products and may list enzymes.",
       "Values are after the stated normalization and aggregation; null means missing."),
+    pathway = pathway,
     dataset = dataset,
     samples = list(ids = as.list(samples), groups = as.list(groups)),
     lipids = lipids,
     reactions = reactions,
-    unmapped_classes = as.list(setdiff(sort(unique(subclasses)), unlist(lapply(parsed, `[[`, "entities"))))
+    other_measured_classes = as.list(sort(unique(subclasses[!on_map])))
   )
   if (isTRUE(include_features)) {
-    summary$features <- lapply(seq_len(nrow(mat)), function(i) Filter(length, list(
+    summary$features <- lapply(which(on_map), function(i) Filter(length, list(
       name = lipid_names[i], class = subclasses[i], chains = as.list(chains[[i]]), values = num(mat[i, ]))))
   }
   if (!is.null(output_file)) {

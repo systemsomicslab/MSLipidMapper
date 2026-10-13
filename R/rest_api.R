@@ -166,19 +166,25 @@
     result$measurements <- exported$summary
   }
   if ("llm" %in% format) {
-    out <- file.path(artifact_dir, "llm-summary.json")
-    summary <- .mslm_llm_summary(prepared, .mslm_api_networks(), out,
-      dataset = list(id = basename(dir), input_format = cfg$input$format,
-        normalization = prepared$normalization, aggregation = cfg$analysis$aggregation %||% "sum",
-        unit = cfg$measurements$unit %||% "unspecified", group_column = prepared$group_col,
-        ignored_exclude_groups = as.list(prepared$ignored_exclude_groups)),
-      aggregate = cfg$analysis$aggregation %||% "sum",
-      include_subsets = isTRUE(cfg$measurements$include_subsets),
-      acyl_chains = cfg$measurements$acyl_chains %||% character(),
-      include_features = isTRUE(cfg$output$llm_features))
-    result$artifacts <- c(result$artifacts, out)
-    result$llm <- list(lipids = length(summary$lipids), reactions = length(summary$reactions),
-      annotated_reactions = sum(vapply(summary$reactions, function(r) !is.null(r$enzymes), logical(1))))
+    networks <- .mslm_api_networks()
+    result$llm <- list()
+    for (pw in names(networks)) {
+      out <- file.path(artifact_dir, paste0(pw, "-llm-summary.json"))
+      summary <- .mslm_llm_summary(prepared, networks[[pw]], pw, out,
+        dataset = list(id = basename(dir), input_format = cfg$input$format,
+          normalization = prepared$normalization, aggregation = cfg$analysis$aggregation %||% "sum",
+          unit = cfg$measurements$unit %||% "unspecified", group_column = prepared$group_col,
+          ignored_exclude_groups = as.list(prepared$ignored_exclude_groups)),
+        aggregate = cfg$analysis$aggregation %||% "sum",
+        include_subsets = isTRUE(cfg$measurements$include_subsets),
+        acyl_chains = cfg$measurements$acyl_chains %||% character(),
+        include_features = isTRUE(cfg$output$llm_features))
+      result$artifacts <- c(result$artifacts, out)
+      result$llm[[pw]] <- list(lipids = length(summary$lipids),
+        measured_lipids = sum(vapply(summary$lipids, function(l) is.null(l$status), logical(1))),
+        reactions = length(summary$reactions),
+        annotated_reactions = sum(vapply(summary$reactions, function(r) !is.null(r$enzymes), logical(1))))
+    }
   }
   if (is.null(result$ignored_exclude_groups) && !is.null(prepared)) {
     result$ignored_exclude_groups <- prepared$ignored_exclude_groups

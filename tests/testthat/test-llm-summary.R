@@ -30,20 +30,22 @@ test_that("LLM summary is compact, aligned and annotates known reactions", {
   path <- tempfile(fileext = ".cyjs")
   jsonlite::write_json(net, path, auto_unbox = TRUE)
   out <- tempfile(fileext = ".json")
-  s <- .mslm_llm_summary(list(se = se, groups = c("A", "A", "B", "B")), c(toy = path), out,
+  s <- .mslm_llm_summary(list(se = se, groups = c("A", "A", "B", "B")), path, "toy", out,
                          include_subsets = TRUE, acyl_chains = c("18:1"), include_features = TRUE)
   doc <- jsonlite::read_json(out)
   expect_identical(doc$format, "mslipidmapper-llm-summary/1")
+  expect_identical(doc$pathway, "toy")
   expect_equal(unlist(doc$samples$ids), c("S1", "S2", "S3", "S4"))
   pc <- doc$lipids$PC
   expect_equal(vapply(pc$values, function(v) if (is.null(v)) NA_real_ else v, numeric(1)), c(15, 20, NA, 10))
   expect_equal(pc$groups$A$mean, 17.5)
   expect_equal(pc$groups$B$n, 1L)
   expect_equal(pc$n_features, 2L)
-  expect_equal(unlist(pc$pathways), "toy")
   expect_equal(pc$acyl_subsets[["18:1"]]$n_features, 2L)
   expect_identical(doc$lipids$PS$status, "not_measured")
-  expect_equal(unlist(doc$unmapped_classes), "Cer_NS")
+  # Only the pathway's lipids are listed; other measured classes are named.
+  expect_setequal(names(doc$lipids), c("PC", "PS"))
+  expect_equal(unlist(doc$other_measured_classes), "Cer_NS")
   expect_length(doc$reactions, 1L)
   r <- doc$reactions[[1]]
   expect_equal(unlist(r$substrates), "PC")
@@ -51,7 +53,7 @@ test_that("LLM summary is compact, aligned and annotates known reactions", {
   # PC -> PS is in the bundled reaction annotation table.
   expect_equal(unlist(r$enzymes[[1]]$genes), "PTDSS1")
   expect_equal(unlist(r$cosubstrates), "L-serine")
-  expect_length(doc$features, 3L)
+  expect_length(doc$features, 2L)
   # No URIs: the summary is meant to be read directly.
   expect_false(grepl("https?://", paste(readLines(out, warn = FALSE), collapse = "")))
 })

@@ -174,12 +174,19 @@ def main():
         llm = wait(submit("alignment.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
                           b"output:\n  format: [llm]\n"), "succeeded")
         listing = request(llm["artifacts_url"])
-        assert [a["name"] for a in listing["artifacts"]] == ["llm-summary.json"], listing
-        summary = request(listing["artifacts"][0]["url"])  # served as application/json, parsed by request()
-        assert summary["format"] == "mslipidmapper-llm-summary/1" and "features" not in summary
-        assert summary["lipids"]["PC"]["values"] and len(summary["lipids"]["PC"]["values"]) == len(summary["samples"]["ids"])
-        assert any("enzymes" in r for r in summary["reactions"]) and llm["result"]["llm"]["reactions"] == len(summary["reactions"])
-        print("PASS: LLM summary job with reaction nodes", flush=True)
+        assert {a["name"] for a in listing["artifacts"]} == {
+            "remodeling-llm-summary.json", "ceramide-llm-summary.json", "global-llm-summary.json"}, listing
+        annotated = 0
+        for artifact in listing["artifacts"]:
+            summary = request(artifact["url"])  # served as application/json, parsed by request()
+            pathway = artifact["name"].split("-")[0]
+            assert summary["format"] == "mslipidmapper-llm-summary/1" and summary["pathway"] == pathway
+            assert "features" not in summary and llm["result"]["llm"][pathway]["reactions"] == len(summary["reactions"])
+            for lipid in summary["lipids"].values():
+                assert "status" in lipid or len(lipid["values"]) == len(summary["samples"]["ids"])
+            annotated += sum("enzymes" in r for r in summary["reactions"])
+        assert annotated > 0
+        print("PASS: per-pathway LLM summaries with reaction nodes", flush=True)
         return
     csv = submit("Lipid_AlignmentTable.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
                  (examples / "pathway-api.yml").read_bytes())

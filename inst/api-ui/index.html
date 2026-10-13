@@ -205,7 +205,7 @@ plot:
     median_color: "#222222"
 
 output:
-  format: [pdf, jsonld, llm]
+  format: [pdf, llm]
   paper_size: A4
   orientation: landscape
 `;
@@ -401,7 +401,7 @@ async function checkStatus(fromPoll) {
         r.measurements && r.measurements.pathways ? Object.entries(r.measurements.pathways).map(([k, v]) => `${k}: ${v.measured_nodes}`).join(", ") : "";
       const ignored = [].concat(r.ignored_exclude_groups || (r.measurements && r.measurements.ignored_exclude_groups) || []);
       showMsg("runMsg", "ok", "Analysis finished." + (counts ? ` Mapped nodes — ${counts}.` : "") +
-        (r.llm ? ` LLM summary — ${r.llm.lipids} lipids, ${r.llm.reactions} reactions (${r.llm.annotated_reactions} with enzymes).` : "") +
+        (r.llm ? ` LLM summaries — ${Object.entries(r.llm).map(([k, v]) => `${k}: ${v.measured_lipids}/${v.lipids} lipids measured, ${v.reactions} reactions (${v.annotated_reactions} with enzymes)`).join("; ")}.` : "") +
         (ignored.length ? ` Ignored exclude_groups not present in the data: ${ignored.join(", ")}.` : ""));
       await listArtifacts(true);
     } else if (data.status === "failed") {
@@ -539,7 +539,7 @@ function expectedArtifacts() {
   const names = [];
   if (formats.includes("pdf")) names.push(...pathways.map((p) => p + ".pdf"));
   if (formats.includes("jsonld")) names.push(...pathways.map((p) => p + "-measurements.json"));
-  if (formats.includes("llm")) names.push("llm-summary.json");
+  if (formats.includes("llm")) names.push(...pathways.map((p) => p + "-llm-summary.json"));
   return names;
 }
 function renderCommands() {
