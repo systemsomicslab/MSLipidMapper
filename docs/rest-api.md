@@ -76,6 +76,23 @@ environment variables:
 Compose sets explicit values for these variables; edit its environment entries
 to change the resource limits.
 
+## Browser console
+
+Open `http://SERVER_LAN_IP:8000/` in a browser for a GUI that talks to the API.
+It lets you choose the input file, load and edit the YAML parameters as text
+(with a preview of the server's validation rules), submit the job, follow its
+status, and preview or download the results (PDF and/or JSON-LD). The editor starts from a default
+mzTab-M configuration. For each action it also shows the equivalent `curl`
+command (bash or PowerShell) with the current URL, file names and job ID filled
+in. If you edit the parameters, use "Save YAML" so the saved `config.yml`
+matches the generated command.
+
+The page is served by the API itself (`/` and the bundled `/ui/` assets), so no
+CORS setup is needed; opening `inst/api-ui/index.html` directly from disk does
+not work. The page holds no data and is public even when a token is enabled;
+enter the token in the page to authenticate its API calls. Job history is kept
+only in that browser.
+
 ## Submit files
 
 In the default lab-network configuration, no Authorization header is needed.
@@ -124,7 +141,10 @@ output:
   orientation: landscape
 ```
 
-Choose `group_column` for the metadata in your file. If `input.format` is
+Choose `group_column` for the metadata in your file. Groups listed in
+`exclude_groups` that do not occur in the data are ignored (reported as
+`ignored_exclude_groups` in the job result); unknown `include_groups` are still
+an error. If `input.format` is
 omitted it is inferred from the uploaded extension. The API accepts the CLI's
 analysis and plot settings, including group and acyl-chain filters.
 `input.file`, `input.lipidomics`, `input.mztab`, `output.directory` and

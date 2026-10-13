@@ -187,7 +187,7 @@
   list(artifacts = outputs, summary = list(format = "jsonld", include_subsets = enabled,
     samples = ncol(prepared$se), features = nrow(prepared$se),
     aggregation = cfg$analysis$aggregation %||% "sum", normalization = prepared$normalization,
-    pathways = summaries))
+    ignored_exclude_groups = prepared$ignored_exclude_groups, pathways = summaries))
 }
 
 .mslm_api_manager <- function(data_dir, job_timeout, max_pending, worker_script) {
@@ -294,7 +294,16 @@
   list(tick = tick, submit = submit, lookup = lookup, close = close)
 }
 
-.mslm_api_router <- function(manager, token, max_bytes) {
+# Browser console for the API. Only these bundled files are ever served.
+.mslm_api_ui_files <- c("index.html" = "text/html; charset=utf-8",
+                        "js-yaml.min.js" = "application/javascript; charset=utf-8")
+
+.mslm_api_ui_path <- function(req) {
+  identical(req$PATH_INFO, "/") || grepl("^/ui/", req$PATH_INFO)
+}
+
+.mslm_api_router <- function(manager, token, max_bytes,
+    ui_dir = system.file("api-ui", package = "MSLipidMapper")) {
   pr <- plumber::pr()
   # Authentication and size checks precede manual multipart parsing.
   # Some Plumber releases register parser_none with the invalid regex "*".
@@ -311,7 +320,8 @@
     })
   }
   pr$filter("auth", guard(function(req, res) {
-    if (nzchar(token) && !identical(req$PATH_INFO, "/healthz") &&
+    # The console page itself holds no data; the API calls it makes are authenticated.
+    if (nzchar(token) && !identical(req$PATH_INFO, "/healthz") && !.mslm_api_ui_path(req) &&
         !identical(req$HTTP_AUTHORIZATION, paste("Bearer", token))) {
       res$setHeader("WWW-Authenticate", "Bearer")
       .mslm_api_abort(401L, "A valid Bearer token is required.")
@@ -319,6 +329,19 @@
     if (length(req$bodyRaw) > max_bytes) .mslm_api_abort(413L, "Upload exceeds the configured limit.")
     plumber::forward()
   }))
+  ui <- function(res, name) {
+    path <- file.path(ui_dir, name)
+    if (!nzchar(ui_dir) || !name %in% names(.mslm_api_ui_files) || !file.exists(path)) {
+      .mslm_api_abort(404L, "Not found.")
+    }
+    res$setHeader("Content-Type", .mslm_api_ui_files[[name]])
+    res$setHeader("Cache-Control", "no-cache")
+    res$setHeader("X-Content-Type-Options", "nosniff")
+    res$body <- readBin(path, "raw", n = file.info(path)$size)
+    res
+  }
+  pr$handle("GET", "/", guard(function(req, res) ui(res, "index.html")))
+  pr$handle("GET", "/ui/<name>", guard(function(req, res, name) ui(res, name)))
   pr$handle("GET", "/healthz", guard(function(req, res) .mslm_api_json(res, list(ok = TRUE))))
   pr$handle("POST", "/v1/jobs", guard(function(req, res) {
     id <- manager$submit(.mslm_api_upload(req, max_bytes))

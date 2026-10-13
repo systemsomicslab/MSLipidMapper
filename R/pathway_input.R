@@ -41,7 +41,8 @@
     stop("analysis.group_column contains missing or empty values.", call. = FALSE)
   }
   available_groups <- unique(groups)
-  parse_group_filter <- function(x, label) {
+  ignored_exclude_groups <- character(0)
+  parse_group_filter <- function(x, label, ignore_unknown = FALSE) {
     if (is.null(x)) return(character(0))
     value <- as.character(unlist(x, use.names = FALSE))
     if (!length(value) || anyNA(value) || any(!nzchar(trimws(value)))) {
@@ -49,13 +50,21 @@
     }
     value <- unique(value)
     unknown <- setdiff(value, available_groups)
+    if (length(unknown) && ignore_unknown) {
+      # Excluding a group that is absent from this dataset is a no-op, so one
+      # parameter file (e.g. excluding Blank) can be reused across datasets.
+      message(label, ": ignoring groups not present in the data: ", paste(unknown, collapse = ", "))
+      ignored_exclude_groups <<- unknown
+      return(intersect(value, available_groups))
+    }
     if (length(unknown)) {
       stop(label, " contains unknown groups: ", paste(unknown, collapse = ", "), call. = FALSE)
     }
     value
   }
   include_groups <- parse_group_filter(analysis$include_groups, "analysis.include_groups")
-  exclude_groups <- parse_group_filter(analysis$exclude_groups, "analysis.exclude_groups")
+  exclude_groups <- parse_group_filter(analysis$exclude_groups, "analysis.exclude_groups",
+                                       ignore_unknown = TRUE)
   keep <- rep(TRUE, length(groups))
   if (length(include_groups)) keep <- groups %in% include_groups
   if (length(exclude_groups)) keep <- keep & !groups %in% exclude_groups
@@ -110,7 +119,8 @@
   se <- normalize_se(se, method = normalization)
 
   list(se = se, group_col = group_col, groups = groups, available_groups = available_groups, include_groups = include_groups,
-    exclude_groups = exclude_groups, features_before_acyl_filter = features_before_acyl_filter,
+    exclude_groups = exclude_groups, ignored_exclude_groups = ignored_exclude_groups,
+    features_before_acyl_filter = features_before_acyl_filter,
     features_after_acyl_filter = features_after_acyl_filter,
     selected_acyl_chains = selected_acyl_chains, selected_acyl_match = selected_acyl_match,
     normalization = normalization)

@@ -80,6 +80,13 @@ def main():
             if time.monotonic() > deadline:
                 raise
             time.sleep(1)
+    # The browser console is public (it holds no data) and serves only bundled files.
+    page = request("/", auth=False)
+    assert page.startswith(b"<!doctype html>") and b"MSLipidMapper API Console" in page
+    assert b"js-yaml" in request("/ui/js-yaml.min.js", auth=False)[:200]
+    request("/ui/rest_api.R", auth=False, expected=404)
+    request("/ui/%2e%2e%2fDESCRIPTION", auth=False, expected=404)
+    print("PASS: browser console", flush=True)
     unknown = "/v1/jobs/job_" + "0" * 32
     request(unknown, auth=False, expected=404 if args.no_auth else 401)
     request(unknown, expected=404)
@@ -168,11 +175,15 @@ def main():
     csv = submit("Lipid_AlignmentTable.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
                  (examples / "pathway-api.yml").read_bytes())
     mz = submit("fixture.mzTab", mztab_fixture(),
-                b"input:\n  format: mztab-m\n  use_rgoslin_if_no_ontology: false\nanalysis:\n  group_column: class\n")
+                b"input:\n  format: mztab-m\n  use_rgoslin_if_no_ontology: false\nanalysis:\n  group_column: class\n"
+                b"  exclude_groups: [Blank]\n")
     results = []
     for label, job in [("csv", csv), ("mztab", mz)]:
         status = wait(job, "succeeded")
         assert any(v > 0 for v in status["result"]["mapped_nodes"].values()), status
+        if label == "mztab":
+            # Blank is absent from the fixture, so excluding it is ignored rather than an error.
+            assert status["result"]["ignored_exclude_groups"] in ("Blank", ["Blank"]), status["result"]
         listing = request(status["artifacts_url"])
         assert {a["name"] for a in listing["artifacts"]} == {"remodeling.pdf", "ceramide.pdf", "global.pdf"}
         for artifact in listing["artifacts"]:

@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MSLipidMapper API Console</title>
+<style>
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --text: #1d2330; --muted: #667085; --line: #d9dde5;
+  --accent: #2563eb; --accent-soft: #e8efff; --ok: #15803d; --warn: #b45309; --err: #b91c1c;
+  --code-bg: #0f172a; --code-text: #e2e8f0; --field: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1117; --panel: #161b22; --text: #e6edf3; --muted: #8b949e; --line: #30363d;
+    --accent: #58a6ff; --accent-soft: #1b2a41; --ok: #3fb950; --warn: #d29922; --err: #f85149;
+    --code-bg: #0b0f14; --code-text: #d6deeb; --field: #0d1117;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; }
+header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 20px;
+  background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+header h1 { font-size: 17px; margin: 0; white-space: nowrap; }
+header .conn { display: flex; gap: 8px; align-items: center; flex: 1; flex-wrap: wrap; }
+header input { min-width: 0; }
+main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; padding: 16px 20px; }
+@media (max-width: 1000px) { main { grid-template-columns: minmax(0, 1fr); padding: 12px 16px; } }
+section.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+section.card > h2 { font-size: 15px; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+h2 .step { background: var(--accent); color: #fff; border-radius: 50%; width: 22px; height: 22px;
+  display: inline-grid; place-items: center; font-size: 12px; }
+h2 .spacer { flex: 1; }
+label { color: var(--muted); font-size: 12px; }
+input, select, textarea { font: inherit; color: var(--text); background: var(--field);
+  border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+button { font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+  border-radius: 6px; padding: 6px 12px; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button.small { padding: 2px 8px; font-size: 12px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.muted { color: var(--muted); font-size: 12px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.dot.ok { background: var(--ok); } .dot.err { background: var(--err); }
+.drop { border: 2px dashed var(--line); border-radius: 8px; padding: 14px; text-align: center; cursor: pointer; }
+.drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.drop strong { word-break: break-all; }
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+.tabs button { border: none; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--muted); }
+.tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+textarea.yaml { width: 100%; min-height: 380px; font: 12.5px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+.msg { font-size: 12px; margin-top: 6px; }
+.msg.err { color: var(--err); } .msg.warn { color: var(--warn); } .msg.ok { color: var(--ok); }
+pre.cmd { background: var(--code-bg); color: var(--code-text); border-radius: 6px; padding: 10px 12px; margin: 4px 0 0;
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; word-break: break-all; }
+.cmd-block { margin-bottom: 12px; border-left: 3px solid transparent; padding-left: 8px; }
+.cmd-block.hot { border-left-color: var(--accent); }
+.cmd-head { display: flex; align-items: center; gap: 8px; }
+.cmd-head b { font-size: 13px; flex: 1; }
+.status { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-weight: 600;
+  background: var(--accent-soft); color: var(--accent); }
+.status.succeeded { color: var(--ok); } .status.failed { color: var(--err); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+td, th { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); }
+tr.sel td { background: var(--accent-soft); }
+.history td { cursor: pointer; }
+#log { max-height: 300px; overflow: auto; }
+.log-entry { border-bottom: 1px solid var(--line); padding: 6px 0; font-size: 12px; }
+.log-entry pre { margin: 4px 0 0; white-space: pre-wrap; word-break: break-all; font: 11.5px/1.4 ui-monospace, Menlo, Consolas, monospace; color: var(--muted); }
+.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+iframe#preview { width: 100%; height: 520px; border: 1px solid var(--line); border-radius: 6px; margin-top: 8px; display: none; background: #fff; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>MSLipidMapper API Console</h1>
+  <div class="conn">
+    <label for="baseUrl">API URL</label>
+    <input id="baseUrl" size="28" spellcheck="false">
+    <label for="token">Token</label>
+    <input id="token" type="password" size="18" placeholder="(empty if no auth)" autocomplete="off">
+    <button id="btnHealth">Check connection</button>
+    <span class="dot" id="healthDot"></span><span class="muted" id="healthText">Not checked</span>
+  </div>
+</header>
+
+<main>
+<div>
+  <section class="card">
+    <h2><span class="step">1</span>Input file</h2>
+    <div class="drop" id="inputDrop">
+      <div id="inputLabel">Drop or click to choose an MS-DIAL Alignment <b>.csv</b> or <b>.mzTab</b> file</div>
+    </div>
+    <input type="file" id="inputFile" accept=".csv,.mztab,.mzTab" class="hidden">
+  </section>
+
+  <section class="card">
+    <h2><span class="step">2</span>Parameters (YAML)
+      <span class="spacer"></span>
+      <button class="small" id="btnLoadCfg">Load YAML</button>
+      <button class="small" id="btnSample">Reset to default</button>
+      <button class="small" id="btnSaveCfg">Save YAML</button>
+      <button class="small" id="btnClearCfg">Clear</button>
+    </h2>
+    <input type="file" id="cfgFile" accept=".yml,.yaml,.txt" class="hidden">
+    <div class="muted" id="cfgSource">Default settings</div>
+    <textarea class="yaml" id="yamlText" spellcheck="false"></textarea>
+    <div class="muted">This text is sent as the config file exactly as written. You can also drop a YAML file onto this box.</div>
+    <div class="msg" id="cfgMsg"></div>
+  </section>
+</div>
+
+<div>
+  <section class="card">
+    <h2><span class="step">3</span>Run</h2>
+    <div class="row">
+      <button class="primary" id="btnSubmit">Submit job</button>
+      <label for="jobId">Job ID</label>
+      <input id="jobId" class="code" size="40" spellcheck="false" placeholder="job_...">
+      <button id="btnStatus">Check status</button>
+      <button id="btnArtifacts">List results</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label><input type="checkbox" id="autoPoll" checked> Poll status until finished (every 2 s)</label>
+      <span id="jobStatus"></span>
+    </div>
+    <div class="msg" id="runMsg"></div>
+    <div id="artifacts"></div>
+    <iframe id="preview" title="Result preview"></iframe>
+  </section>
+
+  <section class="card">
+    <h2>Commands
+      <span class="spacer"></span>
+      <span class="tabs" id="shellTabs" style="border:none;margin:0">
+        <button data-shell="bash" class="active">bash</button>
+        <button data-shell="ps">PowerShell</button>
+      </span>
+    </h2>
+    <div class="muted" id="cmdNote"></div>
+    <div id="commands"></div>
+  </section>
+
+  <section class="card">
+    <h2>Job history<span class="spacer"></span><button class="small" id="btnClearHistory">Clear history</button></h2>
+    <table class="history"><thead><tr><th>Submitted</th><th>Input</th><th>Job ID</th><th>Status</th></tr></thead>
+      <tbody id="history"></tbody></table>
+    <div class="muted">History is stored in this browser only.</div>
+  </section>
+
+  <section class="card">
+    <h2>Request log<span class="spacer"></span><button class="small" id="btnClearLog">Clear</button></h2>
+    <div id="log"></div>
+  </section>
+</div>
+</main>
+
+<script src="ui/js-yaml.min.js"></script>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("mslm." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("mslm." + k, JSON.stringify(v)); } catch (e) {} }
+};
+
+// ---- Settings accepted by the API (mirrors .mslm_api_config in R/rest_api.R) ----
+const ALLOWED = {
+  input: ["format", "lipidomics", "file", "mztab", "annotation_cols", "header_rows", "data_start_row", "identifier", "use_rgoslin_if_no_ontology"],
+  analysis: ["normalization", "aggregation", "group_column", "include_groups", "exclude_groups", "acyl_chain_filter", "y_axis_label"],
+  pathway: ["timeout_seconds", "plot_type"],
+  plot: ["type", "x_order", "font_size", "strip_font_size", "p_label_font_size", "y_axis_label", "svg_width", "svg_height", "palette", "dot", "box", "violin"],
+  output: ["directory", "pdf", "paper_size", "orientation", "palette", "format"],
+  measurements: ["include_subsets", "acyl_chains", "unit"]
+};
+const IGNORED = ["input.lipidomics", "input.file", "input.mztab", "output.directory", "output.pdf"];
+
+const SAMPLE = `input:
+  format: mztab-m
+
+analysis:
+  normalization: none
+  aggregation: sum
+  group_column: class
+  exclude_groups:
+    - Blank
+
+plot:
+  type: dot
+  font_size: 20
+  y_axis_label: "Normalized intensity"
+
+  dot:
+    point_size: 8
+    jitter_width: 0.15
+    alpha: 0.8
+    show_median: true
+    median_size: 0.4
+    median_width: 0.6
+    median_color: "#222222"
+
+output:
+  paper_size: A4
+  orientation: landscape
+`;
+
+// ---- State ----
+const state = {
+  cfg: {}, inputFile: null, cfgName: null, cfgEdited: false,
+  shell: store.get("shell", "bash"), hot: null, artifacts: [], pollTimer: null,
+  history: store.get("history", [])
+};
+
+// ---- Object path helpers ----
+const isMap = (x) => x !== null && typeof x === "object" && !Array.isArray(x);
+function getPath(obj, path) {
+  return path.split(".").reduce((o, k) => (isMap(o) ? o[k] : undefined), obj);
+}
+
+// ---- YAML ----
+function onYamlInput() {
+  const text = $("yamlText").value;
+  try {
+    const parsed = text.trim() === "" ? {} : jsyaml.load(text);
+    if (!isMap(parsed)) throw new Error("The top level of the YAML must be a mapping (key: value).");
+    state.cfg = parsed;
+    state.cfgEdited = true;
+    validate();
+  } catch (e) {
+    showMsg("cfgMsg", "err", "YAML syntax error: " + (e.reason || e.message) + (e.mark ? ` (line ${e.mark.line + 1})` : ""));
+  }
+  renderCommands();
+}
+function loadConfigText(text, name) {
+  $("yamlText").value = text;
+  state.cfgName = name;
+  state.cfgEdited = false;
+  onYamlInput();
+  state.cfgEdited = false;
+  $("cfgSource").textContent = name ? `Loaded: ${name}` : "Default settings";
+  renderCommands();
+}
+
+// ---- Validation (client-side preview of server rules) ----
+function validate() {
+  const errs = [], warns = [];
+  const cfg = state.cfg;
+  for (const sec of Object.keys(cfg)) {
+    if (!(sec in ALLOWED)) { errs.push(`Unknown section: ${sec}`); continue; }
+    if (cfg[sec] === null) continue;
+    if (!isMap(cfg[sec])) { errs.push(`${sec} must be a mapping`); continue; }
+    for (const k of Object.keys(cfg[sec])) {
+      if (!ALLOWED[sec].includes(k)) errs.push(`Not supported by the API: ${sec}.${k}`);
+      if (IGNORED.includes(`${sec}.${k}`)) warns.push(`${sec}.${k} is ignored by the server (it chooses all paths)`);
+    }
+  }
+  const acyl = getPath(cfg, "analysis.acyl_chain_filter");
+  if (acyl !== undefined && acyl !== null && (!isMap(acyl) || Object.keys(acyl).some((k) => !["chains", "match", "lipid_name_column"].includes(k)))) {
+    errs.push("analysis.acyl_chain_filter accepts only chains / match / lipid_name_column");
+  }
+  const bound = (path, lo, hi) => {
+    const v = getPath(cfg, path);
+    if (v !== undefined && !(typeof v === "number" && v >= lo && v <= hi)) errs.push(`${path} must be a number between ${lo} and ${hi}`);
+  };
+  bound("pathway.timeout_seconds", 1, 300);
+  bound("plot.svg_width", 0.5, 20);
+  bound("plot.svg_height", 0.5, 20);
+  const outFormat = getPath(cfg, "output.format");
+  if (outFormat !== undefined && !["pdf", "jsonld", "both"].includes(outFormat)) {
+    errs.push("output.format must be pdf, jsonld or both");
+  }
+  const subsets = getPath(cfg, "measurements.include_subsets");
+  if (subsets !== undefined && typeof subsets !== "boolean") errs.push("measurements.include_subsets must be true or false");
+  const chains = getPath(cfg, "measurements.acyl_chains");
+  if (chains !== undefined) {
+    if (!Array.isArray(chains) || !chains.length || chains.some((c) => typeof c !== "string" || !/^(?:O-|P-)?[0-9]+:[0-9]+(?:;O[0-9]*)?$/.test(c))) {
+      errs.push("measurements.acyl_chains must be a list of chain strings such as \"18:0\"");
+    } else if (subsets !== true) {
+      errs.push("measurements.acyl_chains requires measurements.include_subsets: true");
+    }
+  }
+  const fmt = getPath(cfg, "input.format");
+  if (fmt !== undefined && state.inputFile) {
+    const ext = state.inputFile.name.split(".").pop().toLowerCase();
+    const f = String(fmt).toLowerCase().replace(/_/g, "-");
+    const ok = ext === "csv" ? f === "msdial" : ext === "mztab" ? ["mztab", "mztab-m"].includes(f) : true;
+    if (!ok) errs.push(`input.format (${fmt}) does not match the input file extension (.${ext})`);
+  }
+  if (errs.length) showMsg("cfgMsg", "err", errs.join(" / "));
+  else if (warns.length) showMsg("cfgMsg", "warn", warns.join(" / "));
+  else showMsg("cfgMsg", "ok", "Settings pass the API's validation rules.");
+  return errs;
+}
+function showMsg(id, cls, text) { const el = $(id); el.className = "msg " + cls; el.textContent = text; }
+
+// ---- HTTP ----
+function baseUrl() { return $("baseUrl").value.trim().replace(/\/+$/, ""); }
+function authHeaders() {
+  const t = $("token").value.trim();
+  return t ? { Authorization: "Bearer " + t } : {};
+}
+async function api(method, path, body) {
+  const url = baseUrl() + path;
+  const started = performance.now();
+  let res, data;
+  try {
+    res = await fetch(url, { method, headers: authHeaders(), body, cache: "no-store" });
+  } catch (e) {
+    log(method, path, "network error", "Cannot reach the API. Check the URL and that the server is running.\n" + e.message);
+    throw e;
+  }
+  const type = res.headers.get("content-type") || "";
+  data = type.includes("application/json") ? await res.json() : await res.blob();
+  log(method, path, res.status, data instanceof Blob ? `${type} (${data.size} bytes)` : JSON.stringify(data, null, 2),
+      Math.round(performance.now() - started));
+  return { res, data };
+}
+function log(method, path, status, text, ms) {
+  const div = document.createElement("div");
+  div.className = "log-entry";
+  const time = new Date().toLocaleTimeString();
+  const ok = typeof status === "number" && status < 400;
+  div.innerHTML = `<span class="muted">${time}</span> <b>${method}</b> <span class="code"></span>
+    <span class="status ${ok ? "succeeded" : "failed"}">${status}</span>${ms != null ? ` <span class="muted">${ms} ms</span>` : ""}<pre></pre>`;
+  div.querySelector(".code").textContent = path;
+  div.querySelector("pre").textContent = text;
+  $("log").prepend(div);
+}
+
+async function health() {
+  setHot("health");
+  try {
+    const { res, data } = await api("GET", "/healthz");
+    const ok = res.ok && data && data.ok === true;
+    $("healthDot").className = "dot " + (ok ? "ok" : "err");
+    $("healthText").textContent = ok ? "Connected" : `HTTP ${res.status}`;
+  } catch (e) {
+    $("healthDot").className = "dot err";
+    $("healthText").textContent = "Cannot connect";
+  }
+}
+
+async function submitJob() {
+  setHot("submit");
+  if (!state.inputFile) return showMsg("runMsg", "err", "Choose an input file first.");
+  if (validate().length && !confirm("The settings have errors and the server may reject them. Submit anyway?")) return;
+  const fd = new FormData();
+  fd.append("input", state.inputFile, state.inputFile.name);
+  const text = $("yamlText").value.trim() === "" ? "{}\n" : $("yamlText").value;
+  fd.append("config", new Blob([text], { type: "application/x-yaml" }), configFileName());
+  $("btnSubmit").disabled = true;
+  try {
+    const { res, data } = await api("POST", "/v1/jobs", fd);
+    if (res.status === 202) {
+      $("jobId").value = data.job_id;
+      state.artifacts = [];
+      $("artifacts").innerHTML = "";
+      hidePreview();
+      state.history.unshift({ id: data.job_id, time: new Date().toISOString(), input: state.inputFile.name, status: data.status });
+      state.history = state.history.slice(0, 50);
+      saveHistory();
+      showMsg("runMsg", "ok", "Job accepted.");
+      setJobStatus(data.status);
+      if ($("autoPoll").checked) schedulePoll();
+    } else {
+      showMsg("runMsg", "err", `Submit failed (${res.status}): ${data.error || ""}`);
+    }
+  } catch (e) {
+    showMsg("runMsg", "err", "Could not submit the job.");
+  } finally {
+    $("btnSubmit").disabled = false;
+    renderCommands();
+  }
+}
+
+async function checkStatus(fromPoll) {
+  const id = $("jobId").value.trim();
+  if (!id) return showMsg("runMsg", "err", "Enter a job ID.");
+  if (!fromPoll) setHot("status");
+  try {
+    const { res, data } = await api("GET", `/v1/jobs/${encodeURIComponent(id)}`);
+    if (!res.ok) { stopPoll(); return showMsg("runMsg", "err", `Status request failed (${res.status}): ${data.error || ""}`); }
+    setJobStatus(data.status);
+    updateHistory(id, data.status);
+    if (data.status === "succeeded") {
+      stopPoll();
+      const r = data.result || {};
+      const counts = r.mapped_nodes ? Object.entries(r.mapped_nodes).map(([k, v]) => `${k}: ${v}`).join(", ") :
+        r.measurements && r.measurements.pathways ? Object.entries(r.measurements.pathways).map(([k, v]) => `${k}: ${v.measured_nodes}`).join(", ") : "";
+      const ignored = [].concat(r.ignored_exclude_groups || (r.measurements && r.measurements.ignored_exclude_groups) || []);
+      showMsg("runMsg", "ok", "Analysis finished." + (counts ? ` Mapped nodes — ${counts}.` : "") +
+        (ignored.length ? ` Ignored exclude_groups not present in the data: ${ignored.join(", ")}.` : ""));
+      await listArtifacts(true);
+    } else if (data.status === "failed") {
+      stopPoll();
+      showMsg("runMsg", "err", "Analysis failed: " + (data.error || "") + " (see worker.log on the server for details)");
+    } else {
+      showMsg("runMsg", "", `Waiting / running (${data.status})…`);
+      if ($("autoPoll").checked) schedulePoll();
+    }
+  } catch (e) { stopPoll(); }
+}
+function schedulePoll() { stopPoll(); state.pollTimer = setTimeout(() => checkStatus(true), 2000); }
+function stopPoll() { if (state.pollTimer) clearTimeout(state.pollTimer); state.pollTimer = null; }
+function setJobStatus(s) { $("jobStatus").innerHTML = s ? `Status: <span class="status ${s}">${s}</span>` : ""; }
+
+async function listArtifacts(fromStatus) {
+  const id = $("jobId").value.trim();
+  if (!id) return showMsg("runMsg", "err", "Enter a job ID.");
+  if (!fromStatus) setHot("artifacts");
+  try {
+    const { res, data } = await api("GET", `/v1/jobs/${encodeURIComponent(id)}/artifacts`);
+    if (!res.ok) return showMsg("runMsg", "err", `Could not list results (${res.status}): ${data.error || ""}`);
+    state.artifacts = data.artifacts || [];
+    renderArtifacts();
+    renderCommands();
+  } catch (e) {}
+}
+function renderArtifacts() {
+  const box = $("artifacts");
+  if (!state.artifacts.length) { box.innerHTML = ""; return; }
+  box.innerHTML = `<table><thead><tr><th>File</th><th>Size</th><th></th></tr></thead><tbody></tbody></table>
+    <div class="row" style="margin-top:6px"><button class="small" id="btnAll">Save all</button></div>`;
+  const tbody = box.querySelector("tbody");
+  for (const a of state.artifacts) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="code"></td><td>${(a.size_bytes / 1024).toFixed(1)} KB</td>
+      <td style="text-align:right"><button class="small">Preview</button> <button class="small">Save</button></td>`;
+    tr.querySelector("td").textContent = a.name;
+    const [prev, save] = tr.querySelectorAll("button");
+    prev.addEventListener("click", () => fetchArtifact(a, "preview"));
+    save.addEventListener("click", () => fetchArtifact(a, "save"));
+    tbody.appendChild(tr);
+  }
+  box.querySelector("#btnAll").addEventListener("click", async () => {
+    for (const a of state.artifacts) await fetchArtifact(a, "save");
+  });
+}
+async function fetchArtifact(a, mode) {
+  setHot("download:" + a.name);
+  try {
+    const { res, data } = await api("GET", a.url);
+    if (!res.ok) return showMsg("runMsg", "err", `Download failed (${res.status})`);
+    // JSON-LD is shown as text; the browser would otherwise download it.
+    const shown = mode === "preview" && a.name.endsWith(".json") ? new Blob([data], { type: "text/plain" }) : data;
+    const url = URL.createObjectURL(shown);
+    if (mode === "preview") {
+      const frame = $("preview");
+      if (frame.dataset.url) URL.revokeObjectURL(frame.dataset.url);
+      frame.dataset.url = url; frame.src = url; frame.style.display = "block";
+    } else {
+      const link = document.createElement("a");
+      link.href = url; link.download = a.name;
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }
+  } catch (e) {}
+}
+function hidePreview() { const f = $("preview"); f.style.display = "none"; f.removeAttribute("src"); }
+
+// ---- History ----
+function saveHistory() { store.set("history", state.history); renderHistory(); }
+function updateHistory(id, status) {
+  const h = state.history.find((x) => x.id === id);
+  if (h && h.status !== status) { h.status = status; saveHistory(); }
+}
+function renderHistory() {
+  const tbody = $("history");
+  tbody.innerHTML = "";
+  const current = $("jobId").value.trim();
+  for (const h of state.history) {
+    const tr = document.createElement("tr");
+    if (h.id === current) tr.className = "sel";
+    tr.innerHTML = `<td>${new Date(h.time).toLocaleString()}</td><td class="code"></td><td class="code"></td>
+      <td><span class="status ${h.status}">${h.status}</span></td>`;
+    tr.children[1].textContent = h.input;
+    tr.children[2].textContent = h.id.slice(0, 16) + "…";
+    tr.title = h.id;
+    tr.addEventListener("click", () => {
+      $("jobId").value = h.id; state.artifacts = []; $("artifacts").innerHTML = ""; hidePreview();
+      renderHistory(); renderCommands(); checkStatus();
+    });
+    tbody.appendChild(tr);
+  }
+}
+
+// ---- Command generation ----
+function configFileName() {
+  if (!state.cfgEdited && state.cfgName) return state.cfgName;
+  return "config.yml";
+}
+function sq(s) { return "'" + String(s).replace(/'/g, "'\\''") + "'"; }       // bash single quote
+function pq(s) { return "'" + String(s).replace(/'/g, "''") + "'"; }          // PowerShell single quote
+function commands() {
+  const base = baseUrl() || "http://SERVER:8000";
+  const id = $("jobId").value.trim() || "<JOB_ID>";
+  const input = state.inputFile ? state.inputFile.name : "<INPUT.csv>";
+  const cfg = configFileName();
+  const auth = $("token").value.trim() !== "";
+  const bash = state.shell === "bash";
+  const q = bash ? sq : pq;
+  const curl = bash ? "curl --fail-with-body" : "curl.exe --fail-with-body";
+  const h = auth ? (bash ? ' -H "Authorization: Bearer $MSLIPIDMAPPER_API_TOKEN"' : ' -H "Authorization: Bearer $env:MSLIPIDMAPPER_API_TOKEN"') : "";
+  const cont = bash ? " \\\n  " : " `\n  ";
+  const list = [
+    { key: "health", title: "Check connection", cmd: `${curl} ${q(base + "/healthz")}` },
+    { key: "submit", title: "Submit job", cmd: `${curl}${h}${cont}-F ${q("input=@" + input)}${cont}-F ${q("config=@" + cfg)}${cont}${q(base + "/v1/jobs")}` },
+    { key: "status", title: "Check status", cmd: `${curl}${h} ${q(base + "/v1/jobs/" + id)}` },
+    { key: "artifacts", title: "List results", cmd: `${curl}${h} ${q(base + "/v1/jobs/" + id + "/artifacts")}` }
+  ];
+  const names = state.artifacts.length ? state.artifacts.map((a) => a.name) : expectedArtifacts();
+  for (const n of names) {
+    list.push({ key: "download:" + n, title: "Download " + n,
+      cmd: `${curl}${h}${cont}${q(base + "/v1/jobs/" + id + "/artifacts/" + n)} -o ${q(n)}` });
+  }
+  return list;
+}
+function expectedArtifacts() {
+  const format = getPath(state.cfg, "output.format") || "pdf";
+  const pathways = ["remodeling", "ceramide", "global"];
+  const pdf = pathways.map((p) => p + ".pdf");
+  const json = pathways.map((p) => p + "-measurements.json");
+  return format === "jsonld" ? json : format === "both" ? pdf.concat(json) : pdf;
+}
+function renderCommands() {
+  const notes = [];
+  if (state.inputFile || state.cfgEdited) notes.push("Run these in the folder that contains your files.");
+  if (state.cfgEdited || !state.cfgName) notes.push(`Use "Save YAML" to save the edited settings as <b>${configFileName()}</b> so the command matches.`);
+  if ($("token").value.trim()) notes.push(`The token is read from the MSLIPIDMAPPER_API_TOKEN environment variable.`);
+  $("cmdNote").innerHTML = notes.join(" ");
+  const box = $("commands");
+  box.innerHTML = "";
+  for (const c of commands()) {
+    const block = document.createElement("div");
+    block.className = "cmd-block" + (state.hot === c.key ? " hot" : "");
+    block.innerHTML = `<div class="cmd-head"><b></b><button class="small">Copy</button></div><pre class="cmd"></pre>`;
+    block.querySelector("b").textContent = c.title;
+    block.querySelector("pre").textContent = c.cmd;
+    const btn = block.querySelector("button");
+    btn.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(c.cmd); btn.textContent = "Copied"; }
+      catch (e) {
+        const r = document.createRange(); r.selectNodeContents(block.querySelector("pre"));
+        const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected (Ctrl+C)";
+      }
+      setTimeout(() => (btn.textContent = "Copy"), 1500);
+    });
+    box.appendChild(block);
+  }
+}
+function setHot(key) { state.hot = key; renderCommands(); }
+
+// ---- File inputs ----
+function setupDrop(zone, input, onFile) {
+  zone.addEventListener("click", () => input.click());
+  zone.addEventListener("dragover", (e) => { e.preventDefault(); zone.classList.add("over"); });
+  zone.addEventListener("dragleave", () => zone.classList.remove("over"));
+  zone.addEventListener("drop", (e) => {
+    e.preventDefault(); zone.classList.remove("over");
+    if (e.dataTransfer.files.length) onFile(e.dataTransfer.files[0]);
+  });
+  input.addEventListener("change", () => { if (input.files.length) onFile(input.files[0]); input.value = ""; });
+}
+function setInputFile(file) {
+  const ext = file.name.split(".").pop().toLowerCase();
+  if (!["csv", "mztab"].includes(ext)) { alert("Choose a .csv or .mzTab input file."); return; }
+  state.inputFile = file;
+  const kind = ext === "csv" ? "MS-DIAL CSV" : "mzTab-M";
+  $("inputLabel").innerHTML = `<strong></strong><div class="muted">${kind} · ${(file.size / 1024 / 1024).toFixed(2)} MB · click to change</div>`;
+  $("inputLabel").querySelector("strong").textContent = file.name;
+  validate();
+  renderCommands();
+}
+
+// ---- Init ----
+function init() {
+  const defaultUrl = /^https?:$/.test(location.protocol) ? location.origin : "http://127.0.0.1:8000";
+  $("baseUrl").value = store.get("baseUrl", defaultUrl);
+  setupDrop($("inputDrop"), $("inputFile"), setInputFile);
+  $("btnLoadCfg").addEventListener("click", () => $("cfgFile").click());
+  $("cfgFile").addEventListener("change", async () => {
+    const f = $("cfgFile").files[0];
+    if (f) loadConfigText(await f.text(), f.name);
+    $("cfgFile").value = "";
+  });
+  $("yamlText").addEventListener("dragover", (e) => e.preventDefault());
+  $("yamlText").addEventListener("drop", async (e) => {
+    const f = e.dataTransfer.files[0];
+    if (f) { e.preventDefault(); loadConfigText(await f.text(), f.name); }
+  });
+  $("btnSample").addEventListener("click", () => loadConfigText(SAMPLE, null));
+  $("btnClearCfg").addEventListener("click", () => { loadConfigText("", null); $("cfgSource").textContent = "Empty settings (server defaults)"; });
+  $("btnSaveCfg").addEventListener("click", () => {
+    const text = $("yamlText").value.trim() === "" ? "{}\n" : $("yamlText").value;
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type: "text/yaml" }));
+    a.download = configFileName();
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  for (const b of $("shellTabs").querySelectorAll("button")) {
+    b.classList.toggle("active", b.dataset.shell === state.shell);
+    b.addEventListener("click", () => {
+      state.shell = b.dataset.shell; store.set("shell", state.shell);
+      for (const x of $("shellTabs").querySelectorAll("button")) x.classList.toggle("active", x === b);
+      renderCommands();
+    });
+  }
+  $("yamlText").addEventListener("input", onYamlInput);
+  $("baseUrl").addEventListener("change", () => { store.set("baseUrl", baseUrl()); renderCommands(); health(); });
+  $("token").addEventListener("input", renderCommands);
+  $("jobId").addEventListener("input", () => { state.artifacts = []; renderHistory(); renderCommands(); });
+  $("btnHealth").addEventListener("click", health);
+  $("btnSubmit").addEventListener("click", submitJob);
+  $("btnStatus").addEventListener("click", () => checkStatus(false));
+  $("btnArtifacts").addEventListener("click", () => listArtifacts(false));
+  $("autoPoll").addEventListener("change", () => { if (!$("autoPoll").checked) stopPoll(); });
+  $("btnClearHistory").addEventListener("click", () => { state.history = []; saveHistory(); });
+  $("btnClearLog").addEventListener("click", () => ($("log").innerHTML = ""));
+  loadConfigText(SAMPLE, null);
+  renderHistory();
+  health();
+}
+if (typeof jsyaml === "undefined") {
+  document.body.innerHTML = "<p style='padding:20px'>Could not load js-yaml. Open this page from the API server at <code>/</code>.</p>";
+} else {
+  init();
+}
+</script>
+</body>
+</html>

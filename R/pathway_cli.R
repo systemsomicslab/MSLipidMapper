@@ -125,6 +125,7 @@ render_pathway_from_config <- function(config, input_path = NULL, network_path =
   available_groups <- prepared$available_groups
   include_groups <- prepared$include_groups
   exclude_groups <- prepared$exclude_groups
+  ignored_exclude_groups <- prepared$ignored_exclude_groups
   features_before_acyl_filter <- prepared$features_before_acyl_filter
   features_after_acyl_filter <- prepared$features_after_acyl_filter
   selected_acyl_chains <- prepared$selected_acyl_chains
@@ -252,6 +253,7 @@ render_pathway_from_config <- function(config, input_path = NULL, network_path =
     total_nodes = as.list(total_nodes),
     groups = group_levels,
     excluded_groups = setdiff(available_groups, unique(groups)),
+    ignored_exclude_groups = ignored_exclude_groups,
     acyl_chain_filter = list(
       chains = selected_acyl_chains,
       match = selected_acyl_match,
