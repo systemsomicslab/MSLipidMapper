@@ -82,7 +82,7 @@ Open `http://SERVER_LAN_IP:8000/` in a browser for a GUI that talks to the API.
 It lets you choose the input file, load and edit the YAML parameters as text
 (with a preview of the server's validation rules), submit the job, follow its
 status, and preview or download the results (PDF and/or JSON-LD). The editor starts from a default
-mzTab-M configuration. For each action it also shows the equivalent `curl`
+mzTab-M configuration with `output.format: both` (PDF plus JSON-LD). For each action it also shows the equivalent `curl`
 command (bash or PowerShell) with the current URL, file names and job ID filled
 in. If you edit the parameters, use "Save YAML" so the saved `config.yml`
 matches the generated command.
