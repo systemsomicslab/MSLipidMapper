@@ -145,7 +145,7 @@
       "Lipidomics measurements mapped onto the", pathway, "lipid pathway.",
       "'lipids' holds the pathway's lipids with per-sample values aligned to samples.ids and per-group mean/sd/n;",
       "lipids with status not_measured appear in the pathway but not in the data.",
-      "'reactions' convert substrates into products and may list enzymes.",
+      "'reactions' convert substrates into products.",
       "Values are after the stated normalization and aggregation; null means missing."),
     pathway = pathway,
     dataset = dataset,

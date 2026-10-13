@@ -402,7 +402,7 @@ async function checkStatus(fromPoll) {
         r.measurements && r.measurements.pathways ? Object.entries(r.measurements.pathways).map(([k, v]) => `${k}: ${v.measured_nodes}`).join(", ") : "";
       const ignored = [].concat(r.ignored_exclude_groups || (r.measurements && r.measurements.ignored_exclude_groups) || []);
       showMsg("runMsg", "ok", "Analysis finished." + (counts ? ` Mapped nodes — ${counts}.` : "") +
-        (r.llm ? ` LLM summaries — ${Object.entries(r.llm).map(([k, v]) => `${k}: ${v.measured_lipids}/${v.lipids} lipids measured, ${v.reactions} reactions (${v.annotated_reactions} with enzymes)`).join("; ")}.` : "") +
+        (r.llm ? ` LLM summaries — ${Object.entries(r.llm).map(([k, v]) => `${k}: ${v.measured_lipids}/${v.lipids} lipids measured, ${v.reactions} reactions`).join("; ")}.` : "") +
         (ignored.length ? ` Ignored exclude_groups not present in the data: ${ignored.join(", ")}.` : ""));
       await listArtifacts(true);
     } else if (data.status === "failed") {

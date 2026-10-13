@@ -30,8 +30,12 @@ test_that("LLM summary is compact, aligned and annotates known reactions", {
   path <- tempfile(fileext = ".cyjs")
   jsonlite::write_json(net, path, auto_unbox = TRUE)
   out <- tempfile(fileext = ".json")
+  # A local table stands in for reaction metadata (the bundled one starts empty).
+  ann <- data.frame(substrate = "PC", product = "PS", enzyme = "test enzyme", genes = "GENE1",
+                    cosubstrates = "L-serine", coproducts = "", compartment = "", note = "")
   s <- .mslm_llm_summary(list(se = se, groups = c("A", "A", "B", "B")), path, "toy", out,
-                         include_subsets = TRUE, acyl_chains = c("18:1"), include_features = TRUE)
+                         include_subsets = TRUE, acyl_chains = c("18:1"), include_features = TRUE,
+                         annotations = ann)
   doc <- jsonlite::read_json(out)
   expect_identical(doc$format, "mslipidmapper-llm-summary/1")
   expect_identical(doc$pathway, "toy")
@@ -50,21 +54,20 @@ test_that("LLM summary is compact, aligned and annotates known reactions", {
   r <- doc$reactions[[1]]
   expect_equal(unlist(r$substrates), "PC")
   expect_equal(unlist(r$products), "PS")
-  # PC -> PS is in the bundled reaction annotation table.
-  expect_equal(unlist(r$enzymes[[1]]$genes), "PTDSS1")
+  expect_equal(unlist(r$enzymes[[1]]$genes), "GENE1")
   expect_equal(unlist(r$cosubstrates), "L-serine")
   expect_length(doc$features, 2L)
   # No URIs: the summary is meant to be read directly.
   expect_false(grepl("https?://", paste(readLines(out, warn = FALSE), collapse = "")))
 })
 
-test_that("bundled pathways yield annotated reactions", {
+test_that("bundled pathways yield reactions and no enzymes by default", {
   parsed <- lapply(.mslm_api_networks(), function(p) .mslm_network_reactions(jsonlite::fromJSON(p, simplifyVector = FALSE)))
   all <- unlist(lapply(parsed, `[[`, "reactions"), recursive = FALSE)
   expect_gt(length(all), 50L)
   ann <- .mslm_reaction_annotations()
-  hit <- vapply(all, function(r) !is.null(.mslm_annotate_reaction(r, ann)$enzymes), logical(1))
-  expect_true(any(hit))
+  expect_identical(nrow(ann), 0L)
+  expect_false(any(vapply(all, function(r) !is.null(.mslm_annotate_reaction(r, ann)$enzymes), logical(1))))
 })
 
 test_that("API accepts output format lists including llm", {

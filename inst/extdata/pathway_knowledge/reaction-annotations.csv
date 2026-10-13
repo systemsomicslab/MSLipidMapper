@@ -1,6 +1,1 @@
 substrate,product,enzyme,genes,cosubstrates,coproducts,compartment,note
-PC,PS,phosphatidylserine synthase 1,PTDSS1,L-serine,choline,endoplasmic reticulum membrane,
-PE,PS,phosphatidylserine synthase 2,PTDSS2,L-serine,ethanolamine,endoplasmic reticulum membrane,
-PS,PE,phosphatidylserine decarboxylase,PISD,,CO2,mitochondrial inner membrane,
-PE,PC,phosphatidylethanolamine N-methyltransferase,PEMT,S-adenosyl-L-methionine,S-adenosyl-L-homocysteine,endoplasmic reticulum membrane,three successive methylations via PMME and PDME
-Cer_NS,HexCer_NS,ceramide glucosyltransferase,UGCG,UDP-glucose,UDP,Golgi membrane,

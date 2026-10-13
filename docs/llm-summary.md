@@ -33,10 +33,7 @@ output:
     "PS": {"status": "not_measured"}
   },
   "reactions": [
-    {"id": "R7", "substrates": ["PC"], "products": ["PS"],
-     "enzymes": [{"name": "phosphatidylserine synthase 1", "genes": ["PTDSS1"],
-                  "compartment": "endoplasmic reticulum membrane"}],
-     "cosubstrates": ["L-serine"], "coproducts": ["choline"]}
+    {"id": "R1", "substrates": ["Acyl-CoA", "G3P"], "products": ["LPA"]}
   ],
   "other_measured_classes": ["..."],
   "features": [{"name": "PC 16:0_18:1", "class": "PC", "chains": ["16:0", "18:1"], "values": [10, 12, 20, 24]}]
@@ -62,10 +59,11 @@ Reactions are derived from the bundled pathway maps. Junction points in a map
 reaction, and chained junctions are merged; a direct edge between two entities
 is a single-step reaction. A conversion drawn more than once is listed once.
 
-Enzymes, co-substrates, co-products and compartments come from
-`inst/extdata/pathway_knowledge/reaction-annotations.csv`. A row annotates
-every reaction whose substrates include `substrate` and whose products include
-`product`, using the MS-DIAL class names shown on the maps. Multiple values in a
-cell are separated by `;`. Add rows to extend the annotations; no code change is
-needed. The initial rows cover the curated pilot reactions (PTDSS1, PTDSS2,
-PISD, PEMT and UGCG).
+Reactions currently carry no enzyme information. Reaction metadata can be
+added later in `inst/extdata/pathway_knowledge/reaction-annotations.csv`, which
+ships with only its header row. A row annotates every reaction whose substrates
+include `substrate` and whose products include `product`, using the MS-DIAL
+class names shown on the maps, and adds `enzymes` (name, genes, compartment),
+`cosubstrates`, `coproducts` and `notes` to it. Multiple values in a cell are
+separated by `;`. Because matching uses class names only, check that each row
+fits the meaning of the arrows in every map it matches.

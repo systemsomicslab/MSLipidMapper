@@ -176,7 +176,6 @@ def main():
         listing = request(llm["artifacts_url"])
         assert {a["name"] for a in listing["artifacts"]} == {
             "remodeling-llm-summary.json", "ceramide-llm-summary.json", "global-llm-summary.json"}, listing
-        annotated = 0
         for artifact in listing["artifacts"]:
             summary = request(artifact["url"])  # served as application/json, parsed by request()
             pathway = artifact["name"].split("-")[0]
@@ -184,8 +183,7 @@ def main():
             assert "features" not in summary and llm["result"]["llm"][pathway]["reactions"] == len(summary["reactions"])
             for lipid in summary["lipids"].values():
                 assert "status" in lipid or len(lipid["values"]) == len(summary["samples"]["ids"])
-            annotated += sum("enzymes" in r for r in summary["reactions"])
-        assert annotated > 0
+            assert summary["reactions"] and not any("enzymes" in r for r in summary["reactions"])
         print("PASS: per-pathway LLM summaries with reaction nodes", flush=True)
         return
     csv = submit("Lipid_AlignmentTable.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
