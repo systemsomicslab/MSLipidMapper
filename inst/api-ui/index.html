@@ -175,7 +175,7 @@ const ALLOWED = {
   analysis: ["normalization", "aggregation", "group_column", "include_groups", "exclude_groups", "acyl_chain_filter", "y_axis_label"],
   pathway: ["timeout_seconds", "plot_type"],
   plot: ["type", "x_order", "font_size", "strip_font_size", "p_label_font_size", "y_axis_label", "svg_width", "svg_height", "palette", "dot", "box", "violin"],
-  output: ["directory", "pdf", "paper_size", "orientation", "palette", "format"],
+  output: ["directory", "pdf", "paper_size", "orientation", "palette", "format", "llm_features"],
   measurements: ["include_subsets", "acyl_chains", "unit"]
 };
 const IGNORED = ["input.lipidomics", "input.file", "input.mztab", "output.directory", "output.pdf"];
@@ -205,7 +205,7 @@ plot:
     median_color: "#222222"
 
 output:
-  format: both
+  format: [pdf, jsonld, llm]
   paper_size: A4
   orientation: landscape
 `;
@@ -272,9 +272,15 @@ function validate() {
   bound("plot.svg_width", 0.5, 20);
   bound("plot.svg_height", 0.5, 20);
   const outFormat = getPath(cfg, "output.format");
-  if (outFormat !== undefined && !["pdf", "jsonld", "both"].includes(outFormat)) {
-    errs.push("output.format must be pdf, jsonld or both");
+  if (outFormat !== undefined) {
+    const list = [].concat(outFormat);
+    const known = list.every((f) => ["pdf", "jsonld", "llm", "both"].includes(f));
+    if (!list.length || !known || new Set(list).size !== list.length || (list.length > 1 && list.includes("both"))) {
+      errs.push("output.format must be pdf, jsonld, llm, both, or a list such as [pdf, jsonld, llm]");
+    }
   }
+  const llmFeatures = getPath(cfg, "output.llm_features");
+  if (llmFeatures !== undefined && typeof llmFeatures !== "boolean") errs.push("output.llm_features must be true or false");
   const subsets = getPath(cfg, "measurements.include_subsets");
   if (subsets !== undefined && typeof subsets !== "boolean") errs.push("measurements.include_subsets must be true or false");
   const chains = getPath(cfg, "measurements.acyl_chains");
@@ -395,6 +401,7 @@ async function checkStatus(fromPoll) {
         r.measurements && r.measurements.pathways ? Object.entries(r.measurements.pathways).map(([k, v]) => `${k}: ${v.measured_nodes}`).join(", ") : "";
       const ignored = [].concat(r.ignored_exclude_groups || (r.measurements && r.measurements.ignored_exclude_groups) || []);
       showMsg("runMsg", "ok", "Analysis finished." + (counts ? ` Mapped nodes — ${counts}.` : "") +
+        (r.llm ? ` LLM summary — ${r.llm.lipids} lipids, ${r.llm.reactions} reactions (${r.llm.annotated_reactions} with enzymes).` : "") +
         (ignored.length ? ` Ignored exclude_groups not present in the data: ${ignored.join(", ")}.` : ""));
       await listArtifacts(true);
     } else if (data.status === "failed") {
@@ -447,8 +454,13 @@ async function fetchArtifact(a, mode) {
   try {
     const { res, data } = await api("GET", a.url);
     if (!res.ok) return showMsg("runMsg", "err", `Download failed (${res.status})`);
-    // JSON-LD is shown as text; the browser would otherwise download it.
-    const shown = mode === "preview" && a.name.endsWith(".json") ? new Blob([data], { type: "text/plain" }) : data;
+    // JSON is shown as indented text; the browser would otherwise download it.
+    let shown = data;
+    if (mode === "preview" && a.name.endsWith(".json")) {
+      let text = await data.text();
+      try { text = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
+      shown = new Blob([text], { type: "text/plain; charset=utf-8" });
+    }
     const url = URL.createObjectURL(shown);
     if (mode === "preview") {
       const frame = $("preview");
@@ -522,11 +534,13 @@ function commands() {
   return list;
 }
 function expectedArtifacts() {
-  const format = getPath(state.cfg, "output.format") || "pdf";
+  const formats = [].concat(getPath(state.cfg, "output.format") || "pdf").flatMap((f) => (f === "both" ? ["pdf", "jsonld"] : [f]));
   const pathways = ["remodeling", "ceramide", "global"];
-  const pdf = pathways.map((p) => p + ".pdf");
-  const json = pathways.map((p) => p + "-measurements.json");
-  return format === "jsonld" ? json : format === "both" ? pdf.concat(json) : pdf;
+  const names = [];
+  if (formats.includes("pdf")) names.push(...pathways.map((p) => p + ".pdf"));
+  if (formats.includes("jsonld")) names.push(...pathways.map((p) => p + "-measurements.json"));
+  if (formats.includes("llm")) names.push("llm-summary.json");
+  return names;
 }
 function renderCommands() {
   const notes = [];

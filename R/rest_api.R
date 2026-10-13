@@ -48,7 +48,7 @@
     pathway = c("timeout_seconds", "plot_type"),
     plot = c("type", "x_order", "font_size", "strip_font_size", "p_label_font_size",
              "y_axis_label", "svg_width", "svg_height", "palette", "dot", "box", "violin"),
-    output = c("directory", "pdf", "paper_size", "orientation", "palette", "format"),
+    output = c("directory", "pdf", "paper_size", "orientation", "palette", "format", "llm_features"),
     measurements = c("include_subsets", "acyl_chains", "unit")
   )
   if (length(setdiff(names(cfg), names(allowed)))) bad("Unknown config section.")
@@ -74,9 +74,14 @@
   cfg$input[c("lipidomics", "file", "mztab")] <- NULL
   cfg$output[c("directory", "pdf")] <- NULL
   cfg$output$format <- cfg$output$format %||% "pdf"
-  if (!is.character(cfg$output$format) || length(cfg$output$format) != 1L ||
-      is.na(cfg$output$format) || !cfg$output$format %in% c("pdf", "jsonld", "both")) {
-    bad("output.format must be pdf, jsonld or both.")
+  fmt <- cfg$output$format
+  if (!is.character(fmt) || !length(fmt) || anyNA(fmt) || anyDuplicated(fmt) ||
+      !all(fmt %in% c("pdf", "jsonld", "llm", "both")) || (length(fmt) > 1L && "both" %in% fmt)) {
+    bad("output.format must be pdf, jsonld, llm, both, or a list such as [pdf, jsonld, llm].")
+  }
+  if (!is.null(cfg$output$llm_features) && (!is.logical(cfg$output$llm_features) ||
+      length(cfg$output$llm_features) != 1L || is.na(cfg$output$llm_features))) {
+    bad("output.llm_features must be true or false.")
   }
   cfg$measurements$include_subsets <- cfg$measurements$include_subsets %||% FALSE
   enabled <- cfg$measurements$include_subsets
@@ -142,20 +147,41 @@
   request <- readRDS(file.path(dir, "request.rds"))
   config_path <- file.path(dir, "config.yml")
   cfg <- yaml::read_yaml(config_path)
-  format <- cfg$output$format %||% "pdf"
+  format <- .mslm_api_formats(cfg$output$format)
   input_path <- file.path(dir, request$input)
   artifact_dir <- file.path(dir, "artifacts")
   dir.create(artifact_dir, recursive = TRUE, showWarnings = FALSE)
   result <- list(artifacts = character())
-  if (format %in% c("pdf", "both")) {
+  if ("pdf" %in% format) {
     # Only server-generated paths and sanitized configuration reach the CLI.
     result <- render_pathway_from_config(config_path, input_path = input_path,
       output_path = artifact_dir)
   }
-  if (format %in% c("jsonld", "both")) {
-    exported <- .mslm_api_measurements(cfg, input_path, artifact_dir, basename(dir))
+  prepared <- if (any(c("jsonld", "llm") %in% format)) {
+    .mslm_prepare_pathway_data(cfg$input, cfg$analysis, cfg$input$format, input_path)
+  }
+  if ("jsonld" %in% format) {
+    exported <- .mslm_api_measurements(cfg, input_path, artifact_dir, basename(dir), prepared)
     result$artifacts <- c(result$artifacts, exported$artifacts)
     result$measurements <- exported$summary
+  }
+  if ("llm" %in% format) {
+    out <- file.path(artifact_dir, "llm-summary.json")
+    summary <- .mslm_llm_summary(prepared, .mslm_api_networks(), out,
+      dataset = list(id = basename(dir), input_format = cfg$input$format,
+        normalization = prepared$normalization, aggregation = cfg$analysis$aggregation %||% "sum",
+        unit = cfg$measurements$unit %||% "unspecified", group_column = prepared$group_col,
+        ignored_exclude_groups = as.list(prepared$ignored_exclude_groups)),
+      aggregate = cfg$analysis$aggregation %||% "sum",
+      include_subsets = isTRUE(cfg$measurements$include_subsets),
+      acyl_chains = cfg$measurements$acyl_chains %||% character(),
+      include_features = isTRUE(cfg$output$llm_features))
+    result$artifacts <- c(result$artifacts, out)
+    result$llm <- list(lipids = length(summary$lipids), reactions = length(summary$reactions),
+      annotated_reactions = sum(vapply(summary$reactions, function(r) !is.null(r$enzymes), logical(1))))
+  }
+  if (is.null(result$ignored_exclude_groups) && !is.null(prepared)) {
+    result$ignored_exclude_groups <- prepared$ignored_exclude_groups
   }
   result$artifacts <- basename(result$artifacts)
   result$pdf <- NULL
@@ -164,18 +190,29 @@
   invisible(NULL)
 }
 
-.mslm_api_measurements <- function(cfg, input_path, artifact_dir, dataset_id) {
-  prepared <- .mslm_prepare_pathway_data(cfg$input, cfg$analysis,
-    cfg$input$format, input_path)
-  example_dir <- .mslm_example_dir()
+# "both" is shorthand for PDF plus JSON-LD; lists select any combination.
+.mslm_api_formats <- function(format) {
+  format <- format %||% "pdf"
+  unique(unlist(lapply(format, function(f) if (identical(f, "both")) c("pdf", "jsonld") else f)))
+}
+
+.mslm_api_networks <- function() {
   networks <- c(remodeling = "remodeling_lipidonly.cyjs",
     ceramide = "ceramidepathway_lipidonly.cyjs", global = "global.cyjs")
+  stats::setNames(file.path(.mslm_example_dir(), networks), names(networks))
+}
+
+.mslm_api_measurements <- function(cfg, input_path, artifact_dir, dataset_id, prepared = NULL) {
+  if (is.null(prepared)) {
+    prepared <- .mslm_prepare_pathway_data(cfg$input, cfg$analysis, cfg$input$format, input_path)
+  }
+  networks <- .mslm_api_networks()
   enabled <- isTRUE(cfg$measurements$include_subsets)
   chains <- if (enabled) cfg$measurements$acyl_chains else character()
   outputs <- file.path(artifact_dir, paste0(names(networks), "-measurements.json"))
   summaries <- list()
   for (i in seq_along(networks)) {
-    out <- mztab_pathway_measurements(prepared$se, file.path(example_dir, networks[i]),
+    out <- mztab_pathway_measurements(prepared$se, networks[[i]],
       output_file = outputs[i], group_col = prepared$group_col,
       acyl_chains = chains, aggregate = cfg$analysis$aggregation %||% "sum",
       dataset_id = paste0(dataset_id, "-", names(networks)[i]),
@@ -380,7 +417,8 @@
       .mslm_api_abort(404L, "Artifact not found.")
     }
     path <- file.path(a$dir, "artifacts", name)
-    res$setHeader("Content-Type", if (endsWith(name, ".json")) "application/ld+json" else "application/pdf")
+    res$setHeader("Content-Type", if (endsWith(name, "-measurements.json")) "application/ld+json" else
+      if (endsWith(name, ".json")) "application/json" else "application/pdf")
     res$setHeader("Content-Disposition", paste0('attachment; filename="', name, '"'))
     res$setHeader("Cache-Control", "no-store")
     res$body <- readBin(path, "raw", n = file.info(path)$size)

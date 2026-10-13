@@ -171,6 +171,15 @@ def main():
                 (output / f"{label}-{artifact['name']}").write_bytes(payload)
             request(status["artifacts_url"] + "/worker.log", expected=404)
         print("PASS: CSV/mzTab-M JSON-LD jobs, disabled/selected/automatic subsets and 12 downloads", flush=True)
+        llm = wait(submit("alignment.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
+                          b"output:\n  format: [llm]\n"), "succeeded")
+        listing = request(llm["artifacts_url"])
+        assert [a["name"] for a in listing["artifacts"]] == ["llm-summary.json"], listing
+        summary = request(listing["artifacts"][0]["url"])  # served as application/json, parsed by request()
+        assert summary["format"] == "mslipidmapper-llm-summary/1" and "features" not in summary
+        assert summary["lipids"]["PC"]["values"] and len(summary["lipids"]["PC"]["values"]) == len(summary["samples"]["ids"])
+        assert any("enzymes" in r for r in summary["reactions"]) and llm["result"]["llm"]["reactions"] == len(summary["reactions"])
+        print("PASS: LLM summary job with reaction nodes", flush=True)
         return
     csv = submit("Lipid_AlignmentTable.csv", (examples / "Lipid_AlignmentTable.csv").read_bytes(),
                  (examples / "pathway-api.yml").read_bytes())

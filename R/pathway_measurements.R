@@ -69,32 +69,14 @@ mztab_pathway_measurements <- function(
   subclasses[is.na(subclasses) | !nzchar(subclasses)] <- "Unknown"
   lipid_names <- if (name_col %in% names(rd)) as.character(rd[[name_col]]) else feature_ids
   mat[!is.finite(mat)] <- NA_real_
-  chains <- rep(list(character()), nrow(mat))
   auto_chains <- is.null(acyl_chains)
   acyl_chains <- unique(trimws(as.character(acyl_chains)))
   acyl_chains <- acyl_chains[!is.na(acyl_chains) & nzchar(acyl_chains)]
-  # Use the established parser; do not guess chains from sum-composition names.
-  if ("acyl_chains" %in% names(rd) && is.list(rd$acyl_chains)) {
-    chains <- lapply(rd$acyl_chains, function(z) unique(as.character(z[!is.na(z)])))
-  } else if (exists("extract_acyl_chains_from_name", mode = "function")) {
-    if (is.null(rules_file)) rules_file <- .mslm_rules_yaml_path()
-    if (!is.null(rules_file) && file.exists(rules_file)) {
-      rules <- load_lipid_rules(rules_file)
-      # The parser returns a vector for one name and a list for several names.
-      chains <- lapply(lipid_names, function(nm) extract_acyl_chains_from_name(nm, rules))
-      # Some existing phospholipid rules accept sum-only names. Such a token
-      # does not identify an individual chain in a multi-chain lipid.
-      sum_classes <- c("PC", "PE", "PS", "PG", "PI", "PA", "DG", "TG", "CL",
-        "BMP", "HBMP", "MLCL", "DLCL", "MGDG", "DGDG", "SQDG", "DGTS", "DGCC")
-      for (j in seq_along(chains)) {
-        nm <- lipid_names[j]
-        if (!is.na(nm) && subclasses[j] %in% sum_classes &&
-            grepl("^[A-Za-z0-9-]+[ (]+(?:O-|P-)?[0-9]+:[0-9]+(?:;O[0-9]*)?\\)?$", nm, perl = TRUE)) {
-          chains[[j]] <- character()
-        }
-      }
-    } else if (length(acyl_chains) || auto_chains) stop("Chain parsing rules not found.", call. = FALSE)
-  } else if (length(acyl_chains) || auto_chains) stop("Chain parser not available.", call. = FALSE)
+  chains <- .mslm_feature_chains(rd, lipid_names, subclasses, rules_file)
+  if (is.null(chains)) {
+    if (length(acyl_chains) || auto_chains) stop("Chain parsing rules not found.", call. = FALSE)
+    chains <- rep(list(character()), nrow(mat))
+  }
   if (auto_chains) acyl_chains <- sort(unique(unlist(chains, use.names = FALSE)))
   obj <- if (is.character(network) && length(network) == 1L) {
     jsonlite::fromJSON(network, simplifyVector = FALSE)
@@ -311,4 +293,30 @@ mztab_pathway_measurements <- function(
     value = list("@id" = paste0(vocab, "value"), "@type" = "xsd:double"),
     validFeatureCount = list("@id" = paste0(vocab, "validFeatureCount"), "@type" = "xsd:integer")),
     "@graph" = graph)
+}
+
+# Acyl chains per feature: existing annotations first, otherwise the rule-based
+# parser. Returns NULL when no parser or rules file is available.
+.mslm_feature_chains <- function(rd, lipid_names, subclasses, rules_file = NULL) {
+  if ("acyl_chains" %in% names(rd) && is.list(rd$acyl_chains)) {
+    return(lapply(rd$acyl_chains, function(z) unique(as.character(z[!is.na(z)]))))
+  }
+  if (!exists("extract_acyl_chains_from_name", mode = "function")) return(NULL)
+  if (is.null(rules_file)) rules_file <- .mslm_rules_yaml_path()
+  if (is.null(rules_file) || !file.exists(rules_file)) return(NULL)
+  rules <- load_lipid_rules(rules_file)
+  # The parser returns a vector for one name and a list for several names.
+  chains <- lapply(lipid_names, function(nm) extract_acyl_chains_from_name(nm, rules))
+  # Some existing phospholipid rules accept sum-only names. Such a token
+  # does not identify an individual chain in a multi-chain lipid.
+  sum_classes <- c("PC", "PE", "PS", "PG", "PI", "PA", "DG", "TG", "CL",
+    "BMP", "HBMP", "MLCL", "DLCL", "MGDG", "DGDG", "SQDG", "DGTS", "DGCC")
+  for (j in seq_along(chains)) {
+    nm <- lipid_names[j]
+    if (!is.na(nm) && subclasses[j] %in% sum_classes &&
+        grepl("^[A-Za-z0-9-]+[ (]+(?:O-|P-)?[0-9]+:[0-9]+(?:;O[0-9]*)?\\)?$", nm, perl = TRUE)) {
+      chains[[j]] <- character()
+    }
+  }
+  chains
 }
