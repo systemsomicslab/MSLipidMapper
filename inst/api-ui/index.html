@@ -311,7 +311,7 @@ function authHeaders() {
   const t = $("token").value.trim();
   return t ? { Authorization: "Bearer " + t } : {};
 }
-async function api(method, path, body) {
+async function api(method, path, body, raw = false) {
   const url = baseUrl() + path;
   const started = performance.now();
   let res, data;
@@ -322,7 +322,8 @@ async function api(method, path, body) {
     throw e;
   }
   const type = res.headers.get("content-type") || "";
-  data = type.includes("application/json") ? await res.json() : await res.blob();
+  // Result files are always handled as raw bytes, even when they are JSON.
+  data = type.includes("application/json") && !(raw && res.ok) ? await res.json() : await res.blob();
   log(method, path, res.status, data instanceof Blob ? `${type} (${data.size} bytes)` : JSON.stringify(data, null, 2),
       Math.round(performance.now() - started));
   return { res, data };
@@ -452,7 +453,7 @@ function renderArtifacts() {
 async function fetchArtifact(a, mode) {
   setHot("download:" + a.name);
   try {
-    const { res, data } = await api("GET", a.url);
+    const { res, data } = await api("GET", a.url, undefined, true);
     if (!res.ok) return showMsg("runMsg", "err", `Download failed (${res.status})`);
     // JSON is shown as indented text; the browser would otherwise download it.
     let shown = data;
