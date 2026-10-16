@@ -357,7 +357,7 @@ mod_upload_ui <- function(id) {
           ),
           shiny::tags$div(
             style = "margin-top:12px;text-align:right;color:#6b7280;font-size:12px;",
-            "Ver. 1.20260818"
+            "Ver. 1.20261016"
           )
         ),
 

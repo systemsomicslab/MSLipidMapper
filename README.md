@@ -13,6 +13,22 @@ Cytoscape.js-based pathway visualization.
 MSLipidMapper accepts processed abundance tables. It does not process raw mass
 spectrometry files.
 
+The bundled pathway database also has a standalone browser:
+
+```r
+MSLipidMapper::run_pathway_database_app()
+```
+
+Select an organism and release or draft, search lipid classes, LIPID MAPS
+classification codes and reaction IDs, inspect participants and sources, and
+download CSV results or dataset RDF. It runs locally without measurement uploads
+or external services. Draft candidates are explicitly marked as unreviewed.
+
+The mouse source catalog currently contains 2,950 reactions and 118 biochemical
+class nodes linked to 116 LIPID MAPS classification codes (Rhea/UniProt 2026_03).
+Reactions with incomplete class mapping remain searchable. See the
+[coverage definition and rebuild workflow](docs/lipid-reaction-catalog.md).
+
 ## Main features
 
 - Import an MS-DIAL Alignment Table CSV
@@ -71,6 +87,17 @@ cd MSLipidMapper
 docker build -t mslipidmapper .
 docker run --rm -p 3838:3838 -p 7310:7310 mslipidmapper
 ```
+
+The Docker build prefers precompiled packages from the container repository
+matching the Bioconductor base image. These versions can be older than current
+CRAN releases; packages already supplied by the base image are retained. Dependencies
+unavailable as container binaries use the base image's regular repositories as a
+fallback (which may also supply binaries). Downloads
+and package installation use four workers by default; adjust this for the Docker
+CPU and memory limits with `--build-arg MSLIPIDMAPPER_BUILD_CPUS=2` (or `=8`).
+Installed runtime dependency versions are recorded in
+`/srv/app/docker-dependency-versions.csv` inside the image. Dependency installation
+also verifies that every required analysis and plotting package can be loaded.
 
 Open:
 
@@ -223,6 +250,11 @@ sphingoid bases are not treated as acyl chains.
 
 ## Pathway structure with sample-level measurements
 
+Prebuilt organism-specific class pathway datasets are also available for human,
+mouse, rat, yeast and E. coli. This initial glycerophospholipid pilot supports
+local search and `organism_pathway_measurements()` JSON-LD export without cyjs.
+See [organism dataset coverage, usage and update workflow](docs/organism-pathway-datasets.md).
+
 `mztab_pathway_measurements()` reads an existing cyjs pathway and exports RDF as
 JSON-LD with sample metadata, molecular abundances and whole-subclass/acyl-subset
 measurements. Display attributes are excluded; no FC or p-values are computed.
@@ -240,6 +272,18 @@ list.files(example_dir, recursive = TRUE)
 
 Bundled examples include MS-DIAL-style lipidomics data, sample metadata,
 Cytoscape networks, a pathway CLI configuration, and example pathway PDFs.
+
+## Reactome pathway catalog
+
+The standalone pathway database browser also includes a mouse Reactome release 97
+catalog (117 pathways, 711 source events), with inference flags and deterministic
+LIPID MAPS class projections. See [Reactome coverage and rebuild instructions](docs/reactome-pathway-catalog.md).
+To build datasets for other species, run `python scripts/reactome_pathways.py --taxon 9606 10116`.
+See [species selection, offline builds and update commands](docs/reactome-multispecies-command.md).
+Mouse Rhea and Reactome catalogs can also be searched together using the
+[source-preserving integrated catalog](docs/integrated-pathway-catalog.md).
+Select organism-specific pathways and measured lipid classes with
+[mapping views and filtered RDF exports](docs/pathway-mapping-views.md).
 
 ## License
 

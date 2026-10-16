@@ -13,3 +13,22 @@ tmp
 *.swp
 .api-validation
 mslipidmapper-jobs
+
+# Local tooling, session state and analysis outputs (not runtime assets).
+.knowledge-build-deps
+.Rhistory
+__pycache__
+**/__pycache__
+*.pyc
+/output
+/results
+/metabolic_state_output
+/normalized_none_20260901.rds
+/ceramide.pdf
+/data.csv
+
+# Collection snapshots are build inputs for the knowledge catalog. The browser
+# still reads annotations and participants to show draft protein evidence.
+inst/extdata/pathway_knowledge/snapshots/**
+!inst/extdata/pathway_knowledge/snapshots/**/annotations.json
+!inst/extdata/pathway_knowledge/snapshots/**/participants.json

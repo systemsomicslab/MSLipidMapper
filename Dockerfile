@@ -28,17 +28,15 @@ ENV MSLIPIDMAPPER_BROWSER=/usr/bin/google-chrome
 
 # ---- Dependency metadata copy (cache-friendly) ----
 WORKDIR /srv/app
-COPY DESCRIPTION NAMESPACE LICENSE README.md /srv/app/
+COPY DESCRIPTION /srv/app/
+COPY scripts/install_docker_dependencies.R /usr/local/bin/install_docker_dependencies.R
 
 # ---- R package deps install from DESCRIPTION ----
-# Install Bioconductor core packages explicitly first so local package install
-# does not fail when remotes misses BioC resolution inside the container.
-RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); \
-             install.packages(c('BiocManager', 'remotes')); \
-             options(repos = BiocManager::repositories()); \
-             BiocManager::install(c('S4Vectors', 'SummarizedExperiment', 'clusterProfiler', 'ComplexHeatmap', 'ropls', 'rgoslin'), ask = FALSE, update = FALSE); \
-             install.packages(c('UpSetR', 'patchwork', 'ggrepel', 'ggpmisc', 'ggprism', 'colourpicker'), repos = 'https://cloud.r-project.org'); \
-             remotes::install_deps('.', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never')"
+# Fetch matching container binaries in parallel; compile only unavailable ones.
+# Control package-level concurrency without multiplying compiler jobs per package.
+ARG MSLIPIDMAPPER_BUILD_CPUS=4
+RUN MSLIPIDMAPPER_BUILD_CPUS=${MSLIPIDMAPPER_BUILD_CPUS} \
+    Rscript /usr/local/bin/install_docker_dependencies.R
 
 # ---- App copy ----
 COPY . /srv/app
