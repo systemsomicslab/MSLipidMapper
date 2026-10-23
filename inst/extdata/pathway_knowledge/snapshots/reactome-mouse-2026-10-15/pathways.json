@@ -1,0 +1,1055 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482788",
+    "totalEntity": 40,
+    "totalEntityAndInteractors": 40,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482798",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482801",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482839",
+    "totalEntity": 40,
+    "totalEntityAndInteractors": 40,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482883",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482922",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1482925",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of CL",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483076",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483101",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483115",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPE",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483152",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483166",
+    "totalEntity": 65,
+    "totalEntityAndInteractors": 66,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483191",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483206",
+    "totalEntity": 207,
+    "totalEntityAndInteractors": 227,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483213",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483226",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483248",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483255",
+    "totalEntity": 104,
+    "totalEntityAndInteractors": 121,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1483257",
+    "totalEntity": 292,
+    "totalEntityAndInteractors": 323,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Mus musculus",
+    "stId": "R-MMU-159418",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-163560",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1655829",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1660499",
+    "totalEntity": 67,
+    "totalEntityAndInteractors": 78,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1660514",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 40,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1660516",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1660517",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1660661",
+    "totalEntity": 59,
+    "totalEntityAndInteractors": 60,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-1660662",
+    "totalEntity": 132,
+    "totalEntityAndInteractors": 136,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-191273",
+    "totalEntity": 83,
+    "totalEntityAndInteractors": 87,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Mus musculus",
+    "stId": "R-MMU-192105",
+    "totalEntity": 110,
+    "totalEntityAndInteractors": 120,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-193048",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-193144",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Mus musculus",
+    "stId": "R-MMU-193368",
+    "totalEntity": 79,
+    "totalEntityAndInteractors": 82,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Mus musculus",
+    "stId": "R-MMU-193775",
+    "totalEntity": 43,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Mus musculus",
+    "stId": "R-MMU-193807",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 41,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-193993",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-194002",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-194068",
+    "totalEntity": 121,
+    "totalEntityAndInteractors": 131,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Mus musculus",
+    "stId": "R-MMU-196071",
+    "totalEntity": 82,
+    "totalEntityAndInteractors": 85,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-196108",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-196791",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Mus musculus",
+    "stId": "R-MMU-200425",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2046104",
+    "totalEntity": 54,
+    "totalEntityAndInteractors": 56,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2046105",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2046106",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142670",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 5-eicosatetraenoic acids",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142688",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142691",
+    "totalEntity": 51,
+    "totalEntityAndInteractors": 54,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Hepoxilins (HX) and Trioxilins (TrX)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142696",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142700",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 12-eicosatetraenoic acid derivatives",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142712",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142753",
+    "totalEntity": 146,
+    "totalEntityAndInteractors": 150,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 15-eicosatetraenoic acid derivatives",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142770",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2142816",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-2162123",
+    "totalEntity": 43,
+    "totalEntityAndInteractors": 43,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Mus musculus",
+    "stId": "R-MMU-389599",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-389887",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Mus musculus",
+    "stId": "R-MMU-390247",
+    "totalEntity": 43,
+    "totalEntityAndInteractors": 43,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-390918",
+    "totalEntity": 87,
+    "totalEntityAndInteractors": 90,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Mus musculus",
+    "stId": "R-MMU-400206",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 34,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-428157",
+    "totalEntity": 206,
+    "totalEntityAndInteractors": 211,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Mus musculus",
+    "stId": "R-MMU-556833",
+    "totalEntity": 1231,
+    "totalEntityAndInteractors": 1292,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-6807047",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-6807062",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-6814848",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Propionyl-CoA catabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-71032",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-74182",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-75105",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 71,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-75109",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-75876",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77108",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77111",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77285",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77286",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77288",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77289",
+    "totalEntity": 102,
+    "totalEntityAndInteractors": 102,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77305",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77310",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77346",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77348",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77350",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Mus musculus",
+    "stId": "R-MMU-77352",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Mus musculus",
+    "stId": "R-MMU-8847453",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-8848584",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Mus musculus",
+    "stId": "R-MMU-8957322",
+    "totalEntity": 282,
+    "totalEntityAndInteractors": 302,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Mus musculus",
+    "stId": "R-MMU-8964572",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-8978868",
+    "totalEntity": 393,
+    "totalEntityAndInteractors": 403,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-8979227",
+    "totalEntity": 48,
+    "totalEntityAndInteractors": 48,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018676",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018677",
+    "totalEntity": 78,
+    "totalEntityAndInteractors": 78,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018678",
+    "totalEntity": 129,
+    "totalEntityAndInteractors": 129,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018679",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018681",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018682",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DPA-derived SPMs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018683",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9018896",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9020265",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9023661",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3 SPMs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9025094",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-6 SPMs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9025106",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived protectins and resolvins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9026286",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived maresins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9026290",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DHA-derived sulfido conjugates",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9026395",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived 13-series resolvins",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9026403",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin conjugates in tissue regeneration (MCTR)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9026762",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9026766",
+    "totalEntity": 4,
+    "totalEntityAndInteractors": 4,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin-like SPMs",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9027307",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9027604",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9640463",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9840309",
+    "totalEntity": 72,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9840310",
+    "totalEntity": 72,
+    "totalEntityAndInteractors": 75,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9845614",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9969896",
+    "totalEntity": 41,
+    "totalEntityAndInteractors": 41,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)",
+    "species": "Mus musculus",
+    "stId": "R-MMU-9969901",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  }
+]

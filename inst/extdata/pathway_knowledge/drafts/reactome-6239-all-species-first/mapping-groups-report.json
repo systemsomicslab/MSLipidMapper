@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 90,
+  "membership_counts": {
+    "ancestor": 1263,
+    "direct": 433
+  },
+  "pathway_count": 102,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Caenorhabditis elegans",
+  "source_files": {
+    "candidates.json": "1b06da4cc3de36f3436b94555a0d728bfa9ceca0c3b14f793716d9be1ee9e131",
+    "candidates.ttl": "2f4046726dc28b4ee4c5299325bf5497f00cb8ee6e5b4524e4af0dbbcb918570",
+    "pathway-membership.json": "1a0c3e58bccacf32b536bfc1e48fb7a3b70098eeb1d17a743e7fd0404d24feec",
+    "pathways.json": "e355e67d186b6f180c72ab93ac6c4c871b455493de55ec1592343433fad425dd",
+    "report.json": "2337bcabe46a9f548d1be4fab458e3741ea0e5441a4f9433ff62ce895bf6ecd0"
+  },
+  "source_reaction_count": 431,
+  "taxon_id": "6239"
+}

@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 88,
+  "membership_counts": {
+    "ancestor": 1223,
+    "direct": 428
+  },
+  "pathway_count": 96,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Drosophila melanogaster",
+  "source_files": {
+    "candidates.json": "1bb99c64896892ac7f183e64d53af7552df60a6cd97b51ad8a613fe81b752e25",
+    "candidates.ttl": "abfc40ee1c0f48943f1aaa27d2f722f9728c25b118d9810f86192798da231a9e",
+    "pathway-membership.json": "87a6e958a8a5376bd37a94bda30df2b50c2be6466d7af5e4da10d50e8810ab1e",
+    "pathways.json": "c4884ff919f24572b7b41eaabf9f4423559f6d607349960b0be7cf9159243808",
+    "report.json": "31bff2a55b53ab6cf0b864c1dce9d7e916e9863eac4f7194ad939d4d111320df"
+  },
+  "source_reaction_count": 425,
+  "taxon_id": "7227"
+}

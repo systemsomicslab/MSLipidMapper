@@ -1,0 +1,82 @@
+{
+  "counts": {
+    "classes": 5,
+    "reactions": 6
+  },
+  "dataset_series_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/id/1454d2d737e500fda90dd240766fb4ac6290da1155a7c78e36e7a067e0d0704a",
+  "dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/id/38ce8adfcdf40c98a55f9b1af06b5515dc3d9a71123c58977dd775b758908903",
+  "files": {
+    "classes.csv": "01ecbbd41dfab8b7b0fb12f09b8d4462554c82ab66e41e0199180dd30feab9e7",
+    "participants.csv": "6054946ece8efc0fe0012d27f193aa1e979745d4756a60524d79d9dae50d8388",
+    "pathways.jsonld": "53a82298d2f4a713d4b70d66547e3340fe2f4fd29c2eb58561b648ced99a3b88",
+    "pathways.nt": "5423e9af6319d763b61665d1628d5cb76446970bd8607bc352ddf8ea5d80adab",
+    "reactions.csv": "bdc9cc4556c7d0fbe5420dd7b02c3a136f9a5cb3ba8b0061534e9f5579fd7d2b",
+    "search.sqlite": "afefb325c0c663d82db653dd631bfa95a5efd16f4eebd19faeee7a1211832171"
+  },
+  "format": "mslipidmapper-organism-pathway/2",
+  "id_scheme": "mslm-sha256-v1",
+  "included_reactions": [
+    "pemt_stage_1",
+    "pemt_stage_2",
+    "pemt_stage_3",
+    "reaction_pc_to_ps",
+    "reaction_pe_to_ps",
+    "reaction_ps_to_pe"
+  ],
+  "input_sha256": {
+    "class-pathways.json": "416d5deda31536754c1c0c1a34930f9e965f61128a5905c8be00ff6f150a2150",
+    "id-registry.json": "22b0198b09b98b8cfd1a6b74cb2fa9b914f2729f856f19e0050b965c16711091",
+    "lipidmaps-class-mappings.json": "7ab9715f0d70f68d2730e8e3ed0cf8a397409d78f739c3dd89a2f9d1de80d456",
+    "mslm-organism-datasets.ttl": "29f12f61d3b195e7b9f27fa2abbe279ed79a74fc3d53eebc094fc8f0430ef3db",
+    "organisms.csv": "f9eb4a90f6c72e7f997ea01143f894fdd3c78c303deef340545d06de38ac4611",
+    "pathway_knowledge.py": "f9e9c061994cc52b20758f0af326960a7fefec8cba6bba9895ef67d5fa0c189d",
+    "pemt-stages.ttl": "35bf650e0b22ca6048bfa776b3aa104ea102ee5ae34b59ad6c6753c874d86f2a",
+    "phospholipid-pilot.ttl": "537abc6d22f026abe8f357a72a58f9214b5c144a9d523e2e4f07312c0e917beb",
+    "snapshot-manifest.json": "b44ada071e9984683f42eedd30db6ceb43b476a553a0dac0e899ed79c6f4499c",
+    "source-manifest.yml": "8d7678c6820c355a42bb013161b856a2d83b23203f444b596192f1501ce16fe8"
+  },
+  "release": "0.3.0",
+  "reviewed_only": "true",
+  "rules": {
+    "reaction_selection": "Only explicit curated class reactions and individual PEMT stages. The lumped PE-to-PC reaction is excluded.",
+    "species_inclusion": "Exact taxon and exact Rhea catalytic-activity annotation on a reviewed UniProt protein. Reviewed does not imply experimental confirmation.",
+    "unknown_direction": "Retain UnknownDirection; do not infer irreversibility from a traversal arrow.",
+    "unmeasured": "Class membership does not imply a measured value or zero."
+  },
+  "scientific_name": "Homo sapiens",
+  "scope": "Pilot: curated glycerophospholipid class conversions; not a complete lipid metabolism database",
+  "short_name": "human",
+  "snapshot": {
+    "license": "CC BY 4.0",
+    "pages": [
+      {
+        "count": 17,
+        "file": "uniprot-001.json",
+        "release": "2026_03",
+        "sha256": "74b350bc15d7bdc9004db9cfe76b400d5898b4b716a9b19c3346cf9b050dc7c1",
+        "url": "https://rest.uniprot.org/uniprotkb/search?query=reviewed%3Atrue+AND+%28organism_id%3A9606+OR+organism_id%3A10090+OR+organism_id%3A10116+OR+organism_id%3A559292+OR+organism_id%3A83333%29+AND+%28cc_catalytic_activity%3A%22RHEA%3A11164%22+OR+cc_catalytic_activity%3A%22RHEA%3A20828%22+OR+cc_catalytic_activity%3A%22RHEA%3A27606%22+OR+cc_catalytic_activity%3A%22RHEA%3A32735%22+OR+cc_catalytic_activity%3A%22RHEA%3A32739%22+OR+cc_catalytic_activity%3A%22RHEA%3A45088%22%29&format=json&size=500"
+      }
+    ],
+    "query": "reviewed:true AND (organism_id:9606 OR organism_id:10090 OR organism_id:10116 OR organism_id:559292 OR organism_id:83333) AND (cc_catalytic_activity:\"RHEA:11164\" OR cc_catalytic_activity:\"RHEA:20828\" OR cc_catalytic_activity:\"RHEA:27606\" OR cc_catalytic_activity:\"RHEA:32735\" OR cc_catalytic_activity:\"RHEA:32739\" OR cc_catalytic_activity:\"RHEA:45088\")",
+    "retrieved_at": "2026-10-15T01:44:34.499086+00:00",
+    "rhea_ids": [
+      "RHEA:11164",
+      "RHEA:20828",
+      "RHEA:27606",
+      "RHEA:32735",
+      "RHEA:32739",
+      "RHEA:45088"
+    ],
+    "source": "UniProtKB",
+    "taxa": [
+      "9606",
+      "10090",
+      "10116",
+      "559292",
+      "83333"
+    ]
+  },
+  "status": "available",
+  "taxon_id": "9606",
+  "unsupported_reactions": []
+}

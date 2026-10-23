@@ -1,0 +1,22 @@
+{
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "a4ac7fef8c8cbe79-KIX",
+    "Connection": "close",
+    "Content-Disposition": "inline; swaggerDownload=\"attachment\"; filename=\"9031.json\"",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Date": "Thu, 15 Oct 2026 05:42:19 GMT",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ikqx2uIuvn5uxBtIsOhOmjKTy%2BCBKduDD0Hqch%2B4niMJzSTCdpBgXYoM20avYNh%2BrxSMI156uUd6IumoAQM3I1Mhh6dG0Zb5mCs5bEuTO2Mbi2BP%2Ffyb3nzWRwD%2BfVE%3D\"}]}",
+    "Server": "cloudflare",
+    "Transfer-Encoding": "chunked",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "retrieved_at": "2026-10-15T05:42:21.465009+00:00",
+  "sha256": "6d84aa4d9eed256a22e61ddd3f022746836e92e6e1451f75715798ab6cff98a9",
+  "stored_content_encoding": "identity",
+  "transport_content_encoding": "gzip",
+  "url": "https://reactome.org/ContentService/data/eventsHierarchy/9031?pathwaysOnly=false"
+}

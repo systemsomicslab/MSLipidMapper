@@ -1,0 +1,1 @@
+PREFIX o: <http://www.geneontology.org/formats/oboInOwl#> SELECT ?s ?x WHERE { GRAPH <http://sparql.rhea-db.org/chebi> {?s o:hasDbXref ?x . FILTER(CONTAINS(LCASE(STR(?x)),"lipid"))} } LIMIT 20

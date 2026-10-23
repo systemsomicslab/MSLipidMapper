@@ -1,0 +1,26 @@
+{
+  "headers": {
+    "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, X-Release, queryid",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Expose-Headers": "X-Total-Results, X-Release, queryid, content-type, user-agent, cache-control, etag, range",
+    "Cache-Control": "public",
+    "Connection": "close",
+    "Content-Disposition": "attachment; filename=\"sparql-6580B400AA766E6933BED6ED5194ECF8.srj\"",
+    "Content-Type": "application/sparql-results+json",
+    "Date": "Thu, 15 Oct 2026 03:17:10 GMT",
+    "ETag": "W/\"2026_03\"",
+    "Expires": "Fri, 16 Oct 2026 05:17:10 GMT",
+    "Server": "Apache",
+    "Strict-Transport-Security": "max-age=31536001; includeSubDomains",
+    "Transfer-Encoding": "chunked",
+    "Vary": "Negotiate,Accept,Accept-Encoding,Content-Type",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Powered-By": "sib.swiss",
+    "X-Release": "2026_03",
+    "queryid": "-404"
+  },
+  "retrieved_at": "2026-10-15T03:17:12.355983+00:00",
+  "sha256": "ca8b63b6fa5982f526ffda639b23a02f85e84f3a210b32108b3e1ff49df8d9b8",
+  "url": "https://sparql.rhea-db.org/sparql?query=PREFIX+rh%3A+%3Chttp%3A%2F%2Frdf.rhea-db.org%2F%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0ASELECT+DISTINCT+%3Fannotated+%3Freaction+%3Fequation+%3Fside+%3Fparticipant+%3Fcompound+%3Fname+%3Fchebi+%3Fcoefficient+%3Ftransport%0AWHERE+%7B%0A+VALUES+%3Fannotated+%7B+rh%3A48128+rh%3A48132+rh%3A48136+rh%3A48172+rh%3A48176+rh%3A48180+rh%3A48188+rh%3A48192+rh%3A48196+rh%3A48200+rh%3A48204+rh%3A48208+rh%3A48212+rh%3A48240+rh%3A48244+rh%3A48248+rh%3A48256+rh%3A48276+rh%3A48280+rh%3A48288+rh%3A48292+rh%3A48296+rh%3A48300+rh%3A48304+rh%3A48320+rh%3A48340+rh%3A48344+rh%3A48356+rh%3A48372+rh%3A48376+rh%3A48380+rh%3A48388+rh%3A48392+rh%3A48412+rh%3A48428+rh%3A48488+rh%3A48516+rh%3A48536+rh%3A48540+rh%3A48584+%7D%0A+GRAPH+%3Chttps%3A%2F%2Fsparql.rhea-db.org%2Frhea%3E+%7B%0A++%3Freaction+%28rh%3AdirectionalReaction%7Crh%3AbidirectionalReaction%29%3F+%3Fannotated+%3B%0A++++rdfs%3AsubClassOf+rh%3AReaction+%3B+rh%3Astatus+rh%3AApproved+%3B+rh%3Aequation+%3Fequation+%3B+rh%3Aside+%3Fside+.%0A++OPTIONAL+%7B+%3Freaction+rh%3AisTransport+%3Ftransport+%7D%0A++%3Fside+%3Fcontains+%3Fparticipant+.%0A++%3Fcontains+rdfs%3AsubPropertyOf+rh%3Acontains+%3B+rh%3Acoefficient+%3Fcoefficient+.%0A++%3Fparticipant+rh%3Acompound+%3Fcompound+.%0A++%3Fcompound+rh%3Aname+%3Fname+.%0A++OPTIONAL+%7B+%3Fcompound+%28rh%3Achebi%7Crh%3AunderlyingChebi%7Crh%3AreactivePart%2Frh%3Achebi%29+%3Fchebi+%7D%0A+%7D%0A%7D+ORDER+BY+%3Freaction+%3Fside+%3Fparticipant&format=json"
+}

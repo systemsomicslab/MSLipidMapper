@@ -1,0 +1,5696 @@
+{
+  "head" : {
+    "vars" : [
+      "reaction",
+      "equation",
+      "side",
+      "participant",
+      "compound",
+      "name",
+      "chebi",
+      "coefficient",
+      "transport",
+      "annotated"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_13279_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13279"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136634"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_13279_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13279"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136634"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86851_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86851"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "estrone 3-O-(beta-D-glucuronate)(in) + ATP + H2O = estrone 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_13283_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136641"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_13283_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136641"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86855_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86855"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "17beta-estradiol 3-O-(beta-D-glucuronate)(in) + ATP + H2O = 17beta-estradiol 3-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_13286_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13286"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136650"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_13286_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13286"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136650"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86863_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86863"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(in) + ATP + H2O = 16alpha,17beta-estriol 16-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_4479_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_4479"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_37257"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_4479_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_4479"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_37257"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86875_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86875"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "3,7,11,15-tetramethylhexadecanoate(in) + ATP + H2O = 3,7,11,15-tetramethylhexadecanoate(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86879_compound_1901"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z)-octadecenoyl-CoA = 1,2-di-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1901"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(9Z)-octadecenoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57387"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86879_compound_8678"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z)-octadecenoyl-CoA = 1,2-di-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8678"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_76071"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86879_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z)-octadecenoyl-CoA = 1,2-di-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86879_compound_8284"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86879"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z)-octadecenoyl-CoA = 1,2-di-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8284"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "1,2-di-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_74669"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86891_compound_5152"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-hexadecanoyl-sn-glycero-3-phosphocholine + hexadecanoyl-CoA = 1,2-dihexadecanoyl-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5152"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "hexadecanoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57379"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86891_compound_8679"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-hexadecanoyl-sn-glycero-3-phosphocholine + hexadecanoyl-CoA = 1,2-dihexadecanoyl-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8679"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "2-hexadecanoyl-sn-glycero-3-phosphocholine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_76078"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86891_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-hexadecanoyl-sn-glycero-3-phosphocholine + hexadecanoyl-CoA = 1,2-dihexadecanoyl-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86891_compound_7902"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86891"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-hexadecanoyl-sn-glycero-3-phosphocholine + hexadecanoyl-CoA = 1,2-dihexadecanoyl-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_7902"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "1,2-dihexadecanoyl-sn-glycero-3-phosphocholine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_72999"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86895_compound_1070"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z,12Z)-octadecadienoyl-CoA = 1-(9Z,12Z-octadecadienoyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1070"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(9Z,12Z)-octadecadienoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57383"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86895_compound_8678"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z,12Z)-octadecadienoyl-CoA = 1-(9Z,12Z-octadecadienoyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8678"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_76071"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86895_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z,12Z)-octadecadienoyl-CoA = 1-(9Z,12Z-octadecadienoyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86895_compound_20821"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86895"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + (9Z,12Z)-octadecadienoyl-CoA = 1-(9Z,12Z-octadecadienoyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine + CoA"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_20821"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "1-(9Z,12Z-octadecadienoyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphocholine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_89597"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86911_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside GM3 (d18:1(4E)) + H2O = N-acetyl-alpha-neuraminosyl-(2->3)-beta-D-galactosyl-(1->4)-D-glucose + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86911_compound_6186"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside GM3 (d18:1(4E)) + H2O = N-acetyl-alpha-neuraminosyl-(2->3)-beta-D-galactosyl-(1->4)-D-glucose + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6186"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "a ganglioside GM3 (d18:1(4E))"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_60065"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86911_compound_16644"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside GM3 (d18:1(4E)) + H2O = N-acetyl-alpha-neuraminosyl-(2->3)-beta-D-galactosyl-(1->4)-D-glucose + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_16644"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "N-acetyl-alpha-neuraminosyl-(2->3)-beta-D-galactosyl-(1->4)-D-glucose"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_156068"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86911_compound_5087"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86911"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside GM3 (d18:1(4E)) + H2O = N-acetyl-alpha-neuraminosyl-(2->3)-beta-D-galactosyl-(1->4)-D-glucose + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5087"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "an N-acylsphing-4-enine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_52639"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86919_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside Fuc-GM1 (d18:1(4E)) + H2O = alpha-Fuc-(1->2)-beta-Gal-(1->3)-beta-GalNAc-(1->4)-[alpha-Neu5Ac-(2->3)]-beta-Gal-(1->4)-Glc + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86919_compound_9792"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside Fuc-GM1 (d18:1(4E)) + H2O = alpha-Fuc-(1->2)-beta-Gal-(1->3)-beta-GalNAc-(1->4)-[alpha-Neu5Ac-(2->3)]-beta-Gal-(1->4)-Glc + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_9792"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "a ganglioside Fuc-GM1 (d18:1(4E))"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_78607"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86919_compound_16828"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside Fuc-GM1 (d18:1(4E)) + H2O = alpha-Fuc-(1->2)-beta-Gal-(1->3)-beta-GalNAc-(1->4)-[alpha-Neu5Ac-(2->3)]-beta-Gal-(1->4)-Glc + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_16828"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "alpha-Fuc-(1->2)-beta-Gal-(1->3)-beta-GalNAc-(1->4)-[alpha-Neu5Ac-(2->3)]-beta-Gal-(1->4)-Glc"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_156538"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86919_compound_5087"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86919"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "a ganglioside Fuc-GM1 (d18:1(4E)) + H2O = alpha-Fuc-(1->2)-beta-Gal-(1->3)-beta-GalNAc-(1->4)-[alpha-Neu5Ac-(2->3)]-beta-Gal-(1->4)-Glc + an N-acylsphing-4-enine"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5087"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "an N-acylsphing-4-enine"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_52639"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_13427_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13427"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136914"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_13427_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_13427"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_136914"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86927_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86927"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(in) + ATP + H2O = 5alpha-dihydrotestosterone 17-O-(beta-D-glucuronate)(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_3266_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3266"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "cortisol"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_17650"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_3266_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3266"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "cortisol"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_17650"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86979_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86979"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "cortisol(in) + ATP + H2O = cortisol(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_11625_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_11625"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "aldosterone"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_27584"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_11625_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_11625"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "aldosterone"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_27584"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_86983_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/86983"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "aldosterone(in) + ATP + H2O = aldosterone(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_1807_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1807"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57404"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_1807_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1807"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57404"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87119_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87119"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin F2alpha(in) + ATP + H2O = prostaglandin F2alpha(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_12169_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_12169"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "thromboxane B2"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_90696"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_12169_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_12169"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "thromboxane B2"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_90696"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87123_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87123"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "thromboxane B2(in) + ATP + H2O = thromboxane B2(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_12679_in"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_12679"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_133132"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_12679_out"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_12679"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_133132"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_2710"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2710"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ADP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456216"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87127_compound_5518"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87127"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "prostaglandin E3(in) + ATP + H2O = prostaglandin E3(out) + ADP + phosphate + H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "true"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5518"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "phosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_43474"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87183_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal + NAD(+) + H2O = (2E)-2-butenoate + NADH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87183_compound_18895"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal + NAD(+) + H2O = (2E)-2-butenoate + NADH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_18895"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_41607"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87183_compound_3484"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal + NAD(+) + H2O = (2E)-2-butenoate + NADH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3484"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "NAD(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57540"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87183_compound_11781"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal + NAD(+) + H2O = (2E)-2-butenoate + NADH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_11781"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(2E)-2-butenoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_35899"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87183_compound_1650"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal + NAD(+) + H2O = (2E)-2-butenoate + NADH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1650"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "NADH"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57945"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87183_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87183"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(2E)-but-2-enal + NAD(+) + H2O = (2E)-2-butenoate + NADH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "2"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87275"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87275_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87275_compound_2422"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87275"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(9Z,12Z)-octadecadienoate = (10E,12Z)-octadecadienoate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2422"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(9Z,12Z)-octadecadienoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30245"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87275"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87275_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87275_compound_18576"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87275"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(9Z,12Z)-octadecadienoate = (10E,12Z)-octadecadienoate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_18576"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(10E,12Z)-octadecadienoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_77200"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87335_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate + ATP + CoA = (6Z,9Z,12Z)-octadecatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87335_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate + ATP + CoA = (6Z,9Z,12Z)-octadecatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87335_compound_9364"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate + ATP + CoA = (6Z,9Z,12Z)-octadecatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_9364"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_32391"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87335_compound_2106"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate + ATP + CoA = (6Z,9Z,12Z)-octadecatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2106"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "diphosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_33019"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87335_compound_2590"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate + ATP + CoA = (6Z,9Z,12Z)-octadecatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2590"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "AMP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456215"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87335_compound_3541"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87335"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoate + ATP + CoA = (6Z,9Z,12Z)-octadecatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3541"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(6Z,9Z,12Z)-octadecatrienoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57363"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87339_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate + ATP + CoA = (4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87339_compound_12810"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate + ATP + CoA = (4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_12810"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_77226"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87339_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate + ATP + CoA = (4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87339_compound_2106"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate + ATP + CoA = (4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2106"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "diphosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_33019"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87339_compound_2590"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate + ATP + CoA = (4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2590"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "AMP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456215"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87339_compound_8778"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87339"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoate + ATP + CoA = (4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8778"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(4Z,7Z,10Z,13Z,16Z)-docosapentaenoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_76368"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87343_compound_12242"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate + ATP + CoA = (7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_12242"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_77224"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87343_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate + ATP + CoA = (7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87343_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate + ATP + CoA = (7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87343_compound_2106"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate + ATP + CoA = (7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2106"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "diphosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_33019"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87343_compound_2590"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate + ATP + CoA = (7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2590"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "AMP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456215"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87343_compound_8017"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87343"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoate + ATP + CoA = (7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8017"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_73870"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87347_compound_1264"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate + ATP + CoA = (8Z,11Z,14Z)-eicosatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1264"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57287"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87347_compound_6372"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate + ATP + CoA = (8Z,11Z,14Z)-eicosatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6372"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "ATP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_30616"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87347_compound_9360"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate + ATP + CoA = (8Z,11Z,14Z)-eicosatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_9360"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_71589"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87347_compound_2106"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate + ATP + CoA = (8Z,11Z,14Z)-eicosatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2106"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "diphosphate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_33019"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87347_compound_2590"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate + ATP + CoA = (8Z,11Z,14Z)-eicosatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_2590"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "AMP"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_456215"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87347_compound_8150"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87347"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoate + ATP + CoA = (8Z,11Z,14Z)-eicosatrienoyl-CoA + AMP + diphosphate"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8150"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(8Z,11Z,14Z)-eicosatrienoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_74264"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87351_compound_1198"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + O2 = (2E,7Z,10Z,13Z,16Z,19Z)-docosahexaenoyl-CoA + H2O2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1198"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "O2"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15379"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87351_compound_8017"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + O2 = (2E,7Z,10Z,13Z,16Z,19Z)-docosahexaenoyl-CoA + H2O2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8017"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_73870"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87351_compound_3075"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + O2 = (2E,7Z,10Z,13Z,16Z,19Z)-docosahexaenoyl-CoA + H2O2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3075"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O2"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_16240"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87351_compound_8844"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87351"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "(7Z,10Z,13Z,16Z,19Z)-docosapentaenoyl-CoA + O2 = (2E,7Z,10Z,13Z,16Z,19Z)-docosahexaenoyl-CoA + H2O2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_8844"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "(2E,7Z,10Z,13Z,16Z,19Z)-docosahexaenoyl-CoA"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_76461"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87475_compound_10827"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "decanal + NADP(+) + H2O = decanoate + NADPH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_10827"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "decanal"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_31457"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87475_compound_1283"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "decanal + NADP(+) + H2O = decanoate + NADPH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_1283"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H2O"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15377"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87475_compound_5188"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "decanal + NADP(+) + H2O = decanoate + NADPH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5188"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "NADP(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_58349"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87475_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "decanal + NADP(+) + H2O = decanoate + NADPH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "2"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87475_compound_3438"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "decanal + NADP(+) + H2O = decanoate + NADPH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3438"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "NADPH"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57783"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_87475_compound_6614"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/87475"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "decanal + NADP(+) + H2O = decanoate + NADPH + 2 H(+)"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_6614"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "decanoate"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_27689"
+        }
+      }
+    ]
+  }
+}

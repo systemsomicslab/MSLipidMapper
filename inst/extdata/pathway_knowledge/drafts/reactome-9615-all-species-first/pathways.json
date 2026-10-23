@@ -1,0 +1,1037 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482788",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482798",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482801",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482839",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482883",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482922",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1482925",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483101",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483115",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483166",
+    "totalEntity": 64,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483191",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483206",
+    "totalEntity": 198,
+    "totalEntityAndInteractors": 218,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483213",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483226",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483248",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483255",
+    "totalEntity": 103,
+    "totalEntityAndInteractors": 112,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1483257",
+    "totalEntity": 283,
+    "totalEntityAndInteractors": 306,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-159418",
+    "totalEntity": 37,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-163560",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1655829",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1660499",
+    "totalEntity": 64,
+    "totalEntityAndInteractors": 71,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1660514",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1660516",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1660517",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1660661",
+    "totalEntity": 59,
+    "totalEntityAndInteractors": 59,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-1660662",
+    "totalEntity": 123,
+    "totalEntityAndInteractors": 126,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-191273",
+    "totalEntity": 83,
+    "totalEntityAndInteractors": 87,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-192105",
+    "totalEntity": 99,
+    "totalEntityAndInteractors": 108,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-193048",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-193144",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-193368",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-193775",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-193807",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-193993",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-194002",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-194068",
+    "totalEntity": 109,
+    "totalEntityAndInteractors": 118,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-196071",
+    "totalEntity": 67,
+    "totalEntityAndInteractors": 70,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-196108",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-196791",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-200425",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2046104",
+    "totalEntity": 54,
+    "totalEntityAndInteractors": 56,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2046105",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2046106",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142670",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 5-eicosatetraenoic acids",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142688",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142691",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 34,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Hepoxilins (HX) and Trioxilins (TrX)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142696",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142700",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 12-eicosatetraenoic acid derivatives",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142712",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142753",
+    "totalEntity": 119,
+    "totalEntityAndInteractors": 120,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 15-eicosatetraenoic acid derivatives",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142770",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2142816",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-2162123",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 34,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-389599",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-389887",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-390247",
+    "totalEntity": 42,
+    "totalEntityAndInteractors": 42,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-390918",
+    "totalEntity": 86,
+    "totalEntityAndInteractors": 89,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-400206",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-428157",
+    "totalEntity": 197,
+    "totalEntityAndInteractors": 200,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-556833",
+    "totalEntity": 1148,
+    "totalEntityAndInteractors": 1177,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-6807047",
+    "totalEntity": 35,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-6807062",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-6814848",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Propionyl-CoA catabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-71032",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-74182",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-75105",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 70,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-75109",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-75876",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 45,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77108",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77111",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77285",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77286",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77288",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77289",
+    "totalEntity": 95,
+    "totalEntityAndInteractors": 95,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77305",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77310",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77346",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77348",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77350",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-77352",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-8847453",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-8848584",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-8957322",
+    "totalEntity": 249,
+    "totalEntityAndInteractors": 259,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-8964572",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-8978868",
+    "totalEntity": 358,
+    "totalEntityAndInteractors": 361,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-8979227",
+    "totalEntity": 50,
+    "totalEntityAndInteractors": 50,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018676",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018677",
+    "totalEntity": 69,
+    "totalEntityAndInteractors": 69,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018678",
+    "totalEntity": 113,
+    "totalEntityAndInteractors": 113,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018679",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018681",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018682",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DPA-derived SPMs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018683",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9018896",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9020265",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9023661",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3 SPMs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9025094",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-6 SPMs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9025106",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived protectins and resolvins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9026286",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived maresins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9026290",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DHA-derived sulfido conjugates",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9026395",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived 13-series resolvins",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9026403",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin conjugates in tissue regeneration (MCTR)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9026762",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9026766",
+    "totalEntity": 4,
+    "totalEntityAndInteractors": 4,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin-like SPMs",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9027307",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9027604",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9640463",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9840309",
+    "totalEntity": 64,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9840310",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 72,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9845614",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9969896",
+    "totalEntity": 40,
+    "totalEntityAndInteractors": 40,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)",
+    "species": "Canis familiaris",
+    "stId": "R-CFA-9969901",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  }
+]

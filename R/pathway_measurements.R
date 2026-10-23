@@ -19,6 +19,9 @@
 #' @param normalization Description of upstream normalization, default unknown.
 #' @param unit Abundance unit, default unspecified.
 #' @param rules_file Optional chain-parser rules file.
+#' @param lipidmaps_mapping Optional table with label and lipidmaps_class_id
+#'   columns. Defaults to bundled MS-DIAL class mappings; organism views use
+#'   their selected dataset. Ambiguous classifications remain unmapped.
 #' @return List with document (JSON-LD), node_mapping, acyl_coverage and se.
 #' @export
 mztab_pathway_measurements <- function(
@@ -28,7 +31,7 @@ mztab_pathway_measurements <- function(
     aggregate = c("sum", "mean", "median"),
     exclude_sample_classes = character(), node_subclasses = NULL,
     dataset_id = NULL, normalization = "unknown", unit = "unspecified",
-    rules_file = NULL
+    rules_file = NULL, lipidmaps_mapping = NULL
 ) {
   aggregate <- match.arg(aggregate)
   input_path <- NULL
@@ -46,12 +49,6 @@ mztab_pathway_measurements <- function(
   rd <- as.data.frame(SummarizedExperiment::rowData(se), optional = TRUE)
   cd <- as.data.frame(SummarizedExperiment::colData(se), optional = TRUE)
   if (!group_col %in% names(cd)) stop("group_col not found: ", group_col, call. = FALSE)
-  if (!subclass_col %in% names(rd)) {
-    hits <- c("Ontology", "opt_global_Ontology")
-    hits <- hits[hits %in% names(rd)]
-    if (!length(hits)) stop("No lipid subclass column found.", call. = FALSE)
-    subclass_col <- hits[1]
-  }
   groups <- trimws(as.character(cd[[group_col]]))
   keep <- !(groups %in% exclude_sample_classes)
   mat <- mat[, keep, drop = FALSE]; cd <- cd[keep, , drop = FALSE]; groups <- groups[keep]
@@ -65,8 +62,7 @@ mztab_pathway_measurements <- function(
   if (anyNA(feature_ids) || any(!nzchar(feature_ids)) || anyDuplicated(feature_ids)) {
     stop("Feature IDs must be non-empty and unique.", call. = FALSE)
   }
-  subclasses <- trimws(as.character(rd[[subclass_col]]))
-  subclasses[is.na(subclasses) | !nzchar(subclasses)] <- "Unknown"
+  subclasses <- .mslm_pathway_feature_classes(rd, subclass_col, lipidmaps_mapping)
   lipid_names <- if (name_col %in% names(rd)) as.character(rd[[name_col]]) else feature_ids
   mat[!is.finite(mat)] <- NA_real_
   auto_chains <- is.null(acyl_chains)
@@ -116,6 +112,7 @@ mztab_pathway_measurements <- function(
   )
   map <- utils::read.csv(mslipidmapper_pathway_knowledge_path("mappings", "msdial-lipidmaps.csv"),
     stringsAsFactors = FALSE, colClasses = "character", na.strings = character())
+  map$canonical_uri <- .mslm_registered_uri(map$canonical_uri)
   mapping_rows <- vector("list", length(ids))
   for (i in seq_along(ids)) {
     d <- obj$elements$nodes[[i]]$data
@@ -174,18 +171,18 @@ mztab_pathway_measurements <- function(
 # Explicit RDF node references avoid treating IDs as literals. Every value has
 # its own identified measurement resource, preserving sample and scope identity.
 .mslm_measurements_jsonld <- function(obj) {
+  id_session <- .mslm_begin_id_session()
+  on.exit(.mslm_end_id_session(id_session), add = TRUE)
   meta <- obj$data$mslm
   vocab <- "https://systemomicslab.github.io/MSLipidMapper/ontology/"
-  encode <- function(x) utils::URLencode(enc2utf8(as.character(x)), reserved = TRUE)
-  base <- paste0("https://systemomicslab.github.io/MSLipidMapper/dataset/", encode(meta$dataset_id), "/")
-  uri <- function(kind, id) paste0(base, kind, "/", encode(id))
+  uri <- function(kind, id) .mslm_resource_uri(paste0("measurement-", kind), meta$dataset_id, id)
   ref <- function(id) list("@id" = id)
   node <- function(id, type, ...) c(list("@id" = id, "@type" = paste0("mslm:", type)), list(...))
   graph <- list()
   add <- function(n) { graph[[length(graph) + 1L]] <<- n; invisible(n[["@id"]]) }
   ds <- uri("dataset", meta$dataset_id)
   pw <- uri("pathway", "imported")
-  add(node(ds, "Dataset", schemaVersion = "2.0.0", identifier = meta$dataset_id,
+  add(node(ds, "Dataset", schemaVersion = "4.0.0", identifierScheme = "mslm-accession-v1", identifier = meta$dataset_id,
     groupColumn = meta$group_column, assayName = meta$assay_name,
     normalization = meta$normalization, unit = meta$unit,
     aggregationMethod = meta$aggregation_method, missingValuePolicy = meta$missing_value_policy,
@@ -207,6 +204,11 @@ mztab_pathway_measurements <- function(
   for (cls in known) {
     n <- node(subclass_uri(cls), "MSDialMappableLipidEntity", label = cls,
       msdialOntologyLabel = cls, resolutionLevel = ref(paste0(vocab, "SubclassLevel")))
+    classification <- .mslm_classification_info(cls)
+    if (!is.null(classification)) {
+      n$lipidMapsSubClassCode <- classification$lipidmaps_class_id
+      n$lipidMapsMappingRelation <- ref(paste0(vocab, classification$relation))
+    }
     mapped <- Filter(function(z) !is.null(z$data$mslm) && identical(z$data$mslm$subclass, cls), obj$elements$nodes)
     if (length(mapped)) {
       canonical <- mapped[[1]]$data$mslm$canonical_uri
@@ -217,7 +219,7 @@ mztab_pathway_measurements <- function(
   add_measurements <- function(owner, vals, counts = NULL) {
     for (s in names(vals)) {
       val <- vals[[s]]
-      id <- paste0(owner, "/sample/", encode(s))
+      id <- .mslm_resource_uri("sample-measurement", owner, s)
       n <- node(id, "SampleMeasurement", measuredEntity = ref(owner),
         inSample = ref(uri("sample", s)), inDataset = ref(ds),
         valueStatus = ref(paste0(vocab, if (is.finite(val)) "AvailableValue" else "MissingValue")))
@@ -261,7 +263,7 @@ mztab_pathway_measurements <- function(
       scopes <- c(list(lipid$whole_subclass), lipid$subsets)
       for (scope in scopes) {
         sig <- unlist(scope$definition$acyl_chains, use.names = FALSE)
-        sid <- paste0(id, "/scope/", if (scope$scope == "subclass") "whole" else paste0("acyl-", encode(sig)))
+        sid <- do.call(.mslm_resource_uri, c(list("measurement-scope", id, scope$scope), as.list(sort(sig))))
         observation <- node(sid, "LipidMeasurementScope", inDataset = ref(ds),
           onPathwayNode = ref(id), observedLipidSubclass = ref(subclass_uri(lipid$subclass)),
           scopeType = scope$scope, matchMode = scope$definition$match,
@@ -278,7 +280,9 @@ mztab_pathway_measurements <- function(
     d <- obj$elements$edges[[i]]$data
     # Source/target describe the imported graph's connection, not a proven
     # stoichiometric or chain-preserving biochemical reaction.
-    connection <- node(uri("connection", as.character(i)), "PathwayConnection",
+    # Use the original edge ID when available; preserve parallel edges otherwise.
+    connection_key <- if (!is.null(d$id)) d$id else as.character(i)
+    connection <- node(uri("connection", as.character(connection_key)), "PathwayConnection",
       inPathway = ref(pw), sourceEntity = ref(uri("pathway-node", d$source)),
       targetEntity = ref(uri("pathway-node", d$target)),
       assertionMethod = ref(paste0(vocab, "ImportedPathway")))
@@ -288,6 +292,7 @@ mztab_pathway_measurements <- function(
     }
     add(connection)
   }
+  .mslm_end_id_session(id_session, commit = TRUE)
   list("@context" = list("@version" = 1.1, "@vocab" = vocab, mslm = vocab,
     xsd = "http://www.w3.org/2001/XMLSchema#",
     value = list("@id" = paste0(vocab, "value"), "@type" = "xsd:double"),

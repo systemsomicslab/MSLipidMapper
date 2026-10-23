@@ -1,0 +1,637 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.95kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/bioconductor/bioconductor_docker:RELEASE_3_19
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 722B done
+#3 DONE 0.0s
+
+#4 [ 1/11] FROM docker.io/bioconductor/bioconductor_docker:RELEASE_3_19@sha256:c74fd973f50818c4044225c8cfcf318fa11087d5df1b6a08a5a604abbe91195a
+#4 resolve docker.io/bioconductor/bioconductor_docker:RELEASE_3_19@sha256:c74fd973f50818c4044225c8cfcf318fa11087d5df1b6a08a5a604abbe91195a 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 71.54kB 0.2s done
+#5 DONE 0.2s
+
+#6 [ 2/11] RUN apt-get update && apt-get install -y --no-install-recommends     curl     git make g++ gfortran     libcurl4-openssl-dev libxml2-dev libssl-dev     libcairo2-dev libxt-dev     libfontconfig1-dev libfreetype6-dev     libharfbuzz-dev libfribidi-dev     libpng-dev libjpeg-dev libtiff5-dev     libglpk-dev     libglib2.0-0   && apt-get clean && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [ 3/11] RUN curl -fsSL -o /tmp/google-chrome.deb       https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb   && apt-get update   && apt-get install -y --no-install-recommends /tmp/google-chrome.deb   && rm -f /tmp/google-chrome.deb   && apt-get clean   && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [ 4/11] WORKDIR /srv/app
+#8 CACHED
+
+#9 [ 5/11] COPY DESCRIPTION /srv/app/
+#9 CACHED
+
+#10 [ 6/11] COPY scripts/install_docker_dependencies.R /usr/local/bin/install_docker_dependencies.R
+#10 DONE 0.0s
+
+#11 [ 7/11] RUN MSLIPIDMAPPER_BUILD_CPUS=8     Rscript /usr/local/bin/install_docker_dependencies.R
+#11 1.159 'getOption("repos")' replaces Bioconductor standard repositories, see
+#11 1.159 'help("repositories", package = "BiocManager")' for details.
+#11 1.159 Replacement repositories:
+#11 1.159     CRAN: https://p3m.dev/cran/__linux__/jammy/latest
+#11 2.649 [deps] Parallel workers: 8; already installed: 57; container binaries: 147; source fallback: plumber
+#11 150.7 [deps] Binary downloads completed after 150.3 seconds
+#11 150.7 Installing packages into ‘/usr/local/lib/R/site-library’
+#11 150.7 (as ‘lib’ is unspecified)
+#11 150.8 begin installing package ‘shinybusy’
+#11 150.8 begin installing package ‘shinydashboard’
+#11 150.8 begin installing package ‘forcats’
+#11 150.8 begin installing package ‘rhandsontable’
+#11 150.8 begin installing package ‘DBI’
+#11 150.8 begin installing package ‘filelock’
+#11 150.8 begin installing package ‘webutils’
+#11 150.8 begin installing package ‘svglite’
+#11 151.2 * installing *binary* package ‘filelock’ ...
+#11 151.2 * DONE (filelock)
+#11 151.2 begin installing package ‘matrixStats’
+#11 151.3 * installing *binary* package ‘webutils’ ...
+#11 151.3 * DONE (webutils)
+#11 151.3 begin installing package ‘RColorBrewer’
+#11 151.3 * installing *binary* package ‘shinydashboard’ ...
+#11 151.3 * DONE (shinydashboard)
+#11 151.3 * installing *binary* package ‘svglite’ ...
+#11 151.3 * DONE (svglite)
+#11 151.3 begin installing package ‘BiocGenerics’
+#11 151.3 begin installing package ‘GenomeInfoDbData’
+#11 151.3 * installing *binary* package ‘forcats’ ...
+#11 151.3 * DONE (forcats)
+#11 151.3 begin installing package ‘abind’
+#11 151.4 * installing *binary* package ‘DBI’ ...
+#11 151.4 * DONE (DBI)
+#11 151.4 * installing *binary* package ‘shinybusy’ ...
+#11 151.4 * DONE (shinybusy)
+#11 151.4 begin installing package ‘zlibbioc’
+#11 151.4 begin installing package ‘downloader’
+#11 151.6 * installing *binary* package ‘RColorBrewer’ ...
+#11 151.6 * DONE (RColorBrewer)
+#11 151.6 begin installing package ‘igraph’
+#11 151.6 * installing *binary* package ‘BiocGenerics’ ...
+#11 151.6 * DONE (BiocGenerics)
+#11 151.6 begin installing package ‘plyr’
+#11 151.7 * installing *binary* package ‘matrixStats’ ...
+#11 151.7 * DONE (matrixStats)
+#11 151.7 begin installing package ‘yulab.utils’
+#11 151.7 * installing *binary* package ‘abind’ ...
+#11 151.7 * DONE (abind)
+#11 151.7 begin installing package ‘generics’
+#11 151.7 * installing *binary* package ‘rhandsontable’ ...
+#11 151.7 * DONE (rhandsontable)
+#11 151.7 begin installing package ‘tidyselect’
+#11 151.7 * installing *binary* package ‘downloader’ ...
+#11 151.7 * DONE (downloader)
+#11 151.7 begin installing package ‘snow’
+#11 151.8 * installing *binary* package ‘zlibbioc’ ...
+#11 151.8 * DONE (zlibbioc)
+#11 151.8 begin installing package ‘BH’
+#11 152.0 * installing *binary* package ‘generics’ ...
+#11 152.0 * DONE (generics)
+#11 152.0 begin installing package ‘data.table’
+#11 152.1 * installing *binary* package ‘snow’ ...
+#11 152.1 * DONE (snow)
+#11 152.1 begin installing package ‘fastmatch’
+#11 152.1 * installing *binary* package ‘tidyselect’ ...
+#11 152.1 * DONE (tidyselect)
+#11 152.1 begin installing package ‘gtable’
+#11 152.1 * installing *binary* package ‘GenomeInfoDbData’ ...
+#11 152.1 * DONE (GenomeInfoDbData)
+#11 152.1 begin installing package ‘isoband’
+#11 152.1 * installing *binary* package ‘yulab.utils’ ...
+#11 152.1 * DONE (yulab.utils)
+#11 152.1 begin installing package ‘ape’
+#11 152.2 * installing *binary* package ‘plyr’ ...
+#11 152.2 * DONE (plyr)
+#11 152.2 begin installing package ‘png’
+#11 152.3 * installing *binary* package ‘igraph’ ...
+#11 152.3 * DONE (igraph)
+#11 152.3 * installing *binary* package ‘fastmatch’ ...
+#11 152.3 * DONE (fastmatch)
+#11 152.3 begin installing package ‘R.methodsS3’
+#11 152.4 begin installing package ‘blob’
+#11 152.4 * installing *binary* package ‘gtable’ ...
+#11 152.4 * DONE (gtable)
+#11 152.4 begin installing package ‘plogr’
+#11 152.5 * installing *binary* package ‘isoband’ ...
+#11 152.5 * DONE (isoband)
+#11 152.5 begin installing package ‘bit’
+#11 152.6 * installing *binary* package ‘ape’ ...
+#11 152.6 * DONE (ape)
+#11 152.6 begin installing package ‘futile.options’
+#11 152.6 * installing *binary* package ‘R.methodsS3’ ...
+#11 152.6 * DONE (R.methodsS3)
+#11 152.6 begin installing package ‘polyclip’
+#11 152.7 * installing *binary* package ‘blob’ ...
+#11 152.7 * DONE (blob)
+#11 152.7 begin installing package ‘RcppEigen’
+#11 152.7 * installing *binary* package ‘png’ ...
+#11 152.7 * DONE (png)
+#11 152.7 begin installing package ‘gridGraphics’
+#11 152.7 * installing *binary* package ‘plogr’ ...
+#11 152.7 * DONE (plogr)
+#11 152.7 begin installing package ‘RcppArmadillo’
+#11 152.8 * installing *binary* package ‘data.table’ ...
+#11 152.8 * DONE (data.table)
+#11 152.8 begin installing package ‘farver’
+#11 152.9 * installing *binary* package ‘bit’ ...
+#11 152.9 * DONE (bit)
+#11 152.9 * installing *binary* package ‘futile.options’ ...
+#11 152.9 * DONE (futile.options)
+#11 152.9 begin installing package ‘labeling’
+#11 152.9 begin installing package ‘viridisLite’
+#11 153.0 * installing *binary* package ‘polyclip’ ...
+#11 153.0 * DONE (polyclip)
+#11 153.0 begin installing package ‘lazyeval’
+#11 153.2 * installing *binary* package ‘gridGraphics’ ...
+#11 153.2 * DONE (gridGraphics)
+#11 153.2 begin installing package ‘formatR’
+#11 153.2 * installing *binary* package ‘farver’ ...
+#11 153.2 * DONE (farver)
+#11 153.2 begin installing package ‘colorspace’
+#11 153.2 * installing *binary* package ‘labeling’ ...
+#11 153.2 * DONE (labeling)
+#11 153.3 * installing *binary* package ‘viridisLite’ ...
+#11 153.3 * DONE (viridisLite)
+#11 153.3 begin installing package ‘clue’
+#11 153.3 begin installing package ‘GlobalOptions’
+#11 153.3 * installing *binary* package ‘lazyeval’ ...
+#11 153.3 * DONE (lazyeval)
+#11 153.3 begin installing package ‘shape’
+#11 153.5 * installing *binary* package ‘formatR’ ...
+#11 153.5 * DONE (formatR)
+#11 153.5 begin installing package ‘iterators’
+#11 153.6 * installing *binary* package ‘GlobalOptions’ ...
+#11 153.6 * DONE (GlobalOptions)
+#11 153.6 begin installing package ‘rjson’
+#11 153.7 * installing *binary* package ‘shape’ ...
+#11 153.7 * DONE (shape)
+#11 153.7 * installing *binary* package ‘clue’ ...
+#11 153.7 * DONE (clue)
+#11 153.7 begin installing package ‘hms’
+#11 153.7 begin installing package ‘tzdb’
+#11 153.9 * installing *binary* package ‘iterators’ ...
+#11 153.9 * DONE (iterators)
+#11 153.9 * installing *binary* package ‘colorspace’ ...
+#11 153.9 * DONE (colorspace)
+#11 153.9 begin installing package ‘BiocBaseUtils’
+#11 153.9 begin installing package ‘statmod’
+#11 153.9 * installing *binary* package ‘RcppArmadillo’ ...
+#11 153.9 * DONE (RcppArmadillo)
+#11 153.9 begin installing package ‘calibrate’
+#11 154.0 * installing *binary* package ‘RcppEigen’ ...
+#11 154.0 * DONE (RcppEigen)
+#11 154.0 begin installing package ‘confintr’
+#11 154.0 * installing *binary* package ‘hms’ ...
+#11 154.0 * DONE (hms)
+#11 154.0 * installing *binary* package ‘rjson’ ...
+#11 154.0 * DONE (rjson)
+#11 154.0 begin installing package ‘polynom’
+#11 154.0 begin installing package ‘lmodel2’
+#11 154.2 * installing *binary* package ‘tzdb’ ...
+#11 154.2 * DONE (tzdb)
+#11 154.2 begin installing package ‘splus2R’
+#11 154.2 * installing *binary* package ‘statmod’ ...
+#11 154.2 * DONE (statmod)
+#11 154.2 begin installing package ‘multcompView’
+#11 154.2 * installing *binary* package ‘BiocBaseUtils’ ...
+#11 154.2 * DONE (BiocBaseUtils)
+#11 154.2 begin installing package ‘zoo’
+#11 154.3 * installing *binary* package ‘confintr’ ...
+#11 154.3 * DONE (confintr)
+#11 154.3 begin installing package ‘timechange’
+#11 154.3 * installing *binary* package ‘calibrate’ ...
+#11 154.3 * DONE (calibrate)
+#11 154.3 begin installing package ‘mvtnorm’
+#11 154.4 * installing *binary* package ‘polynom’ ...
+#11 154.4 * DONE (polynom)
+#11 154.4 begin installing package ‘TH.data’
+#11 154.4 * installing *binary* package ‘lmodel2’ ...
+#11 154.4 * DONE (lmodel2)
+#11 154.4 begin installing package ‘SparseM’
+#11 154.5 * installing *binary* package ‘multcompView’ ...
+#11 154.5 * DONE (multcompView)
+#11 154.5 * installing *binary* package ‘splus2R’ ...
+#11 154.5 * DONE (splus2R)
+#11 154.5 begin installing package ‘shinyjs’
+#11 154.5 begin installing package ‘MatrixModels’
+#11 154.6 * installing *binary* package ‘timechange’ ...
+#11 154.6 * DONE (timechange)
+#11 154.7 begin installing package ‘S4Vectors’
+#11 154.7 * installing *binary* package ‘zoo’ ...
+#11 154.7 * DONE (zoo)
+#11 154.7 begin installing package ‘circlize’
+#11 154.7 * installing *binary* package ‘mvtnorm’ ...
+#11 154.7 * DONE (mvtnorm)
+#11 154.7 begin installing package ‘dplyr’
+#11 154.8 * installing *binary* package ‘MatrixModels’ ...
+#11 154.8 * DONE (MatrixModels)
+#11 154.8 begin installing package ‘MatrixGenerics’
+#11 154.8 * installing *binary* package ‘SparseM’ ...
+#11 154.8 * DONE (SparseM)
+#11 154.9 begin installing package ‘Biobase’
+#11 154.9 * installing *binary* package ‘shinyjs’ ...
+#11 154.9 * DONE (shinyjs)
+#11 154.9 begin installing package ‘reshape2’
+#11 155.0 * installing *binary* package ‘TH.data’ ...
+#11 155.0 * DONE (TH.data)
+#11 155.0 begin installing package ‘graphlayouts’
+#11 155.1 * installing *binary* package ‘circlize’ ...
+#11 155.1 * DONE (circlize)
+#11 155.1 begin installing package ‘R.oo’
+#11 155.2 * installing *binary* package ‘dplyr’ ...
+#11 155.2 * DONE (dplyr)
+#11 155.2 begin installing package ‘bit64’
+#11 155.2 * installing *binary* package ‘S4Vectors’ ...
+#11 155.2 * DONE (S4Vectors)
+#11 155.2 begin installing package ‘lambda.r’
+#11 155.2 * installing *binary* package ‘MatrixGenerics’ ...
+#11 155.2 * DONE (MatrixGenerics)
+#11 155.2 begin installing package ‘tweenr’
+#11 155.3 * installing *binary* package ‘reshape2’ ...
+#11 155.3 * DONE (reshape2)
+#11 155.3 begin installing package ‘munsell’
+#11 155.4 * installing *binary* package ‘Biobase’ ...
+#11 155.4 * DONE (Biobase)
+#11 155.4 begin installing package ‘gridExtra’
+#11 155.5 * installing *binary* package ‘graphlayouts’ ...
+#11 155.5 * DONE (graphlayouts)
+#11 155.5 begin installing package ‘GetoptLong’
+#11 155.5 * installing *binary* package ‘lambda.r’ ...
+#11 155.5 * DONE (lambda.r)
+#11 155.5 begin installing package ‘foreach’
+#11 155.5 * installing *binary* package ‘R.oo’ ...
+#11 155.5 * DONE (R.oo)
+#11 155.5 begin installing package ‘crosstalk’
+#11 155.6 * installing *binary* package ‘tweenr’ ...
+#11 155.6 * DONE (tweenr)
+#11 155.6 begin installing package ‘progress’
+#11 155.6 * installing *binary* package ‘bit64’ ...
+#11 155.6 * DONE (bit64)
+#11 155.6 begin installing package ‘qqman’
+#11 155.6 * installing *binary* package ‘munsell’ ...
+#11 155.6 * DONE (munsell)
+#11 155.6 begin installing package ‘limma’
+#11 155.8 * installing *binary* package ‘gridExtra’ ...
+#11 155.8 * DONE (gridExtra)
+#11 155.8 begin installing package ‘quantreg’
+#11 155.9 * installing *binary* package ‘foreach’ ...
+#11 155.9 * DONE (foreach)
+#11 155.9 begin installing package ‘lubridate’
+#11 155.9 * installing *binary* package ‘progress’ ...
+#11 155.9 * DONE (progress)
+#11 155.9 begin installing package ‘xts’
+#11 156.0 * installing *binary* package ‘GetoptLong’ ...
+#11 156.0 * DONE (GetoptLong)
+#11 156.0 begin installing package ‘sandwich’
+#11 156.0 * installing *binary* package ‘qqman’ ...
+#11 156.0 * DONE (qqman)
+#11 156.0 begin installing package ‘tidyr’
+#11 156.0 * installing *binary* package ‘crosstalk’ ...
+#11 156.0 * DONE (crosstalk)
+#11 156.0 begin installing package ‘RSQLite’
+#11 156.2 * installing *binary* package ‘limma’ ...
+#11 156.2 * DONE (limma)
+#11 156.2 begin installing package ‘rgoslin’
+#11 156.3 * installing *binary* package ‘lubridate’ ...
+#11 156.3 * DONE (lubridate)
+#11 156.3 begin installing package ‘IRanges’
+#11 156.3 * installing *binary* package ‘quantreg’ ...
+#11 156.3 * DONE (quantreg)
+#11 156.3 begin installing package ‘UCSC.utils’
+#11 156.3 * installing *binary* package ‘sandwich’ ...
+#11 156.3 * DONE (sandwich)
+#11 156.3 begin installing package ‘R.utils’
+#11 156.4 * installing *binary* package ‘tidyr’ ...
+#11 156.4 * DONE (tidyr)
+#11 156.4 begin installing package ‘futile.logger’
+#11 156.4 * installing *binary* package ‘xts’ ...
+#11 156.4 * DONE (xts)
+#11 156.4 begin installing package ‘scales’
+#11 156.5 * installing *binary* package ‘RSQLite’ ...
+#11 156.5 * DONE (RSQLite)
+#11 156.5 begin installing package ‘doParallel’
+#11 156.6 * installing *binary* package ‘futile.logger’ ...
+#11 156.6 * DONE (futile.logger)
+#11 156.7 begin installing package ‘vroom’
+#11 156.7 * installing *binary* package ‘UCSC.utils’ ...
+#11 156.7 * DONE (UCSC.utils)
+#11 156.7 begin installing package ‘multcomp’
+#11 156.7 * installing *binary* package ‘R.utils’ ...
+#11 156.7 * DONE (R.utils)
+#11 156.7 begin installing package ‘gson’
+#11 156.8 * installing *binary* package ‘IRanges’ ...
+#11 156.8 * DONE (IRanges)
+#11 156.8 begin installing package ‘tidygraph’
+#11 156.8 * installing *binary* package ‘scales’ ...
+#11 156.8 * DONE (scales)
+#11 156.8 begin installing package ‘tidytree’
+#11 156.9 * installing *binary* package ‘doParallel’ ...
+#11 156.9 * DONE (doParallel)
+#11 156.9 begin installing package ‘DT’
+#11 157.1 * installing *binary* package ‘multcomp’ ...
+#11 157.1 * DONE (multcomp)
+#11 157.1 begin installing package ‘ggplot2’
+#11 157.1 * installing *binary* package ‘gson’ ...
+#11 157.1 * DONE (gson)
+#11 157.1 begin installing package ‘ComplexHeatmap’
+#11 157.2 * installing *binary* package ‘vroom’ ...
+#11 157.2 * DONE (vroom)
+#11 157.2 * installing *binary* package ‘tidytree’ ...
+#11 157.2 * DONE (tidytree)
+#11 157.2 begin installing package ‘GenomeInfoDb’
+#11 157.2 begin installing package ‘S4Arrays’
+#11 157.2 * installing *binary* package ‘tidygraph’ ...
+#11 157.2 * DONE (tidygraph)
+#11 157.2 begin installing package ‘XVector’
+#11 157.5 * installing *binary* package ‘S4Arrays’ ...
+#11 157.5 * DONE (S4Arrays)
+#11 157.5 begin installing package ‘treeio’
+#11 157.6 * installing *binary* package ‘ComplexHeatmap’ ...
+#11 157.6 * DONE (ComplexHeatmap)
+#11 157.6 begin installing package ‘readr’
+#11 157.6 * installing *binary* package ‘XVector’ ...
+#11 157.6 * DONE (XVector)
+#11 157.6 begin installing package ‘SparseArray’
+#11 157.7 * installing *binary* package ‘ggplot2’ ...
+#11 157.7 * DONE (ggplot2)
+#11 157.7 begin installing package ‘plotly’
+#11 157.8 * installing *binary* package ‘GenomeInfoDb’ ...
+#11 157.8 * DONE (GenomeInfoDb)
+#11 157.8 begin installing package ‘UpSetR’
+#11 157.9 * installing *binary* package ‘DT’ ...
+#11 157.9 * DONE (DT)
+#11 157.9 begin installing package ‘patchwork’
+#11 158.0 * installing *binary* package ‘readr’ ...
+#11 158.0 * DONE (readr)
+#11 158.0 begin installing package ‘ggrepel’
+#11 158.1 * installing *binary* package ‘rgoslin’ ...
+#11 158.1 * DONE (rgoslin)
+#11 158.1 begin installing package ‘ggprism’
+#11 158.1 * installing *binary* package ‘SparseArray’ ...
+#11 158.1 * DONE (SparseArray)
+#11 158.1 begin installing package ‘colourpicker’
+#11 158.1 * installing *binary* package ‘treeio’ ...
+#11 158.1 * DONE (treeio)
+#11 158.1 begin installing package ‘GenomicRanges’
+#11 158.5 * installing *binary* package ‘patchwork’ ...
+#11 158.5 * DONE (patchwork)
+#11 158.5 begin installing package ‘qvalue’
+#11 158.5 * installing *binary* package ‘ggrepel’ ...
+#11 158.5 * DONE (ggrepel)
+#11 158.5 begin installing package ‘ggfun’
+#11 158.5 * installing *binary* package ‘UpSetR’ ...
+#11 158.5 * DONE (UpSetR)
+#11 158.5 begin installing package ‘ggnewscale’
+#11 158.6 * installing *binary* package ‘plotly’ ...
+#11 158.6 * DONE (plotly)
+#11 158.6 begin installing package ‘shadowtext’
+#11 158.6 * installing *binary* package ‘colourpicker’ ...
+#11 158.6 * DONE (colourpicker)
+#11 158.6 begin installing package ‘ggplotify’
+#11 158.7 * installing *binary* package ‘ggprism’ ...
+#11 158.7 * DONE (ggprism)
+#11 158.7 begin installing package ‘cowplot’
+#11 158.8 * installing *binary* package ‘GenomicRanges’ ...
+#11 158.8 * DONE (GenomicRanges)
+#11 158.8 begin installing package ‘ggforce’
+#11 158.8 * installing *binary* package ‘ggfun’ ...
+#11 158.8 * DONE (ggfun)
+#11 158.8 begin installing package ‘viridis’
+#11 158.9 * installing *binary* package ‘ggnewscale’ ...
+#11 158.9 * DONE (ggnewscale)
+#11 158.9 begin installing package ‘Biostrings’
+#11 158.9 * installing *binary* package ‘qvalue’ ...
+#11 158.9 * DONE (qvalue)
+#11 158.9 begin installing package ‘ggpp’
+#11 158.9 * installing *binary* package ‘ggplotify’ ...
+#11 158.9 * DONE (ggplotify)
+#11 158.9 begin installing package ‘DelayedArray’
+#11 159.0 * installing *binary* package ‘shadowtext’ ...
+#11 159.0 * DONE (shadowtext)
+#11 159.0 begin installing package ‘aplot’
+#11 159.1 * installing *binary* package ‘cowplot’ ...
+#11 159.1 * DONE (cowplot)
+#11 159.2 * installing *binary* package ‘ggforce’ ...
+#11 159.2 * DONE (ggforce)
+#11 159.2 * installing *binary* package ‘aplot’ ...
+#11 159.2 * DONE (aplot)
+#11 159.2 begin installing package ‘ggtree’
+#11 159.2 begin installing package ‘scatterpie’
+#11 159.3 * installing *binary* package ‘viridis’ ...
+#11 159.3 * DONE (viridis)
+#11 159.3 begin installing package ‘ggraph’
+#11 159.4 * installing *binary* package ‘ggpp’ ...
+#11 159.4 * DONE (ggpp)
+#11 159.4 begin installing package ‘ggpmisc’
+#11 159.4 * installing *binary* package ‘DelayedArray’ ...
+#11 159.4 * DONE (DelayedArray)
+#11 159.4 begin installing package ‘SummarizedExperiment’
+#11 159.6 * installing *binary* package ‘scatterpie’ ...
+#11 159.6 * DONE (scatterpie)
+#11 159.7 * installing *binary* package ‘ggtree’ ...
+#11 159.7 * DONE (ggtree)
+#11 159.7 * installing *binary* package ‘ggpmisc’ ...
+#11 159.7 * DONE (ggpmisc)
+#11 159.7 * installing *binary* package ‘Biostrings’ ...
+#11 159.7 * DONE (Biostrings)
+#11 159.7 begin installing package ‘KEGGREST’
+#11 159.8 * installing *binary* package ‘ggraph’ ...
+#11 159.8 * DONE (ggraph)
+#11 159.8 * installing *binary* package ‘SummarizedExperiment’ ...
+#11 159.8 * DONE (SummarizedExperiment)
+#11 159.8 begin installing package ‘MultiAssayExperiment’
+#11 159.8 begin installing package ‘MultiDataSet’
+#11 160.0 * installing *binary* package ‘KEGGREST’ ...
+#11 160.0 * DONE (KEGGREST)
+#11 160.0 begin installing package ‘AnnotationDbi’
+#11 160.2 * installing *binary* package ‘MultiDataSet’ ...
+#11 160.2 * DONE (MultiDataSet)
+#11 160.2 * installing *binary* package ‘MultiAssayExperiment’ ...
+#11 160.2 * DONE (MultiAssayExperiment)
+#11 160.2 begin installing package ‘ropls’
+#11 160.6 * installing *binary* package ‘AnnotationDbi’ ...
+#11 160.6 * DONE (AnnotationDbi)
+#11 160.6 begin installing package ‘GO.db’
+#11 160.6 * installing *binary* package ‘ropls’ ...
+#11 160.6 * DONE (ropls)
+#11 163.1 * installing *binary* package ‘GO.db’ ...
+#11 163.1 * DONE (GO.db)
+#11 163.1 begin installing package ‘GOSemSim’
+#11 163.4 * installing *binary* package ‘GOSemSim’ ...
+#11 163.4 * DONE (GOSemSim)
+#11 166.2 * installing *binary* package ‘BH’ ...
+#11 166.2 * DONE (BH)
+#11 166.2 begin installing package ‘BiocParallel’
+#11 166.6 * installing *binary* package ‘BiocParallel’ ...
+#11 166.6 * DONE (BiocParallel)
+#11 166.6 begin installing package ‘fgsea’
+#11 167.1 * installing *binary* package ‘fgsea’ ...
+#11 167.1 * DONE (fgsea)
+#11 167.1 begin installing package ‘DOSE’
+#11 167.5 * installing *binary* package ‘DOSE’ ...
+#11 167.5 * DONE (DOSE)
+#11 167.5 begin installing package ‘enrichplot’
+#11 167.7 * installing *binary* package ‘enrichplot’ ...
+#11 167.7 * DONE (enrichplot)
+#11 167.7 begin installing package ‘clusterProfiler’
+#11 168.0 * installing *binary* package ‘clusterProfiler’ ...
+#11 168.0 * DONE (clusterProfiler)
+#11 168.2 Installing package into ‘/usr/local/lib/R/site-library’
+#11 168.2 (as ‘lib’ is unspecified)
+#11 174.6 also installing the dependencies ‘sodium’, ‘swagger’
+#11 174.6 
+#11 174.6 trying URL 'https://p3m.dev/cran/__linux__/jammy/latest/src/contrib/sodium_1.4.0.tar.gz'
+#11 176.3 Content type 'binary/octet-stream' length 501967 bytes (490 KB)
+#11 176.3 ==================================================
+#11 176.5 downloaded 490 KB
+#11 176.5 
+#11 176.5 trying URL 'https://p3m.dev/cran/__linux__/jammy/latest/src/contrib/swagger_5.32.1.tar.gz'
+#11 177.9 Content type 'binary/octet-stream' length 1979541 bytes (1.9 MB)
+#11 178.1 ==================================================
+#11 178.7 downloaded 1.9 MB
+#11 178.7 
+#11 178.7 trying URL 'https://p3m.dev/cran/__linux__/jammy/latest/src/contrib/plumber_1.3.3.tar.gz'
+#11 180.1 Content type 'binary/octet-stream' length 1113763 bytes (1.1 MB)
+#11 180.1 ==================================================
+#11 180.5 downloaded 1.1 MB
+#11 180.5 
+#11 180.7 begin installing package ‘sodium’
+#11 180.7 begin installing package ‘swagger’
+#11 181.0 * installing *binary* package ‘sodium’ ...
+#11 181.0 * DONE (sodium)
+#11 181.2 * installing *binary* package ‘swagger’ ...
+#11 181.2 * DONE (swagger)
+#11 181.2 begin installing package ‘plumber’
+#11 181.5 * installing *binary* package ‘plumber’ ...
+#11 181.5 * DONE (plumber)
+#11 181.5 
+#11 181.5 The downloaded source packages are in
+#11 181.5 	‘/tmp/Rtmp6wtB09/downloaded_packages’
+#11 187.1 
+#11 191.1 Registered S3 methods overwritten by 'ggpp':
+#11 191.1   method                  from   
+#11 191.1   heightDetails.titleGrob ggplot2
+#11 191.1   widthDetails.titleGrob  ggplot2
+#11 191.3 [deps] All runtime dependencies loaded successfully in 190.9 seconds
+#11 DONE 192.3s
+
+#12 [ 8/11] COPY . /srv/app
+#12 DONE 1.0s
+
+#13 [ 9/11] RUN R CMD INSTALL /srv/app
+#13 0.402 * installing to library ‘/usr/local/lib/R/site-library’
+#13 0.423 * installing *source* package ‘MSLipidMapper’ ...
+#13 0.423 ** using staged installation
+#13 0.443 ** R
+#13 0.502 ** inst
+#13 1.335 ** byte-compile and prepare package for lazy loading
+#13 18.33 Warning: replacing previous import ‘shiny::renderDataTable’ by ‘DT::renderDataTable’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘shiny::dataTableOutput’ by ‘DT::dataTableOutput’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::rename’ by ‘plotly::rename’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘ggplot2::last_plot’ by ‘plotly::last_plot’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘shiny::validate’ by ‘jsonlite::validate’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::first’ by ‘dplyr::first’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::setequal’ by ‘dplyr::setequal’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::intersect’ by ‘dplyr::intersect’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::union’ by ‘dplyr::union’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::setdiff’ by ‘dplyr::setdiff’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘S4Vectors::expand’ by ‘tidyr::expand’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘xml2::as_list’ by ‘rlang::as_list’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘jsonlite::flatten’ by ‘rlang::flatten’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘jsonlite::unbox’ by ‘rlang::unbox’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::flatten_dbl’ by ‘purrr::flatten_dbl’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::splice’ by ‘purrr::splice’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::flatten’ by ‘purrr::flatten’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::%@%’ by ‘purrr::%@%’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::flatten_chr’ by ‘purrr::flatten_chr’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::flatten_lgl’ by ‘purrr::flatten_lgl’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::flatten_raw’ by ‘purrr::flatten_raw’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::flatten_int’ by ‘purrr::flatten_int’ when loading ‘MSLipidMapper’
+#13 18.33 Warning: replacing previous import ‘rlang::invoke’ by ‘purrr::invoke’ when loading ‘MSLipidMapper’
+#13 18.33 No man pages found in package  ‘MSLipidMapper’ 
+#13 18.33 ** help
+#13 18.33 *** installing help indices
+#13 18.34 ** building package indices
+#13 18.50 ** testing if installed package can be loaded from temporary location
+#13 24.32 Warning: replacing previous import ‘shiny::renderDataTable’ by ‘DT::renderDataTable’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘shiny::dataTableOutput’ by ‘DT::dataTableOutput’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::rename’ by ‘plotly::rename’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘ggplot2::last_plot’ by ‘plotly::last_plot’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘shiny::validate’ by ‘jsonlite::validate’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::first’ by ‘dplyr::first’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::setequal’ by ‘dplyr::setequal’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::intersect’ by ‘dplyr::intersect’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::union’ by ‘dplyr::union’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::setdiff’ by ‘dplyr::setdiff’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘S4Vectors::expand’ by ‘tidyr::expand’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘xml2::as_list’ by ‘rlang::as_list’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘jsonlite::flatten’ by ‘rlang::flatten’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘jsonlite::unbox’ by ‘rlang::unbox’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::flatten_dbl’ by ‘purrr::flatten_dbl’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::splice’ by ‘purrr::splice’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::flatten’ by ‘purrr::flatten’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::%@%’ by ‘purrr::%@%’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::flatten_chr’ by ‘purrr::flatten_chr’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::flatten_lgl’ by ‘purrr::flatten_lgl’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::flatten_raw’ by ‘purrr::flatten_raw’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::flatten_int’ by ‘purrr::flatten_int’ when loading ‘MSLipidMapper’
+#13 24.32 Warning: replacing previous import ‘rlang::invoke’ by ‘purrr::invoke’ when loading ‘MSLipidMapper’
+#13 24.34 ** testing if installed package can be loaded from final location
+#13 31.20 Warning: replacing previous import ‘shiny::renderDataTable’ by ‘DT::renderDataTable’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘shiny::dataTableOutput’ by ‘DT::dataTableOutput’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::rename’ by ‘plotly::rename’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘ggplot2::last_plot’ by ‘plotly::last_plot’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘shiny::validate’ by ‘jsonlite::validate’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::first’ by ‘dplyr::first’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::setequal’ by ‘dplyr::setequal’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::intersect’ by ‘dplyr::intersect’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::union’ by ‘dplyr::union’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::setdiff’ by ‘dplyr::setdiff’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘S4Vectors::expand’ by ‘tidyr::expand’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘xml2::as_list’ by ‘rlang::as_list’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘jsonlite::flatten’ by ‘rlang::flatten’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘jsonlite::unbox’ by ‘rlang::unbox’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::flatten_dbl’ by ‘purrr::flatten_dbl’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::splice’ by ‘purrr::splice’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::flatten’ by ‘purrr::flatten’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::%@%’ by ‘purrr::%@%’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::flatten_chr’ by ‘purrr::flatten_chr’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::flatten_lgl’ by ‘purrr::flatten_lgl’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::flatten_raw’ by ‘purrr::flatten_raw’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::flatten_int’ by ‘purrr::flatten_int’ when loading ‘MSLipidMapper’
+#13 31.20 Warning: replacing previous import ‘rlang::invoke’ by ‘purrr::invoke’ when loading ‘MSLipidMapper’
+#13 31.20 ** testing if installed package keeps a record of temporary installation path
+#13 31.22 * DONE (MSLipidMapper)
+#13 DONE 31.3s
+
+#14 [10/11] COPY ./scripts/start.sh /usr/local/bin/start.sh
+#14 DONE 0.1s
+
+#15 [11/11] RUN chmod +x /usr/local/bin/start.sh     && sed -i 's/\r$//' /usr/local/bin/start.sh
+#15 DONE 0.3s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 17.0s done
+#16 exporting manifest sha256:0a3865d954dab644016138dcdb42ade4dba54f1f3419bae178a0e87262c86716 0.0s done
+#16 exporting config sha256:74e9cb858d53a4c42b1519c17cdbd1178017a6ad2a95fd9dcf833fcd54fca787 0.0s done
+#16 exporting attestation manifest sha256:2dea43e878a5cbb7922c3555acd871587123ee4b9db26a024ff4f2d946ed4a10 0.0s done
+#16 exporting manifest list sha256:43d9534a1c0cfb48331f42aeef084e08d532621e3a60c39390c56cef9488cad9 0.0s done
+#16 naming to docker.io/library/mslipidmapper:latest done
+#16 unpacking to docker.io/library/mslipidmapper:latest
+#16 unpacking to docker.io/library/mslipidmapper:latest 14.5s done
+#16 naming to docker.io/library/mslipidmapper:optimized-8cpu done
+#16 unpacking to docker.io/library/mslipidmapper:optimized-8cpu 0.0s done
+#16 DONE 31.8s
+BUILD_EXIT=0 ELAPSED_SECONDS=258.31 LOG=C:\Users\takak\systemomicslab\MSLipidMapper\codex\MSLipidMapper\tmp\docker-build-optimized-8cpu-20261016-105851.log

@@ -1,0 +1,26 @@
+{
+  "headers": {
+    "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, X-Release, queryid",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Expose-Headers": "X-Total-Results, X-Release, queryid, content-type, user-agent, cache-control, etag, range",
+    "Cache-Control": "public",
+    "Connection": "close",
+    "Content-Disposition": "attachment; filename=\"sparql-7F85FEC5B1B01936160F0B4FAAC0705F.srj\"",
+    "Content-Length": "623",
+    "Content-Type": "application/sparql-results+json",
+    "Date": "Thu, 15 Oct 2026 03:33:02 GMT",
+    "ETag": "W/\"2026_03\"",
+    "Expires": "Fri, 16 Oct 2026 05:33:02 GMT",
+    "Server": "Apache",
+    "Strict-Transport-Security": "max-age=31536001; includeSubDomains",
+    "Vary": "Negotiate,Accept,Accept-Encoding,Content-Type",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Powered-By": "sib.swiss",
+    "X-Release": "2026_03",
+    "queryid": "-404"
+  },
+  "retrieved_at": "2026-10-15T03:33:03.191552+00:00",
+  "sha256": "1b647f6e54fb8872338a00bef5ed31b20880da5c046fc4a22f304200b5341ec0",
+  "url": "https://sparql.rhea-db.org/sparql?query=SELECT+DISTINCT+%3Fg+WHERE+%7B+GRAPH+%3Fg+%7B%3Fs+%3Fp+%3Fo%7D+%7D&format=json"
+}

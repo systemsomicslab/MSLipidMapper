@@ -1,0 +1,9 @@
+PREFIX rh: <http://rdf.rhea-db.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX ch: <http://purl.obolibrary.org/obo/CHEBI_>
+PREFIX chebihash: <http://purl.obolibrary.org/obo/chebi#>
+SELECT DISTINCT ?reaction ?annotated WHERE {
+ GRAPH <https://sparql.rhea-db.org/rhea> {
+ ?reaction rdfs:subClassOf rh:Reaction ; rh:status rh:Approved ; (rh:directionalReaction|rh:bidirectionalReaction) ?annotated
+ }} ORDER BY ?reaction ?annotated

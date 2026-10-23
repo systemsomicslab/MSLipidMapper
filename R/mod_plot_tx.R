@@ -1,8 +1,7 @@
 # R/mod_plot_gene.R ----------------------------------------------------------
 # ======================================================================
 # Gene feature module (UI + Server)
-#   - Left : single gene dot/box/violin
-#   - Right: high-variance gene heatmap (ComplexHeatmap)
+#   - Single gene dot/box/violin
 #   - Advanced settings is shared (Feature generic module opens modal via on_open_adv)
 # ======================================================================
 
@@ -11,9 +10,7 @@ suppressPackageStartupMessages({
   library(ggplot2)
   library(SummarizedExperiment)
   library(methods)
-  # optional (used in heatmap / downloads)
-  # library(ComplexHeatmap)
-  # library(grid)
+  # optional (used in downloads)
   # library(svglite)
 })
 
@@ -62,7 +59,7 @@ mod_plot_gene_ui <- function(id) {
     ),
 
     shiny::fluidRow(
-      # ---- Left: single gene plot -------------------------------------------
+      # ---- Single gene plot -------------------------------------------
       shinydashboard::box(
         title       = "Single gene plot",
         width       = 6,
@@ -89,21 +86,6 @@ mod_plot_gene_ui <- function(id) {
         ),
         shiny::br(),
         shiny::downloadButton(ns("dl_gene_plot"), "Download SVG")
-      ),
-
-      # ---- Right: high-variance heatmap -------------------------------------
-      shinydashboard::box(
-        title       = "High-variance gene heatmap",
-        width       = 6,
-        status      = "primary",
-        solidHeader = TRUE,
-        shiny::p(
-          "Shows Top-N high-variance genes (Top-N and row z-score are controlled by the shared Advanced settings). ",
-          "If colData has 'class', columns are ordered and annotated by that group using the shared palette."
-        ),
-        shiny::plotOutput(ns("plot_gene_heatmap"), height = "360px"),
-        shiny::br(),
-        shiny::downloadButton(ns("dl_gene_heatmap"), "Download SVG")
       )
     )
   )
@@ -324,6 +306,7 @@ mod_plot_gene_server <- function(
         fun  <- get("plot_box_se", mode = "function")
         extra <- list(
           box_width    = adv$box_width,
+          box_linewidth = adv$box_linewidth %||% 1,
           box_alpha    = adv$box_alpha,
           show_points  = adv$box_show_points,
           point_size   = adv$box_point_size,
@@ -384,97 +367,5 @@ mod_plot_gene_server <- function(
       }
     )
 
-    # ==================================================================
-    # High-variance gene heatmap
-    #   - uses adv$hm_topN and adv$hm_row_z
-    #   - uses class ordering + palette_map if colData$class exists
-    # ==================================================================
-    ht_gene <- shiny::reactive({
-      se  <- se_in(); shiny::req(se)
-      adv <- adv_reactive(); shiny::req(adv)
-
-      if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) return(NULL)
-
-      mat <- as.matrix(SummarizedExperiment::assay(se, 1))
-      if (is.null(rownames(mat))) rownames(mat) <- as.character(seq_len(nrow(mat)))
-
-      vars <- apply(mat, 1L, stats::var, na.rm = TRUE)
-      ok   <- is.finite(vars) & !is.na(vars)
-      if (!any(ok)) return(NULL)
-
-      vars <- vars[ok]
-      ord  <- order(vars, decreasing = TRUE)
-
-      topN <- adv$hm_topN %||% 50L
-      topN <- as.integer(topN)
-      if (!is.finite(topN) || topN <= 0) topN <- 50L
-      topN <- max(1L, min(length(ord), topN))
-      sel  <- ord[seq_len(topN)]
-
-      mat_sub <- mat[sel, , drop = FALSE]
-
-      if (isTRUE(adv$hm_row_z)) {
-        mat_sub <- t(scale(t(mat_sub)))
-      }
-
-      cd <- as.data.frame(SummarizedExperiment::colData(se))
-
-      ha <- NULL
-
-      if ("class" %in% colnames(cd)) {
-        cls_factor <- .compute_class_levels(cd$class, adv, y_for_median = NULL)
-        groups     <- levels(cls_factor)
-        pal        <- .make_palette(groups, adv)
-
-        ord_cols   <- order(as.numeric(cls_factor))
-        mat_sub    <- mat_sub[, ord_cols, drop = FALSE]
-        cls_factor <- cls_factor[ord_cols]
-
-        ha <- ComplexHeatmap::HeatmapAnnotation(
-          class = cls_factor,
-          col   = list(class = pal)
-        )
-      }
-
-      ComplexHeatmap::Heatmap(
-        mat_sub,
-        name              = "expr",
-        top_annotation    = ha,
-        cluster_rows      = TRUE,
-        cluster_columns   = FALSE,
-        show_row_names    = TRUE,
-        show_column_names = TRUE
-      )
-    })
-
-    output$plot_gene_heatmap <- shiny::renderPlot({
-      ht <- ht_gene()
-      shiny::req(ht)
-
-      if (!requireNamespace("ComplexHeatmap", quietly = TRUE) ||
-          !requireNamespace("grid", quietly = TRUE)) {
-        plot.new(); text(0.5, 0.5, "ComplexHeatmap/grid is not installed.")
-        return()
-      }
-
-      grid::grid.newpage()
-      ComplexHeatmap::draw(ht, newpage = FALSE)
-    })
-
-    output$dl_gene_heatmap <- shiny::downloadHandler(
-      filename = function() "gene_heatmap_highvar.svg",
-      content  = function(file) {
-        ht <- ht_gene()
-        shiny::req(ht)
-        if (!requireNamespace("svglite", quietly = TRUE)) stop("Please install svglite.")
-        if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) stop("Please install ComplexHeatmap.")
-        if (!requireNamespace("grid", quietly = TRUE)) stop("grid is required.")
-
-        svglite::svglite(file, width = 7, height = 6)
-        on.exit(grDevices::dev.off(), add = TRUE)
-        grid::grid.newpage()
-        ComplexHeatmap::draw(ht, newpage = FALSE)
-      }
-    )
   })
 }

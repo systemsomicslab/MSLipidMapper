@@ -1,0 +1,28 @@
+{
+  "headers": {
+    "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, X-Release, queryid",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Expose-Headers": "X-Total-Results, X-Release, queryid, content-type, user-agent, cache-control, etag, range",
+    "Cache-Control": "public",
+    "Connection": "close",
+    "Content-Disposition": "attachment; filename=\"sparql-867CE8E99D7A5DF84B7B3A64EC0DC6B5.srj\"",
+    "Content-Length": "272",
+    "Content-Type": "application/sparql-results+json",
+    "Date": "Thu, 15 Oct 2026 04:32:58 GMT",
+    "ETag": "W/\"2026_03\"",
+    "Expires": "Fri, 16 Oct 2026 06:32:58 GMT",
+    "Server": "Apache",
+    "Strict-Transport-Security": "max-age=31536001; includeSubDomains",
+    "Vary": "Negotiate,Accept,Accept-Encoding,Content-Type",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Powered-By": "sib.swiss",
+    "X-Release": "2026_03",
+    "queryid": "-404"
+  },
+  "retrieved_at": "2026-10-15T04:32:58.868495+00:00",
+  "sha256": "319290e12e3fd083d752c47acc83f65cc9a7844f66a72268b3637d0e64c735a0",
+  "stored_content_encoding": "identity",
+  "transport_content_encoding": "identity",
+  "url": "https://sparql.rhea-db.org/sparql?query=PREFIX+rh%3A+%3Chttp%3A%2F%2Frdf.rhea-db.org%2F%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+ch%3A+%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_%3E%0APREFIX+chebihash%3A+%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2Fchebi%23%3E%0APREFIX+chemrof%3A+%3Chttps%3A%2F%2Fw3id.org%2Fchemrof%2F%3E%0ASELECT+%28COUNT%28%2A%29+AS+%3Fcount%29+WHERE+%7B+%7B+SELECT+DISTINCT+%3Fneutral+%3Fcharged+WHERE+%7B%0A+GRAPH+%3Chttp%3A%2F%2Fsparql.rhea-db.org%2Fchebi%3E+%7B%0A+%7B+%3Fcharged+chemrof%3Aconjugate_base_of+%3Fneutral+%7D%0A+UNION+%7B+%3Fneutral+chemrof%3Aconjugate_acid_of+%3Fcharged+%7D%0A+UNION+%7B+%3Fcharged+chemrof%3Atautomer_of+%3Fneutral+%7D%0A+UNION+%7B+%3Fcharged+rdfs%3AsubClassOf+%3Frestriction+.+%3Frestriction+owl%3AonProperty+%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FRO_0018036%3E+%3B+owl%3AsomeValuesFrom+%3Fneutral+%7D%0A+UNION+%7B+%3Fneutral+rdfs%3AsubClassOf+%3Frestriction+.+%3Frestriction+owl%3AonProperty+chebihash%3Ahas_major_microspecies_at_pH_7_3+%3B+owl%3AsomeValuesFrom+%3Fcharged+%7D%0A+FILTER%28isIRI%28%3Fneutral%29+%26%26+isIRI%28%3Fcharged%29%29%0A+%7D%7D++%7D+%7D&format=json"
+}

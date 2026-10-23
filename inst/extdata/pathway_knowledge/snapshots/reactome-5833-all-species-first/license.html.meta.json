@@ -1,0 +1,30 @@
+{
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "a4ac7d5e0c9f00cf-KIX",
+    "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+    "Connection": "close",
+    "Content-Encoding": "gzip",
+    "Content-Type": "text/html; charset=utf-8",
+    "Date": "Thu, 15 Oct 2026 05:40:34 GMT",
+    "Expires": "Wed, 17 Aug 2005 00:00:00 GMT",
+    "Last-Modified": "Thu, 15 Oct 2026 05:40:34 GMT",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Pragma": "no-cache",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qalyczV%2BNjkpAWVgjocAPU%2FDulW%2B%2BxK6Hl9RyMmg9mAs23Brj%2B3M%2F3%2B%2FRT8Quu3cPnv8Mm9cZ4kw6f06HFS55DnNyYk7S4StxI2%2BQU0e%2BGTjgQ0kcXTsu%2Fhqzgc1LtI%3D\"}]}",
+    "Server": "cloudflare",
+    "Server-Timing": "cfCacheStatus;desc=\"DYNAMIC\"",
+    "Set-Cookie": "c15065f076e42422f4dcdd1c4398eeb3=t9m3na60q1f98cc63slgqsv6qg; path=/; HttpOnly",
+    "Transfer-Encoding": "chunked",
+    "Vary": "Accept-Encoding",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "method": "GET",
+  "request_body": null,
+  "request_body_sha256": null,
+  "retrieved_at": "2026-10-15T05:40:34.962361+00:00",
+  "sha256": "048d234976d360be4ae1d0f9f7ccc5b7ff9d239423e8fc832abdf6d51fca64c4",
+  "stored_content_encoding": "identity",
+  "url": "https://reactome.org/license"
+}

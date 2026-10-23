@@ -1,0 +1,4 @@
+reaction,entity,role,stoichiometry,is_lipid_class
+https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe,https://systemomicslab.github.io/MSLipidMapper/resource/Carbon_dioxide,https://systemomicslab.github.io/MSLipidMapper/ontology/Product,1.0,0
+https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe,https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylethanolamine,https://systemomicslab.github.io/MSLipidMapper/ontology/Product,1.0,1
+https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe,https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylserine,https://systemomicslab.github.io/MSLipidMapper/ontology/Substrate,1.0,1

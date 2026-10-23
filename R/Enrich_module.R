@@ -600,10 +600,11 @@ mod_lipid_enrich_ui <- function(id, title = "Lipid enrichment (file input)") {
           ),
           
           .cy_details(
-            "Font size",
+            "Figure settings",
             conditionalPanel(
               condition = sprintf("input['%s'] == 'Barplot'", ns("plot_type")),
-              numericInput(ns("bar_font_size"), "Barplot font size (ggplot)", value = 12, min = 6, max = 30, step = 1)
+              numericInput(ns("bar_font_size"), "Barplot font size (ggplot)", value = 12, min = 6, max = 30, step = 1),
+              textInput(ns("bar_axis_label"), "Value-axis label", value = "-log10(adjusted p)")
             ),
             conditionalPanel(
               condition = sprintf("input['%s'] == 'UpSet'", ns("plot_type")),
@@ -941,8 +942,7 @@ mod_lipid_enrich_server <- function(id, rules_yaml_path, adv_reactive = NULL, ..
         
       } else {
         base_size <- .safe_int(input$bar_font_size %||% 12, default = 12L, min = 6L, max = 30L)
-        adv <- .current_adv()
-        y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "-log10(adjusted p)"))
+        y_axis_label <- trimws(as.character(input$bar_axis_label %||% "-log10(adjusted p)"))
         if (!nzchar(y_axis_label)) y_axis_label <- "-log10(adjusted p)"
         
         dfp <- tbl %>%

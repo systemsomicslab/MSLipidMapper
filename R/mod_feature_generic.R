@@ -103,6 +103,7 @@ suppressPackageStartupMessages({
 
     # --- Box plot options ---------------------------------------------------
     box_width        = 0.6,
+    box_linewidth    = 1,
     box_alpha        = 0.6,
     box_show_points  = TRUE,
     box_point_size   = 1.6,
@@ -129,7 +130,7 @@ suppressPackageStartupMessages({
 
     # --- Heatmap options -----------------------------------------------------
     hm_row_z = TRUE,
-    hm_topN  = 50L
+    hm_topN  = 10L
   )
 }
 
@@ -169,7 +170,7 @@ mod_feature_generic_server <- function(
       has_gene <- !is.null(tx) && methods::is(tx, "SummarizedExperiment")
 
       choices <- c("Lipid" = "lipid")
-      if (has_gene) choices <- c(choices, "Other omics" = "gene")
+      if (has_gene) choices <- c(choices, "multiomics data" = "gene")
 
       current <- shiny::isolate(input$feature_dataset %||% "lipid")
       selected <- if (current %in% unname(choices)) current else "lipid"
@@ -214,6 +215,9 @@ mod_feature_generic_server <- function(
     # Shared state ------------------------------------------------------------
     rv <- shiny::reactiveValues(
       dataset = "lipid",
+      modal_scope = "figure",
+      modal_panel = "feat",
+      panel_styles = list(),
       adv     = .default_feature_adv(),
       pal_tbl = NULL
     )
@@ -299,6 +303,14 @@ mod_feature_generic_server <- function(
 
     # Shared advanced settings reactive --------------------------------------
     adv_reactive <- shiny::reactive(rv$adv)
+
+    panel_settings <- function(panel) {
+      if (identical(panel, "feat")) return(rv$adv)
+      defaults <- .default_feature_adv()
+      common_keys <- c("palette_map", "manual_order", "order_by", "decreasing")
+      defaults[common_keys] <- rv$adv[common_keys]
+      utils::modifyList(defaults, rv$panel_styles[[panel]] %||% list())
+    }
 
     # Local live-update handler (from child modules or outer modules) ----------
     apply_live <- function(live) {
@@ -436,7 +448,9 @@ mod_feature_generic_server <- function(
 
     # Build modal dialog -------------------------------------------------------
     feature_adv_modal <- function() {
-      adv    <- rv$adv
+      common <- identical(rv$modal_scope, "common")
+      panel <- rv$modal_panel
+      adv <- panel_settings(panel)
       groups <- .get_groups(rv$dataset)
       split_choices <- .get_split_choices()
       sel_split <- adv$facet_var %||% ""
@@ -445,23 +459,44 @@ mod_feature_generic_server <- function(
 
       rv$pal_tbl <- .build_palette_table(groups, adv, rv$pal_tbl)
 
+      if (!common && !panel %in% c("feat", "net")) {
+        panel_label <- c(pca = "PCA", oplsda = "OPLS-DA", hm = "Heatmap", cor = "Correlation", volcano = "Volcano", enrich = "Enrichment", decoupled = "Acyl chain analysis")[[panel]]
+        has_font <- panel %in% c("cor", "volcano", "decoupled")
+        return(shiny::modalDialog(
+          title = paste0(panel_label, ": Figure settings"), size = "l", easyClose = TRUE,
+          if (has_font) shiny::numericInput(ns("adv_plot_font_size"), if (panel == "decoupled") "Scatter plot font size" else "Font size (axes, legend and labels)",
+                              value = adv$plot_font_size, min = 6, max = 30, step = 1),
+          if (panel == "decoupled") shiny::numericInput(ns("adv_chain_heatmap_font_size"), "Heatmap font size", adv$chain_heatmap_font_size %||% 12, min = 6, max = 30, step = 1),
+          if (panel == "decoupled") shiny::numericInput(ns("adv_chain_heatmap_value_size"), "Heatmap value label size", adv$chain_heatmap_value_size %||% 3, min = 1, max = 12, step = 0.2),
+          shiny::div(`data-mslm-figure-target` = panel),
+          footer = if (has_font) shiny::tagList(shiny::actionButton(ns("adv_apply"), "Apply to this tab", class = "btn-primary"), shiny::modalButton("Close")) else shiny::modalButton("Done")
+        ))
+      }
+
       shiny::modalDialog(
-        title     = "Advanced settings",
+        title     = if (common) "Shared settings: Group colors & order" else if (panel == "net") "Pathway: Figure settings" else "Feature: Figure settings",
         size      = "l",
         easyClose = TRUE,
         footer    = shiny::tagList(
           shiny::actionButton(ns("adv_apply"), "Apply", class = "btn-primary"),
-          shiny::modalButton("Cancel")
+          shiny::modalButton(if (common) "Cancel" else "Close")
         ),
+        shiny::helpText(if (common) "Shared by analyses using sample groups. Volcano and Enrichment use result-category colors instead. Figure styling and statistical annotations are configured separately for each analysis." else "Applies only to this analysis tab. Data selection and analysis controls remain in the main panel; colors and group order are in Shared settings."),
         shiny::tabsetPanel(
           id = ns("adv_tabs"),
+          selected = if (common) "Colors / order" else "Plot styling",
 
-          shiny::tabPanel(
+          if (!common) shiny::tabPanel("Layout / display", shiny::div(`data-mslm-figure-target` = panel)),
+
+          if (common) shiny::tabPanel(
             "Colors / order",
             shiny::h4("Group colors and order"),
             shiny::helpText("Choose a color and enter the display order for each group."),
-            shiny::uiOutput(ns("adv_color_pickers")),
-            shiny::hr(),
+            shiny::uiOutput(ns("adv_color_pickers"))
+          ),
+
+          if (!common) shiny::tabPanel(
+            "Split / annotations",
             shiny::h4("Panel split"),
             shiny::selectInput(
               ns("adv_facet_var"),
@@ -475,8 +510,8 @@ mod_feature_generic_server <- function(
             }
           ),
 
-          shiny::tabPanel(
-            "Statistics",
+          if (!common) shiny::tabPanel(
+            "Statistical annotations",
             shiny::h4("p-value annotation (Wilcoxon / t-test)"),
             shiny::fluidRow(
               shiny::column(3, shiny::checkboxInput(ns("adv_add_p"), "Show p-values", value = isTRUE(adv$add_p))),
@@ -498,7 +533,7 @@ mod_feature_generic_server <- function(
             shiny::uiOutput(ns("adv_pairs_ui"))
           ),
 
-          shiny::tabPanel(
+          if (!common) shiny::tabPanel(
             "Plot styling",
             shiny::h4("Plot styling parameters (Dot / Box / Violin)"),
             shiny::fluidRow(
@@ -539,7 +574,7 @@ mod_feature_generic_server <- function(
                 6,
                 shiny::textInput(
                   ns("adv_gene_y_axis_label"),
-                  "Gene plot y-axis label",
+                  "Multiomics plot y-axis label",
                   value = adv$gene_y_axis_label %||% "Abundance"
                 )
               )
@@ -559,6 +594,7 @@ mod_feature_generic_server <- function(
               shiny::column(
                 4, shiny::h5("Box"),
                 shiny::numericInput(ns("adv_box_width"),        "box width",          adv$box_width,        min = 0.1, step = 0.05),
+                shiny::numericInput(ns("adv_box_linewidth"), "border line width", adv$box_linewidth %||% 1, min = 0.1, step = 0.1),
                 shiny::numericInput(ns("adv_box_alpha"),        "box alpha (0-1)",    adv$box_alpha,        min = 0, max = 1, step = 0.05),
                 shiny::checkboxInput(ns("adv_box_show_points"), "Show points",        adv$box_show_points),
                 shiny::numericInput(ns("adv_box_point_size"),   "point size",         adv$box_point_size,   min = 0.1, step = 0.1),
@@ -593,7 +629,7 @@ mod_feature_generic_server <- function(
 
       # Palette table -> adv$palette_map / adv$manual_order
       df <- rv$pal_tbl
-      if (!is.null(df) && nrow(df)) {
+      if (identical(rv$modal_scope, "common") && !is.null(df) && nrow(df)) {
         df$color <- .norm_hex_vec(df$color)
 
         ok <- !is.na(df$color) & nzchar(df$color)
@@ -610,6 +646,31 @@ mod_feature_generic_server <- function(
             adv$decreasing <- FALSE
           }
         }
+      }
+
+      if (identical(rv$modal_scope, "common")) {
+        rv$adv <- adv
+        if (is.function(on_adv_commit)) on_adv_commit(adv)
+        shiny::removeModal()
+        return(invisible(NULL))
+      }
+      adv <- panel_settings(rv$modal_panel)
+      if (rv$modal_panel %in% c("cor", "volcano", "decoupled")) {
+        size <- suppressWarnings(as.numeric(input$adv_plot_font_size %||% 12))
+        if (length(size) != 1L || !is.finite(size) || size < 6) size <- 12
+        styles <- rv$panel_styles
+        style <- list(plot_font_size = size)
+        if (rv$modal_panel == "decoupled") {
+          hm <- suppressWarnings(as.numeric(input$adv_chain_heatmap_font_size %||% 12))
+          value <- suppressWarnings(as.numeric(input$adv_chain_heatmap_value_size %||% 3))
+          style$chain_heatmap_font_size <- if (length(hm) == 1L && is.finite(hm) && hm >= 6) hm else 12
+          style$chain_heatmap_value_size <- if (length(value) == 1L && is.finite(value) && value > 0) value else 3
+        }
+        styles[[rv$modal_panel]] <- style
+        rv$panel_styles <- styles
+        if (is.function(on_adv_commit)) on_adv_commit(rv$adv)
+        shiny::removeModal()
+        return(invisible(NULL))
       }
 
       facet_in <- as.character(input$adv_facet_var %||% .NO_SPLIT_CHOICE)
@@ -666,6 +727,8 @@ mod_feature_generic_server <- function(
       adv$dot_median_color <- input$adv_dot_median_color %||% "#222222"
 
       # Box
+      adv$box_linewidth <- suppressWarnings(as.numeric(input$adv_box_linewidth %||% 1))
+      if (length(adv$box_linewidth) != 1L || !is.finite(adv$box_linewidth) || adv$box_linewidth <= 0) adv$box_linewidth <- 1
       adv$box_width        <- input$adv_box_width
       adv$box_alpha        <- input$adv_box_alpha
       adv$box_show_points  <- isTRUE(input$adv_box_show_points)
@@ -686,15 +749,24 @@ mod_feature_generic_server <- function(
       adv$violin_median_color <- input$adv_violin_median_color %||% "#222222"
 
       # Commit state
-      rv$adv <- adv
+      if (identical(rv$modal_panel, "feat")) {
+        rv$adv <- adv
+      } else {
+        styles <- rv$panel_styles
+        common_keys <- c("palette_map", "manual_order", "order_by", "decreasing")
+        styles[[rv$modal_panel]] <- adv[setdiff(names(adv), common_keys)]
+        rv$panel_styles <- styles
+      }
 
-      if (is.function(on_adv_commit)) on_adv_commit(adv)
+      if (is.function(on_adv_commit)) on_adv_commit(rv$adv)
       shiny::removeModal()
     }, ignoreInit = TRUE)
 
     # Public "hub" API: open_adv() --------------------------------------------
-    open_adv <- function(dataset = NULL) {
+    open_adv <- function(dataset = NULL, scope = "figure", panel = "feat") {
       if (!is.null(dataset)) rv$dataset <- as.character(dataset)
+      rv$modal_scope <- scope
+      rv$modal_panel <- panel
       shiny::showModal(feature_adv_modal())
       invisible(NULL)
     }
@@ -726,7 +798,22 @@ mod_feature_generic_server <- function(
 
     # Return hub handles ------------------------------------------------------
     list(
+      project_export = function() list(dataset = rv$dataset, adv = rv$adv, panel_styles = rv$panel_styles),
+      project_restore = function(state) {
+        rv$dataset <- state$dataset
+        rv$adv <- utils::modifyList(.default_feature_adv(), state$adv, keep.null = TRUE)
+        rv$panel_styles <- state$panel_styles %||% list()
+        if (is.null(state$panel_styles)) {
+          # Older projects used one styling list for every analysis.
+          keys <- setdiff(names(rv$adv), c("palette_map", "manual_order", "order_by", "decreasing"))
+          rv$panel_styles <- list(cor = rv$adv[keys], net = rv$adv[keys], enrich = rv$adv[keys])
+        }
+        rv$pal_tbl <- NULL
+        shiny::updateRadioButtons(session, "feature_dataset", selected = state$dataset)
+        if (is.function(on_adv_commit)) on_adv_commit(rv$adv)
+      },
       adv_reactive = adv_reactive,
+      panel_adv_reactive = function(panel) shiny::reactive(panel_settings(panel)),
       open_adv     = open_adv,
       apply_live   = apply_live
     )

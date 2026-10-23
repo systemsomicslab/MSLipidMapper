@@ -1,0 +1,37 @@
+const {chromium}=require('C:/Users/takak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{
+const b=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
+const p=await b.newPage({viewport:{width:1600,height:1120},acceptDownloads:true});
+const errors=[];p.on('pageerror',e=>errors.push(e.message));
+await p.goto('http://127.0.0.1:3868');
+await p.waitForFunction(()=>window.__cy_instances && window.__cy_instances['path-cy'],{},{timeout:45000});
+await p.locator('summary').filter({hasText:'FC figure panels'}).click();await p.check('#path-fc_enabled');
+await p.waitForFunction(()=>document.querySelector('.mslm-fc-status')?.textContent.includes('Treatment / Control'));
+async function clickNode(cls){await p.evaluate(cls=>{const cy=window.__cy_instances['path-cy'];const n=cy.nodes().filter(n=>n.data('shared_name')===cls).first();n.emit('tap');},cls)}
+await clickNode('PC');await p.waitForSelector('.mslm-fc-panel');
+console.log('Real FC chart received.');
+await clickNode('PE');if(await p.locator('.mslm-fc-panel').count()!==2)throw Error('Add failed');
+const head=p.locator('.mslm-fc-header').first(), r=await head.boundingBox();await p.mouse.move(r.x+60,r.y+14);await p.mouse.down();await p.mouse.move(r.x+155,r.y+85,{steps:6});await p.mouse.up();
+const after=await head.boundingBox();if(after.x<r.x+60)throw Error('Drag failed');
+const grip=await p.locator('.mslm-fc-resize').first().boundingBox();await p.mouse.move(grip.x+10,grip.y+10);await p.mouse.down();await p.mouse.move(grip.x+65,grip.y+60,{steps:5});await p.mouse.up();
+await p.locator('summary').filter({hasText:'Differential (2-group)'}).click();
+await p.evaluate(()=>{document.getElementById('path-diff_group_a').selectize.setValue('Treatment');document.getElementById('path-diff_group_b').selectize.setValue('Control');});
+await p.waitForFunction(()=>document.querySelector('.mslm-fc-status').textContent.includes('Control / Treatment'));
+const dl=p.waitForEvent('download');await p.click('#path-fc_svg');const download=await dl;await download.saveAs('output/pathway-fc-integrated-check.svg');
+await p.screenshot({path:'output/pathway-fc-integrated-check.png',fullPage:true});
+await p.locator('.mslm-fc-close').first().click();if(await p.locator('.mslm-fc-panel').count()!==1)throw Error('Close failed');
+await p.click('#path-fc_clear');
+await p.locator('#path-cy').scrollIntoViewIfNeeded();
+const pos=await p.evaluate(()=>{const cy=window.__cy_instances['path-cy'];const n=cy.nodes().filter(n=>n.data('shared_name')==='PC').first();return n.renderedPosition()});
+const box=await p.locator('#path-cy').boundingBox();await p.mouse.click(box.x+pos.x,box.y+pos.y);
+await p.waitForSelector('.mslm-fc-panel');
+await p.waitForFunction(()=>document.querySelector('#path-plot_title_left')?.textContent.includes('PC'));
+await p.waitForFunction(()=>document.querySelectorAll('.recalculating').length===0);
+const plotErrors=await p.locator('.shiny-output-error').allTextContents();if(plotErrors.length)throw Error('Existing plots: '+plotErrors.join(';'));
+const pdfWait=p.waitForEvent('download');
+await p.evaluate(()=>Shiny.setInputValue('path-export_pdf_popups',1,{priority:'event'}));
+const pdf=await pdfWait;await pdf.saveAs('output/pathway-fc-integrated-check.pdf');
+await p.selectOption('#path-net_select',{label:'sphingolipids'});await p.waitForFunction(()=>document.querySelectorAll('.mslm-fc-panel').length===0);
+console.log('errors',JSON.stringify(errors));if(errors.length)throw Error(errors.join('\n'));
+console.log('PASS: real Shiny module and Cytoscape: data delivery, open, move, resize, contrast, SVG, close, network switch.');await b.close();
+})().catch(e=>{console.error(e);process.exit(1)});

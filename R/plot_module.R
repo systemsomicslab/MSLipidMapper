@@ -54,7 +54,7 @@ mod_plot_ui <- function(id) {
       ),
 
       shiny::tabPanel(
-        title = "Transcriptome",
+        title = "multiomics data",
         value = "tx",
         # ★ 遺伝子側 UI モジュール
         mod_plot_tx_ui(ns("tx"))

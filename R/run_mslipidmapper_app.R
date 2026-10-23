@@ -49,7 +49,7 @@
     library(SummarizedExperiment)
     library(shinybusy)
   })
-  
+
   app_root <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
   app_www_dir <- .mslm_app_www_dir()
   vendor_dir <- if (nzchar(app_www_dir)) {
@@ -64,7 +64,7 @@
   } else {
     warning("vendor directory not found: ", vendor_dir)
   }
-  
+
   `%||%` <- function(a, b) {
     if (is.null(a) || (is.character(a) && length(a) == 0)) b else a
   }
@@ -289,7 +289,11 @@
   # ---- Safe UI/server callers -------------------------------------------
   maybe_ui <- function(fun_name, ...) {
     if (exists(fun_name, mode = "function")) {
-      do.call(get(fun_name, mode = "function"), list(...))
+      args <- list(...)
+      ui_result <- do.call(get(fun_name, mode = "function"), args)
+      spec <- .mslm_figure_registry()[[fun_name]]
+      if (!is.null(spec)) .mslm_collect_figure_controls(ui_result, args[[1]], spec)
+      else ui_result
     } else {
       shiny::tagList(
         shiny::h3(sprintf("%s not found", fun_name)),
@@ -309,13 +313,20 @@
   .boxTitleWithAdv <- function(title_text, btn_id) {
     shiny::div(
       class = "mslm-box-title-row",
-      style = "display:flex; align-items:center; width:100%; gap:8px;",
+      style = "display:flex; flex-wrap:wrap; align-items:center; width:100%; gap:8px;",
       shiny::span(title_text, style = "font-weight:600;"),
       shiny::div(
-        style = "margin-left:auto;",
+        style = "margin-left:auto; display:flex; flex-wrap:wrap; gap:8px;",
         shiny::actionButton(
+          inputId = paste0(btn_id, "_figure"),
+          label = "Figure settings",
+          title = "Fonts, plot styling and annotations for this analysis only",
+          icon = .ic("sliders-h"), class = "btn btn-default btn-xs"
+        ),
+        if (!btn_id %in% c("open_adv_volcano", "open_adv_enrich")) shiny::actionButton(
           inputId = btn_id,
-          label   = "Advanced setting",
+          label   = "Shared: colors / order",
+          title   = "Group colors and display order shared across analysis tabs. Analysis settings are in each tab.",
           icon    = .ic("sliders-h"),
           class   = "btn btn-default btn-xs"
         )
@@ -362,11 +373,13 @@
           shinydashboard::menuSubItem("Utility hub",      tabName = "utility_home",     icon = .ic("home")),
           shinydashboard::menuSubItem("Ontology builder", tabName = "utility_ontology", icon = .ic("table")),
           shinydashboard::menuSubItem("Pathway editor",   tabName = "utility_pathway",  icon = .ic("code-branch"))
-        )
+        ),
+        shinydashboard::menuItem("Project file", tabName = "project_file_page", icon = .ic("folder-open"))
       )
     ),
 
     shinydashboard::dashboardBody(
+      .mslm_figure_portal_ui(),
       shiny::tags$head(
         shiny::tags$style(shiny::HTML("
 /* Overall background */
@@ -559,7 +572,30 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
   box-shadow: 0 0 0 3px rgba(35,136,191,0.12);
 }
 .btn-default { border-color: #c8d4de; background: #f8fafc; color: #3d5265; }
-.btn-primary, .mslm-run-btn { background: var(--mslm-blue) !important; border-color: var(--mslm-blue) !important; }
+/* Shiny action buttons also carry btn-default: set foreground and background
+   together so the default dark label cannot leak into filled buttons. */
+.btn.btn-primary, .btn.btn-info, .mslm-run-btn {
+  background: #176b96 !important;
+  border-color: #176b96 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+.btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary:active,
+.btn.btn-primary.active, .btn.btn-info:hover, .btn.btn-info:focus,
+.btn.btn-info:active, .btn.btn-info.active,
+.mslm-run-btn:hover, .mslm-run-btn:focus, .mslm-run-btn:active {
+  background: #125477 !important;
+  border-color: #125477 !important;
+  color: #ffffff !important;
+}
+.btn.btn-primary:focus-visible, .btn.btn-info:focus-visible,
+.mslm-run-btn:focus-visible {
+  outline: 3px solid #172432;
+  outline-offset: 3px;
+}
+.btn.btn-success { background: #25743c !important; border-color: #25743c !important; color: #ffffff !important; }
+.btn.btn-danger { background: #b52b27 !important; border-color: #b52b27 !important; color: #ffffff !important; }
+.btn.btn-warning { background: #f0ad4e !important; border-color: #c77c11 !important; color: #172432 !important; }
 .table { width: 100%; color: var(--mslm-ink); font-size: 0.78rem; }
 .table > thead > tr > th { border-bottom: 1px solid #cfd9e2; color: #5d7184; font-size: 0.72rem; }
 .table > tbody > tr > td { border-top-color: #e4e9ee; }
@@ -592,6 +628,16 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
       ),
 
       shinydashboard::tabItems(
+
+        shinydashboard::tabItem(
+          tabName = "project_file_page",
+          shiny::fluidRow(
+            shinydashboard::box(
+              title = "Project file", width = 12, status = "primary", solidHeader = TRUE,
+              .mslm_project_ui()
+            )
+          )
+        ),
 
         # ---------------- 1. Upload ----------------
         shinydashboard::tabItem(
@@ -881,7 +927,29 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
   # ============================================================
   # 3) Server
   # ============================================================
+  # One static server per app, with a separate directory for each connection.
+  image_root <- tempfile("mslm-images-", tmpdir = api_static_dir %||% tempdir())
+  dir.create(image_root, recursive = TRUE, showWarnings = FALSE)
+  on.exit(unlink(image_root, recursive = TRUE, force = TRUE), add = TRUE)
+  if (isTRUE(api_enable)) {
+    api_handle <- start_inline_api2_static(
+      se_provider = function() NULL, state_provider = function() list(),
+      static_dir = image_root, host = api_host, port = api_port,
+      verbose = isTRUE(verbose_api), enable_plot_endpoints = FALSE
+    )
+    on.exit(api_handle$stop(), add = TRUE)
+  }
+
   server <- function(input, output, session) {
+    image_dir <- tempfile("session-", tmpdir = image_root)
+    dir.create(image_dir, recursive = TRUE, showWarnings = FALSE)
+    session$userData$mslm_images <- list(
+      directory = image_dir,
+      prefix = paste0("/static/", basename(image_dir)), port = api_port
+    )
+    session$onSessionEnded(function() {
+      unlink(image_dir, recursive = TRUE, force = TRUE)
+    })
 
     # ---- Step 1: Upload --------------------------------------------------
     step1 <- maybe_server("mod_upload_server", "u")
@@ -1000,9 +1068,19 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
     if (!is.null(feat) && is.list(feat) && is.function(feat$open_adv)) {
       lapply(adv_btn_ids, function(id2) {
         shiny::observeEvent(input[[id2]], {
-          feat$open_adv()
+          feat$open_adv(scope = "common")
         }, ignoreInit = TRUE)
       })
+      lapply(c("pca", "oplsda", "feat", "hm", "cor", "volcano", "enrich", "decoupled", "net"), function(panel) {
+        shiny::observeEvent(input[[paste0("open_adv_", panel, "_figure")]], {
+          feat$open_adv(scope = "figure", panel = panel)
+        }, ignoreInit = TRUE)
+      })
+    }
+
+    panel_settings <- function(panel) {
+      if (!is.null(feat) && is.function(feat$panel_adv_reactive)) feat$panel_adv_reactive(panel)
+      else settings_reactive
     }
 
     # ---- PCA module ------------------------------------------------------
@@ -1039,7 +1117,7 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
       "cor",
       se_lipid = se_lipid_for_plot,
       se_tx    = se_tx_for_plot,
-      adv_reactive = settings_reactive
+      adv_reactive = panel_settings("cor")
     )
 
     # ---- Volcano module --------------------------------------------------
@@ -1048,6 +1126,7 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
       "volc",
       se_lipid = se_lipid_for_plot,
       se_tx    = se_tx_for_plot,
+      adv_reactive = panel_settings("volcano"),
       default_group_col = "class"
     )
 
@@ -1056,7 +1135,7 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
       "mod_lipid_enrich_server",
       "enrich",
       se_lipid        = se_lipid_for_plot,
-      adv_reactive    = settings_reactive,
+      adv_reactive    = panel_settings("enrich"),
       rules_yaml_path = rules_yaml_path2
     )
 
@@ -1065,18 +1144,20 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
       "mod_decoupled_chains_server",
       "dc",
       se_lipid     = se_lipid_for_plot,
-      adv_reactive = settings_reactive
+      adv_reactive = panel_settings("decoupled")
     )
 
     # ---- Pathway analysis (Network) module -------------------------------
-    maybe_server(
+    network <- maybe_server(
       "mod_cyto_server",
       "net",
       se_lipid_reactive = se_lipid_for_plot,
       se_tx_reactive    = se_tx_for_plot,
-      settings_reactive = settings_reactive,
+      settings_reactive = panel_settings("net"),
       default_layout    = "cose"
     )
+
+    .mslm_project_server(input, output, session, step1, step2, feat, network)
 
     # ---- Utility: Ontology builder module --------------------------------
     maybe_server("mod_utility_ontology_builder_server", "util_ont")
@@ -1089,44 +1170,11 @@ label, .control-label { color: #526678; font-size: 0.76rem; font-weight: 600; }
       export_filename = "pathway.cyjs"
     )
 
-    # ---- Inline API (Plumber): static mount for SVGs ----------------------
-    if (isTRUE(api_enable) && exists("start_inline_api2_static", mode = "function")) {
-      static_dir_raw <- api_static_dir %||% file.path(tempdir(), "cyimg_cache")
-      dir.create(static_dir_raw, recursive = TRUE, showWarnings = FALSE)
-      svg_dir <- normalizePath(static_dir_raw, winslash = "/", mustWork = FALSE)
-
-      img_base_url <- sprintf("http://%s:%d/static", api_public_host, api_port)
-
-      api_handle <- NULL
-      api_handle <- try(
-        start_inline_api2_static(
-          se_provider    = function() api_state$se,
-          state_provider = function() list(live = api_state$live, adv = api_state$adv),
-          static_dir     = svg_dir,
-          host           = api_host,
-          port           = api_port,
-          verbose        = isTRUE(verbose_api),
-          enable_plot_endpoints = FALSE
-        ),
-        silent = TRUE
-      )
-
-      try(shiny::updateTextInput(session, "net-svg_dir",      value = svg_dir), silent = TRUE)
-      try(shiny::updateTextInput(session, "net-img_base_url", value = img_base_url), silent = TRUE)
-
-      shiny::onStop(function() {
-        try({
-          if (!inherits(api_handle, "try-error") &&
-              !is.null(api_handle) &&
-              is.function(api_handle$stop)) {
-            api_handle$stop()
-          }
-        }, silent = TRUE)
-        try(unlink(svg_dir, recursive = TRUE, force = TRUE), silent = TRUE)
-      })
-    }
+    try(shiny::updateTextInput(session, "net-svg_dir", value = image_dir), silent = TRUE)
+    try(shiny::updateTextInput(session, "net-img_base_url",
+      value = sprintf("http://%s:%d/static/%s", api_public_host, api_port,
+                      basename(image_dir))), silent = TRUE)
   }
-
   shiny::runApp(
     list(ui = ui, server = server),
     launch.browser = launch.browser,

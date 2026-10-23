@@ -1,0 +1,26 @@
+{
+  "headers": {
+    "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, X-Release, queryid",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Expose-Headers": "X-Total-Results, X-Release, queryid, content-type, user-agent, cache-control, etag, range",
+    "Cache-Control": "public",
+    "Connection": "close",
+    "Content-Disposition": "attachment; filename=\"sparql-ABCF49C2E63F0D80243B2BB6ED6EDB55.srj\"",
+    "Content-Type": "application/sparql-results+json",
+    "Date": "Thu, 15 Oct 2026 03:41:09 GMT",
+    "ETag": "W/\"2026_03\"",
+    "Expires": "Fri, 16 Oct 2026 05:41:08 GMT",
+    "Server": "Apache",
+    "Strict-Transport-Security": "max-age=31536001; includeSubDomains",
+    "Transfer-Encoding": "chunked",
+    "Vary": "Negotiate,Accept,Accept-Encoding,Content-Type",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Powered-By": "sib.swiss",
+    "X-Release": "2026_03",
+    "queryid": "-404"
+  },
+  "retrieved_at": "2026-10-15T03:41:11.140523+00:00",
+  "sha256": "8db609caa1e94b1219078887e9af1d279309153b06888ed19bf4990d479aab6a",
+  "url": "https://sparql.rhea-db.org/sparql?query=PREFIX+rh%3A+%3Chttp%3A%2F%2Frdf.rhea-db.org%2F%3E%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0APREFIX+ch%3A+%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FCHEBI_%3E%0APREFIX+chebihash%3A+%3Chttp%3A%2F%2Fpurl.obolibrary.org%2Fobo%2Fchebi%23%3E%0ASELECT+DISTINCT+%3Freaction+%3Fequation+%3Fside+%3Fparticipant+%3Fcompound+%3Fname+%3Fchebi+%3Fcoefficient+%3Ftransport+%3Fannotated+WHERE+%7B%0A+VALUES+%3Freaction+%7B+rh%3A80403+rh%3A80407+rh%3A80535+rh%3A80591+rh%3A80719+rh%3A80723+rh%3A80731+rh%3A80735+rh%3A80751+rh%3A80755+rh%3A80803+rh%3A80815+rh%3A80819+rh%3A80823+rh%3A80831+rh%3A80859+rh%3A80863+rh%3A80867+rh%3A80871+rh%3A80875+rh%3A80879+rh%3A80883+rh%3A80971+rh%3A80979+rh%3A80983+rh%3A80987+rh%3A81103+rh%3A81111+rh%3A81151+rh%3A81155+rh%3A81159+rh%3A81163+rh%3A81167+rh%3A81171+rh%3A81219+rh%3A81223+rh%3A81231+rh%3A81351+rh%3A81371+rh%3A81443+rh%3A81447+rh%3A81451+rh%3A81463+rh%3A81475+rh%3A81479+rh%3A81539+rh%3A81543+rh%3A81567+rh%3A81571+rh%3A81575+rh%3A81583+rh%3A81587+rh%3A81599+rh%3A81603+rh%3A81627+rh%3A81695+rh%3A81699+rh%3A81703+rh%3A81711+rh%3A81715+rh%3A81723+rh%3A81727+rh%3A81731+rh%3A81735+rh%3A81739+rh%3A81743+rh%3A81747+rh%3A81751+rh%3A81755+rh%3A81759+rh%3A81763+rh%3A81767+rh%3A81771+rh%3A81775+rh%3A81779+rh%3A81783+rh%3A81791+rh%3A81795+rh%3A81803+rh%3A81807+rh%3A81811+rh%3A81815+rh%3A81819+rh%3A81823+rh%3A81851+rh%3A81855+rh%3A81859+rh%3A81863+rh%3A81879+rh%3A81887+rh%3A81895+rh%3A81899+rh%3A81903+rh%3A81915+rh%3A81919+rh%3A81923+rh%3A81927+rh%3A81931+rh%3A81935+rh%3A81939+%7D%0A+GRAPH+%3Chttps%3A%2F%2Fsparql.rhea-db.org%2Frhea%3E+%7B%0A+%3Freaction+rh%3Aequation+%3Fequation+%3B+rh%3Aside+%3Fside+.%0A+OPTIONAL+%7B+%3Freaction+rh%3AisTransport+%3Ftransport+%7D%0A+BIND%28%3Freaction+AS+%3Fannotated%29%0A+%3Fside+%3Fcontains+%3Fparticipant+.+%3Fcontains+rdfs%3AsubPropertyOf+rh%3Acontains+%3B+rh%3Acoefficient+%3Fcoefficient+.%0A+%3Fparticipant+rh%3Acompound+%3Fcompound+.+%3Fcompound+rh%3Aname+%3Fname+.%0A+OPTIONAL+%7B+%3Fcompound+%28rh%3Achebi%7Crh%3AreactivePart%2Frh%3Achebi%7Crh%3AunderlyingChebi%29+%3Fchebi+%7D%0A+%7D%7D+ORDER+BY+%3Freaction+%3Fside+%3Fparticipant+%3Fannotated&format=json"
+}

@@ -63,19 +63,12 @@ mztab_pairwise_subclass_rdf <- function(
   rd <- as.data.frame(SummarizedExperiment::rowData(se), stringsAsFactors = FALSE)
   cd <- as.data.frame(SummarizedExperiment::colData(se), stringsAsFactors = FALSE)
   if (!group_col %in% names(cd)) stop("group_col not found in colData: ", group_col, call. = FALSE)
-  if (!subclass_col %in% names(rd)) {
-    fallback <- c("Ontology", "opt_global_Ontology")
-    hit <- fallback[fallback %in% names(rd)]
-    if (!length(hit)) stop("subclass_col not found in rowData: ", subclass_col, call. = FALSE)
-    subclass_col <- hit[1]
-  }
   if (!name_col %in% names(rd)) {
     names_vec <- rownames(mat)
   } else {
     names_vec <- as.character(rd[[name_col]])
   }
-  subclasses <- trimws(as.character(rd[[subclass_col]]))
-  subclasses[is.na(subclasses) | !nzchar(subclasses)] <- "Unknown"
+  subclasses <- .mslm_pathway_feature_classes(rd, subclass_col)
   groups <- trimws(as.character(cd[[group_col]]))
   valid_sample <- !is.na(groups) & nzchar(groups) & !groups %in% exclude_sample_classes
   mat <- mat[, valid_sample, drop = FALSE]
@@ -172,6 +165,7 @@ mztab_pairwise_subclass_rdf <- function(
     stringsAsFactors = FALSE, colClasses = "character", na.strings = character()
   )
   statistics$canonical_uri <- mapping$canonical_uri[match(statistics$subclass, mapping$msdial_ontology)]
+  statistics$canonical_uri <- .mslm_registered_uri(statistics$canonical_uri)
   statistics$mapping_status <- ifelse(is.na(statistics$canonical_uri), "unmapped", "mapped")
   if (is.null(dataset_id) || !nzchar(dataset_id)) {
     dataset_id <- if (!is.null(input_path)) tools::file_path_sans_ext(basename(input_path)) else "in_memory_dataset"
@@ -182,37 +176,54 @@ mztab_pairwise_subclass_rdf <- function(
 }
 
 .mslm_subclass_statistics_turtle <- function(statistics, dataset_id) {
-  esc <- function(x) gsub('"', '\\"', gsub("[\r\n\t]+", " ", as.character(x)))
-  slug <- function(x) gsub("[^A-Za-z0-9._~-]+", "_", as.character(x))
+  id_session <- .mslm_begin_id_session()
+  on.exit(.mslm_end_id_session(id_session), add = TRUE)
+  esc <- function(x) {
+    text <- jsonlite::toJSON(as.character(x), auto_unbox = TRUE)
+    substr(text, 2L, nchar(text) - 1L)
+  }
+  iri <- function(value) paste0("<", value, ">")
+  comparison_uri <- function(a, b) .mslm_resource_uri("statistics-comparison", dataset_id, a, b)
   num <- function(predicate, value, datatype = "decimal") {
     if (!is.finite(value)) "" else sprintf("  mslm:%s \"%s\"^^xsd:%s ;\n", predicate, format(value, digits = 15), datatype)
   }
-  ds <- slug(dataset_id)
+  ds <- iri(.mslm_resource_uri("statistics-dataset", dataset_id))
   header <- paste0(
     "@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .\n",
-    "@prefix res: <https://systemomicslab.github.io/MSLipidMapper/resource/> .\n",
-    "@prefix state: <https://systemomicslab.github.io/MSLipidMapper/state/", ds, "/> .\n",
     "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n",
-    "state:dataset a mslm:Dataset .\n\n"
+    ds, " a mslm:Dataset ; mslm:identifier \"", esc(dataset_id), "\" .\n\n"
   )
   comparisons <- unique(statistics[c("group_a", "group_b")])
+  # Opaque IDs cannot carry a fallback name: retain all class labels explicitly.
+  entities <- unique(statistics[c("subclass", "canonical_uri")])
+  entity_lines <- vapply(seq_len(nrow(entities)), function(i) {
+    label <- entities$subclass[i]
+    mapped <- entities$canonical_uri[i]
+    entity <- if (!is.na(mapped) && nzchar(mapped)) mapped else .mslm_resource_uri("unmapped-class", label)
+    classification <- .mslm_classification_info(label)
+    paste0(iri(entity), " a mslm:LipidEntity ; mslm:classLabel \"", esc(label),
+      "\" ; mslm:msdialOntologyLabel \"", esc(label), "\"",
+      if (!is.null(classification)) paste0(" ; mslm:lipidMapsSubClassCode \"", classification$lipidmaps_class_id, "\"") else "",
+      " .")
+  }, character(1))
   comparison_lines <- vapply(seq_len(nrow(comparisons)), function(i) {
-    id <- paste0("comparison_", slug(comparisons$group_a[i]), "_vs_", slug(comparisons$group_b[i]))
-    sprintf("state:%s a mslm:Comparison ; mslm:conditionA \"%s\" ; mslm:conditionB \"%s\" .",
+    id <- iri(comparison_uri(comparisons$group_a[i], comparisons$group_b[i]))
+    sprintf("%s a mslm:Comparison ; mslm:conditionA \"%s\" ; mslm:conditionB \"%s\" .",
       id, esc(comparisons$group_a[i]), esc(comparisons$group_b[i]))
   }, character(1))
   observation_lines <- vapply(seq_len(nrow(statistics)), function(i) {
     z <- statistics[i, ]
-    cmp <- paste0("comparison_", slug(z$group_a), "_vs_", slug(z$group_b))
-    obs <- paste0("obs_", i, "_", slug(z$subclass), if (!is.na(z$acyl_chain)) paste0("_", slug(z$acyl_chain)) else "")
+    cmp <- iri(comparison_uri(z$group_a, z$group_b))
+    obs <- iri(.mslm_resource_uri("statistics-observation", dataset_id, cmp,
+      z$subclass, z$scope, if (is.na(z$acyl_chain)) "" else z$acyl_chain, z$aggregation_method))
     lipid_uri <- if (!is.na(z$canonical_uri) && nzchar(z$canonical_uri)) {
       paste0("<", z$canonical_uri, ">")
     } else {
-      paste0("res:unmapped_", slug(z$subclass))
+      iri(.mslm_resource_uri("unmapped-class", z$subclass))
     }
     paste0(
-      "state:", obs, " a mslm:LipidSubclassObservation ;\n",
-      "  mslm:inDataset state:dataset ; mslm:inComparison state:", cmp, " ;\n",
+      obs, " a mslm:LipidSubclassObservation ;\n",
+      "  mslm:inDataset ", ds, " ; mslm:inComparison ", cmp, " ;\n",
       "  mslm:observedLipidSubclass ", lipid_uri, " ; mslm:detectionStatus mslm:Observed ;\n",
       if (!is.na(z$acyl_chain)) paste0("  mslm:acylChainSignature \"", esc(z$acyl_chain), "\" ;\n") else "",
       num("meanA", z$mean_a), num("meanB", z$mean_b), num("effectSize", z$effect_size),
@@ -222,5 +233,6 @@ mztab_pairwise_subclass_rdf <- function(
       "  mslm:aggregationMethod \"", esc(z$aggregation_method), "\" ."
     )
   }, character(1))
-  paste(c(header, comparison_lines, "", observation_lines), collapse = "\n")
+  .mslm_end_id_session(id_session, commit = TRUE)
+  paste(c(header, entity_lines, "", comparison_lines, "", observation_lines), collapse = "\n")
 }

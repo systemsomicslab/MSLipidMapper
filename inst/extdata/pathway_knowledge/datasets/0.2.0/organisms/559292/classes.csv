@@ -1,0 +1,6 @@
+uri,label,ontology
+https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylcholine,PC,PC
+https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidyldimethylethanolamine,PDME,
+https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylethanolamine,PE,PE
+https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylmonomethylethanolamine,PMME,
+https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylserine,PS,PS

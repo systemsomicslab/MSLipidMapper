@@ -1,0 +1,5957 @@
+[
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000017",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_16728",
+        "label": "Monoacylglycerophosphocholines",
+        "lipidmaps": "GP0105",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0105"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57875"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023062",
+        "reaction": "http://rdf.rhea-db.org/10332"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023099",
+        "reaction": "http://rdf.rhea-db.org/12937"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023296",
+        "reaction": "http://rdf.rhea-db.org/32991"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023391",
+        "reaction": "http://rdf.rhea-db.org/37703"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023393",
+        "reaction": "http://rdf.rhea-db.org/37707"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023581",
+        "reaction": "http://rdf.rhea-db.org/40879"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023583",
+        "reaction": "http://rdf.rhea-db.org/40907"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023586",
+        "reaction": "http://rdf.rhea-db.org/40959"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023590",
+        "reaction": "http://rdf.rhea-db.org/41203"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023627",
+        "reaction": "http://rdf.rhea-db.org/42364"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023986",
+        "reaction": "http://rdf.rhea-db.org/54408"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "2-acyl LPC [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PC [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphocholines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "2-acyl LPC is acylated to PC by LPCAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_16728"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-975614",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_16728",
+            "codes": [
+              "GP0105"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57875"
+            ]
+          }
+        ],
+        "name": "2-acyl LPC [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-975614",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:16728"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426925",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426925",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482788",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PC",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002967",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482533",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/10332",
+      "http://rdf.rhea-db.org/12937",
+      "http://rdf.rhea-db.org/32991",
+      "http://rdf.rhea-db.org/37703",
+      "http://rdf.rhea-db.org/37707",
+      "http://rdf.rhea-db.org/40879",
+      "http://rdf.rhea-db.org/40907",
+      "http://rdf.rhea-db.org/40959",
+      "http://rdf.rhea-db.org/41203",
+      "http://rdf.rhea-db.org/42364",
+      "http://rdf.rhea-db.org/54408"
+    ],
+    "right": [
+      "Diacylglycerophosphocholines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482533",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482533.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000086",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_27923",
+        "label": "Monoacylglycerophosphoglycerols",
+        "lipidmaps": "GP0405",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0405"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_145393"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000080",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_64716",
+        "label": "Diacylglycerophosphoglycerols",
+        "lipidmaps": "GP0401",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0401"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP04010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_64716"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [],
+    "direction": "left-to-right (source SBML)",
+    "equation": "acyl-CoA [mitochondrial matrix] + 2-acyl LPG [mitochondrial inner membrane] => CoA-SH [mitochondrial matrix] + PG [mitochondrial inner membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoglycerols"
+    ],
+    "match_kinds": [],
+    "name": "2-acyl LPG is acylated to PG by CRLS1 (IM)",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524038",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [mitochondrial matrix]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524038",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_27923"
+        ],
+        "compartment": "compartment_70616",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524047",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_27923",
+            "codes": [
+              "GP0405"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_145393"
+            ]
+          }
+        ],
+        "name": "2-acyl LPG [mitochondrial inner membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524047",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:27923"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-29374",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [mitochondrial matrix]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-29374",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_64716"
+        ],
+        "compartment": "compartment_70616",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524042",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_64716",
+            "codes": [
+              "GP0401"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP04010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_64716"
+            ]
+          }
+        ],
+        "name": "PG [mitochondrial inner membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524042",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:64716"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482925",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002971",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482546",
+    "related_source_ids": [],
+    "right": [
+      "Diacylglycerophosphoglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482546",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482546.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000017",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17504",
+        "label": "Monoacylglycerophosphocholines",
+        "lipidmaps": "GP0105",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0105"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_58168"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023063",
+        "reaction": "http://rdf.rhea-db.org/10332"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023100",
+        "reaction": "http://rdf.rhea-db.org/12937"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023297",
+        "reaction": "http://rdf.rhea-db.org/32991"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023392",
+        "reaction": "http://rdf.rhea-db.org/37703"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023394",
+        "reaction": "http://rdf.rhea-db.org/37707"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023582",
+        "reaction": "http://rdf.rhea-db.org/40879"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023584",
+        "reaction": "http://rdf.rhea-db.org/40907"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023587",
+        "reaction": "http://rdf.rhea-db.org/40959"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023591",
+        "reaction": "http://rdf.rhea-db.org/41203"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023628",
+        "reaction": "http://rdf.rhea-db.org/42364"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023987",
+        "reaction": "http://rdf.rhea-db.org/54408"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "1-acyl LPC [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PC [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphocholines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "1-acyl LPC is acylated to PC by LPCAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17504"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524028",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17504",
+            "codes": [
+              "GP0105"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_58168"
+            ]
+          }
+        ],
+        "name": "1-acyl LPC [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524028",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17504"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426925",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426925",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482788",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PC",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002972",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482547",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/10332",
+      "http://rdf.rhea-db.org/12937",
+      "http://rdf.rhea-db.org/32991",
+      "http://rdf.rhea-db.org/37703",
+      "http://rdf.rhea-db.org/37707",
+      "http://rdf.rhea-db.org/40879",
+      "http://rdf.rhea-db.org/40907",
+      "http://rdf.rhea-db.org/40959",
+      "http://rdf.rhea-db.org/41203",
+      "http://rdf.rhea-db.org/42364",
+      "http://rdf.rhea-db.org/54408"
+    ],
+    "right": [
+      "Diacylglycerophosphocholines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482547",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482547.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000069",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_28914",
+        "label": "Monoacylglycerophosphoinositols",
+        "lipidmaps": "GP0605",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0605"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_64771"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000037",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57880",
+        "label": "Diacylglycerophosphoinositols",
+        "lipidmaps": "GP0601",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0601"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57880"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023303",
+        "reaction": "http://rdf.rhea-db.org/33195"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "1-acyl LPI [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PI [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoinositols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "1-acyl LPI is acylated to PI by MBOAT7",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_28914"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498733",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_28914",
+            "codes": [
+              "GP0605"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_64771"
+            ]
+          }
+        ],
+        "name": "1-acyl LPI [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498733",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:28914"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57880"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426639",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57880",
+            "codes": [
+              "GP0601"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57880"
+            ]
+          }
+        ],
+        "name": "PI [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426639",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57880"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482922",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PI",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002975",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482598",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/33195"
+    ],
+    "right": [
+      "Diacylglycerophosphoinositols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482598",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482598.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000069",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_62746",
+        "label": "Monoacylglycerophosphoinositols",
+        "lipidmaps": "GP0605",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0605"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_64872"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000037",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57880",
+        "label": "Diacylglycerophosphoinositols",
+        "lipidmaps": "GP0601",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0601"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57880"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023304",
+        "reaction": "http://rdf.rhea-db.org/33195"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "2-acyl LPI [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PI [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoinositols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "2-acyl LPI is acylated to PI by MBOAT7",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_62746"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498737",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_62746",
+            "codes": [
+              "GP0605"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_64872"
+            ]
+          }
+        ],
+        "name": "2-acyl LPI [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498737",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:62746"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57880"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426639",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57880",
+            "codes": [
+              "GP0601"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57880"
+            ]
+          }
+        ],
+        "name": "PI [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426639",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57880"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482922",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PI",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002978",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482626",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/33195"
+    ],
+    "right": [
+      "Diacylglycerophosphoinositols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482626",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482626.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000086",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_27923",
+        "label": "Monoacylglycerophosphoglycerols",
+        "lipidmaps": "GP0405",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0405"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_145393"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000080",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_64716",
+        "label": "Diacylglycerophosphoglycerols",
+        "lipidmaps": "GP0401",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0401"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP04010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_64716"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [],
+    "direction": "left-to-right (source SBML)",
+    "equation": "acyl-CoA [cytosol] + 2-acyl LPG [endoplasmic reticulum membrane] => CoA-SH [cytosol] + PG [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoglycerols"
+    ],
+    "match_kinds": [],
+    "name": "2-acyl LPG is acylated to PG by LPGAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_27923"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498730",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_27923",
+            "codes": [
+              "GP0405"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_145393"
+            ]
+          }
+        ],
+        "name": "2-acyl LPG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498730",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:27923"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_64716"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1483256",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_64716",
+            "codes": [
+              "GP0401"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP04010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_64716"
+            ]
+          }
+        ],
+        "name": "PG [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1483256",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:64716"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482925",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002980",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482635",
+    "related_source_ids": [],
+    "right": [
+      "Diacylglycerophosphoglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482635",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482635.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000082",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_52603",
+        "label": "Monoacylglycerophosphoserines",
+        "lipidmaps": "GP0305",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0305"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_64379"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000074",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+        "label": "Diacylglycerophosphoserines",
+        "lipidmaps": "GP0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP03010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_11750"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023301",
+        "reaction": "http://rdf.rhea-db.org/33191"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "1-acyl LPS [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PS [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoserines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "1-acyl LPS is acylated to PS by LPSAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_52603"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498724",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_52603",
+            "codes": [
+              "GP0305"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_64379"
+            ]
+          }
+        ],
+        "name": "1-acyl LPS [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498724",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:52603"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_11750"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500646",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+            "codes": [
+              "GP0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP03010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_11750"
+            ]
+          }
+        ],
+        "name": "PS [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500646",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:11750"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482801",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PS",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002981",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482636",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/33191"
+    ],
+    "right": [
+      "Diacylglycerophosphoserines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482636",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482636.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000124",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_28936",
+        "label": "Monoacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0205",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0205"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP0205AA00"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_28936"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023298",
+        "reaction": "http://rdf.rhea-db.org/32995"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024033",
+        "reaction": "http://rdf.rhea-db.org/63768"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "2-acyl LPE [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PE [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoethanolamines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "2-acyl LPE is acylated to PE by LPEAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_28936"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498729",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_28936",
+            "codes": [
+              "GP0205"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP0205AA00"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_28936"
+            ]
+          }
+        ],
+        "name": "2-acyl LPE [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498729",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:28936"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57613"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500581",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "PE [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500581",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57613"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482839",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PE",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002982",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482646",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/32995",
+      "http://rdf.rhea-db.org/63768"
+    ],
+    "right": [
+      "Diacylglycerophosphoethanolamines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482646",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482646.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000056",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17389",
+        "label": "Monoacylglycerols",
+        "lipidmaps": "GL0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17389"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000028",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17855",
+        "label": "Triacylglycerols",
+        "lipidmaps": "GL0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17855"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023413",
+        "reaction": "http://rdf.rhea-db.org/38327"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023414",
+        "reaction": "http://rdf.rhea-db.org/38331"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023688",
+        "reaction": "http://rdf.rhea-db.org/44436"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023689",
+        "reaction": "http://rdf.rhea-db.org/44440"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "DAG [endoplasmic reticulum membrane] + 2-MAG [endoplasmic reticulum membrane] => Glycerol [cytosol] + TAG [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerols",
+      "Monoacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "2-MAG and DAG are transacylated to TAG by PNPLA2/3",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17389"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498728",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17389",
+            "codes": [
+              "GL0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17389"
+            ]
+          }
+        ],
+        "name": "2-MAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498728",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17389"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17754"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76116",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17754",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "Glycerol [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76116",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17754"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17855"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500594",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17855",
+            "codes": [
+              "GL0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17855"
+            ]
+          }
+        ],
+        "name": "TAG [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500594",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17855"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482883",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodeling of DAG and TAG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002983",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482647",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/38327",
+      "http://rdf.rhea-db.org/38331",
+      "http://rdf.rhea-db.org/44436",
+      "http://rdf.rhea-db.org/44440"
+    ],
+    "right": [
+      "Triacylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482647",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482647.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000056",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17389",
+        "label": "Monoacylglycerols",
+        "lipidmaps": "GL0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17389"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023130",
+        "reaction": "http://rdf.rhea-db.org/16741"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023289",
+        "reaction": "http://rdf.rhea-db.org/32947"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023410",
+        "reaction": "http://rdf.rhea-db.org/38323"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023419",
+        "reaction": "http://rdf.rhea-db.org/38467"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023459",
+        "reaction": "http://rdf.rhea-db.org/39943"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023685",
+        "reaction": "http://rdf.rhea-db.org/44432"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024066",
+        "reaction": "http://rdf.rhea-db.org/77555"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024069",
+        "reaction": "http://rdf.rhea-db.org/77559"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024072",
+        "reaction": "http://rdf.rhea-db.org/77571"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "2-MAG [endoplasmic reticulum membrane] => Glycerol [cytosol] + DAG [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "2-MAG is transacylated to DAG by PNPLA2/3",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17389"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498728",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17389",
+            "codes": [
+              "GL0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17389"
+            ]
+          }
+        ],
+        "name": "2-MAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498728",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17389"
+        ],
+        "stoichiometry": "2.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17754"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76116",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17754",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "Glycerol [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76116",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17754"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482883",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodeling of DAG and TAG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002984",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482654",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/16741",
+      "http://rdf.rhea-db.org/32947",
+      "http://rdf.rhea-db.org/38323",
+      "http://rdf.rhea-db.org/38467",
+      "http://rdf.rhea-db.org/39943",
+      "http://rdf.rhea-db.org/44432",
+      "http://rdf.rhea-db.org/77555",
+      "http://rdf.rhea-db.org/77559",
+      "http://rdf.rhea-db.org/77571"
+    ],
+    "right": [
+      "Diacylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482654",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482654.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000124",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_29017",
+        "label": "Monoacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0205",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0205"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP02050000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_29017"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023299",
+        "reaction": "http://rdf.rhea-db.org/32995"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024034",
+        "reaction": "http://rdf.rhea-db.org/63768"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "1-acyl LPE [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PE [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoethanolamines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "1-acyl LPE is acylated to PE by LPEAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_29017"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498738",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_29017",
+            "codes": [
+              "GP0205"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP02050000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_29017"
+            ]
+          }
+        ],
+        "name": "1-acyl LPE [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498738",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:29017"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57613"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500581",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "PE [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500581",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57613"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482839",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PE",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002986",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482667",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/32995",
+      "http://rdf.rhea-db.org/63768"
+    ],
+    "right": [
+      "Diacylglycerophosphoethanolamines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482667",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482667.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000082",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_37646",
+        "label": "Monoacylglycerophosphoserines",
+        "lipidmaps": "GP0305",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0305"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP0305AA00"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_65214"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000074",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+        "label": "Diacylglycerophosphoserines",
+        "lipidmaps": "GP0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP03010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_11750"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023302",
+        "reaction": "http://rdf.rhea-db.org/33191"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "2-acyl LPS [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + PS [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphoserines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "2-acyl LPS is acylated to PS by LPSAT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_37646"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498722",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_37646",
+            "codes": [
+              "GP0305"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP0305AA00"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_65214"
+            ]
+          }
+        ],
+        "name": "2-acyl LPS [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498722",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:37646"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_11750"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500646",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+            "codes": [
+              "GP0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP03010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_11750"
+            ]
+          }
+        ],
+        "name": "PS [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500646",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:11750"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482801",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PS",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR002990",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482691",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/33191"
+    ],
+    "right": [
+      "Diacylglycerophosphoserines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482691",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482691.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000028",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17855",
+        "label": "Triacylglycerols",
+        "lipidmaps": "GL0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17855"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023078",
+        "reaction": "http://rdf.rhea-db.org/10868"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "DAG [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + TAG [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "DAG is acylated to TAG by DGAT1/2",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17855"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500594",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17855",
+            "codes": [
+              "GL0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17855"
+            ]
+          }
+        ],
+        "name": "TAG [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500594",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17855"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482883",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodeling of DAG and TAG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003015",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482889",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/10868"
+    ],
+    "right": [
+      "Triacylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482889",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482889.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023076",
+        "reaction": "http://rdf.rhea-db.org/10604"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023286",
+        "reaction": "http://rdf.rhea-db.org/32939"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023726",
+        "reaction": "http://rdf.rhea-db.org/45304"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023968",
+        "reaction": "http://rdf.rhea-db.org/54232"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023970",
+        "reaction": "http://rdf.rhea-db.org/54236"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023972",
+        "reaction": "http://rdf.rhea-db.org/54240"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023974",
+        "reaction": "http://rdf.rhea-db.org/54244"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023978",
+        "reaction": "http://rdf.rhea-db.org/54332"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023980",
+        "reaction": "http://rdf.rhea-db.org/54336"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023983",
+        "reaction": "http://rdf.rhea-db.org/54344"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "DAG [endoplasmic reticulum membrane] + CDP-Cho [cytosol] => PC [endoplasmic reticulum membrane] + CMP [cytosol]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "CDP-Cho and DAG are converted to PC by CEPT1 at the ER membrane",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_16436"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524060",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_16436",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CDP-Cho [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524060",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:16436"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426925",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426925",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_60377"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-109395",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_60377",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CMP [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-109395",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60377"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483191",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of PC",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003023",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482961",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/10604",
+      "http://rdf.rhea-db.org/32939",
+      "http://rdf.rhea-db.org/45304",
+      "http://rdf.rhea-db.org/54232",
+      "http://rdf.rhea-db.org/54236",
+      "http://rdf.rhea-db.org/54240",
+      "http://rdf.rhea-db.org/54244",
+      "http://rdf.rhea-db.org/54332",
+      "http://rdf.rhea-db.org/54336",
+      "http://rdf.rhea-db.org/54344"
+    ],
+    "right": [
+      "Diacylglycerophosphocholines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482961",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482961.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023288",
+        "reaction": "http://rdf.rhea-db.org/32943"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023976",
+        "reaction": "http://rdf.rhea-db.org/54248"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023977",
+        "reaction": "http://rdf.rhea-db.org/54252"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023982",
+        "reaction": "http://rdf.rhea-db.org/54340"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024079",
+        "reaction": "http://rdf.rhea-db.org/78951"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "DAG [endoplasmic reticulum membrane] + CDP-ETA [cytosol] => PE [endoplasmic reticulum membrane] + CMP [cytosol]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "CDP-ETA and DAG are converted to PE by CEPT1/EPT1",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57876"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500603",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57876",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CDP-ETA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500603",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57876"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57613"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500581",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "PE [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500581",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57613"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_60377"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-109395",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_60377",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CMP [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-109395",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60377"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483206",
+      "R-MMU-1483213",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Glycerophospholipid biosynthesis",
+      "Synthesis of PE",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003024",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482962",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/32943",
+      "http://rdf.rhea-db.org/54248",
+      "http://rdf.rhea-db.org/54252",
+      "http://rdf.rhea-db.org/54340",
+      "http://rdf.rhea-db.org/78951"
+    ],
+    "right": [
+      "Diacylglycerophosphoethanolamines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482962",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482962.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023077",
+        "reaction": "http://rdf.rhea-db.org/10604"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023287",
+        "reaction": "http://rdf.rhea-db.org/32939"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023727",
+        "reaction": "http://rdf.rhea-db.org/45304"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023969",
+        "reaction": "http://rdf.rhea-db.org/54232"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023971",
+        "reaction": "http://rdf.rhea-db.org/54236"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023973",
+        "reaction": "http://rdf.rhea-db.org/54240"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023975",
+        "reaction": "http://rdf.rhea-db.org/54244"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023979",
+        "reaction": "http://rdf.rhea-db.org/54332"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023981",
+        "reaction": "http://rdf.rhea-db.org/54336"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023984",
+        "reaction": "http://rdf.rhea-db.org/54344"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "DAG [Golgi membrane] + CDP-Cho [cytosol] => PC [Golgi membrane] + CMP [cytosol]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "CDP-Cho and DAG are converted to PC by CHPT1 at the Golgi membrane",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_20699",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524057",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [Golgi membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524057",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_16436"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524060",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_16436",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CDP-Cho [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524060",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:16436"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_20699",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-429785",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [Golgi membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-429785",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_60377"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-109395",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_60377",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CMP [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-109395",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60377"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483191",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of PC",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003025",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482973",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/10604",
+      "http://rdf.rhea-db.org/32939",
+      "http://rdf.rhea-db.org/45304",
+      "http://rdf.rhea-db.org/54232",
+      "http://rdf.rhea-db.org/54236",
+      "http://rdf.rhea-db.org/54240",
+      "http://rdf.rhea-db.org/54244",
+      "http://rdf.rhea-db.org/54332",
+      "http://rdf.rhea-db.org/54336",
+      "http://rdf.rhea-db.org/54344"
+    ],
+    "right": [
+      "Diacylglycerophosphocholines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482973",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482973.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000036",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_58332",
+        "label": "CDP-diacylglycerols",
+        "lipidmaps": "GP1301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP1301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_58332"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000037",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57880",
+        "label": "Diacylglycerophosphoinositols",
+        "lipidmaps": "GP0601",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0601"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57880"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023080",
+        "reaction": "http://rdf.rhea-db.org/11580"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "Ins [cytosol] + CDP-DAG [endoplasmic reticulum membrane] => CMP [cytosol] + PI [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "CDP-diacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "CDP-DAG is converted to PI by CDIPT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17268"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426910",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17268",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "Ins [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426910",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17268"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58332"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426955",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58332",
+            "codes": [
+              "GP1301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_58332"
+            ]
+          }
+        ],
+        "name": "CDP-DAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426955",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58332"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_60377"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-109395",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_60377",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CMP [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-109395",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60377"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57880"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426639",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57880",
+            "codes": [
+              "GP0601"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57880"
+            ]
+          }
+        ],
+        "name": "PI [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426639",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57880"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483206",
+      "R-MMU-1483226",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Glycerophospholipid biosynthesis",
+      "Synthesis of PI",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003026",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1482976",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/11580"
+    ],
+    "right": [
+      "Diacylglycerophosphoinositols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1482976",
+      "release": "97",
+      "stable_id_version": "R-MMU-1482976.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000036",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_58332",
+        "label": "CDP-diacylglycerols",
+        "lipidmaps": "GP1301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP1301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_58332"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000080",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_64716",
+        "label": "Diacylglycerophosphoglycerols",
+        "lipidmaps": "GP0401",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0401"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP04010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_64716"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000081",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_28494",
+        "label": "Diacylglycerophosphoglycerophosphodiradylglycerols",
+        "lipidmaps": "GP1201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP1201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP12010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_28494"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023285",
+        "reaction": "http://rdf.rhea-db.org/32931"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "CDP-DAG [mitochondrial inner membrane] + PG [mitochondrial inner membrane] => CMP [mitochondrial matrix] + cardiolipin [mitochondrial inner membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "CDP-diacylglycerols",
+      "Diacylglycerophosphoglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "PG and CDP-DAG are converted to CL by CRLS1",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58332"
+        ],
+        "compartment": "compartment_70616",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524064",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58332",
+            "codes": [
+              "GP1301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_58332"
+            ]
+          }
+        ],
+        "name": "CDP-DAG [mitochondrial inner membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524064",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58332"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_64716"
+        ],
+        "compartment": "compartment_70616",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524042",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_64716",
+            "codes": [
+              "GP0401"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP04010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_64716"
+            ]
+          }
+        ],
+        "name": "PG [mitochondrial inner membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524042",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:64716"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_60377"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524067",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_60377",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CMP [mitochondrial matrix]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524067",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:60377"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_28494"
+        ],
+        "compartment": "compartment_70616",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1524072",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_28494",
+            "codes": [
+              "GP1201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP12010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_28494"
+            ]
+          }
+        ],
+        "name": "cardiolipin [mitochondrial inner membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1524072",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:28494"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483076",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of CL",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003029",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1483063",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/32931"
+    ],
+    "right": [
+      "Diacylglycerophosphoglycerophosphodiradylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1483063",
+      "release": "97",
+      "stable_id_version": "R-MMU-1483063.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000074",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+        "label": "Diacylglycerophosphoserines",
+        "lipidmaps": "GP0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP03010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_11750"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023187",
+        "reaction": "http://rdf.rhea-db.org/20828"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023236",
+        "reaction": "http://rdf.rhea-db.org/27606"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023576",
+        "reaction": "http://rdf.rhea-db.org/40795"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023605",
+        "reaction": "http://rdf.rhea-db.org/41484"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023606",
+        "reaction": "http://rdf.rhea-db.org/41488"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023607",
+        "reaction": "http://rdf.rhea-db.org/41492"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023608",
+        "reaction": "http://rdf.rhea-db.org/41500"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "L-Ser [cytosol] + PE [endoplasmic reticulum membrane] => PS [endoplasmic reticulum membrane] + ETA [cytosol]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerophosphoethanolamines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "PE is converted to PS by PTDSS2",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_33384"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-200736",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_33384",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "L-Ser [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-200736",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:33384"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57613"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500581",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "PE [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500581",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57613"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_11750"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500646",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+            "codes": [
+              "GP0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP03010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_11750"
+            ]
+          }
+        ],
+        "name": "PS [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500646",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:11750"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57603"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1498751",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57603",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "ETA [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1498751",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57603"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483101",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of PS",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003032",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1483089",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/20828",
+      "http://rdf.rhea-db.org/27606",
+      "http://rdf.rhea-db.org/40795",
+      "http://rdf.rhea-db.org/41484",
+      "http://rdf.rhea-db.org/41488",
+      "http://rdf.rhea-db.org/41492",
+      "http://rdf.rhea-db.org/41500"
+    ],
+    "right": [
+      "Diacylglycerophosphoserines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1483089",
+      "release": "97",
+      "stable_id_version": "R-MMU-1483089.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [],
+    "direction": "left-to-right (source SBML)",
+    "equation": "PE [endoplasmic reticulum membrane] + AdoMet [cytosol] => PC [endoplasmic reticulum membrane] + AdoHcy [cytosol]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerophosphoethanolamines"
+    ],
+    "match_kinds": [],
+    "name": "PE is methylated to PC by PEMT",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57613"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500581",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "PE [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500581",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57613"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_59789"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-71284",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_59789",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "AdoMet [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-71284",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:59789"
+        ],
+        "stoichiometry": "3.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426925",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426925",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57856"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-71285",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57856",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "AdoHcy [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-71285",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57856"
+        ],
+        "stoichiometry": "3.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483191",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of PC",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003037",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1483174",
+    "related_source_ids": [],
+    "right": [
+      "Diacylglycerophosphocholines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1483174",
+      "release": "97",
+      "stable_id_version": "R-MMU-1483174.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000074",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+        "label": "Diacylglycerophosphoserines",
+        "lipidmaps": "GP0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP03010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_11750"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023717",
+        "reaction": "http://rdf.rhea-db.org/45088"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "L-Ser [cytosol] + PC [endoplasmic reticulum membrane] => PS [endoplasmic reticulum membrane] + Cho [cytosol]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerophosphocholines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "PC is converted to PS by PTDSS1",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_33384"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-200736",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_33384",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "L-Ser [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-200736",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:33384"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426925",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426925",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_11750"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500646",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_11750",
+            "codes": [
+              "GP0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP03010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_11750"
+            ]
+          }
+        ],
+        "name": "PS [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500646",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:11750"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_15354"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-264618",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_15354",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "Cho [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-264618",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:15354"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483101",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of PS",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003039",
+    "reaction": "https://reactome.org/content/detail/R-MMU-1483186",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/45088"
+    ],
+    "right": [
+      "Diacylglycerophosphoserines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-1483186",
+      "release": "97",
+      "stable_id_version": "R-MMU-1483186.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000056",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17408",
+        "label": "Monoacylglycerols",
+        "lipidmaps": "GL0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17408"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023131",
+        "reaction": "http://rdf.rhea-db.org/16741"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023290",
+        "reaction": "http://rdf.rhea-db.org/32947"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023411",
+        "reaction": "http://rdf.rhea-db.org/38323"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023420",
+        "reaction": "http://rdf.rhea-db.org/38467"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023460",
+        "reaction": "http://rdf.rhea-db.org/39943"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023686",
+        "reaction": "http://rdf.rhea-db.org/44432"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024067",
+        "reaction": "http://rdf.rhea-db.org/77555"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024070",
+        "reaction": "http://rdf.rhea-db.org/77559"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024073",
+        "reaction": "http://rdf.rhea-db.org/77571"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "Acyl-CoA [endoplasmic reticulum membrane] + MAG [endoplasmic reticulum membrane] => CoA-SH [cytosol] + DAG [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "AWAT2 transfers acyl group from acyl-CoA to MAG, forming DAG",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-6782195",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "Acyl-CoA [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-6782195",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17408"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-5696449",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17408",
+            "codes": [
+              "GL0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17408"
+            ]
+          }
+        ],
+        "name": "MAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-5696449",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17408"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482883",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodeling of DAG and TAG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003401",
+    "reaction": "https://reactome.org/content/detail/R-MMU-5696448",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/16741",
+      "http://rdf.rhea-db.org/32947",
+      "http://rdf.rhea-db.org/38323",
+      "http://rdf.rhea-db.org/38467",
+      "http://rdf.rhea-db.org/39943",
+      "http://rdf.rhea-db.org/44432",
+      "http://rdf.rhea-db.org/77555",
+      "http://rdf.rhea-db.org/77559",
+      "http://rdf.rhea-db.org/77571"
+    ],
+    "right": [
+      "Diacylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-5696448",
+      "release": "97",
+      "stable_id_version": "R-MMU-5696448.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+        "label": "Diacylglycerols",
+        "lipidmaps": "GL0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0201"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGL02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17815"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000028",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_17855",
+        "label": "Triacylglycerols",
+        "lipidmaps": "GL0301",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0301"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_17855"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023079",
+        "reaction": "http://rdf.rhea-db.org/10868"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "DAG [endoplasmic reticulum membrane] + acyl-CoA [cytosol] => CoA-SH [cytosol] + TAG [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerols"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "DGAT2L6,L7P transfer acyl group from acyl-CoA to DAG, forming TAG",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17815"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500596",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17815",
+            "codes": [
+              "GL0201"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGL02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17815"
+            ]
+          }
+        ],
+        "name": "DAG [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500596",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17815"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58342"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500578",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58342",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "acyl-CoA [cytosol]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500578",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58342"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57287"
+        ],
+        "compartment": "compartment_70101",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-76194",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57287",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "CoA-SH [cytosol]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-76194",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57287"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_17855"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500594",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_17855",
+            "codes": [
+              "GL0301"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_17855"
+            ]
+          }
+        ],
+        "name": "TAG [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500594",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:17855"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482883",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodeling of DAG and TAG",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003492",
+    "reaction": "https://reactome.org/content/detail/R-MMU-8848580",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/10868"
+    ],
+    "right": [
+      "Triacylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-8848580",
+      "release": "97",
+      "stable_id_version": "R-MMU-8848580.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+        "label": "Diacylglycerophosphocholines",
+        "lipidmaps": "GP0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0101"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class",
+            "lipidmaps:LMGP01010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_57643"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_61232",
+        "label": "Diacylglycerophosphoethanolamines",
+        "lipidmaps": "GP0201",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0201"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "lipidmaps:LMGP02010000"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_16038"
+          ]
+        },
+        "side_code": "R"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000017",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_58168",
+        "label": "Monoacylglycerophosphocholines",
+        "lipidmaps": "GP0105",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP0105"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_58168"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023718",
+        "reaction": "http://rdf.rhea-db.org/45172"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023719",
+        "reaction": "http://rdf.rhea-db.org/45176"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023720",
+        "reaction": "http://rdf.rhea-db.org/45188"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023721",
+        "reaction": "http://rdf.rhea-db.org/45192"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023729",
+        "reaction": "http://rdf.rhea-db.org/45476"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023926",
+        "reaction": "http://rdf.rhea-db.org/53524"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023927",
+        "reaction": "http://rdf.rhea-db.org/53528"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023995",
+        "reaction": "http://rdf.rhea-db.org/55248"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023996",
+        "reaction": "http://rdf.rhea-db.org/55252"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023997",
+        "reaction": "http://rdf.rhea-db.org/55256"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024010",
+        "reaction": "http://rdf.rhea-db.org/56504"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "PC [endoplasmic reticulum membrane] + PE [endoplasmic reticulum membrane] => NAPE [endoplasmic reticulum membrane] + LysoPtdCho [endoplasmic reticulum membrane]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Diacylglycerophosphocholines",
+      "Diacylglycerophosphoethanolamines"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "HRASLS transfer acyl group from PC to PE to form NAPE",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57643"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-426925",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57643",
+            "codes": [
+              "GP0101"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class",
+              "lipidmaps:LMGP01010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_57643"
+            ]
+          }
+        ],
+        "name": "PC [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-426925",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57643"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_57613"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-1500581",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_57613",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "PE [endoplasmic reticulum membrane]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-1500581",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:57613"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_61232"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-5694568",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_61232",
+            "codes": [
+              "GP0201"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "lipidmaps:LMGP02010000"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_16038"
+            ]
+          }
+        ],
+        "name": "NAPE [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-5694568",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:61232"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_58168"
+        ],
+        "compartment": "compartment_12045",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-6814253",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_58168",
+            "codes": [
+              "GP0105"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_58168"
+            ]
+          }
+        ],
+        "name": "LysoPtdCho [endoplasmic reticulum membrane]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-6814253",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:58168"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1482839",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Acyl chain remodelling of PE",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003500",
+    "reaction": "https://reactome.org/content/detail/R-MMU-8858298",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/45172",
+      "http://rdf.rhea-db.org/45176",
+      "http://rdf.rhea-db.org/45188",
+      "http://rdf.rhea-db.org/45192",
+      "http://rdf.rhea-db.org/45476",
+      "http://rdf.rhea-db.org/53524",
+      "http://rdf.rhea-db.org/53528",
+      "http://rdf.rhea-db.org/55248",
+      "http://rdf.rhea-db.org/55252",
+      "http://rdf.rhea-db.org/55256",
+      "http://rdf.rhea-db.org/56504"
+    ],
+    "right": [
+      "Diacylglycerophosphoethanolamines",
+      "Monoacylglycerophosphocholines"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-8858298",
+      "release": "97",
+      "stable_id_version": "R-MMU-8858298.1"
+    }
+  },
+  {
+    "class_mapping_status": "complete",
+    "classes": [
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000050",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_62833",
+        "label": "Monoacylglycerophosphates",
+        "lipidmaps": "GP1005",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GP1005"
+          ],
+          "distance": 0,
+          "method": "exact-xref-or-curated",
+          "source_xrefs": [
+            "lipidmaps:LMGP10050007"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_62833"
+          ]
+        },
+        "side_code": "L"
+      },
+      {
+        "canonical_class": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000056",
+        "chebi": "http://purl.obolibrary.org/obo/CHEBI_75562",
+        "label": "Monoacylglycerols",
+        "lipidmaps": "GL0101",
+        "mapping": {
+          "biochemical_label": null,
+          "codes": [
+            "GL0101"
+          ],
+          "distance": 1,
+          "method": "ontology-ancestor",
+          "source_xrefs": [
+            "curated-exact-generic-class"
+          ],
+          "status": "mapped",
+          "supporting_terms": [
+            "http://purl.obolibrary.org/obo/CHEBI_35759"
+          ]
+        },
+        "side_code": "R"
+      }
+    ],
+    "cross_source_matches": [
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023162",
+        "reaction": "http://rdf.rhea-db.org/19293"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023300",
+        "reaction": "http://rdf.rhea-db.org/33155"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023362",
+        "reaction": "http://rdf.rhea-db.org/33747"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023457",
+        "reaction": "http://rdf.rhea-db.org/39835"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023458",
+        "reaction": "http://rdf.rhea-db.org/39847"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023589",
+        "reaction": "http://rdf.rhea-db.org/41079"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023646",
+        "reaction": "http://rdf.rhea-db.org/43308"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023647",
+        "reaction": "http://rdf.rhea-db.org/43316"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023648",
+        "reaction": "http://rdf.rhea-db.org/43328"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023762",
+        "reaction": "http://rdf.rhea-db.org/46736"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023865",
+        "reaction": "http://rdf.rhea-db.org/50884"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023928",
+        "reaction": "http://rdf.rhea-db.org/53592"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023929",
+        "reaction": "http://rdf.rhea-db.org/53596"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023930",
+        "reaction": "http://rdf.rhea-db.org/53600"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA023931",
+        "reaction": "http://rdf.rhea-db.org/53604"
+      },
+      {
+        "kind": "class-signature",
+        "match_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMA024032",
+        "reaction": "http://rdf.rhea-db.org/63328"
+      }
+    ],
+    "direction": "left-to-right (source SBML)",
+    "equation": "MYS-LPA [mitochondrial matrix] + H2O [mitochondrial matrix] => Pi [mitochondrial matrix] + 1-MMG [mitochondrial matrix]",
+    "is_inferred": true,
+    "kind": "Reaction",
+    "left": [
+      "Monoacylglycerophosphates"
+    ],
+    "match_kinds": [
+      "class-signature"
+    ],
+    "name": "ACP6 hydrolyses MYS-LPA",
+    "participants": [
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_62833"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-8878649",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_62833",
+            "codes": [
+              "GP1005"
+            ],
+            "distance": 0,
+            "method": "exact-xref-or-curated",
+            "source_xrefs": [
+              "lipidmaps:LMGP10050007"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_62833"
+            ]
+          }
+        ],
+        "name": "MYS-LPA [mitochondrial matrix]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-8878649",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:62833"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_15377"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-113521",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_15377",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "H2O [mitochondrial matrix]",
+        "side": "L",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-113521",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:15377"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_43474"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-113548",
+        "mapping": [
+          {
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_43474",
+            "codes": [],
+            "method": "none",
+            "status": "unmapped"
+          }
+        ],
+        "name": "Pi [mitochondrial matrix]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-113548",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:43474"
+        ],
+        "stoichiometry": "1.0"
+      },
+      {
+        "chebi": [
+          "http://purl.obolibrary.org/obo/CHEBI_75562"
+        ],
+        "compartment": "compartment_5460",
+        "component_references": [],
+        "entity_type": "SimpleEntity",
+        "id": "R-ALL-8934414",
+        "mapping": [
+          {
+            "biochemical_label": null,
+            "chebi": "http://purl.obolibrary.org/obo/CHEBI_75562",
+            "codes": [
+              "GL0101"
+            ],
+            "distance": 1,
+            "method": "ontology-ancestor",
+            "source_xrefs": [
+              "curated-exact-generic-class"
+            ],
+            "status": "mapped",
+            "supporting_terms": [
+              "http://purl.obolibrary.org/obo/CHEBI_35759"
+            ]
+          }
+        ],
+        "name": "1-MMG [mitochondrial matrix]",
+        "side": "R",
+        "source_references": [
+          "https://identifiers.org/reactome:R-ALL-8934414",
+          "https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:75562"
+        ],
+        "stoichiometry": "1.0"
+      }
+    ],
+    "pathway_ids": [
+      "R-MMU-1483166",
+      "R-MMU-1483206",
+      "R-MMU-1483257",
+      "R-MMU-556833"
+    ],
+    "pathway_names": [
+      "Synthesis of PA",
+      "Glycerophospholipid biosynthesis",
+      "Phospholipid metabolism",
+      "Metabolism of lipids"
+    ],
+    "projection": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR003528",
+    "reaction": "https://reactome.org/content/detail/R-MMU-8878654",
+    "related_source_ids": [
+      "http://rdf.rhea-db.org/19293",
+      "http://rdf.rhea-db.org/33155",
+      "http://rdf.rhea-db.org/33747",
+      "http://rdf.rhea-db.org/39835",
+      "http://rdf.rhea-db.org/39847",
+      "http://rdf.rhea-db.org/41079",
+      "http://rdf.rhea-db.org/43308",
+      "http://rdf.rhea-db.org/43316",
+      "http://rdf.rhea-db.org/43328",
+      "http://rdf.rhea-db.org/46736",
+      "http://rdf.rhea-db.org/50884",
+      "http://rdf.rhea-db.org/53592",
+      "http://rdf.rhea-db.org/53596",
+      "http://rdf.rhea-db.org/53600",
+      "http://rdf.rhea-db.org/53604",
+      "http://rdf.rhea-db.org/63328"
+    ],
+    "right": [
+      "Monoacylglycerols"
+    ],
+    "source": {
+      "database": "Reactome",
+      "identifier": "R-MMU-8878654",
+      "release": "97",
+      "stable_id_version": "R-MMU-8878654.1"
+    }
+  }
+]

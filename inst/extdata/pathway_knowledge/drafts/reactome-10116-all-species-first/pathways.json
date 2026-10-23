@@ -1,0 +1,1055 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482788",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482798",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482801",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482839",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482883",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482922",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1482925",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of CL",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483076",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483101",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483115",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPE",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483152",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483166",
+    "totalEntity": 64,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483191",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483206",
+    "totalEntity": 206,
+    "totalEntityAndInteractors": 226,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483213",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483226",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483248",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483255",
+    "totalEntity": 104,
+    "totalEntityAndInteractors": 114,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1483257",
+    "totalEntity": 291,
+    "totalEntityAndInteractors": 315,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-159418",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 40,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-163560",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1655829",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1660499",
+    "totalEntity": 67,
+    "totalEntityAndInteractors": 75,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1660514",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1660516",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1660517",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1660661",
+    "totalEntity": 58,
+    "totalEntityAndInteractors": 59,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-1660662",
+    "totalEntity": 134,
+    "totalEntityAndInteractors": 137,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-191273",
+    "totalEntity": 83,
+    "totalEntityAndInteractors": 87,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-192105",
+    "totalEntity": 111,
+    "totalEntityAndInteractors": 121,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-193048",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-193144",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-193368",
+    "totalEntity": 80,
+    "totalEntityAndInteractors": 84,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-193775",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-193807",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 42,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-193993",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-194002",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-194068",
+    "totalEntity": 122,
+    "totalEntityAndInteractors": 133,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-196071",
+    "totalEntity": 80,
+    "totalEntityAndInteractors": 83,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-196108",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-196791",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-200425",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2046104",
+    "totalEntity": 54,
+    "totalEntityAndInteractors": 56,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2046105",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2046106",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142670",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 5-eicosatetraenoic acids",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142688",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142691",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Hepoxilins (HX) and Trioxilins (TrX)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142696",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142700",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 12-eicosatetraenoic acid derivatives",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142712",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142753",
+    "totalEntity": 144,
+    "totalEntityAndInteractors": 145,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 15-eicosatetraenoic acid derivatives",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142770",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2142816",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-2162123",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 44,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-389599",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-389887",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-390247",
+    "totalEntity": 43,
+    "totalEntityAndInteractors": 43,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-390918",
+    "totalEntity": 87,
+    "totalEntityAndInteractors": 90,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-400206",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-428157",
+    "totalEntity": 207,
+    "totalEntityAndInteractors": 211,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-556833",
+    "totalEntity": 1220,
+    "totalEntityAndInteractors": 1256,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-6807047",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-6807062",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-6814848",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Propionyl-CoA catabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-71032",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-74182",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-75105",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 70,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-75109",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-75876",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77108",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77111",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77285",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77286",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77288",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77289",
+    "totalEntity": 98,
+    "totalEntityAndInteractors": 98,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77305",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77310",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77346",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77348",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77350",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-77352",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-8847453",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-8848584",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-8957322",
+    "totalEntity": 284,
+    "totalEntityAndInteractors": 297,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-8964572",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-8978868",
+    "totalEntity": 387,
+    "totalEntityAndInteractors": 390,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-8979227",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 52,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018676",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018677",
+    "totalEntity": 75,
+    "totalEntityAndInteractors": 76,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018678",
+    "totalEntity": 126,
+    "totalEntityAndInteractors": 126,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018679",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018681",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018682",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DPA-derived SPMs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018683",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9018896",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9020265",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9023661",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3 SPMs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9025094",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-6 SPMs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9025106",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived protectins and resolvins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9026286",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived maresins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9026290",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DHA-derived sulfido conjugates",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9026395",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived 13-series resolvins",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9026403",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin conjugates in tissue regeneration (MCTR)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9026762",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9026766",
+    "totalEntity": 4,
+    "totalEntityAndInteractors": 4,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin-like SPMs",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9027307",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9027604",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9640463",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9840309",
+    "totalEntity": 72,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9840310",
+    "totalEntity": 74,
+    "totalEntityAndInteractors": 76,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9845614",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9969896",
+    "totalEntity": 41,
+    "totalEntityAndInteractors": 41,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)",
+    "species": "Rattus norvegicus",
+    "stId": "R-RNO-9969901",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  }
+]

@@ -623,7 +623,7 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
       if (!is.null(se_tx)) {
         s2 <- try(se_tx(), silent = TRUE)
         if (!inherits(s2, "try-error") && !is.null(s2) && methods::is(s2, "SummarizedExperiment")) {
-          labs   <- c(labs,   "Other omics")
+          labs   <- c(labs,   "multiomics data")
           values <- c(values, "tx")
         }
       }
@@ -662,7 +662,7 @@ ha_top <- ComplexHeatmap::HeatmapAnnotation(
 
     current_dataset_label <- reactive({
       ds <- input$dataset %||% "lipid"
-      if (identical(ds, "tx")) "transcriptome" else "lipid"
+      if (identical(ds, "tx")) "multiomics" else "lipid"
     })
 
     output$run_msg <- renderUI({

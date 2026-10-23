@@ -31,4 +31,8 @@ test_that("pairwise subclass and acyl-subset statistics map to RDF", {
   expect_identical(pc24$mapping_status, "mapped")
   expect_match(out$turtle, "mslm:acylChainSignature \"24:1\"", fixed = TRUE)
   expect_match(out$turtle, "mslm:LipidSubclassObservation", fixed = TRUE)
+  expect_match(out$turtle, "mslm:classLabel \"PC\"", fixed = TRUE)
+  expect_match(out$turtle, "mslm:lipidMapsSubClassCode \"GP0101\"", fixed = TRUE)
+  ids <- regmatches(out$turtle, gregexpr("https://systemomicslab.github.io/MSLipidMapper/resource/[^>]+", out$turtle))[[1]]
+  expect_true(all(grepl("/MSLM[A-Z][0-9]{6,}$", ids)))
 })

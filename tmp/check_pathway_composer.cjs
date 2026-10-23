@@ -1,0 +1,20 @@
+const {chromium}=require('C:/Users/takak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
+const page=await browser.newPage({viewport:{width:1550,height:1200},acceptDownloads:true});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('file:///C:/Users/takak/systemomicslab/MSLipidMapper/codex/MSLipidMapper/output/pathway-figure-composer-demo.html');
+await page.screenshot({path:'output/pathway-figure-composer-demo.png',fullPage:true});
+if(await page.locator('[data-panel]').count()!==4)throw Error('Initial panels');
+await page.locator('[data-node="PS"]').click();
+if(await page.locator('[data-panel]').count()!==5)throw Error('Add panel');
+const handle=page.locator('[data-drag="344"]');const before=await handle.boundingBox();
+await page.mouse.move(before.x+70,before.y+15);await page.mouse.down();await page.mouse.move(before.x+160,before.y+75,{steps:8});await page.mouse.up();
+const after=await page.locator('[data-drag="344"]').boundingBox();if(after.x<=before.x+50)throw Error('Drag failed');
+const r=await page.locator('[data-resize="344"]').boundingBox();await page.mouse.move(r.x+10,r.y+10);await page.mouse.down();await page.mouse.move(r.x+65,r.y+50,{steps:5});await page.mouse.up();
+await page.selectOption('#contrast','-1');await page.selectOption('#number','6');
+await page.locator('[data-close="344"]').click();if(await page.locator('[data-panel]').count()!==4)throw Error('Close failed');
+await page.click('#arrange');const downloadPromise=page.waitForEvent('download');await page.click('#export');const download=await downloadPromise;await download.saveAs('output/pathway-figure-composer-demo.svg');
+await page.click('#clear');if(await page.locator('[data-panel]').count()!==0)throw Error('Clear failed');await page.locator('[data-node="PC"]').click();if(await page.locator('[data-panel]').count()!==1)throw Error('Reopen failed');
+if(errors.length)throw Error(errors.join('\n'));console.log('PASS: initial display, add, drag, resize, reverse, count, close, arrange, SVG download, clear, reopen; no JavaScript errors.');await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

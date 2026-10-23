@@ -4,4 +4,5 @@
 ^\.claude$
 ^mslipidmapper-jobs$
 ^\.api-validation$
+^\.knowledge-build-deps$
 ^compose\.api\.yml$

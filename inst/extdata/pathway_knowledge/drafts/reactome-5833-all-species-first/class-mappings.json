@@ -1,0 +1,322 @@
+{
+  "11750": [
+    "Diacylglycerophosphoserines",
+    "GP0301"
+  ],
+  "128769": [
+    "C5 isoprenoids (hemiterpenes)",
+    "PR0101"
+  ],
+  "132083": [
+    "Hydroxy/hydroperoxyeicosapentaenoic acids",
+    "FA0307"
+  ],
+  "133795": [
+    "Other Docosanoids",
+    "FA0400"
+  ],
+  "139048": [
+    "N-acylsphinganines (dihydroceramides)",
+    "SP0202"
+  ],
+  "15508": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "16113": [
+    "Cholesterol and derivatives",
+    "ST0101"
+  ],
+  "16330": [
+    "C19 steroids (androgens) and derivatives",
+    "ST0202"
+  ],
+  "16422": [
+    "C19 steroids (androgens) and derivatives",
+    "ST0202"
+  ],
+  "16728": [
+    "Monoacylglycerophosphocholines",
+    "GP0105"
+  ],
+  "16975": [
+    "Monoacylglycerophosphates",
+    "GP1005"
+  ],
+  "17336": [
+    "Retinoids",
+    "PR0109"
+  ],
+  "17347": [
+    "C19 steroids (androgens) and derivatives",
+    "ST0202"
+  ],
+  "17351": [
+    "Unsaturated fatty acids",
+    "FA0103"
+  ],
+  "17389": [
+    "Monoacylglycerols",
+    "GL0101"
+  ],
+  "17504": [
+    "Monoacylglycerophosphocholines",
+    "GP0105"
+  ],
+  "17526": [
+    "Diacylglycerophosphoinositol monophosphates",
+    "GP0701"
+  ],
+  "175763": [
+    "C15 isoprenoids (sesquiterpenes)",
+    "PR0103"
+  ],
+  "17616": [
+    "Retinoids",
+    "PR0109"
+  ],
+  "17815": [
+    "Diacylglycerols",
+    "GL0201"
+  ],
+  "17855": [
+    "Triacylglycerols",
+    "GL0301"
+  ],
+  "27432": [
+    "Unsaturated fatty acids",
+    "FA0103"
+  ],
+  "27923": [
+    "Monoacylglycerophosphoglycerols",
+    "GP0405"
+  ],
+  "27979": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "28936": [
+    "Monoacylglycerophosphoethanolamines",
+    "GP0205"
+  ],
+  "29017": [
+    "Monoacylglycerophosphoethanolamines",
+    "GP0205"
+  ],
+  "37646": [
+    "Monoacylglycerophosphoserines",
+    "GP0305"
+  ],
+  "42977": [
+    "Cholesterol and derivatives",
+    "ST0101"
+  ],
+  "51985": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "52603": [
+    "Monoacylglycerophosphoserines",
+    "GP0305"
+  ],
+  "57286": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57319": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57368": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57379": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57380": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57383": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57384": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57387": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57394": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "57405": [
+    "Prostaglandins",
+    "FA0301"
+  ],
+  "57406": [
+    "Prostaglandins",
+    "FA0301"
+  ],
+  "57444": [
+    "Hydroxy/hydroperoxyeicosatetraenoic acids",
+    "FA0306"
+  ],
+  "57613": [
+    "Diacylglycerophosphoethanolamines",
+    "GP0201"
+  ],
+  "57623": [
+    "C5 isoprenoids (hemiterpenes)",
+    "PR0101"
+  ],
+  "57643": [
+    "Diacylglycerophosphocholines",
+    "GP0101"
+  ],
+  "57880": [
+    "Diacylglycerophosphoinositols",
+    "GP0601"
+  ],
+  "58057": [
+    "C10 isoprenoids (monoterpenes)",
+    "PR0102"
+  ],
+  "58332": [
+    "CDP-diacylglycerols",
+    "GP1301"
+  ],
+  "58456": [
+    "Diacylglycerophosphoinositol bisphosphates",
+    "GP0801"
+  ],
+  "58608": [
+    "Diacylglycerophosphates",
+    "GP1001"
+  ],
+  "58856": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "60119": [
+    "Sphingoid base 1-phosphates",
+    "SP0105"
+  ],
+  "606564": [
+    "Prostaglandins",
+    "FA0301"
+  ],
+  "63539": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "63541": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "63542": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "63543": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "63544": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "63545": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "63548": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "64583": [
+    "Ceramide phosphocholines (sphingomyelins)",
+    "SP0301"
+  ],
+  "64612": [
+    "Diacylglycerophosphoethanolamines",
+    "GP0201"
+  ],
+  "64716": [
+    "Diacylglycerophosphoglycerols",
+    "GP0401"
+  ],
+  "67042": [
+    "N-acylsphinganines (dihydroceramides)",
+    "SP0202"
+  ],
+  "71407": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "71408": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "71412": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "71451": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "73852": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "75230": [
+    "Hydroxy/hydroperoxyeicosatetraenoic acids",
+    "FA0306"
+  ],
+  "76941": [
+    "Sphingoid base 1-phosphates",
+    "SP0105"
+  ],
+  "77636": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "78654": [
+    "Ceramide phosphoethanolamines",
+    "SP0302"
+  ],
+  "7896": [
+    "Straight chain fatty acids",
+    "FA0101"
+  ],
+  "83139": [
+    "Fatty acyl CoAs",
+    "FA0705"
+  ],
+  "83273": [
+    "Ceramides",
+    "SP02"
+  ],
+  "83343": [
+    "Hydroxy/hydroperoxyeicosatetraenoic acids",
+    "FA0306"
+  ],
+  "90680": [
+    "Hydroxy/hydroperoxyeicosatetraenoic acids",
+    "FA0306"
+  ],
+  "90814": [
+    "Other Docosanoids",
+    "FA0400"
+  ],
+  "90818": [
+    "Hydroxy/hydroperoxyeicosapentaenoic acids",
+    "FA0307"
+  ]
+}

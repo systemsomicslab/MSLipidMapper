@@ -1,0 +1,800 @@
+
+(function(){
+  if (!window.__cy_instances) window.__cy_instances = {};
+  if (!window.__cy_state) window.__cy_state = {};
+
+  // ---- register cytoscape-pdf-export once ---------------------------------
+  (function(){
+    try{
+      if (window.__cy_pdf_export_registered) return;
+      if (!window.cytoscape) return;
+
+      const plugin =
+        window.cytoscapePdfExport ||
+        window.cytoscapePDFExport ||
+        window.cytoscapePdf ||
+        window.cytoscape_pdf_export ||
+        null;
+
+      if (plugin){
+        window.cytoscape.use(plugin);
+        window.__cy_pdf_export_registered = true;
+        console.log("[cyto] cytoscape-pdf-export registered");
+      } else {
+        console.warn("[cyto] cytoscape-pdf-export plugin global not found.");
+      }
+    } catch(e){
+      console.error("[cyto] Failed to register cytoscape-pdf-export:", e);
+    }
+  })();
+
+  function normalizeStyle(arr){
+    if (!Array.isArray(arr)) return arr;
+    return arr.map(function(it){
+      if (it && it.css && !it.style) { it.style = it.css; delete it.css; }
+      return it;
+    });
+  }
+
+  function defaultStyle(){
+    if (window.MSLipidMapperCyDefaultStyle) return window.MSLipidMapperCyDefaultStyle();
+    return [
+      { selector: "node", style: {
+          "border-width": "data(BorderWidth)",
+          "border-color": "data(Color)",
+          "border-style": "data(borderstyle)",
+          "label": "data(label)",
+          "background-color": "white",
+          "shape": "round-rectangle",
+          "background-image": "none",
+          "background-image-crossorigin": "anonymous",
+          "background-fit": "cover cover",
+          "height": "data(Height)",
+          "width": "data(Width)",
+          "font-size": "data(Label_size)",
+          "text-valign": "top",
+          "text-halign": "center",
+          "text-margin-y": 22
+      }},
+      { selector: 'node[path][path != ""]', style: {
+          "background-image": "data(path)"
+      }},
+      { selector: 'node[Color = "Blue"], node[Color = "blue"], node[Color = "#0000ff"], node[Color = "#0000FF"]', style: {
+          "border-color": "#b8c1cb"
+      }},
+      { selector: "node[IsJunction = 1]", style: {
+          "shape": "ellipse",
+          "width": 24,
+          "height": 24,
+          "label": "",
+          "border-width": 2,
+          "border-color": "#666",
+          "background-color": "white",
+          "background-image": "none"
+      }},
+      { selector: "node:selected", style: { "border-width": 3 } },
+      { selector: "edge", style: {
+          "width": 2,
+          "line-color": "#888",
+          "curve-style": "bezier",
+          "target-arrow-shape": "triangle",
+          "target-arrow-color": "#888",
+          "arrow-scale": 1.5
+      } },
+      { selector: 'edge[edgeType = "toJunction"]', style: {
+          "target-arrow-shape": "none"
+      } }
+    ];
+  }
+
+  function overlayEl(container_id){
+    const el = document.getElementById(container_id);
+    if (!el) return null;
+    let ov = el.querySelector(".cy-loading");
+    if (!ov){
+      ov = document.createElement("div");
+      ov.className = "cy-loading";
+      ov.innerHTML = "<div class=\"cy-spinner\"></div><div>Processing...</div>";
+      el.appendChild(ov);
+    }
+    return ov;
+  }
+
+  function showLoading(container_id){
+    const ov = overlayEl(container_id);
+    if (ov) ov.classList.add("show");
+  }
+
+  function hideLoading(container_id){
+    const ov = overlayEl(container_id);
+    if (ov) ov.classList.remove("show");
+  }
+
+  function injectScriptOnce(src, key){
+    return new Promise(function(resolve, reject){
+      if (key && window[key]) return resolve(true);
+
+      const existing = document.querySelector("script[data-mslm-src=\"" + src + "\"]");
+      if (existing) {
+        if (existing.dataset.loaded === "true") return resolve(true);
+        existing.addEventListener("load", function(){ resolve(true); }, { once: true });
+        existing.addEventListener("error", function(){ reject(new Error("Failed to load " + src)); }, { once: true });
+        return;
+      }
+
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = false;
+      s.dataset.mslmSrc = src;
+      s.onload = function(){
+        s.dataset.loaded = "true";
+        if (key) window[key] = true;
+        resolve(true);
+      };
+      s.onerror = function(){
+        reject(new Error("Failed to load " + src));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  function safeFilenamePart(x){
+    return String(x || "node")
+      .replace(/[\\/:*?"<>|]+/g, "_")
+      .replace(/\s+/g, "_")
+      .slice(0, 120);
+  }
+
+  async function fetchBlobFromUrl(url){
+    const res = await fetch(url, { credentials: "same-origin" });
+    if (!res.ok) throw new Error("Failed to fetch image: " + res.status);
+    return await res.blob();
+  }
+
+  async function downloadCurrentImagePdf(url, filenameBase){
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      throw new Error("jsPDF not loaded.");
+    }
+    const blob = await fetchBlobFromUrl(url);
+    const objUrl = URL.createObjectURL(blob);
+    try{
+      const img = await new Promise(function(resolve, reject){
+        const el = new Image();
+        el.crossOrigin = "anonymous";
+        el.onload = function(){ resolve(el); };
+        el.onerror = function(){ reject(new Error("Failed to load image for PDF export.")); };
+        el.src = objUrl;
+      });
+
+      const canvas = document.createElement("canvas");
+      const w = Math.max(1, img.naturalWidth || img.width || 1200);
+      const h = Math.max(1, img.naturalHeight || img.height || 900);
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+
+      const jsPDF = window.jspdf.jsPDF;
+      const orient = w >= h ? "landscape" : "portrait";
+      const doc = new jsPDF({ orientation: orient, unit: "pt", format: [w, h] });
+      const dataUrl = canvas.toDataURL("image/png");
+      doc.addImage(dataUrl, "PNG", 0, 0, w, h);
+      doc.save((filenameBase || "image") + ".pdf");
+    } finally {
+      URL.revokeObjectURL(objUrl);
+    }
+  }
+
+  async function ensurePdfExportAvailable(container_id){
+    const cy = window.__cy_instances[container_id];
+    if (cy && typeof cy.pdf === "function") return true;
+
+    await injectScriptOnce("/vendor/cytoscape-pdf-export.js", "__cy_pdf_export_script_loaded");
+
+    for (let i = 0; i < 20; i++) {
+      const cyNow = window.__cy_instances[container_id];
+      if (cyNow && typeof cyNow.pdf === "function") {
+        window.__cy_pdf_export_registered = true;
+        return true;
+      }
+      await new Promise(function(res){ setTimeout(res, 100); });
+    }
+
+    return false;
+  }
+
+  function withOverlayHidden(container_id, fn){
+    const ov = overlayEl(container_id);
+    const wasShown = ov ? ov.classList.contains("show") : false;
+    if (ov) ov.classList.remove("show");
+
+    let ret;
+    try {
+      ret = fn();
+    } catch(e){
+      if (ov && wasShown) ov.classList.add("show");
+      throw e;
+    }
+
+    if (ret && typeof ret.then === "function"){
+      return ret.finally(function(){
+        if (ov && wasShown) ov.classList.add("show");
+      });
+    } else {
+      if (ov && wasShown) ov.classList.add("show");
+      return ret;
+    }
+  }
+
+  function isTypingContext(){
+    const ae = document.activeElement;
+    if (!ae) return false;
+    const tag = (ae.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select") return true;
+    if (ae.isContentEditable) return true;
+    return false;
+  }
+
+  function sendChanged(container_id, payload){
+    const st = window.__cy_state[container_id] || {};
+    const inId = st.changed_input;
+    if (!inId || !window.Shiny) return;
+    Shiny.setInputValue(inId, payload, {priority:"event"});
+  }
+
+  function deleteSelected(container_id, opts){
+    opts = opts || {};
+    if (!window.__cy_state[container_id] || !window.__cy_state[container_id].allow_delete) return;
+    const cy = window.__cy_instances[container_id];
+    if (!cy) return;
+
+    const sel = cy.$(":selected");
+    if (!sel || sel.length === 0) return;
+
+    const removedNodes = sel.nodes().map(n => n.id());
+    const removedEdges = sel.edges().map(e => e.id());
+
+    sel.remove();
+
+    sendChanged(container_id, {
+      action: "delete_selected",
+      cyjs: cy.json(),
+      removed: { nodes: removedNodes, edges: removedEdges },
+      counts: { nodes: cy.nodes().length, edges: cy.edges().length },
+      ts: Date.now()
+    });
+
+    if (opts.fit_after){
+      try{ cy.fit(); cy.center(); }catch(e){}
+    }
+  }
+
+  function installDeleteHotkeys(container_id){
+    const el = document.getElementById(container_id);
+    if (!el) return;
+    if (el.__cy_delete_hotkeys_installed) return;
+    el.__cy_delete_hotkeys_installed = true;
+
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
+    el.addEventListener("mousedown", function(){ try{ el.focus(); }catch(e){} });
+
+    let lastInside = 0;
+    el.addEventListener("mouseenter", function(){ lastInside = Date.now(); });
+    el.addEventListener("mousemove",  function(){ lastInside = Date.now(); });
+
+    document.addEventListener("keydown", function(e){
+      if (isTypingContext()) return;
+
+      const key = e.key;
+      if (key !== "Delete" && key !== "Backspace") return;
+
+      const active = document.activeElement;
+      const focusedOnContainer = (active === el) || (active && el.contains(active));
+      const recentlyInside = (Date.now() - lastInside) < 800;
+
+      if (!focusedOnContainer && !recentlyInside) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      deleteSelected(container_id, {fit_after:false});
+    }, true);
+  }
+
+  function ensureCy(payload){
+    const id = payload.container_id;
+    const el = document.getElementById(id);
+    if (!el) return null;
+    el.querySelectorAll(".cy-render-error").forEach(function(e){ e.remove(); });
+    if (!window.cytoscape) throw new Error("Cytoscape.js did not load. Check the network connection and reload the page.");
+
+    window.__cy_state[id] = window.__cy_state[id] || {};
+    window.__cy_state[id].selected_input = payload.selected_input || null;
+    window.__cy_state[id].changed_input  = payload.changed_input  || null;
+    window.__cy_state[id].allow_delete   = (payload.allow_delete !== false);
+
+    hideLoading(id);
+
+    el.querySelectorAll(".cy-popup").forEach(function(p){
+      try{ p.remove(); }catch(e){}
+    });
+
+    if (window.__cy_instances[id]) {
+      if (window.__cy_state[id].resize_observer) window.__cy_state[id].resize_observer.disconnect();
+      try{ window.__cy_instances[id].destroy(); }catch(e){}
+      delete window.__cy_instances[id];
+    }
+
+    const style = normalizeStyle(payload.style) || defaultStyle();
+    const cy = cytoscape({
+      container: el,
+      elements: payload.elements || { nodes: [], edges: [] },
+      layout: { name: payload.layout || "cose" },
+      style: style,
+      wheelSensitivity: payload.wheelSensitivity || 0.2,
+      minZoom: 0.1,
+      maxZoom: 3
+    });
+    window.__cy_instances[id] = cy;
+    // A dashboard can create the network while its tab has zero dimensions.
+    // Fit on its first actual display, even if that happens minutes later.
+    if (window.ResizeObserver) {
+      let firstVisible = true;
+      const observer = new ResizeObserver(function(){
+        if (el.clientWidth <= 0 || el.clientHeight <= 0 || cy.destroyed()) return;
+        requestAnimationFrame(function(){
+          if (cy.destroyed()) return;
+          cy.resize();
+          if (firstVisible) { cy.fit(); cy.center(); firstVisible = false; }
+        });
+      });
+      observer.observe(el);
+      window.__cy_state[id].resize_observer = observer;
+    }
+    if (window.MSLMFC) window.MSLMFC.mount(id, cy);
+
+    installDeleteHotkeys(id);
+
+    (function(){
+      const inId = window.__cy_state[id] && window.__cy_state[id].selected_input;
+      if (!inId || !window.Shiny) return;
+
+      const sendNode = function(nodeOrNull){
+        if (!nodeOrNull) {
+          Shiny.setInputValue(inId, null, {priority:"event"});
+          return;
+        }
+        const d = nodeOrNull.data() || {};
+        const ens = d.Ensembl_ID || d.EnsemblID || d.ensembl_id || d["Ensembl ID"] || "";
+        Shiny.setInputValue(inId, {
+          id: nodeOrNull.id(),
+          label: d.label || d.name || nodeOrNull.id(),
+          shared_name: d.shared_name || "",
+          Ensembl_ID: ens,
+          path: d.path || "",
+          heatmap_path: d.heatmap_path || d.hm_path || ""
+        }, {priority:"event"});
+      };
+
+      cy.on("select", "node", function(evt){ sendNode(evt.target); });
+      cy.on("unselect", "node", function(){
+        if (cy.$("node:selected").length === 0) sendNode(null);
+      });
+    })();
+
+    (function(){
+      const containerEl = document.getElementById(id);
+      if (!containerEl) return;
+
+      if (!window.__cy_popup_z) window.__cy_popup_z = 20000;
+      function bringToFront(pop){
+        window.__cy_popup_z++;
+        pop.style.zIndex = String(window.__cy_popup_z);
+      }
+
+      function stopAllEvents(pop){
+        ["mousedown","click","dblclick","wheel","touchstart","touchmove","touchend","pointerdown"].forEach(function(evName){
+          pop.addEventListener(evName, function(e){ e.stopPropagation(); });
+        });
+        pop.addEventListener("mousedown", function(e){
+          bringToFront(pop);
+          e.stopPropagation();
+        });
+      }
+
+      cy.on("cxttap", "node,edge", function(evt){
+        const oe = evt.originalEvent;
+        if (oe && oe.preventDefault) oe.preventDefault();
+        if (oe && (oe.ctrlKey || oe.metaKey)) {
+          // Delete the targeted element, rather than other selected elements.
+          cy.elements().unselect();
+          evt.target.select();
+          deleteSelected(id, {fit_after:false});
+        }
+      });
+    })();
+
+    (function(){
+      let tries = 0;
+      const tick = function(){
+        const r = el.getBoundingClientRect();
+        if (r.width > 0 && r.height > 0) {
+          try{ cy.resize(); }catch(e){}
+          try{ cy.fit(); cy.center(); }catch(e){}
+        } else if (tries++ < 30) {
+          setTimeout(tick, 120);
+        }
+      };
+      setTimeout(tick, 60);
+    })();
+
+    return cy;
+  }
+
+  function isColorString(x){
+    return (typeof x === "string") && x.length > 0;
+  }
+
+  function applyNodeBorderColors(container_id, items, reset_ids){
+    const cy = window.__cy_instances[container_id];
+    if (!cy) return;
+
+    if (Array.isArray(reset_ids) && reset_ids.length){
+      reset_ids.forEach(function(id){
+        const n = cy.getElementById(id);
+        if (!n.empty()){
+          try{ n.removeStyle("border-color border-width"); }catch(e){ n.style("border-color", ""); }
+        }
+      });
+    }
+
+    if (!Array.isArray(items) || items.length === 0) return;
+
+    items.forEach(function(it){
+      if (!it || typeof it.id !== "string") return;
+      if (!isColorString(it.color)) return;
+      const n = cy.getElementById(it.id);
+      if (n.empty()) return;
+      n.style("border-color", it.color);
+      if (typeof it.width === "number" && isFinite(it.width)) n.style("border-width", it.width);
+    });
+  }
+
+  function applyNodeMeta(container_id, items, reset_ids){
+    const cy = window.__cy_instances[container_id];
+    if (!cy) return;
+
+    if (Array.isArray(reset_ids) && reset_ids.length){
+      reset_ids.forEach(function(id){
+        const n = cy.getElementById(id);
+        if (!n.empty()){
+          n.data("enrich_html", null);
+        }
+      });
+    }
+
+    if (!Array.isArray(items) || items.length === 0) return;
+
+    items.forEach(function(it){
+      if (!it || typeof it.id !== "string") return;
+      const n = cy.getElementById(it.id);
+      if (n.empty()) return;
+
+      if (typeof it.enrich_html === "string" && it.enrich_html.length){
+        n.data("enrich_html", it.enrich_html);
+      } else {
+        n.data("enrich_html", null);
+      }
+    });
+  }
+
+  function applyNodeBorderStyle(container_id, items, reset_ids){
+    const cy = window.__cy_instances[container_id];
+    if (!cy) return;
+
+    if (Array.isArray(reset_ids) && reset_ids.length){
+      reset_ids.forEach(function(id){
+        const n = cy.getElementById(id);
+        if (!n.empty()){
+          try{ n.removeStyle("border-style"); }catch(e){ n.style("border-style", ""); }
+          try{ n.removeStyle("border-width"); }catch(e){ n.style("border-width", ""); }
+        }
+      });
+    }
+
+    if (!Array.isArray(items) || items.length === 0) return;
+
+    items.forEach(function(it){
+      if (!it || typeof it.id !== "string") return;
+      const n = cy.getElementById(it.id);
+      if (n.empty()) return;
+      n.style("border-style", "double");
+      const bw = (typeof it.borderWidthPx === "number" && it.borderWidthPx > 0) ? it.borderWidthPx : 6;
+      n.style("border-width", bw + "px");
+    });
+  }
+
+  function triggerDownloadFromBlob(blob, filename){
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || "download.bin";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){
+      try{ document.body.removeChild(a); }catch(e){}
+      try{ URL.revokeObjectURL(url); }catch(e){}
+    }, 1000);
+  }
+
+  function registerHandlers(){
+    Shiny.addCustomMessageHandler("cy_reset_projection", function(p){
+      const cy = window.__cy_instances[p.container_id];
+      const el = document.getElementById(p.container_id);
+      if (el) el.querySelectorAll(".cy-popup").forEach(pop => pop.remove());
+      if (!cy) return;
+      cy.nodes().unselect();
+      cy.nodes().forEach(function(n){
+        ["path", "heatmap_path", "hm_path", "pathpng", "enrich_html"].forEach(key => n.data(key, ""));
+        n.style("background-image", "none");
+        n.removeStyle("border-color border-width border-style");
+      });
+    });
+    Shiny.addCustomMessageHandler("cy_edit_mode", function(p){
+      if (window.__cy_state[p.container_id]) window.__cy_state[p.container_id].allow_delete = !!p.enabled;
+    });
+    Shiny.addCustomMessageHandler("cy_init", function(p){
+      try { ensureCy(p); }
+      catch (error) {
+        console.error("[MSLipidMapper] Cytoscape initialization failed", error);
+        const el = document.getElementById(p.container_id);
+        if (el) {
+          el.querySelectorAll(".cy-render-error").forEach(e => e.remove());
+          const message = document.createElement("div");
+          message.className = "cy-render-error";
+          message.setAttribute("role", "alert");
+          message.style.cssText = "position:absolute;inset:12px;z-index:31000;padding:18px;background:#fff5f5;color:#8d2635;border:1px solid #e7a8ad;border-radius:8px;white-space:pre-wrap;";
+          message.textContent = "Network could not be drawn: " + (error.message || String(error)) + String.fromCharCode(10) + "Restart R and reload the page. If this persists, report this message.";
+          el.append(message);
+        }
+        if (p.error_input) Shiny.setInputValue(p.error_input, {message:error.message || String(error),time:Date.now()}, {priority:"event"});
+      }
+    });
+
+    Shiny.addCustomMessageHandler("cy_fit", function(p){
+      const cy = window.__cy_instances[p.container_id];
+      if (cy){
+        cy.fit();
+        cy.center();
+      }
+    });
+
+    Shiny.addCustomMessageHandler("cy_resize", function(p){
+      const cy = window.__cy_instances[p.container_id];
+      if (!cy) return;
+      try{ cy.resize(); }catch(e){}
+      if (p && p.fit){
+        try{ cy.fit(); cy.center(); }catch(e){}
+      }
+    });
+
+    Shiny.addCustomMessageHandler("cy_set_node_images", function(p){
+      const cy = window.__cy_instances[p.container_id];
+      if (!cy || !p || !Array.isArray(p.items)) return;
+
+      const wantLoading = !!p.show_loading;
+      if (wantLoading) showLoading(p.container_id);
+
+      let pending = 0;
+
+      if (Array.isArray(p.clear_ids) && p.clear_ids.length){
+        p.clear_ids.forEach(function(id){
+          const n = cy.getElementById(id);
+          if (!n.empty()){
+            n.style("background-image", "none");
+            n.data("path", null);
+            n.data("heatmap_path", null);
+            n.data("hm_path", null);
+          }
+        });
+      }
+
+      p.items.forEach(function(it){
+        if (!it || typeof it.id !== "string") return;
+        if (typeof it.url !== "string" || !it.url.length) return;
+
+        const n = cy.getElementById(it.id);
+        if (n.empty()) return;
+
+        n.data("path", it.url);
+
+        if (typeof it.hm_url === "string" && it.hm_url.length){
+          n.data("heatmap_path", it.hm_url);
+          n.data("hm_path", it.hm_url);
+        }
+
+        if (typeof it.borderWidthPx === "number"){
+          n.style("border-width", String(it.borderWidthPx) + "px");
+        }
+
+        pending++;
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = img.onerror = function(){
+          pending = Math.max(0, pending - 1);
+          if (pending === 0 && wantLoading) hideLoading(p.container_id);
+        };
+
+        n.style("background-image", "url(\"" + it.url + "\")");
+        img.src = it.url;
+      });
+
+      if (pending === 0 && wantLoading) hideLoading(p.container_id);
+    });
+
+    Shiny.addCustomMessageHandler("cy_loading", function(p){
+      if (!p || !p.container_id) return;
+      if (p.on) showLoading(p.container_id); else hideLoading(p.container_id);
+    });
+
+    Shiny.addCustomMessageHandler("cy_set_node_borders", function(p){
+      if (!p || !p.container_id) return;
+      applyNodeBorderColors(p.container_id, p.items, p.reset_ids);
+    });
+
+    Shiny.addCustomMessageHandler("cy_set_node_meta", function(p){
+      if (!p || !p.container_id) return;
+      applyNodeMeta(p.container_id, p.items, p.reset_ids);
+    });
+
+    Shiny.addCustomMessageHandler("cy_set_node_borderstyle", function(p){
+      if (!p || !p.container_id) return;
+      applyNodeBorderStyle(p.container_id, p.items, p.reset_ids);
+    });
+
+    Shiny.addCustomMessageHandler("cy_delete_selected", function(p){
+      if (!p || !p.container_id) return;
+      const st = window.__cy_state[p.container_id] || {};
+      if (st.allow_delete === false) return;
+      deleteSelected(p.container_id, {fit_after: !!p.fit_after});
+    });
+
+    Shiny.addCustomMessageHandler("cy_push_cyjs", function(p){
+      if (!p || !p.container_id) return;
+      const cy = window.__cy_instances[p.container_id];
+      if (!cy) return;
+      sendChanged(p.container_id, {
+        action: "cyjs",
+        cyjs: cy.json(),
+        ts: Date.now()
+      });
+    });
+
+    // ---- vector PDF export --------------------------------------------------
+    Shiny.addCustomMessageHandler("cy_export_pdf", function(p){
+      try{
+        if (!p || !p.container_id) return;
+
+        return withOverlayHidden(p.container_id, async function(){
+          const ok = await ensurePdfExportAvailable(p.container_id);
+          const cy = window.__cy_instances[p.container_id];
+
+          if (!cy){
+            throw new Error("Cytoscape instance not found.");
+          }
+
+          if (!ok || typeof cy.pdf !== "function"){
+            throw new Error("cy.pdf() is not available after loading /vendor/cytoscape-pdf-export.js.");
+          }
+
+          const paperSize = String(p.format || "A4").toUpperCase();
+
+          let orientation = "LANDSCAPE";
+          if (
+            p.orientation === "p" ||
+            p.orientation === "portrait" ||
+            p.orientation === "PORTRAIT"
+          ){
+            orientation = "PORTRAIT";
+          }
+
+          const opts = {
+            full: true,
+            bg: p.bg || "white",
+            paperSize: paperSize,
+            orientation: orientation,
+            save: false,
+            fileName: p.filename || "network.pdf",
+            includeSvgLayers: false,
+            debug: false
+          };
+
+          let blob = await cy.pdf(opts);
+
+          if (!blob) {
+            throw new Error("cy.pdf() returned no blob.");
+          }
+
+          triggerDownloadFromBlob(blob, p.filename || "network.pdf");
+        });
+
+      } catch(e){
+        console.error(e);
+        alert("Vector PDF export failed: " + (e && e.message ? e.message : String(e)));
+      }
+    });
+
+    // ---- popup export remains bitmap ---------------------------------------
+    Shiny.addCustomMessageHandler("cy_export_pdf_with_popups", function(p){
+      try{
+        if (!p || !p.container_id) return;
+
+        const el = document.getElementById(p.container_id);
+        if (!el){
+          alert("Container not found.");
+          return;
+        }
+
+        if (!window.html2canvas){
+          alert("html2canvas not loaded.");
+          return;
+        }
+
+        if (!window.jspdf || !window.jspdf.jsPDF){
+          alert("jsPDF not loaded.");
+          return;
+        }
+        const jsPDF = window.jspdf.jsPDF;
+
+        return withOverlayHidden(p.container_id, async function(){
+          const imgs = Array.from(el.querySelectorAll("img"));
+          await Promise.all(imgs.map(function(img){
+            return new Promise(function(res){
+              if (img.complete) return res();
+              img.onload = img.onerror = function(){ res(); };
+            });
+          }));
+
+          const scale = (typeof p.scale === "number" && p.scale > 0) ? p.scale : 2;
+
+          const canvas = await html2canvas(el, {
+            backgroundColor: "#ffffff",
+            scale: scale,
+            useCORS: true,
+            allowTaint: false
+          });
+
+          const dataUrl = canvas.toDataURL("image/png");
+          const w = canvas.width;
+          const h = canvas.height;
+
+          const doc = new jsPDF({
+            orientation: (w > h) ? "l" : "p",
+            unit: "pt",
+            format: [w, h]
+          });
+
+          doc.addImage(dataUrl, "PNG", 0, 0, w, h);
+          doc.save(p.filename || "network_with_popups.pdf");
+        });
+
+      } catch(e){
+        console.error(e);
+        alert("PDF export (with popups) failed: " + (e && e.message ? e.message : String(e)));
+      }
+    });
+  }
+
+  function whenShinyReady(cb){
+    if (window.Shiny && typeof Shiny.addCustomMessageHandler === "function"){
+      cb();
+    } else {
+      setTimeout(function(){ whenShinyReady(cb); }, 50);
+    }
+  }
+
+  whenShinyReady(registerHandlers);
+
+})();
+    

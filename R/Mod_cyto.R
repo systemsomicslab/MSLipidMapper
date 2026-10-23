@@ -48,282 +48,177 @@ suppressPackageStartupMessages({
   )
 }
 
+# Per-species effects for the movable pathway FC panels. No class aggregation:
+# use the same (possibly acyl-chain filtered) assay as the existing node plots.
+.mslm_fc_panel_data <- function(se, class_col, group_col, group_a, group_b,
+                                scale = "abundance", top_n = 5L) {
+  if (identical(group_a, group_b)) stop("Choose two different groups.")
+  cd <- as.data.frame(SummarizedExperiment::colData(se))
+  rd <- as.data.frame(SummarizedExperiment::rowData(se))
+  if (!group_col %in% names(cd)) stop("Group column is missing.")
+  if (!class_col %in% names(rd)) stop("Lipid class column is missing.")
+  groups <- trimws(as.character(cd[[group_col]]))
+  ia <- which(groups == group_a); ib <- which(groups == group_b)
+  if (length(ia) < 2L || length(ib) < 2L) stop("FC panels need at least two samples per group.")
+  mat <- as.matrix(SummarizedExperiment::assay(se, 1))
+  ids <- rownames(mat)
+  if (is.null(ids)) ids <- paste0("Feature ", seq_len(nrow(mat)))
+  lfc <- vapply(seq_len(nrow(mat)), function(i) {
+    a <- as.numeric(mat[i, ia]); b <- as.numeric(mat[i, ib])
+    a <- a[is.finite(a)]; b <- b[is.finite(b)]
+    if (length(a) < 2L || length(b) < 2L) return(NA_real_)
+    if (identical(scale, "log2")) return(mean(b) - mean(a))
+    if (any(a < 0) || any(b < 0)) return(NA_real_)
+    log2(mean(b) + 1e-8) - log2(mean(a) + 1e-8)
+  }, numeric(1))
+  classes <- trimws(as.character(rd[[class_col]]))
+  keys <- unique(classes[!is.na(classes) & nzchar(classes)])
+  top_n <- max(1L, min(30L, as.integer(top_n)))
+  out <- lapply(keys, function(key) {
+    all <- which(!is.na(classes) & classes == key)
+    valid <- all[is.finite(lfc[all])]
+    up <- valid[lfc[valid] > 0]; down <- valid[lfc[valid] < 0]
+    pick <- c(head(up[order(lfc[up], decreasing = TRUE)], top_n),
+              head(down[order(lfc[down], decreasing = TRUE)], top_n))
+    list(class = key, total = length(all), valid = length(valid),
+         excluded = length(all) - length(valid),
+         rows = lapply(pick, function(i) list(name = ids[[i]], fc = unname(lfc[[i]]))))
+  })
+  # A shared symmetric domain across ALL valid species, including hidden rows.
+  values <- abs(lfc[is.finite(lfc)])
+  list(classes = out, domain = if (length(values)) max(1, ceiling(max(values))) else 1)
+}
+
+.mslm_clear_projection_elements <- function(elements) {
+  elements$nodes <- lapply(elements$nodes, function(node) {
+    for (key in c("path", "heatmap_path", "hm_path", "pathpng", "enrich_html")) node$data[[key]] <- ""
+    node
+  })
+  elements
+}
+
 mod_cyto_ui <- function(id) {
   ns <- shiny::NS(id)
-  sidebar_id <- ns("cy_sidebar")
-
-    css_fmt <- "
-#%s{ background: transparent; }
-
-#%s .well,
-#%s .well.well,
-#%s .panel,
-#%s .panel-body{
-  padding: 10px 10px 6px 10px !important;
-  background-color: #f6f7f9 !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 12px !important;
-  box-shadow: none !important;
-}
-
-#%s .cy-acc{
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  margin: 8px 0;
-  background: #fff;
-  overflow: hidden;
-}
-
-#%s .cy-acc > summary{
-  list-style: none !important;
-  cursor: pointer;
-  padding: 10px 10px;
-  font-weight: 700;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-  background: #f8fafc;
-  outline: none;
-}
-
-/* ---- FIX: remove default marker (prevents '???' in some browsers) ---- */
-#%s .cy-acc > summary::-webkit-details-marker{
-  display: none !important;
-}
-#%s .cy-acc > summary::marker{
-  content: '' !important;
-}
-/* まれに他CSSがsummaryに疑似要素で記号を挿す場合の保険（あなたはafterを使うのでbeforeのみ潰す） */
-#%s .cy-acc > summary::before{
-  content: '' !important;
-}
-
-#%s .cy-acc > summary::after{
-  content: '▸';
-  font-size: 12px;
-  opacity: 0.7;
-  transform: rotate(0deg);
-  transition: transform .15s ease;
-}
-#%s .cy-acc[open] > summary::after{ transform: rotate(90deg); }
-
-#%s .cy-acc-body{ padding: 10px; }
-
-#%s .btn-xs{ padding: 4px 8px; font-size: 11px; }
-
-#%s .help-block{
-  font-size: 11px;
-  opacity: 0.85;
-  margin: 4px 0 0 0;
-}
-
-#%s hr{ margin: 10px 0; }
-
-#%s .cy-actions{
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-#%s .radio-inline{ margin-right: 10px; }
-
-.plot-card{
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  background: #fff;
-  padding: 8px 10px 10px 10px;
-}
-.plot-card h5{ margin-top: 4px; margin-bottom: 6px; }
-.dl-row{ margin-top: 6px; }
-.cy-plot-frame{
-  width: 100%;
-  height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.cy-plot-square{
-  width: min(100%, 360px);
-  height: 360px;
-}
-.cy-plot-square .shiny-plot-output{
-  width: 100% !important;
-  height: 100% !important;
-}
-"
-
-
+  tabs <- c(display = "Display", compare = "Comparison / Panels", filter = "Filters", manage = "Manage")
+  pane <- function(key, ...) shiny::tags$section(
+    class = "mslm-settings-pane", `data-pane` = key,
+    hidden = if (key != "display") NA else NULL, ...)
+  settings_button <- function(label, key, class = "btn btn-default")
+    shiny::tags$button(type = "button", class = class, `data-settings-open` = key, label)
   shiny::tagList(
     cyto_js_deps(container_id_css = ns("cy")),
-
-    shiny::tags$style(shiny::HTML(.fill_css_id(css_fmt, sidebar_id))),
-
-    shiny::fluidRow(
-      shiny::column(
-        width = 2,
-        class = "cy-sidebar",
-        id = sidebar_id,
-        shiny::wellPanel(
-
-          .cy_details(
-            "Networks",
-            shiny::fileInput(
-              ns("netfiles"),
-              "Import networks (.cyjs/.gml)",
-              accept = c(".cyjs", ".json", ".gml", ".gpml", ".xml"),
-              multiple = TRUE
-            ),
-            shiny::selectInput(
-              ns("net_select"),
-              label = NULL,
-              choices = character(0),
-              size = 8,
-              selectize = FALSE
-            ),
-            shiny::div(
-              class = "cy-actions",
-              shiny::actionButton(ns("net_delete"), "Delete network", class = "btn-xs"),
-              shiny::actionButton(ns("fit"), "Fit network", class = "btn-xs"),
-                shiny::actionButton(ns("map_local_svgs"), "Pathway Mapping", class = "btn-primary btn-sm")
-            ),
-            br(),
-            shiny::radioButtons(
-              ns("plot_type"),
-              "Plot type",
-              choices  = c("dot", "violin", "box"),
-              selected = "dot",
-              inline   = TRUE
-            ),
-            shiny::checkboxInput(
-              ns("include_multiomics"),
-              "Overlay multi-omics data",
-              value = FALSE
-            ),
-            open = TRUE
-          ),
-
-          .cy_details(
-            "Enrichment (CSV)",
-            shiny::fileInput(ns("enrich_csv"), "Import enrichment CSV (.csv)", accept = ".csv", multiple = FALSE),
-            shiny::div(
-              class = "cy-actions",
-              shiny::actionButton(ns("apply_enrich"), "Apply", class = "btn-xs btn-primary"),
-              shiny::actionButton(ns("clear_enrich"), "Clear", class = "btn-xs")
-            ),
-            shiny::helpText("Mapping: lipidID → molecules → lipid class → class node popup (Enrichment tab)."),
-            shiny::helpText("Class nodes with any enriched molecules are highlighted with DOUBLE borders."),
-            open = FALSE
-          ),
-
-          .cy_details(
-            "Differential (2-group)",
-            shiny::uiOutput(ns("diff_ui")),
-            shiny::div(
-              class = "cy-actions",
-              shiny::actionButton(ns("apply_diff_borders"), "Apply", class = "btn-xs btn-primary"),
-              shiny::actionButton(ns("clear_diff_borders"), "Clear", class = "btn-xs")
-            ),
-            shiny::helpText("Direction is B − A."),
-            shiny::helpText("Significant increase = red border; decrease = blue border."),
-            open = FALSE
-          ),
-
-          .cy_details(
-            "Export",
-            shiny::actionButton(ns("export_pdf"), "Export PDF", class = "btn-xs"),
-            shiny::actionButton(ns("export_pdf_popups"), "Export PDF (with popups)", class = "btn-xs"),
-            open = FALSE
-          ),
-
-          .cy_details(
-            "Map edit",
-            shiny::actionButton(ns("delete_selected"), "Delete selected", class = "btn-xs btn-danger"),
-            shiny::helpText("Select nodes/edges then press to delete."),
-            open = FALSE
-          ),
-
-          .cy_details(
-            "Image option",
-            shiny::selectInput(
-              ns("agg_fun"),
-              "Aggregation (class-level)",
-              choices = c("sum", "mean", "median"),
-              selected = "sum"
-            ),
-            shiny::numericInput(
-              ns("hm_top_n"),
-              "Heatmap: #molecules (top by abundance)",
-              value = 20, min = 5, max = 200, step = 5
-            ),
-            open = FALSE
-          ),
-
-          .cy_details(
-            "Acyl-chain filter",
-            shiny::uiOutput(ns("chain_filter_ui")),
-            open = FALSE
-          ),
-
-          shiny::helpText("Click a node to draw plots below. Right-click a node for popup image.")
-        )
-      ),
-
-      shiny::column(
-        width = 10,
-
-        shiny::div(
-          id = ns("cy"),
-          style = "width:100%; height:720px; border:1px solid #e5e7eb; border-radius:12px;"
-        ),
-
-        shiny::div(
-          style = "margin-top:10px; padding:10px; border:1px solid #e5e7eb; border-radius:12px; background:#fff;",
-          shiny::h4("Selected node"),
-
-          shiny::fluidRow(
-            shiny::column(
-              width = 6,
-              shiny::div(
-                class = "plot-card",
-                shiny::uiOutput(ns("plot_title_left")),
-                shiny::div(
-                  class = "cy-plot-frame",
-                  shiny::div(
-                    class = "cy-plot-square",
-                    shiny::plotOutput(ns("plot_left"), height = "100%")
-                  )
-                ),
-                shiny::div(
-                  class = "dl-row",
-                  shiny::downloadButton(ns("dl_left"), "Download", class = "btn btn-default btn-sm")
-                )
-              )
-            ),
-            shiny::column(
-              width = 6,
-              shiny::div(
-                class = "plot-card",
-                shiny::uiOutput(ns("plot_title_right")),
-                shiny::uiOutput(ns("molecule_ui")),
-                shiny::div(
-                  class = "cy-plot-frame",
-                  shiny::div(
-                    class = "cy-plot-square",
-                    shiny::plotOutput(ns("plot_right"), height = "100%")
-                  )
-                ),
-                shiny::div(
-                  class = "dl-row",
-                  shiny::downloadButton(ns("dl_right"), "Download", class = "btn btn-default btn-sm")
-                )
-              )
-            )
-          )
-        )
-      )
+    shiny::div(id = ns("workspace"), class = "mslm-pathway-workspace", `data-ns` = ns(""),
+      shiny::div(class = "mslm-pathway-header",
+        shiny::div(class = "mslm-pathway-controls",
+      shiny::div(class = "mslm-pathway-toolbar",
+        shiny::uiOutput(ns("current_pathway"))),
+      shiny::uiOutput(ns("settings_summary")),
+      shiny::div(class = "mslm-pathway-context",
+        shiny::checkboxInput(ns("fc_enabled"), "Popup panels", value = FALSE),
+        shiny::checkboxInput(ns("diff_borders_enabled"), "Highlight significant nodes", value = FALSE),
+        shiny::conditionalPanel(condition = "input.diff_borders_enabled", ns = ns,
+          shiny::uiOutput(ns("diff_legend"), inline = TRUE)),
+        shiny::div(class = "mslm-toolbar-spacer"),
+        shiny::actionButton(ns("map_local_svgs"), "Pathway Mapping", class = "btn-primary btn-sm"),
+        shiny::tags$details(class = "mslm-pathway-save",
+          shiny::tags$summary("Save"),
+          shiny::div(class = "mslm-save-menu",
+            shiny::actionButton(ns("fc_svg"), "Figure SVG (popup panels)"),
+            shiny::actionButton(ns("export_pdf"), "Network PDF"),
+            shiny::actionButton(ns("export_pdf_popups"), "PDF with panels / popups"))),
+        shiny::actionButton(ns("fit"), "Fit network", class = "btn-sm"),
+        shiny::conditionalPanel(condition = "input.fc_enabled", ns = ns,
+          shiny::div(class = "mslm-context-actions",
+            shiny::actionButton(ns("fc_arrange"), "Arrange panels", class = "btn-sm"),
+            shiny::actionButton(ns("fc_clear"), "Close all panels", class = "btn-sm"))),
+        settings_button("Panel settings", "compare", "btn btn-default btn-sm")))),
+      shiny::div(id = ns("cy"), class = "mslm-pathway-canvas",
+        style = "width:100%;height:720px;"),
+      shiny::tags$p(class = "mslm-pathway-hint", "Enable Popup panels, then click a node. Choose panel content in Panel settings; drag headers to move and corners to resize. Ctrl + right-click a node or edge to delete it."),
+      shiny::div(class = "mslm-selected-node",
+        shiny::tags$h4("Selected node"),
+        shiny::tags$style(shiny::HTML("
+          .mslm-selected-node-plots {
+            display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+            grid-template-rows:auto auto auto; gap:12px 16px;
+          }
+          .mslm-selected-node-plots > .plot-card {
+            display:grid; grid-template-rows:subgrid; grid-row:span 3;
+            min-width:0; align-items:start;
+          }
+          .mslm-selected-node-plots > .plot-card > .btn { justify-self:start; }
+          .mslm-selected-node-plots .mslm-node-plot-header .form-group { margin-bottom:0; }
+          @media (max-width:767px) {
+            .mslm-selected-node-plots { grid-template-columns:1fr; grid-template-rows:none; }
+            .mslm-selected-node-plots > .plot-card { grid-template-rows:auto auto auto; grid-row:auto; }
+          }
+        ")),
+        shiny::div(class = "mslm-selected-node-plots",
+          shiny::div(class = "plot-card",
+            shiny::div(class = "mslm-node-plot-header", shiny::uiOutput(ns("plot_title_left"))),
+            shiny::div(class = "cy-plot-frame", shiny::div(class = "cy-plot-square",
+              shiny::plotOutput(ns("plot_left"), height = "100%"))),
+            shiny::downloadButton(ns("dl_left"), "Download", class = "btn-sm")),
+          shiny::div(class = "plot-card",
+            shiny::div(class = "mslm-node-plot-header",
+              shiny::uiOutput(ns("plot_title_right")), shiny::uiOutput(ns("molecule_ui"))),
+            shiny::div(class = "cy-plot-frame", shiny::div(class = "cy-plot-square",
+              shiny::plotOutput(ns("plot_right"), height = "100%"))),
+            shiny::downloadButton(ns("dl_right"), "Download", class = "btn-sm")))),
+      shiny::tags$aside(id = ns("settings_drawer"), class = "mslm-pathway-settings",
+        hidden = NA, role = "dialog", `aria-modal` = "true", `aria-labelledby` = ns("settings_title"),
+        shiny::div(class = "mslm-settings-header",
+          shiny::tags$h3(id = ns("settings_title"), "Pathway settings"),
+          shiny::tags$button(type = "button", class = "mslm-settings-close", `data-settings-close` = "true", `aria-label` = "Close settings", "\u00d7")),
+        shiny::div(class = "mslm-settings-tabs", role = "tablist",
+          lapply(names(tabs), function(key) {
+            shiny::tags$button(type = "button", role = "tab", id = ns(paste0("settings_tab_", key)),
+              `data-tab` = key, `aria-controls` = ns(paste0("settings_pane_", key)),
+              `aria-selected` = if (key == "display") "true" else "false", tabs[[key]])
+          })),
+        shiny::div(class = "mslm-settings-body",
+          pane("display", id = ns("settings_pane_display"), role = "tabpanel", `aria-labelledby` = ns("settings_tab_display"),
+            shiny::tags$h4("Pathway"),
+            shiny::div(class = "mslm-pathway-picker",
+              shiny::selectInput(ns("net_select"), "Select pathway", choices = character(0), size = 3, selectize = FALSE)),
+            shiny::helpText("Select a pathway, then Apply settings. Applying settings clears existing projections; run Pathway Mapping again."),
+            shiny::tags$hr(),
+            shiny::tags$h4("Projected plots"),
+            shiny::radioButtons(ns("plot_type"), "Plot type", choices = c("dot", "violin", "box"), selected = "dot", inline = TRUE),
+            shiny::checkboxInput(ns("include_multiomics"), "Overlay multi-omics data", FALSE),
+            shiny::tags$hr(), shiny::tags$h4("Aggregation and heatmap"),
+            shiny::selectInput(ns("agg_fun"), "Class aggregation", choices = c("sum", "mean", "median"), selected = "sum"),
+            shiny::numericInput(ns("hm_top_n"), "Heatmap: top molecules by abundance", 20, min = 5, max = 200, step = 5),
+            shiny::helpText("Apply settings, then use Pathway Mapping to regenerate projected images.")),
+          pane("compare", id = ns("settings_pane_compare"), role = "tabpanel", `aria-labelledby` = ns("settings_tab_compare"),
+            shiny::tags$h4("Group comparison"), shiny::uiOutput(ns("diff_ui")),
+            shiny::helpText("Direction: B / A. Red = increase; blue = decrease. FC bars show effect size, not significance."),
+            shiny::tags$hr(), shiny::tags$h4("Popup panels"),
+            shiny::selectInput(ns("popup_content"), "Panel content", choices = c("Species fold changes" = "fc", "Enlarged plot" = "plot", "Heatmap" = "heatmap", "Enrichment" = "enrichment"), selected = "fc"),
+            shiny::helpText("Panel content switches immediately without remapping. FC axes adapt independently to each panel; compare the tick values."),
+            shiny::selectInput(ns("fc_scale"), "Input assay scale", choices = c("Non-negative abundance" = "abundance", "Already log2 transformed" = "log2")),
+            shiny::numericInput(ns("fc_top_n"), "Top species per direction", 5, min = 1, max = 30, step = 1),
+            shiny::tags$details(shiny::tags$summary("Calculation and export details"),
+              shiny::helpText("Abundance: log2(mean B + 1e-8) - log2(mean A + 1e-8). Log2 input: mean B - mean A. Need at least 2 finite values per group; negative abundance values are excluded."),
+              shiny::helpText("SVG has vector FC panels and a raster network snapshot. PDF with panels / popups is a bitmap."))),
+          pane("filter", id = ns("settings_pane_filter"), role = "tabpanel", `aria-labelledby` = ns("settings_tab_filter"),
+            shiny::tags$h4("Acyl-chain / sphingoid-base filter"), shiny::uiOutput(ns("chain_filter_ui")),
+            shiny::tags$hr(), shiny::tags$h4("Enrichment overlay"),
+            shiny::fileInput(ns("enrich_csv"), "Import enrichment CSV", accept = ".csv"),
+            shiny::actionButton(ns("clear_enrich"), "Clear enrichment", class = "btn-sm"),
+            shiny::helpText("Apply settings to map enrichment molecules to lipid classes. Double borders indicate enriched classes.")),
+          pane("manage", id = ns("settings_pane_manage"), role = "tabpanel", `aria-labelledby` = ns("settings_tab_manage"),
+            shiny::tags$h4("Import pathways"),
+            shiny::fileInput(ns("netfiles"), "CYJS / GML / GPML", accept = c(".cyjs", ".json", ".gml", ".gpml", ".xml"), multiple = TRUE),
+            shiny::helpText("Imports are added immediately. Select a pathway in the Display tab."),
+            shiny::tags$hr(), shiny::tags$h4("Edit pathway"),
+            shiny::actionButton(ns("delete_selected"), "Delete selected elements", class = "btn-danger btn-sm"),
+            shiny::helpText("Ctrl + right-click a node or edge to delete it. You can also select elements and press Delete."),
+            shiny::tags$hr(),
+            shiny::tags$button(type = "button", class = "btn btn-default btn-sm", `data-network-delete` = "true", "Delete current pathway..."))),
+        shiny::div(class = "mslm-settings-footer",
+          shiny::tags$span(class = "mslm-settings-dirty", role = "status", "Changes take effect after Apply."),
+          shiny::actionButton(ns("settings_apply"), "Apply settings", class = "btn-primary")))
     )
   )
 }
@@ -343,10 +238,109 @@ mod_cyto_server <- function(id,
     rv_selected    <- reactiveVal(NULL)
     selected_node  <- reactiveVal(NULL)
     examples_loaded <- FALSE
+    project_loaded <- reactiveVal(FALSE)
+    projection_state <- reactiveValues(map = list())
+    last_multiomics <- FALSE
+    enrichment_enabled <- reactiveVal(FALSE)
+
+    # Settings in the drawer are drafts. All analytical consumers use this
+    # snapshot, so closing the drawer never silently applies half-edited values.
+    applied_settings <- reactiveVal(list(
+      plot_type = "dot", include_multiomics = FALSE, agg_fun = "sum", hm_top_n = 20L,
+      diff_group_a = NULL, diff_group_b = NULL, diff_method = "wilcox",
+      diff_use_padj = FALSE, diff_alpha = 0.05,
+      fc_scale = "abundance", fc_top_n = 5L, chain_codes = character(0),
+      chain_require_all = FALSE, chain_exclude_odd = FALSE,
+      chain_carbon = "", chain_db = "", chain_oxygen = ""))
+    default_settings <- shiny::isolate(applied_settings())
+    .cfg <- function(name) {
+      value <- applied_settings()[[name]]
+      if (name %in% c("diff_group_a", "diff_group_b")) {
+        se <- se_group_ref()
+        levels <- if (is.null(se)) character(0) else .class_levels_from_se(se, .selected_group_col())
+        if (is.null(value) || !value %in% levels) {
+          index <- if (name == "diff_group_a") 1L else 2L
+          return(if (length(levels) >= index) levels[[index]] else "")
+        }
+      }
+      value
+    }
+    observeEvent(input$settings_apply, {
+      next_settings <- applied_settings()
+      for (name in names(next_settings)) {
+        value <- input[[name]]
+        if (!is.null(value)) next_settings[name] <- list(value)
+        else if (name == "chain_codes") next_settings[name] <- list(character(0))
+      }
+      a <- next_settings$diff_group_a %||% ""
+      b <- next_settings$diff_group_b %||% ""
+      if (nzchar(a) && nzchar(b) && identical(a, b)) {
+        showNotification("Choose different groups for A and B.", type = "error")
+        return()
+      }
+      valid_number <- function(x, lo, hi) length(x) == 1L && is.finite(x) && x >= lo && x <= hi
+      if (!valid_number(next_settings$fc_top_n, 1, 30) ||
+          !valid_number(next_settings$hm_top_n, 5, 200) ||
+          !valid_number(next_settings$diff_alpha, 1e-6, 0.5)) {
+        showNotification("Check FC species count (1-30), heatmap count (5-200), and alpha (0.000001-0.5).", type = "error")
+        return()
+      }
+      target <- input$net_select %||% rv_selected()
+      if (!is.null(target) && !target %in% names(rv_nets$map)) {
+        showNotification("The selected pathway is no longer available.", type = "error")
+        return()
+      }
+      applied_settings(next_settings)
+      shiny::updateCheckboxInput(session, "diff_borders_enabled", value = FALSE)
+      .invalidate_projection()
+      if (!is.null(target)) rv_selected(target)
+      session$sendCustomMessage("cy_settings_applied", list(
+        root_id = ns("workspace"), prefix = ns(""),
+        enrichment = FALSE))
+    }, ignoreInit = TRUE, priority = 100)
+
+    output$settings_summary <- renderUI({
+      badge <- function(label, tab) shiny::tags$button(type = "button",
+        class = "mslm-settings-badge", `data-settings-open` = tab, label)
+      a <- .cfg("diff_group_a"); b <- .cfg("diff_group_b")
+      filters <- .cfg("chain_codes")
+      if (isTRUE(.cfg("chain_exclude_odd"))) filters <- c(filters, "Exclude odd chains")
+      if (isTRUE(.cfg("chain_require_all")) && length(.cfg("chain_codes"))) filters <- c(filters, "ALL")
+      chain_labels <- c(chain_carbon = "C", chain_db = "DB", chain_oxygen = "O")
+      for (key in names(chain_labels)) {
+        value <- .cfg(key)
+        if (nzchar(value)) filters <- c(filters, paste0(chain_labels[[key]], ":", value))
+      }
+      shiny::div(class = "mslm-settings-summary",
+        badge(if (nzchar(a) && nzchar(b)) paste0(b, " / ", a) else "Choose comparison groups", "compare"),
+        badge(paste(c(.cfg("plot_type"), .cfg("agg_fun"), if (isTRUE(.cfg("include_multiomics"))) "multi-omics"), collapse = " · "), "display"),
+        badge(if (length(filters)) paste(filters, collapse = ", ") else "No chain filter", "filter"))
+    })
+    output$current_pathway <- renderUI({
+      id <- rv_selected()
+      info <- if (!is.null(id)) rv_nets$map[[id]] else NULL
+      if (is.null(info)) return(shiny::tags$span("No pathway selected"))
+      el <- info$elements_work
+      mapped <- identical(projection_state$map[[id]], "mapped")
+      shiny::div(class = "mslm-current-pathway",
+        shiny::tags$strong(info$name),
+        shiny::tags$span(class = "mslm-pathway-counts", paste(length(el$nodes), "nodes /", length(el$edges), "connections")),
+        shiny::tags$span(class = if (mapped) "mslm-projection-ready" else "mslm-projection-pending",
+          if (mapped) "Projected" else "Not projected - run Pathway Mapping"))
+    })
+    output$diff_legend <- renderUI({
+      shiny::tags$span(class = "mslm-significance-legend",
+        shiny::tags$span(style = "color:#ef4444", "\u25cf Increase"),
+        shiny::tags$span(style = "color:#3b82f6", "\u25cf Decrease"),
+        shiny::tags$span(style = "color:#687887", "\u25cf Other / untested"),
+        shiny::tags$span(paste0(.cfg("diff_method"), " · ",
+          if (isTRUE(.cfg("diff_use_padj"))) "FDR" else "p", " \u2264 ", .cfg("diff_alpha"))))
+    })
 
     # ---- Image URL builder (IMPORTANT: /static prefix) -----------------------
-    CY_IMG_PORT   <- 7310L
-    CY_IMG_PREFIX <- "/static"
+    image_context <- session$userData$mslm_images
+    CY_IMG_PORT   <- image_context$port %||% 7310L
+    CY_IMG_PREFIX <- image_context$prefix %||% "/static"
 
     .infer_img_origin <- function(session, port = CY_IMG_PORT) {
       proto <- session$clientData$url_protocol %||% "http:"
@@ -368,6 +362,26 @@ mod_cyto_server <- function(id,
 
     # per-network enrichment state (persist across cy_init)
     rv_enrich_state <- reactiveValues(map = list()) # map[[net_id]] = list(meta=..., borderstyle=...)
+
+    .invalidate_projection <- function(ids = names(rv_nets$map)) {
+      nets <- rv_nets$map
+      diff <- rv_diff_border$map
+      enrich <- rv_enrich_state$map
+      status <- projection_state$map
+      for (id in intersect(ids, names(nets))) {
+        nets[[id]]$elements_work <- .mslm_clear_projection_elements(nets[[id]]$elements_work)
+        diff[[id]] <- NULL
+        enrich[[id]] <- NULL
+        status[[id]] <- "needs_mapping"
+      }
+      rv_nets$map <- nets
+      rv_diff_border$map <- diff
+      rv_enrich_state$map <- enrich
+      projection_state$map <- status
+      selected_node(NULL)
+      session$sendCustomMessage("cy_fc_action", list(container_id = container_id, action = "clear"))
+      session$sendCustomMessage("cy_reset_projection", list(container_id = container_id))
+    }
 
     make_id <- function() paste0(
       "net_",
@@ -423,7 +437,7 @@ mod_cyto_server <- function(id,
 
     .read_default_network <- function(path) {
       obj <- jsonlite::read_json(path, simplifyVector = FALSE)
-      .ensure_positions_for_preset(.cyjs_to_elements(obj))
+      .mslm_clear_projection_elements(.ensure_positions_for_preset(.cyjs_to_elements(obj)))
     }
 
     .default_network_specs <- function(include_multiomics = FALSE) {
@@ -482,33 +496,36 @@ mod_cyto_server <- function(id,
     }
 
     observe({
-      if (is.null(elements)) {
+      if (is.null(elements) && !project_loaded()) {
         .upsert_default_networks(
-          include_multiomics = isTRUE(input$include_multiomics),
+          include_multiomics = isTRUE(.cfg("include_multiomics")),
           only_if_empty = TRUE
         )
       }
     })
 
     session$onFlushed(function() {
-      if (is.null(elements) && length(shiny::isolate(rv_nets$map)) == 0) {
+      if (is.null(elements) && !shiny::isolate(project_loaded()) && length(shiny::isolate(rv_nets$map)) == 0) {
         .upsert_default_networks(
-          include_multiomics = isTRUE(shiny::isolate(input$include_multiomics)),
+          include_multiomics = isTRUE(shiny::isolate(.cfg("include_multiomics"))),
           only_if_empty = TRUE
         )
       }
     }, once = TRUE)
 
-    observeEvent(input$include_multiomics, {
+    observeEvent(.cfg("include_multiomics"), {
       req(is.null(elements))
+      overlay <- isTRUE(.cfg("include_multiomics"))
+      if (identical(overlay, last_multiomics)) return()
+      last_multiomics <<- overlay
       if (!isTRUE(examples_loaded) && length(rv_nets$map) == 0) {
         .upsert_default_networks(
-          include_multiomics = isTRUE(input$include_multiomics),
+          include_multiomics = isTRUE(.cfg("include_multiomics")),
           only_if_empty = TRUE
         )
       } else {
         .upsert_default_networks(
-          include_multiomics = isTRUE(input$include_multiomics),
+          include_multiomics = isTRUE(.cfg("include_multiomics")),
           only_if_empty = FALSE
         )
       }
@@ -573,7 +590,7 @@ mod_cyto_server <- function(id,
       }
     }, ignoreInit = TRUE)
 
-    observeEvent(input$net_select, { rv_selected(input$net_select) }, ignoreInit = TRUE)
+    # net_select is a draft in the settings drawer; commit it with settings_apply.
     observeEvent(input$net_delete, { remove_network(rv_selected()) }, ignoreInit = TRUE)
 
     # ---- apply node images to cy from elements (for existing path) ------------
@@ -626,25 +643,35 @@ mod_cyto_server <- function(id,
       ))
     }, ignoreInit = TRUE)
 
+    # Non-reactive mirror of the graph already displayed by the client. Updating
+    # stored elements after a client deletion must not rebuild that same graph.
+    client_graph <- new.env(parent = emptyenv())
+    client_graph$id <- NULL
+    client_graph$elements <- NULL
+
     # ---- Deletion sync: JS -> Shiny ------------------------------------------
     observeEvent(input$cy_changed, {
       msg <- input$cy_changed
       if (is.null(msg) || is.null(msg$action)) return()
 
-      id <- rv_selected()
+      id <- msg$network_id %||% rv_selected()
       if (is.null(id) || is.null(rv_nets$map[[id]])) return()
 
-      if (identical(msg$action, "delete_selected")) {
+      if (identical(msg$action, "delete_selected") && is.null(msg$cyjs)) {
         session$sendCustomMessage("cy_push_cyjs", list(container_id = container_id))
         return()
       }
 
-      if (identical(msg$action, "cyjs") && !is.null(msg$cyjs)) {
+      if (msg$action %in% c("cyjs", "delete_selected") && !is.null(msg$cyjs)) {
         new_el <- .cyjs_to_elements(msg$cyjs)
         new_el <- .ensure_positions_for_preset(new_el)
 
         info <- rv_nets$map[[id]]
         info$elements_work <- new_el
+        if (identical(id, rv_selected())) {
+          client_graph$id <- id
+          client_graph$elements <- new_el
+        }
         rv_nets$map[[id]] <- info
       }
     }, ignoreInit = TRUE)
@@ -699,14 +726,14 @@ mod_cyto_server <- function(id,
         return(shiny::helpText(paste0("Differential: unavailable (colData$", group_col, " has <2 levels).")))
       }
 
-      a0 <- isolate(input$diff_group_a)
-      b0 <- isolate(input$diff_group_b)
+      a0 <- .cfg("diff_group_a")
+      b0 <- .cfg("diff_group_b")
 
       if (is.null(a0) || !(a0 %in% levs)) a0 <- levs[[1]]
       if (is.null(b0) || !(b0 %in% levs)) b0 <- levs[[min(2, length(levs))]]
       if (identical(a0, b0) && length(levs) >= 2) b0 <- levs[[2]]
 
-      adj0 <- isTRUE(isolate(input$diff_use_padj))
+      adj0 <- isTRUE(.cfg("diff_use_padj"))
 
       shiny::tagList(
         shiny::fluidRow(
@@ -717,7 +744,7 @@ mod_cyto_server <- function(id,
           ns("diff_method"),
           "Test",
           choices = c("Wilcoxon" = "wilcox", "t-test" = "t"),
-          selected = isolate(input$diff_method) %||% "wilcox"
+          selected = .cfg("diff_method") %||% "wilcox"
         ),
         shiny::checkboxInput(
           ns("diff_use_padj"),
@@ -727,11 +754,15 @@ mod_cyto_server <- function(id,
         shiny::numericInput(
           ns("diff_alpha"),
           "Alpha",
-          value = isolate(input$diff_alpha) %||% 0.05,
+          value = .cfg("diff_alpha") %||% 0.05,
           min = 1e-6, max = 0.5, step = 0.01
         )
       )
     })
+
+    # These inputs live in a custom drawer, rather than a Bootstrap tab. Bind
+    # their controls even while closed; only the downstream settings are drafts.
+    shiny::outputOptions(output, "diff_ui", suspendWhenHidden = FALSE)
 
     .idx_from_se <- function(se, gA, gB, class_col) {
       cd <- as.data.frame(colData(se))
@@ -790,7 +821,7 @@ mod_cyto_server <- function(id,
         target <- intersect(keys, valid_lipid)
 
         if (length(target)) {
-          agg_fun <- tolower(as.character(input$agg_fun %||% "sum"))[1]
+          agg_fun <- tolower(as.character(.cfg("agg_fun") %||% "sum"))[1]
           se_cls <- aggregate_to_class_se(se_lipid, fun = agg_fun)
           mat <- as.matrix(assay(se_cls, 1))
 
@@ -824,7 +855,8 @@ mod_cyto_server <- function(id,
     }
 
     .border_items_from_stats <- function(el, stats_map, alpha = 0.05, use_padj = FALSE) {
-      if (!length(stats_map)) return(list(items = list(), reset_ids = character(0)))
+      reset_ids <- vapply(el$nodes, function(n) as.character(n$data$id), character(1))
+      if (!length(stats_map)) return(list(items = list(), reset_ids = reset_ids))
 
       keys  <- names(stats_map)
       pvals <- vapply(stats_map, function(x) x$p, numeric(1))
@@ -837,7 +869,7 @@ mod_cyto_server <- function(id,
 
       col_up   <- "#ef4444"
       col_down <- "#3b82f6"
-      col_ns   <- "#9ca3af"
+      col_ns   <- "#b8c1cb"
 
       items <- list()
 
@@ -856,39 +888,43 @@ mod_cyto_server <- function(id,
 
         if (!is.null(k) && k %in% names(p_used) && is.finite(p_used[[k]])) {
           lfc <- stats_map[[k]]$lfc
-          if (isTRUE(p_used[[k]] <= alpha) && is.finite(lfc)) {
+          significant <- isTRUE(p_used[[k]] <= alpha) && is.finite(lfc)
+          if (significant) {
             col <- if (lfc > 0) col_up else col_down
           } else {
             col <- col_ns
           }
-          items[[length(items) + 1L]] <- list(id = nid, color = col)
+          items[[length(items) + 1L]] <- list(id = nid, color = col,
+            width = if (significant) 4 else 1)
         }
       }
 
-      list(items = items, reset_ids = character(0))
+      list(items = items, reset_ids = reset_ids)
     }
 
-    observeEvent(input$apply_diff_borders, {
+    observeEvent(list(input$apply_diff_borders, input$diff_borders_enabled,
+                      rv_selected(), applied_settings(), se_group_ref(), projection_state$map), {
+      req(isTRUE(input$diff_borders_enabled))
       id <- rv_selected()
       req(id)
       el <- rv_nets$map[[id]]$elements_work
       req(el)
 
-      gA <- trimws(as.character(input$diff_group_a %||% ""))
-      gB <- trimws(as.character(input$diff_group_b %||% ""))
+      gA <- trimws(as.character(.cfg("diff_group_a") %||% ""))
+      gB <- trimws(as.character(.cfg("diff_group_b") %||% ""))
       req(nzchar(gA), nzchar(gB))
       if (identical(gA, gB)) {
         showNotification("Group A and Group B must be different.", type = "error")
         return()
       }
 
-      method <- tolower(as.character(input$diff_method %||% "wilcox"))[1]
+      method <- tolower(as.character(.cfg("diff_method") %||% "wilcox"))[1]
       group_col <- .selected_group_col()
 
-      alpha <- suppressWarnings(as.numeric(input$diff_alpha %||% 0.05))
+      alpha <- suppressWarnings(as.numeric(.cfg("diff_alpha") %||% 0.05))
       if (!is.finite(alpha) || alpha <= 0 || alpha >= 1) alpha <- 0.05
 
-      use_padj <- isTRUE(input$diff_use_padj)
+      use_padj <- isTRUE(.cfg("diff_use_padj"))
 
       se_lipid <- tryCatch(se_lipid_effective(), error = function(e) NULL)
       se_tx <- if (!is.null(se_tx_reactive)) tryCatch(se_tx_reactive(), error = function(e) NULL) else NULL
@@ -922,7 +958,7 @@ mod_cyto_server <- function(id,
       )
       if (is.null(stats_map) || !length(stats_map)) {
         showNotification("No testable nodes found in this network for the selected groups.", type = "warning")
-        return()
+        stats_map <- list()
       }
 
       payload <- .border_items_from_stats(el, stats_map, alpha = alpha, use_padj = use_padj)
@@ -931,7 +967,8 @@ mod_cyto_server <- function(id,
       session$sendCustomMessage("cy_set_node_borders", c(list(container_id = container_id), payload))
     }, ignoreInit = TRUE)
 
-    observeEvent(input$clear_diff_borders, {
+    observeEvent(list(input$clear_diff_borders, input$diff_borders_enabled, rv_selected()), {
+      req(!isTRUE(input$diff_borders_enabled))
       id <- rv_selected()
       req(id)
       el <- rv_nets$map[[id]]$elements_work
@@ -1044,6 +1081,7 @@ mod_cyto_server <- function(id,
       req(input$enrich_csv$datapath)
       df <- .read_enrich_csv(input$enrich_csv$datapath)
       rv_enrich_raw(df)
+      enrichment_enabled(TRUE)
       showNotification(paste0("Enrichment CSV loaded: ", nrow(df), " rows"), type = "message")
     }, ignoreInit = TRUE)
 
@@ -1127,6 +1165,7 @@ mod_cyto_server <- function(id,
     }, ignoreInit = TRUE)
 
     observeEvent(input$clear_enrich, {
+      enrichment_enabled(FALSE)
       id <- rv_selected()
       req(id)
       el <- rv_nets$map[[id]]$elements_work
@@ -1152,9 +1191,9 @@ mod_cyto_server <- function(id,
 
     # ---- render selected network ---------------------------------------------
     observe({
-      if (is.null(rv_selected()) && is.null(elements) && length(rv_nets$map) == 0) {
+      if (!project_loaded() && is.null(rv_selected()) && is.null(elements) && length(rv_nets$map) == 0) {
         .upsert_default_networks(
-          include_multiomics = isTRUE(input$include_multiomics),
+          include_multiomics = isTRUE(.cfg("include_multiomics")),
           only_if_empty = TRUE
         )
       }
@@ -1164,6 +1203,9 @@ mod_cyto_server <- function(id,
 
       el <- rv_nets$map[[id]]$elements_work
       req(el)
+      if (identical(client_graph$id, id) && identical(client_graph$elements, el)) return()
+      client_graph$id <- id
+      client_graph$elements <- el
 
       use_preset <- .any_node_has_pos(el)
       if (use_preset) el <- .ensure_positions_for_preset(el)
@@ -1173,12 +1215,14 @@ mod_cyto_server <- function(id,
         "cy_init",
         list(
           container_id      = container_id,
+          network_id        = id,
           elements          = el,
           layout            = lay,
           style             = NULL,
           wheelSensitivity  = 0.2,
           selected_input    = ns("node_selected"),
           changed_input     = ns("cy_changed"),
+          error_input       = ns("cy_render_error"),
           allow_delete      = TRUE
         )
       )
@@ -1206,9 +1250,50 @@ mod_cyto_server <- function(id,
     observeEvent(input$fit, {
       session$sendCustomMessage("cy_fit", list(container_id = container_id))
     }, ignoreInit = TRUE)
+    observeEvent(input$cy_render_error, {
+      message <- as.character(input$cy_render_error$message %||% "Unknown Cytoscape error")
+      warning(paste0("Pathway renderer: ", message), call. = FALSE)
+      shiny::showNotification(paste0("Network rendering failed: ", message), type = "error", duration = NULL)
+    }, ignoreInit = TRUE)
 
     observeEvent(input$node_selected, {
       selected_node(input$node_selected)
+    }, ignoreInit = TRUE)
+
+    observe({
+      enabled <- isTRUE(input$fc_enabled)
+      mode <- input$popup_content %||% "fc"
+      id <- rv_selected()
+      # Track the network identity, but not plot-image/style updates.
+      if (!enabled) {
+        session$sendCustomMessage("cy_fc_panels", list(container_id = container_id, enabled = FALSE, network_id = id, mode = mode))
+        return()
+      }
+      payload <- tryCatch({
+        if (mode != "fc") {
+          list(container_id = container_id, enabled = TRUE, network_id = id, mode = mode, classes = list(), error = "")
+        } else {
+        se <- se_lipid_effective()
+        if (is.null(se)) stop("Lipid data are not available.")
+        a <- trimws(as.character(.cfg("diff_group_a") %||% ""))
+        b <- trimws(as.character(.cfg("diff_group_b") %||% ""))
+        result <- .mslm_fc_panel_data(se, resolve_class_col(se), .selected_group_col(),
+          a, b, scale = .cfg("fc_scale") %||% "abundance", top_n = .cfg("fc_top_n") %||% 5L)
+        c(list(container_id = container_id, enabled = TRUE, network_id = id,
+          mode = mode, contrast = paste0(b, " / ", a), error = ""), result)
+        }
+      }, error = function(e) list(container_id = container_id, enabled = TRUE,
+        network_id = id, mode = mode, classes = list(), error = conditionMessage(e)))
+      session$sendCustomMessage("cy_fc_panels", payload)
+    })
+    observeEvent(input$fc_arrange, {
+      session$sendCustomMessage("cy_fc_action", list(container_id = container_id, action = "arrange"))
+    }, ignoreInit = TRUE)
+    observeEvent(input$fc_clear, {
+      session$sendCustomMessage("cy_fc_action", list(container_id = container_id, action = "clear"))
+    }, ignoreInit = TRUE)
+    observeEvent(input$fc_svg, {
+      session$sendCustomMessage("cy_fc_action", list(container_id = container_id, action = "export"))
     }, ignoreInit = TRUE)
 
     # ---- Export ---------------------------------------------------------------
@@ -1249,12 +1334,12 @@ mod_cyto_server <- function(id,
       se <- se_lipid_reactive()
       codes <- .get_combined_chain_codes(se, c("acyl_chains", "sphingoid_bases"))
 
-      selected0 <- isolate(input$chain_codes)
+      selected0 <- .cfg("chain_codes")
       if (is.null(selected0)) selected0 <- character(0)
       selected0 <- intersect(as.character(selected0), codes)
 
       shiny::tagList(
-        shiny::checkboxInput(ns("chain_exclude_odd"), "Exclude molecules with any odd-carbon chain or SPB", value = FALSE),
+        shiny::checkboxInput(ns("chain_exclude_odd"), "Exclude molecules with any odd-carbon chain or SPB", value = isTRUE(.cfg("chain_exclude_odd"))),
         shiny::selectizeInput(
           ns("chain_codes"),
           "Chain / SPB code(s) (multiple)",
@@ -1267,15 +1352,17 @@ mod_cyto_server <- function(id,
             maxOptions  = 5000
           )
         ),
-        shiny::checkboxInput(ns("chain_require_all"), "Require ALL selected chain codes", value = FALSE),
+        shiny::checkboxInput(ns("chain_require_all"), "Require ALL selected chain codes", value = isTRUE(.cfg("chain_require_all"))),
         shiny::fluidRow(
-          shiny::column(4, shiny::textInput(ns("chain_carbon"), "C",  value = "")),
-          shiny::column(4, shiny::textInput(ns("chain_db"),     "DB", value = "")),
-          shiny::column(4, shiny::textInput(ns("chain_oxygen"), "O",  value = ""))
+          shiny::column(4, shiny::textInput(ns("chain_carbon"), "C",  value = .cfg("chain_carbon") %||% "")),
+          shiny::column(4, shiny::textInput(ns("chain_db"),     "DB", value = .cfg("chain_db") %||% "")),
+          shiny::column(4, shiny::textInput(ns("chain_oxygen"), "O",  value = .cfg("chain_oxygen") %||% ""))
         ),
         shiny::actionButton(ns("chain_reset"), "Reset", class = "btn-xs")
       )
     })
+
+    shiny::outputOptions(output, "chain_filter_ui", suspendWhenHidden = FALSE)
 
     observeEvent(input$chain_reset, {
       updateCheckboxInput(session, "chain_exclude_odd", value = FALSE)
@@ -1292,13 +1379,13 @@ mod_cyto_server <- function(id,
 
       if (!isTRUE(.has_chain_col(se, "acyl_chains") || .has_chain_col(se, "sphingoid_bases"))) return(se)
 
-      chain_codes <- input$chain_codes %||% character(0)
-      require_all <- isTRUE(input$chain_require_all)
-      exclude_odd <- isTRUE(input$chain_exclude_odd)
+      chain_codes <- .cfg("chain_codes") %||% character(0)
+      require_all <- isTRUE(.cfg("chain_require_all"))
+      exclude_odd <- isTRUE(.cfg("chain_exclude_odd"))
 
-      carbon <- suppressWarnings(as.integer(trimws(input$chain_carbon %||% "")))
-      db     <- suppressWarnings(as.integer(trimws(input$chain_db %||% "")))
-      oxygen <- suppressWarnings(as.integer(trimws(input$chain_oxygen %||% "")))
+      carbon <- suppressWarnings(as.integer(trimws(.cfg("chain_carbon") %||% "")))
+      db     <- suppressWarnings(as.integer(trimws(.cfg("chain_db") %||% "")))
+      oxygen <- suppressWarnings(as.integer(trimws(.cfg("chain_oxygen") %||% "")))
 
       if (!is.finite(carbon)) carbon <- NULL
       if (!is.finite(db))     db     <- NULL
@@ -1328,12 +1415,15 @@ mod_cyto_server <- function(id,
       info <- rv_nets$map[[id]]
       req(info)
 
+      .invalidate_projection(id)
+      info <- rv_nets$map[[id]]
+
       se_lipid <- se_lipid_effective()
       req(se_lipid)
 
       se_tx <- if (!is.null(se_tx_reactive)) se_tx_reactive() else NULL
 
-      svg_dir <- .get_svg_dir()
+      svg_dir <- image_context$directory %||% .get_svg_dir()
 
       session$sendCustomMessage("cy_loading", list(container_id = container_id, on = TRUE))
       on.exit(session$sendCustomMessage("cy_loading", list(container_id = container_id, on = FALSE)), add = TRUE)
@@ -1363,8 +1453,8 @@ mod_cyto_server <- function(id,
       target_lipid <- intersect(classes_in_net, valid_lipid)
 
       if (length(target_lipid)) {
-        plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
-        agg_fun   <- tolower(as.character(input$agg_fun   %||% "sum"))[1]
+        plot_type <- tolower(as.character(.cfg("plot_type") %||% "dot"))[1]
+        agg_fun   <- tolower(as.character(.cfg("agg_fun")   %||% "sum"))[1]
         group_col <- .selected_group_col()
 
         adv <- .get_adv_or_default(se_lipid, settings_reactive = settings_reactive)
@@ -1412,7 +1502,7 @@ mod_cyto_server <- function(id,
           url_map_lipid_class[[cls]] <- .img_url(fname, session, ts = ts_now)  # ★ /static 付き
         }
 
-        top_n <- as.integer(input$hm_top_n %||% 40)
+        top_n <- as.integer(.cfg("hm_top_n") %||% 40)
         if (!is.finite(top_n) || top_n <= 0) top_n <- 40L
 
         class_col <- resolve_class_col(se_lipid)
@@ -1449,7 +1539,7 @@ mod_cyto_server <- function(id,
         target_ens <- intersect(ens_in_net, names(ens_map))
 
         if (length(target_ens)) {
-          plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
+          plot_type <- tolower(as.character(.cfg("plot_type") %||% "dot"))[1]
           fun <- get_plot_fun(plot_type)
           group_col <- .selected_group_col()
 
@@ -1527,6 +1617,8 @@ mod_cyto_server <- function(id,
 
       rv_nets$map[[id]]$elements_work <- el
       .send_node_images_from_elements(el, thin_bw = thin_bw, clear_all_first = TRUE, show_loading = TRUE)
+      projection_state$map[[id]] <- "mapped"
+      session$sendCustomMessage("cy_projection_ready", list(prefix = ns(""), enrichment = isTRUE(enrichment_enabled())))
     }, ignoreInit = TRUE)
 
     # ---- Plot panel logic -----------------------------------------------------
@@ -1643,7 +1735,7 @@ mod_cyto_server <- function(id,
       node <- selected_node()
       if (is.null(node)) return(.empty_plot("Select a node in the network."))
 
-      plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
+      plot_type <- tolower(as.character(.cfg("plot_type") %||% "dot"))[1]
       fun <- get_plot_fun(plot_type)
 
       if (.is_gene_node(node)) {
@@ -1689,7 +1781,7 @@ mod_cyto_server <- function(id,
         }
 
         cls <- .get_class_key(node)
-        agg_fun <- tolower(as.character(input$agg_fun %||% "sum"))[1]
+        agg_fun <- tolower(as.character(.cfg("agg_fun") %||% "sum"))[1]
         se_cls <- aggregate_to_class_se(se_lipid, fun = agg_fun)
         group_col <- .selected_group_col()
 
@@ -1744,7 +1836,7 @@ mod_cyto_server <- function(id,
         fid <- rownames(mat)[ix][which.max(mu)]
       }
 
-      plot_type <- tolower(as.character(input$plot_type %||% "dot"))[1]
+      plot_type <- tolower(as.character(.cfg("plot_type") %||% "dot"))[1]
       fun <- get_plot_fun(plot_type)
       group_col <- .selected_group_col()
 
@@ -1820,5 +1912,54 @@ mod_cyto_server <- function(id,
         )
       }
     )
+    list(
+      project_export = function(graph = NULL, network_id = NULL) {
+        nets <- rv_nets$map
+        id <- rv_selected()
+        if (!is.null(graph) && !is.null(network_id) && !is.null(nets[[network_id]]))
+          nets[[network_id]]$elements_work <- .ensure_positions_for_preset(.cyjs_to_elements(graph))
+        nets <- lapply(nets, function(item) {
+          list(id = item$id, name = item$name,
+               elements_work = .mslm_clear_projection_elements(item$elements_work))
+        })
+        list(map = nets, selected = id, settings = applied_settings())
+      },
+      project_restore = function(state) {
+        # Prevent the multiomics default-network observer from replacing saved edits.
+        project_loaded(TRUE)
+        last_multiomics <<- isTRUE(state$settings$include_multiomics)
+        examples_loaded <<- TRUE
+        selected_node(NULL)
+        client_graph$id <- NULL
+        client_graph$elements <- NULL
+        projection_state$map <- list()
+        rv_diff_border$map <- list()
+        rv_enrich_state$map <- list()
+        enrichment_enabled(FALSE)
+        applied_settings(utils::modifyList(default_settings, state$settings, keep.null = TRUE))
+        rv_nets$map <- state$map
+        rv_selected(state$selected)
+        session$sendCustomMessage("cy_fc_action", list(container_id = container_id, action = "clear"))
+        session$sendCustomMessage("cy_reset_projection", list(container_id = container_id))
+        if (is.null(state$selected)) session$sendCustomMessage("cy_init", list(
+          container_id = container_id, elements = list(nodes = list(), edges = list()),
+          layout = "preset", changed_input = ns("cy_changed"), selected_input = ns("node_selected")))
+        shiny::updateSelectInput(session, "net_select",
+          choices = setNames(names(state$map) %||% character(0), vapply(state$map, `[[`, character(1), "name")),
+          selected = state$selected %||% character(0))
+        for (key in names(state$settings)) {
+          value <- state$settings[[key]]
+          if (is.null(value)) next
+          if (is.logical(value)) shiny::updateCheckboxInput(session, key, value = value)
+          else if (key == "plot_type") shiny::updateRadioButtons(session, key, selected = value)
+          else if (key == "chain_codes") shiny::updateSelectizeInput(session, key, selected = value)
+          else if (is.numeric(value)) shiny::updateNumericInput(session, key, value = value)
+          else if (key %in% c("chain_carbon", "chain_db", "chain_oxygen"))
+            shiny::updateTextInput(session, key, value = value)
+          else shiny::updateSelectInput(session, key, selected = value)
+        }
+      }
+    )
+
   })
 }

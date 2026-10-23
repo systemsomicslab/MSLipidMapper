@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 132,
+  "membership_counts": {
+    "ancestor": 1963,
+    "direct": 673
+  },
+  "pathway_count": 115,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Canis familiaris",
+  "source_files": {
+    "candidates.json": "dabe3d2d2f86a53becd4157acf014dc59560eee718b73815ec3dd006c742cffd",
+    "candidates.ttl": "a0534bd8a7b09def0e8d5b2c887136a355bb8f95ae790fc59e6f6d46f006206d",
+    "pathway-membership.json": "164364664de74f50d2578471f8ced98fc9d8e0f7227da5440225628737d307dc",
+    "pathways.json": "00fc404ff009335378b888edde0ee1c3949c27d24ce7c3f80f8ba03ff8dc06b8",
+    "report.json": "666a698fb543651f635f1c81d123deb847ac500bfb23528f7d5473f475fc005d"
+  },
+  "source_reaction_count": 668,
+  "taxon_id": "9615"
+}

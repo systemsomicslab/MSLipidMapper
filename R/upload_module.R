@@ -1,8 +1,8 @@
 # R/mod_upload.R
 # Upload & Edit module (navlistPanel + rhandsontable + class mapping + robust checks)
-# - Step 1: Upload lipidome data (MS-DIAL or Generic: wide + ontology)
+# - Step 1: Upload lipidome data (MS-DIAL or Generic: wide + feature annotations)
 # - Step 2: Edit colData (sample_id, class, use) & subset by use -> analysis SE
-# - Step 3: Transcriptome CSV -> SummarizedExperiment
+# - Step 3: multiomics CSV -> SummarizedExperiment
 # - Transcriptome is automatically re-synchronized when lipidomics sample/class selection changes
 # - Optional: Import class mapping (CSV/TSV) and overwrite colData$class by sample_id
 # - Summary shows only {samples, features} (prioritize the analysis SE if present)
@@ -167,7 +167,7 @@ suppressPackageStartupMessages({
 }
 
 # ============================================================
-# Generic (column-name based): wide + ontology -> SummarizedExperiment
+# Generic (column-name based): wide + LIPID MAPS ID / Ontology -> SummarizedExperiment
 # - measurement columns are ALWAYS: setdiff(names(assay_df), c(sample_id_col, class_col))
 # ============================================================
 .build_lipidomics_se_generic_cols <- function(
@@ -176,8 +176,10 @@ suppressPackageStartupMessages({
     sample_id_col,
     sample_class_col = NULL,
     feature_name_col,
-    ontology_col,
-    assay_name = "abundance"
+    ontology_col = NULL,
+    assay_name = "abundance",
+    lipidmaps_col = NULL,
+    label_col = feature_name_col
 ) {
   stopifnot(is.data.frame(assay_df), is.data.frame(feature_df))
 
@@ -194,8 +196,19 @@ suppressPackageStartupMessages({
   if (is.null(feature_name_col) || !nzchar(feature_name_col) || !(feature_name_col %in% names(feature_df))) {
     stop("feature_name_col is invalid (not found in feature_df).")
   }
-  if (is.null(ontology_col) || !nzchar(ontology_col) || !(ontology_col %in% names(feature_df))) {
-    stop("ontology_col is invalid (not found in feature_df).")
+  if (is.null(label_col) || !nzchar(label_col) || !label_col %in% names(feature_df)) {
+    stop("Select a display label column in the feature CSV.")
+  }
+  has_ontology <- !is.null(ontology_col) && nzchar(ontology_col)
+  has_lipidmaps <- !is.null(lipidmaps_col) && nzchar(lipidmaps_col)
+  if (!has_ontology && !has_lipidmaps) {
+    stop("Select a LIPID MAPS ID column or an Ontology column in the feature CSV.")
+  }
+  for (column in c(ontology_col, lipidmaps_col)) {
+    if (nzchar(column) && !column %in% names(feature_df)) stop("Annotation column not found in feature_df: ", column)
+  }
+  if (has_ontology && has_lipidmaps && identical(ontology_col, lipidmaps_col)) {
+    stop("Select different columns for LIPID MAPS ID and Ontology.")
   }
 
   exclude_cols <- c(sample_id_col, sample_class_col)
@@ -247,24 +260,29 @@ suppressPackageStartupMessages({
   )
 
   fn_vec  <- as.character(feature_df[[feature_name_col]])
-  ont_vec <- as.character(feature_df[[ontology_col]])
+  if (anyNA(fn_vec) || any(!nzchar(trimws(fn_vec))) || anyDuplicated(fn_vec)) {
+    stop("Feature keys must be non-empty and unique in the feature CSV.")
+  }
 
   idx <- match(feature_names, fn_vec)
   hit <- !is.na(idx)
-  rd$Ontology[hit] <- ont_vec[idx[hit]]
-
-  n_unmatched <- sum(!hit)
-  if (n_unmatched > 0) {
-    message("Warning: ", n_unmatched, " features have no matching Ontology in feature_df.")
+  labels <- trimws(as.character(feature_df[[label_col]])[idx])
+  if (anyNA(labels) || any(!nzchar(labels))) {
+    stop("Every assay feature must have a matching non-empty display label in the feature CSV.")
+  }
+  rd$feature_id <- feature_names
+  rd$label <- labels
+  rd[["Metabolite name"]] <- labels
+  if (has_ontology) rd$Ontology[hit] <- as.character(feature_df[[ontology_col]])[idx[hit]]
+  if (has_lipidmaps) {
+    rd$LIPIDMAPS_ID <- rep(NA_character_, length(feature_names))
+    rd$LIPIDMAPS_ID[hit] <- as.character(feature_df[[lipidmaps_col]])[idx[hit]]
   }
 
-  rd$subclass <- ifelse(
-    is.na(rd$Ontology) | rd$Ontology == "",
-    "Unknown",
-    as.character(rd$Ontology)
-  )
+  rd$subclass <- .mslm_pathway_feature_classes(as.data.frame(rd))
 
-  rownames(rd) <- make.unique(as.character(rd[["Metabolite name"]]))
+  # Keep stable assay keys even when different features share a display label.
+  rownames(rd) <- feature_names
 
   SummarizedExperiment::SummarizedExperiment(
     assays  = setNames(list(assay_mat), assay_name),
@@ -357,7 +375,7 @@ mod_upload_ui <- function(id) {
           ),
           shiny::tags$div(
             style = "margin-top:12px;text-align:right;color:#6b7280;font-size:12px;",
-            "Ver. 1.20261016"
+            "Ver. 1.20261023"
           )
         ),
 
@@ -370,7 +388,7 @@ mod_upload_ui <- function(id) {
               choices = c(
                 "MS-DIAL alignment CSV"     = "msdial",
                 "MS-DIAL mzTab-M"           = "mztab_m",
-                "Generic (wide + ontology)" = "generic"
+                "Generic (wide + LIPID MAPS ID / Ontology)" = "generic"
               ),
               selected = "msdial"
             )
@@ -421,8 +439,8 @@ mod_upload_ui <- function(id) {
 
               shiny::div(
                 style = "margin-bottom:10px; padding:10px; border:1px solid #fde68a; background:#fffbeb; border-radius:10px;",
-                shiny::tags$b("Generic input requires an Ontology file (lipid name -> Ontology). "),
-                shiny::span("If you do not have one, create it in Utility -> Ontology builder."),
+                shiny::tags$b("Generic input requires feature keys, display labels, and LIPID MAPS IDs or Ontology labels. "),
+                shiny::span("LIPID MAPS IDs are recommended for Generic input. Ontology is optional and takes priority when supplied. You can create Ontology labels in Utility -> Ontology builder."),
                 shiny::div(
                   style = "margin-top:8px;",
                   shiny::actionButton(
@@ -450,11 +468,11 @@ mod_upload_ui <- function(id) {
                   width = 6,
                   shinydashboard::box(
                     width = 12, status = "primary", solidHeader = TRUE,
-                    title = "Feature/Ontology CSV (lipid name -> Ontology)",
-                    shiny::fileInput(ns("generic_feature_file"), "Feature/Ontology CSV", accept = ".csv"),
+                    title = "Feature annotations (LIPID MAPS ID / Ontology)",
+                    shiny::fileInput(ns("generic_feature_file"), "Feature annotation CSV", accept = ".csv"),
                     shiny::uiOutput(ns("generic_feature_col_ui")),
                     shiny::tags$hr(),
-                    shiny::helpText("This table maps each lipid column name to its Ontology (subclass).")
+                    shiny::helpText("Provide a feature key matching each assay column, a display label (e.g. PC 16:0_18:1), and a LIPID MAPS ID or Ontology. The key and label may use the same column. Labels are used in feature plots; IDs are retained for pathway mapping.")
                   )
                 )
               ),
@@ -482,47 +500,41 @@ mod_upload_ui <- function(id) {
       # ---- Page 2: Edit & Select Samples ----
       shiny::tabPanel(
         "2) Edit & Select Samples",
-        shiny::fluidRow(
-          shiny::column(
-            width = 7,
-
-            shinydashboard::box(
-              width = 12,
-              title = "Master sample table (all samples)",
-              solidHeader = TRUE,
-              status = "primary",
-              collapsible = TRUE,
-              rhandsontable::rHandsontableOutput(ns("cd_hot"), height = 400)
-            ),
-
-            shiny::fluidRow(
-              shiny::column(
-                width = 12,
-                style = "display:flex; justify-content:center; margin: 10px 0 14px 0; clear: both;",
-                shiny::actionButton(
-                  ns("apply_edits"),
-                  "Apply edits & update analysis samples (use == TRUE)",
-                  class = "btn-warning",
-                  style = "min-width: 420px; white-space: normal;"
+        shiny::div(
+          class = "mslm-sample-workspace",
+          shiny::tags$style(shiny::HTML("
+            .mslm-sample-workspace .tab-content { padding-top: 12px; }
+            .mslm-sample-workspace .nav-tabs > li > a { padding: 12px 20px; }
+            .mslm-sample-workspace pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+            .mslm-sample-workspace .handsontable td.mslm-pending-cell {
+              background: #fff0b3 !important; color: #172432 !important;
+              box-shadow: inset 0 -2px 0 #a86400;
+            }
+            .mslm-sample-workspace .btn { white-space: normal; max-width: 100%; }
+          ")),
+          shiny::h3("Samples & metadata"),
+          shiny::p("Review samples, import metadata, and choose which samples to include in analysis."),
+              shiny::p("Edit class or metadata directly. Select 'use' for samples to include, then apply your changes."),
+              shiny::fluidRow(
+                shinydashboard::box(
+                  width = 12, title = "All samples", solidHeader = TRUE,
+                  status = "primary", collapsible = TRUE,
+                  rhandsontable::rHandsontableOutput(ns("cd_hot"), height = 440)
                 )
-              )
-            ),
-
-            shinydashboard::box(
-              width = 12,
-              title = "Samples currently used for analysis (use == TRUE)",
-              solidHeader = TRUE,
-              status = "primary",
-              collapsible = TRUE,
-              rhandsontable::rHandsontableOutput(ns("cd_hot_selected"), height = 400),
-              shiny::br()
-            )
-          ),
-
-          shiny::column(
-            width = 5,
-
-            shinydashboard::box(
+              ),
+              shiny::div(
+                style = "margin: 12px 0 18px;",
+                shiny::actionButton(ns("apply_edits"), "Apply changes to analysis", class = "btn btn-primary", disabled = "disabled",
+                                    title = "Edit the table to enable this button"),
+                shiny::div(id = ns("sample_pending_notice"), role = "status",
+                           `aria-live` = "polite", style = "margin-top:10px;")
+              ),
+          shiny::tabsetPanel(
+            id = ns("sample_workspace_tab"),
+            shiny::tabPanel(
+              "Import metadata", value = "metadata", shiny::br(),
+              shiny::fluidRow(
+shinydashboard::box(
               width = 12,
               title = "Import sample metadata file (CSV/TSV)",
               solidHeader = TRUE,
@@ -555,14 +567,18 @@ mod_upload_ui <- function(id) {
                 shiny::column(
                   width = 8,
                   shiny::div(
-                    style = "width:100%; overflow-x:auto;",
+                    style = "width:100%; max-height:420px; overflow:auto;",
                     shiny::tableOutput(ns("class_preview"))
                   )
                 )
               )
+            )
+              )
             ),
-
-            shinydashboard::box(
+            shiny::tabPanel(
+              "Filter by class", value = "filter", shiny::br(),
+              shiny::fluidRow(
+shinydashboard::box(
               width = 12,
               title = "Class filter",
               solidHeader = TRUE,
@@ -583,41 +599,46 @@ mod_upload_ui <- function(id) {
                   shiny::br(),
                   shiny::actionButton(
                     ns("apply_class_use"),
-                    "Filtering class",
+                    "Apply class filter",
                     class = "btn btn-primary",
                     style = "white-space:normal;"
                   )
                 )
               )
             )
+              )
+            )
+          ),
+              shiny::fluidRow(
+                shinydashboard::box(
+                  width = 12, title = "Analysis samples (selected)", solidHeader = TRUE,
+                  status = "primary", collapsible = TRUE, collapsed = TRUE,
+                  rhandsontable::rHandsontableOutput(ns("cd_hot_selected"), height = 360)
+                )
+              ),
+          shiny::fluidRow(
+            shinydashboard::box(
+              width = 12, title = "Feature annotations (preview)",
+              solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+              rhandsontable::rHandsontableOutput(ns("rd_hot"), height = 300)
+            )
           )
-        ),
-
-        shiny::hr(),
-
-        shinydashboard::box(
-          width = 12,
-          title = "Variable data (rowData preview)",
-          solidHeader = TRUE,
-          collapsible = TRUE,
-          rhandsontable::rHandsontableOutput(ns("rd_hot"), height = 300)
         )
       ),
-
       # ---- Page 3: Transcriptome ----
       shiny::tabPanel(
         "3) Upload multiomics data",
-        shiny::helpText("Upload a transcriptome count table. Must contain a 'GeneID' column."),
+        shiny::helpText("Upload a multiomics data table. Must contain a 'GeneID' column."),
         shiny::fluidRow(
           shiny::column(
             width = 6,
-            shiny::fileInput(ns("tx_file"), "Transcriptome CSV", accept = ".csv")
+            shiny::fileInput(ns("tx_file"), "multiomics CSV", accept = ".csv")
           ),
           shiny::column(
             width = 3,
             shiny::div(
               style = "margin-top: 25px;",
-              shiny::actionButton(ns("tx_build"), "Submit Transcriptome data", class = "btn btn-primary")
+              shiny::actionButton(ns("tx_build"), "Submit multiomics data", class = "btn btn-primary")
             )
           ),
           shiny::column(
@@ -628,7 +649,7 @@ mod_upload_ui <- function(id) {
         ),
         shiny::br(),
         shiny::hr(),
-        shiny::h4("Sample table (Transcriptome data)"),
+        shiny::h4("Sample table (multiomics data)"),
         rhandsontable::rHandsontableOutput(ns("tx_col_preview"), height = 220),
         shiny::br(),
         shiny::h4("Preview"),
@@ -678,7 +699,7 @@ mod_upload_server <- function(id) {
       if (length(keep) == 0L) {
         if (isTRUE(notify_no_overlap)) {
           shiny::showNotification(
-            "No overlapping samples between Lipidomics and Transcriptome after lipidomics update.",
+            "No overlapping samples between Lipidomics and multiomics data after lipidomics update.",
             type = "warning",
             duration = 6
           )
@@ -757,7 +778,7 @@ mod_upload_server <- function(id) {
         silent = TRUE
       )
       shiny::validate(shiny::need(!inherits(df, "try-error") && is.data.frame(df), "Failed to read feature CSV."))
-      shiny::validate(shiny::need(ncol(df) >= 2, "Feature/Ontology CSV must have at least 2 columns."))
+      shiny::validate(shiny::need(ncol(df) >= 2, "Feature annotation CSV must have at least 2 columns."))
       df
     })
 
@@ -794,25 +815,45 @@ mod_upload_server <- function(id) {
       } else {
         cols[1]
       }
+      key_hits <- cols[lower_cols %in% c("feature_id", "feature_key", "feature", "id")]
+      if (length(key_hits)) default_name <- key_hits[1]
+      label_hits <- cols[lower_cols %in% c("label", "display_label", "display_name")]
+      default_label <- if (length(label_hits)) label_hits[1] else default_name
       default_ont <- if ("Ontology" %in% cols) {
         "Ontology"
       } else if ("ontology" %in% cols) {
         "ontology"
       } else {
-        cols[min(2, length(cols))]
+        ""
       }
+      id_key <- gsub("[^a-z0-9]", "", tolower(cols))
+      id_hits <- cols[id_key %in% c("lipidmaps", "lipidmapsid", "lmid", "lipidmapsclassid",
+        "optgloballipidmaps", "optgloballipidmapsid", "databaseidentifier")]
+      default_id <- if (length(id_hits)) id_hits[1] else ""
 
       shiny::tagList(
         shiny::selectInput(
           ns("generic_feature_name_colname"),
-          "Lipid name column (feature CSV)",
+          "Feature key column (matches assay column names)",
           choices = cols,
           selected = default_name
         ),
         shiny::selectInput(
-          ns("generic_ontology_colname"),
-          "Ontology column (feature CSV)",
+          ns("generic_label_colname"),
+          "Display label column (required)",
           choices = cols,
+          selected = default_label
+        ),
+        shiny::selectInput(
+          ns("generic_lipidmaps_colname"),
+          "LIPID MAPS ID column (recommended)",
+          choices = c("- none -" = "", stats::setNames(cols, cols)),
+          selected = default_id
+        ),
+        shiny::selectInput(
+          ns("generic_ontology_colname"),
+          "Ontology column (optional; takes priority)",
+          choices = c("- none -" = "", stats::setNames(cols, cols)),
           selected = default_ont
         )
       )
@@ -979,7 +1020,7 @@ mod_upload_server <- function(id) {
       feature_df <- generic_feature_df()
 
       req(input$generic_sample_id_colname)
-      req(input$generic_feature_name_colname, input$generic_ontology_colname)
+      req(input$generic_feature_name_colname, input$generic_label_colname)
 
       sample_id_col <- input$generic_sample_id_colname
       class_col <- input$generic_sample_class_colname %||% ""
@@ -993,6 +1034,8 @@ mod_upload_server <- function(id) {
           sample_class_col = class_col,
           feature_name_col = input$generic_feature_name_colname,
           ontology_col     = input$generic_ontology_colname,
+          lipidmaps_col    = input$generic_lipidmaps_colname,
+          label_col        = input$generic_label_colname,
           assay_name       = "abundance"
         ),
         silent = TRUE
@@ -1070,7 +1113,56 @@ mod_upload_server <- function(id) {
         stretchH   = "all"
       ) |>
         rhandsontable::hot_col("sample_id", readOnly = TRUE) |>
-        rhandsontable::hot_col("use", type = "checkbox")
+        rhandsontable::hot_col("use", type = "checkbox") |>
+        htmlwidgets::onRender("function(el, x) {
+          var hot = HTMLWidgets.getInstance(el).hot;
+          if (!hot) return;
+          if (hot._mslmPendingHooks) {
+            hot.removeHook('afterChange', hot._mslmPendingHooks.change);
+            hot.removeHook('afterRenderer', hot._mslmPendingHooks.renderer);
+          }
+          var baseline = hot.getData().map(function(row) { return row.slice(); });
+          var notice = document.getElementById(el.id.replace(/cd_hot$/, 'sample_pending_notice'));
+          var button = document.getElementById(el.id.replace(/cd_hot$/, 'apply_edits'));
+          function equal(a, b) {
+            if (a == null || a === '') return b == null || b === '';
+            return String(a) === String(b);
+          }
+          function changed(row, col) {
+            var physicalRow = hot.toPhysicalRow ? hot.toPhysicalRow(row) : row;
+            var physicalCol = hot.toPhysicalColumn ? hot.toPhysicalColumn(col) : col;
+            return baseline[physicalRow] &&
+              !equal(hot.getDataAtCell(row, col), baseline[physicalRow][physicalCol]);
+          }
+          function update() {
+            var count = 0;
+            for (var r = 0; r < hot.countRows(); r++) {
+              for (var c = 0; c < hot.countCols(); c++) if (changed(r, c)) count++;
+            }
+            if (notice) {
+              notice.textContent = count ? count + ' unapplied cell change(s). Highlighted changes are not yet used in analysis. Click Apply changes to analysis.' : '';
+              notice.style.cssText = count ? 'margin-top:10px;padding:10px 14px;background:#fff8df;border:1px solid #c58a16;border-radius:6px;color:#654300;' : 'margin-top:10px;';
+            }
+            if (button) {
+              button.disabled = count === 0;
+              button.setAttribute('aria-disabled', count === 0 ? 'true' : 'false');
+              button.setAttribute('aria-describedby', notice ? notice.id : '');
+              button.title = count ? 'Apply the highlighted changes to analysis' : 'No unapplied changes';
+            }
+          }
+          var renderer = function(td, row, col) {
+            var dirty = !!changed(row, col);
+            td.classList.toggle('mslm-pending-cell', dirty);
+            if (dirty) td.setAttribute('title', 'Unapplied change: click Apply changes to analysis');
+            else if (td.getAttribute('title') === 'Unapplied change: click Apply changes to analysis') td.removeAttribute('title');
+          };
+          var change = function() { update(); hot.render(); };
+          hot._mslmPendingHooks = {change: change, renderer: renderer};
+          hot.addHook('afterChange', change);
+          hot.addHook('afterRenderer', renderer);
+          update();
+          hot.render();
+        }")
     })
 
     output$cd_hot_selected <- rhandsontable::renderRHandsontable({
@@ -1380,10 +1472,10 @@ mod_upload_server <- function(id) {
       if (inherits(se_tx_raw, "try-error")) {
         shiny::showModal(
           shiny::modalDialog(
-            title = "Failed to build Transcriptome SE",
+            title = "Failed to build multiomics SE",
             easyClose = TRUE,
             footer = shiny::modalButton("OK"),
-            shiny::p("An error occurred while parsing the transcriptome CSV:"),
+            shiny::p("An error occurred while parsing the multiomics CSV:"),
             shiny::code(as.character(se_tx_raw))
           )
         )
@@ -1392,7 +1484,7 @@ mod_upload_server <- function(id) {
 
       if (!methods::is(se_tx_raw, "SummarizedExperiment") ||
           !"abundance" %in% SummarizedExperiment::assayNames(se_tx_raw)) {
-        shiny::showNotification("Invalid transcriptome SE structure.", type = "error")
+        shiny::showNotification("Invalid multiomics SE structure.", type = "error")
         return(invisible(NULL))
       }
 
@@ -1408,18 +1500,18 @@ mod_upload_server <- function(id) {
         n_keep <- ncol(SummarizedExperiment::assay(se_tx, "abundance"))
         n_drop <- ncol(SummarizedExperiment::assay(se_tx_raw, "abundance")) - n_keep
         shiny::showNotification(
-          sprintf("Transcriptome aligned to Lipidomics: kept %d, dropped %d.", n_keep, n_drop),
+          sprintf("multiomics data aligned to Lipidomics: kept %d, dropped %d.", n_keep, n_drop),
           type = "message"
         )
       } else {
         shiny::showNotification(
-          "Lipidomics SE not loaded yet: Transcriptome kept as-is.",
+          "Lipidomics SE not loaded yet: multiomics data kept as-is.",
           type = "warning"
         )
       }
 
       se_tx_r(se_tx)
-      shiny::showNotification("Transcriptome SE built successfully.", type = "message")
+      shiny::showNotification("multiomics SE built successfully.", type = "message")
     })
 
     shiny::observe({
@@ -1436,7 +1528,7 @@ mod_upload_server <- function(id) {
 
     output$tx_summary_html <- shiny::renderUI({
       se_tx <- se_tx_r()
-      if (is.null(se_tx)) return(shiny::HTML("<em>No transcriptome loaded.</em>"))
+      if (is.null(se_tx)) return(shiny::HTML("<em>No multiomics data loaded.</em>"))
 
       sx <- .summarize_se(se_tx, assay_name = "abundance", group_col = "class")
       htmltools::tagList(
@@ -1487,6 +1579,14 @@ mod_upload_server <- function(id) {
     })
 
     list(
+      project_export = function() list(full = se_full_r(), selected = se_sel_r() %||% se_full_r(),
+                                       tx = se_tx_r(), tx_raw = se_tx_raw_r()),
+      project_restore = function(state) {
+        se_full_r(state$full)
+        se_sel_r(state$selected)
+        se_tx_raw_r(state$tx_raw)
+        se_tx_r(state$tx)
+      },
       se_all   = shiny::reactive(se_full_r()),
       se       = shiny::reactive(se_sel_r() %||% se_full_r()),
       se_tx    = shiny::reactive(se_tx_r()),

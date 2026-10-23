@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MSLipidMapper pathway measurements RDF / JSON-LD v2.0.0",
+  "title": "MSLipidMapper pathway measurements RDF / JSON-LD v4.0.0 (fixed accessions)",
   "type": "object",
   "additionalProperties": false,
   "required": ["@context", "@graph"],

@@ -9,6 +9,7 @@ normalization <- "none"              # Describe the actual input; no normalizati
 unit <- "unspecified"
 
 source(file.path("R", "package_paths.R"))
+source(file.path("R", "resource_ids.R"))
 source(file.path("R", "mztab_m_import.R"))
 source(file.path("R", "lipid_chain_parser_se.R"))
 source(file.path("R", "pathway_knowledge.R"))

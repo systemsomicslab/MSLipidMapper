@@ -1,0 +1,866 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482788",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482798",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482801",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482839",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482883",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482922",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1482925",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of CL",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483076",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483101",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483115",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483166",
+    "totalEntity": 58,
+    "totalEntityAndInteractors": 59,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483191",
+    "totalEntity": 36,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483206",
+    "totalEntity": 163,
+    "totalEntityAndInteractors": 175,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483213",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483226",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483248",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483255",
+    "totalEntity": 65,
+    "totalEntityAndInteractors": 99,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1483257",
+    "totalEntity": 212,
+    "totalEntityAndInteractors": 252,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-159418",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-163560",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1655829",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 54,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1660499",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 55,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1660514",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1660516",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1660517",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1660661",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-1660662",
+    "totalEntity": 102,
+    "totalEntityAndInteractors": 105,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-191273",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-192105",
+    "totalEntity": 68,
+    "totalEntityAndInteractors": 78,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-193048",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-193144",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 45,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-193368",
+    "totalEntity": 51,
+    "totalEntityAndInteractors": 54,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-193775",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-193807",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-193993",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-194002",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-194068",
+    "totalEntity": 85,
+    "totalEntityAndInteractors": 98,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-196071",
+    "totalEntity": 83,
+    "totalEntityAndInteractors": 88,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-196108",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-196791",
+    "totalEntity": 37,
+    "totalEntityAndInteractors": 136,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-200425",
+    "totalEntity": 54,
+    "totalEntityAndInteractors": 54,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2046104",
+    "totalEntity": 54,
+    "totalEntityAndInteractors": 56,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2046105",
+    "totalEntity": 36,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2046106",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 49,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2142691",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2142700",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2142753",
+    "totalEntity": 60,
+    "totalEntityAndInteractors": 61,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2142816",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-2162123",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-389599",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-389887",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 34,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-390247",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-390918",
+    "totalEntity": 69,
+    "totalEntityAndInteractors": 72,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-400206",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-428157",
+    "totalEntity": 164,
+    "totalEntityAndInteractors": 188,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-556833",
+    "totalEntity": 885,
+    "totalEntityAndInteractors": 1127,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-6807047",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-6814848",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-74182",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-75105",
+    "totalEntity": 85,
+    "totalEntityAndInteractors": 111,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-75109",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-75876",
+    "totalEntity": 58,
+    "totalEntityAndInteractors": 84,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77108",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77111",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77285",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77286",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 44,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77288",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77289",
+    "totalEntity": 73,
+    "totalEntityAndInteractors": 77,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77305",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77310",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77346",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77348",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77350",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-77352",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-8847453",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-8848584",
+    "totalEntity": 41,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-8957322",
+    "totalEntity": 200,
+    "totalEntityAndInteractors": 372,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-8964572",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-8978868",
+    "totalEntity": 303,
+    "totalEntityAndInteractors": 337,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-8979227",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9018676",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9018677",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9018678",
+    "totalEntity": 36,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9018679",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9018681",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9018896",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9020265",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9023661",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9640463",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9840309",
+    "totalEntity": 63,
+    "totalEntityAndInteractors": 64,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9840310",
+    "totalEntity": 43,
+    "totalEntityAndInteractors": 45,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9845614",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Drosophila melanogaster",
+    "stId": "R-DME-9969896",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 42,
+    "type": "Pathway"
+  }
+]

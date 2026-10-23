@@ -1,0 +1,1111 @@
+[
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_62747",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482539",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_35366",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482543",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482545",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482548",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482571",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482604",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482604",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482612",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482629",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482656",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482656",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482685",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_62747",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482689",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482696",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_62747",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482745",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482745",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482759",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_75137",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482759",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482759",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482771",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482781",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482794",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482816",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482825",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482827",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482828",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482847",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482850",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482856",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482861",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482862",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_75137",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482867",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482867",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482868",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482884",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482892",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60430",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482894",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482897",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_62747",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482900",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482900",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482920",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1482932",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1483121",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1483165",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1483182",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1483203",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675773",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57836",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675773",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675776",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675795",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675810",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675836",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675836",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675939",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57836",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675949",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675949",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675961",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1675994",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676024",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676065",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676065",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676105",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676105",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676114",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676134",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676134",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676141",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676145",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676145",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676149",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-SCE-1806258",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676152",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-1806287",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676152",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676203",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-1676203",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57310",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-191402",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57310",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-191405",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_63838",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-193746",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_63829",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-193746",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_63829",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-193758",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_48778",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-193824",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_48778",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-193841",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-194156",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194153",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-192483",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194153",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_18364",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194641",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_50593",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194642",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_1949",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194669",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_143575",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194669",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_18364",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194674",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_18364",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194698",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_143575",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-194718",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16290",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-195664",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57836",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-199456",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-SCE-8867341",
+    "entity_type": "Polymer",
+    "reaction": "https://reactome.org/content/detail/R-SCE-200423",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-8876893",
+    "entity_type": "Polymer",
+    "reaction": "https://reactome.org/content/detail/R-SCE-200423",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9971099",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-200424",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9971097",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-200424",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57589",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-390291",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_84411",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428123",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_35785",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428123",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_35785",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428185",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_28868",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428262",
+    "status": "unmapped"
+  },
+  {
+    "biochemical_label": null,
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_64124",
+    "codes": [
+      "SP01",
+      "SP0103"
+    ],
+    "distance": 1,
+    "method": "ontology-ancestor",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428262",
+    "source_xrefs": [
+      "curated-exact-generic-class",
+      "lipidmaps:LMSP01030001"
+    ],
+    "status": "ambiguous",
+    "supporting_terms": [
+      "http://purl.obolibrary.org/obo/CHEBI_46961",
+      "http://purl.obolibrary.org/obo/CHEBI_84410"
+    ]
+  },
+  {
+    "entity": "R-ALL-9844328",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428681",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9844327",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-428681",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-5690520",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5690042",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-5690539",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5690042",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_64483",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5694485",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_28868",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5694485",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_11230",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5694485",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_52571",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5694583",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-5696066",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5696074",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-5696037",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5696074",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_10036",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-5696424",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6786650",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6786650",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-SCE-6809679",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809680",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-6809705",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809707",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809720",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-SCE-6809761",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809764",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_26034",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809777",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809778",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6809778",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6811522",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6814254",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60479",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-6814797",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-75885",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-8848288",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8848246",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-8848239",
+    "entity_type": "CandidateSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8848246",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-8848291",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8848246",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-8849959",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8849969",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-8849958",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8849969",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-9942194",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8857686",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-8866926",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8862380",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-5693370-4",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8862380",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-8862370",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8862380",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8869241",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8869241",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-SCE-199971-3",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8870499",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-8870493",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8870499",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60479",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8952251",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-8952251",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-9024574",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9020252",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9024809",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9020253",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_140346",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9020257",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_140208",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9020257",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-9024759",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9020258",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9024570",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9020270",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_140313",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9024890",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_195348",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9024890",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-SCE-428236-4",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9695917",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9695954",
+    "entity_type": "CandidateSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9695917",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-9695910",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9695917",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9705575",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9705584",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-191277",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9705584",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-9705595",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9705584",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-981570",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9717841",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9717840",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9717841",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-9717836",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9717841",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-8857655-3",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9942190",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-SCE-9942191",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9942190",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_87047",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9945822",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-9971097",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9971094",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9971099",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-SCE-9971094",
+    "reason": "container-or-unspecified-entity"
+  }
+]

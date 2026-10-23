@@ -1,0 +1,11 @@
+{
+  "head" : {
+    "vars" : [
+      "reaction",
+      "chebi"
+    ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}

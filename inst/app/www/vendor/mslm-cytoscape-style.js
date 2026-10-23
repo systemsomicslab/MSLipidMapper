@@ -9,7 +9,7 @@
           "label": "data(label)",
           "background-color": "white",
           "shape": "round-rectangle",
-          "background-image": "data(path)",
+          "background-image": "none",
           "background-image-crossorigin": "anonymous",
           "background-fit": "cover cover",
           "height": "data(Height)",
@@ -18,6 +18,12 @@
           "text-valign": "top",
           "text-halign": "center",
           "text-margin-y": 22
+      }},
+      { selector: 'node[path][path != ""]', style: {
+          "background-image": "data(path)"
+      }},
+      { selector: 'node[Color = "Blue"], node[Color = "blue"], node[Color = "#0000ff"], node[Color = "#0000FF"]', style: {
+          "border-color": "#b8c1cb"
       }},
       { selector: "node[IsJunction = 1]", style: {
           "shape": "ellipse",

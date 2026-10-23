@@ -1,0 +1,1046 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482788",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482798",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482801",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482839",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482883",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482922",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1482925",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of CL",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483076",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483101",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483115",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483166",
+    "totalEntity": 64,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483191",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483206",
+    "totalEntity": 202,
+    "totalEntityAndInteractors": 222,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483213",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483226",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483248",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483255",
+    "totalEntity": 105,
+    "totalEntityAndInteractors": 119,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1483257",
+    "totalEntity": 288,
+    "totalEntityAndInteractors": 316,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Bos taurus",
+    "stId": "R-BTA-159418",
+    "totalEntity": 35,
+    "totalEntityAndInteractors": 35,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-163560",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1655829",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1660499",
+    "totalEntity": 68,
+    "totalEntityAndInteractors": 80,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1660514",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1660516",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1660517",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1660661",
+    "totalEntity": 68,
+    "totalEntityAndInteractors": 68,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-1660662",
+    "totalEntity": 134,
+    "totalEntityAndInteractors": 137,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-191273",
+    "totalEntity": 81,
+    "totalEntityAndInteractors": 85,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Bos taurus",
+    "stId": "R-BTA-192105",
+    "totalEntity": 106,
+    "totalEntityAndInteractors": 115,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-193048",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-193144",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Bos taurus",
+    "stId": "R-BTA-193368",
+    "totalEntity": 77,
+    "totalEntityAndInteractors": 80,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Bos taurus",
+    "stId": "R-BTA-193775",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 48,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Bos taurus",
+    "stId": "R-BTA-193807",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 42,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-193993",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-194002",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-194068",
+    "totalEntity": 117,
+    "totalEntityAndInteractors": 126,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Bos taurus",
+    "stId": "R-BTA-196071",
+    "totalEntity": 74,
+    "totalEntityAndInteractors": 77,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-196108",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-196791",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Bos taurus",
+    "stId": "R-BTA-200425",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2046104",
+    "totalEntity": 53,
+    "totalEntityAndInteractors": 55,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2046105",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2046106",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 45,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142670",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 5-eicosatetraenoic acids",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142688",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142691",
+    "totalEntity": 46,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Hepoxilins (HX) and Trioxilins (TrX)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142696",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142700",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 12-eicosatetraenoic acid derivatives",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142712",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142753",
+    "totalEntity": 141,
+    "totalEntityAndInteractors": 142,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 15-eicosatetraenoic acid derivatives",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142770",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2142816",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-2162123",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 44,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Bos taurus",
+    "stId": "R-BTA-389599",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-389887",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Bos taurus",
+    "stId": "R-BTA-390247",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 44,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-390918",
+    "totalEntity": 89,
+    "totalEntityAndInteractors": 92,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Bos taurus",
+    "stId": "R-BTA-400206",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-428157",
+    "totalEntity": 217,
+    "totalEntityAndInteractors": 220,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Bos taurus",
+    "stId": "R-BTA-556833",
+    "totalEntity": 1216,
+    "totalEntityAndInteractors": 1250,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-6807047",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-6807062",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-6814848",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Propionyl-CoA catabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-71032",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-74182",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-75105",
+    "totalEntity": 68,
+    "totalEntityAndInteractors": 68,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-75109",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-75876",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 44,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77108",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77111",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77285",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77286",
+    "totalEntity": 48,
+    "totalEntityAndInteractors": 48,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77288",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77289",
+    "totalEntity": 101,
+    "totalEntityAndInteractors": 101,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77305",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77310",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77346",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77348",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77350",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Bos taurus",
+    "stId": "R-BTA-77352",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Bos taurus",
+    "stId": "R-BTA-8847453",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-8848584",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Bos taurus",
+    "stId": "R-BTA-8957322",
+    "totalEntity": 272,
+    "totalEntityAndInteractors": 282,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Bos taurus",
+    "stId": "R-BTA-8964572",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-8978868",
+    "totalEntity": 387,
+    "totalEntityAndInteractors": 390,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-8979227",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 52,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018676",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018677",
+    "totalEntity": 75,
+    "totalEntityAndInteractors": 75,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018678",
+    "totalEntity": 126,
+    "totalEntityAndInteractors": 126,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018679",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018681",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018682",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DPA-derived SPMs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018683",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9018896",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9020265",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9023661",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3 SPMs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9025094",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-6 SPMs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9025106",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived protectins and resolvins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9026286",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived maresins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9026290",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DHA-derived sulfido conjugates",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9026395",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived 13-series resolvins",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9026403",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin conjugates in tissue regeneration (MCTR)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9026762",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9026766",
+    "totalEntity": 4,
+    "totalEntityAndInteractors": 4,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin-like SPMs",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9027307",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9027604",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9640463",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9840309",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 71,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9840310",
+    "totalEntity": 75,
+    "totalEntityAndInteractors": 77,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9845614",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9969896",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 39,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)",
+    "species": "Bos taurus",
+    "stId": "R-BTA-9969901",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  }
+]

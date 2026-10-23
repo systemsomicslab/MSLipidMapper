@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 54,
+  "membership_counts": {
+    "ancestor": 618,
+    "direct": 218
+  },
+  "pathway_count": 76,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Schizosaccharomyces pombe",
+  "source_files": {
+    "candidates.json": "3b22013a3bea535f872d29e00c1714bd617c988aab5be4213156d65fedee9309",
+    "candidates.ttl": "856233117f4c1e42d251169e7269423beb92658c54b06dba146eb1082257cf17",
+    "pathway-membership.json": "0aaf419dbcf6170791aa280c45d695fb78edc55f18f2079905774f56c342a756",
+    "pathways.json": "ebdfdb1346eb980f8bd5a57fba5a19b52dd07db837df2a34214eb0b6baae6a64",
+    "report.json": "3ceb31b00a47cd3bf26db6718bfd4d9d19c56908b20703407acb23ae8efe1ef5"
+  },
+  "source_reaction_count": 214,
+  "taxon_id": "4896"
+}

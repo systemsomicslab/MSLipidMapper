@@ -1,0 +1,3322 @@
+{
+  "FA00": {
+    "code": "FA00",
+    "label": "Other Fatty Acyls",
+    "url": "https://www.lipidmaps.org/lmsd_search/100"
+  },
+  "FA01": {
+    "code": "FA01",
+    "label": "Fatty Acids and Conjugates",
+    "url": "https://www.lipidmaps.org/lmsd_search/101"
+  },
+  "FA0101": {
+    "code": "FA0101",
+    "label": "Straight chain fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10101"
+  },
+  "FA0102": {
+    "code": "FA0102",
+    "label": "Branched fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10102"
+  },
+  "FA0103": {
+    "code": "FA0103",
+    "label": "Unsaturated fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10103"
+  },
+  "FA0104": {
+    "code": "FA0104",
+    "label": "Hydroperoxy fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10104"
+  },
+  "FA0105": {
+    "code": "FA0105",
+    "label": "Hydroxy fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10105"
+  },
+  "FA0106": {
+    "code": "FA0106",
+    "label": "Oxo fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10106"
+  },
+  "FA0107": {
+    "code": "FA0107",
+    "label": "Epoxy fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10107"
+  },
+  "FA0108": {
+    "code": "FA0108",
+    "label": "Methoxy fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10108"
+  },
+  "FA0109": {
+    "code": "FA0109",
+    "label": "Halogenated fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10109"
+  },
+  "FA0110": {
+    "code": "FA0110",
+    "label": "Amino fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10110"
+  },
+  "FA0111": {
+    "code": "FA0111",
+    "label": "Cyano fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10111"
+  },
+  "FA0112": {
+    "code": "FA0112",
+    "label": "Nitro fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10112"
+  },
+  "FA0113": {
+    "code": "FA0113",
+    "label": "Thia fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10113"
+  },
+  "FA0114": {
+    "code": "FA0114",
+    "label": "Carbocyclic fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10114"
+  },
+  "FA0115": {
+    "code": "FA0115",
+    "label": "Heterocyclic fatty acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10115"
+  },
+  "FA0116": {
+    "code": "FA0116",
+    "label": "Mycolic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10116"
+  },
+  "FA0117": {
+    "code": "FA0117",
+    "label": "Dicarboxylic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10117"
+  },
+  "FA02": {
+    "code": "FA02",
+    "label": "Octadecanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/102"
+  },
+  "FA0200": {
+    "code": "FA0200",
+    "label": "Other Octadecanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10200"
+  },
+  "FA0201": {
+    "code": "FA0201",
+    "label": "12-oxophytodienoic acid metabolites",
+    "url": "https://www.lipidmaps.org/lmsd_search/10201"
+  },
+  "FA0202": {
+    "code": "FA0202",
+    "label": "Jasmonic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10202"
+  },
+  "FA0203": {
+    "code": "FA0203",
+    "label": "Phytoprostanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10203"
+  },
+  "FA0204": {
+    "code": "FA0204",
+    "label": "Phytofurans",
+    "url": "https://www.lipidmaps.org/lmsd_search/10204"
+  },
+  "FA0205": {
+    "code": "FA0205",
+    "label": "Octadeca-1,2-dioxolanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10205"
+  },
+  "FA03": {
+    "code": "FA03",
+    "label": "Eicosanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/103"
+  },
+  "FA0300": {
+    "code": "FA0300",
+    "label": "Other Eicosanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10300"
+  },
+  "FA0301": {
+    "code": "FA0301",
+    "label": "Prostaglandins",
+    "url": "https://www.lipidmaps.org/lmsd_search/10301"
+  },
+  "FA0302": {
+    "code": "FA0302",
+    "label": "Leukotrienes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10302"
+  },
+  "FA0303": {
+    "code": "FA0303",
+    "label": "Thromboxanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10303"
+  },
+  "FA0304": {
+    "code": "FA0304",
+    "label": "Lipoxins",
+    "url": "https://www.lipidmaps.org/lmsd_search/10304"
+  },
+  "FA0305": {
+    "code": "FA0305",
+    "label": "Hydroxy/hydroperoxyeicosatrienoic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10305"
+  },
+  "FA0306": {
+    "code": "FA0306",
+    "label": "Hydroxy/hydroperoxyeicosatetraenoic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10306"
+  },
+  "FA0307": {
+    "code": "FA0307",
+    "label": "Hydroxy/hydroperoxyeicosapentaenoic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10307"
+  },
+  "FA0308": {
+    "code": "FA0308",
+    "label": "Epoxyeicosatrienoic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10308"
+  },
+  "FA0309": {
+    "code": "FA0309",
+    "label": "Hepoxilins",
+    "url": "https://www.lipidmaps.org/lmsd_search/10309"
+  },
+  "FA0310": {
+    "code": "FA0310",
+    "label": "Levuglandins",
+    "url": "https://www.lipidmaps.org/lmsd_search/10310"
+  },
+  "FA0311": {
+    "code": "FA0311",
+    "label": "Isoprostanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10311"
+  },
+  "FA0312": {
+    "code": "FA0312",
+    "label": "Clavulones",
+    "url": "https://www.lipidmaps.org/lmsd_search/10312"
+  },
+  "FA0313": {
+    "code": "FA0313",
+    "label": "Isofurans",
+    "url": "https://www.lipidmaps.org/lmsd_search/10313"
+  },
+  "FA0314": {
+    "code": "FA0314",
+    "label": "Resolvin Es",
+    "url": "https://www.lipidmaps.org/lmsd_search/10314"
+  },
+  "FA0315": {
+    "code": "FA0315",
+    "label": "Eicosa-1,2-dioxolanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10315"
+  },
+  "FA04": {
+    "code": "FA04",
+    "label": "Docosanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/104"
+  },
+  "FA0400": {
+    "code": "FA0400",
+    "label": "Other Docosanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10400"
+  },
+  "FA0401": {
+    "code": "FA0401",
+    "label": "Neuroprostanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10401"
+  },
+  "FA0402": {
+    "code": "FA0402",
+    "label": "Neurofurans",
+    "url": "https://www.lipidmaps.org/lmsd_search/10402"
+  },
+  "FA0403": {
+    "code": "FA0403",
+    "label": "Resolvin Ds",
+    "url": "https://www.lipidmaps.org/lmsd_search/10403"
+  },
+  "FA0404": {
+    "code": "FA0404",
+    "label": "Protectins",
+    "url": "https://www.lipidmaps.org/lmsd_search/10404"
+  },
+  "FA0405": {
+    "code": "FA0405",
+    "label": "Maresins",
+    "url": "https://www.lipidmaps.org/lmsd_search/10405"
+  },
+  "FA0406": {
+    "code": "FA0406",
+    "label": "Docosa-1,2-dioxolanes",
+    "url": "https://www.lipidmaps.org/lmsd_search/10406"
+  },
+  "FA05": {
+    "code": "FA05",
+    "label": "Fatty alcohols",
+    "url": "https://www.lipidmaps.org/lmsd_search/105"
+  },
+  "FA06": {
+    "code": "FA06",
+    "label": "Fatty aldehydes",
+    "url": "https://www.lipidmaps.org/lmsd_search/106"
+  },
+  "FA07": {
+    "code": "FA07",
+    "label": "Fatty esters",
+    "url": "https://www.lipidmaps.org/lmsd_search/107"
+  },
+  "FA0701": {
+    "code": "FA0701",
+    "label": "Wax monoesters",
+    "url": "https://www.lipidmaps.org/lmsd_search/10701"
+  },
+  "FA0702": {
+    "code": "FA0702",
+    "label": "Wax diesters",
+    "url": "https://www.lipidmaps.org/lmsd_search/10702"
+  },
+  "FA0703": {
+    "code": "FA0703",
+    "label": "Cyano esters",
+    "url": "https://www.lipidmaps.org/lmsd_search/10703"
+  },
+  "FA0704": {
+    "code": "FA0704",
+    "label": "Lactones",
+    "url": "https://www.lipidmaps.org/lmsd_search/10704"
+  },
+  "FA0705": {
+    "code": "FA0705",
+    "label": "Fatty acyl CoAs",
+    "url": "https://www.lipidmaps.org/lmsd_search/10705"
+  },
+  "FA0706": {
+    "code": "FA0706",
+    "label": "Fatty acyl ACPs",
+    "url": "https://www.lipidmaps.org/lmsd_search/10706"
+  },
+  "FA0707": {
+    "code": "FA0707",
+    "label": "Fatty acyl carnitines",
+    "url": "https://www.lipidmaps.org/lmsd_search/10707"
+  },
+  "FA0708": {
+    "code": "FA0708",
+    "label": "Fatty acyl adenylates",
+    "url": "https://www.lipidmaps.org/lmsd_search/10708"
+  },
+  "FA0709": {
+    "code": "FA0709",
+    "label": "Fatty acid estolides",
+    "url": "https://www.lipidmaps.org/lmsd_search/10709"
+  },
+  "FA0710": {
+    "code": "FA0710",
+    "label": "Short fatty esters",
+    "url": "https://www.lipidmaps.org/lmsd_search/10710"
+  },
+  "FA08": {
+    "code": "FA08",
+    "label": "Fatty amides",
+    "url": "https://www.lipidmaps.org/lmsd_search/108"
+  },
+  "FA0801": {
+    "code": "FA0801",
+    "label": "Primary amides",
+    "url": "https://www.lipidmaps.org/lmsd_search/10801"
+  },
+  "FA0802": {
+    "code": "FA0802",
+    "label": "N-acyl amines",
+    "url": "https://www.lipidmaps.org/lmsd_search/10802"
+  },
+  "FA0803": {
+    "code": "FA0803",
+    "label": "Fatty acyl homoserine lactones",
+    "url": "https://www.lipidmaps.org/lmsd_search/10803"
+  },
+  "FA0804": {
+    "code": "FA0804",
+    "label": "N-acyl ethanolamines (endocannabinoids)",
+    "url": "https://www.lipidmaps.org/lmsd_search/10804"
+  },
+  "FA0805": {
+    "code": "FA0805",
+    "label": "N-acyl amino acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/10805"
+  },
+  "FA09": {
+    "code": "FA09",
+    "label": "Fatty nitriles",
+    "url": "https://www.lipidmaps.org/lmsd_search/109"
+  },
+  "FA10": {
+    "code": "FA10",
+    "label": "Fatty ethers",
+    "url": "https://www.lipidmaps.org/lmsd_search/110"
+  },
+  "FA11": {
+    "code": "FA11",
+    "label": "Hydrocarbons",
+    "url": "https://www.lipidmaps.org/lmsd_search/111"
+  },
+  "FA12": {
+    "code": "FA12",
+    "label": "Oxygenated hydrocarbons",
+    "url": "https://www.lipidmaps.org/lmsd_search/112"
+  },
+  "FA13": {
+    "code": "FA13",
+    "label": "Fatty acyl glycosides",
+    "url": "https://www.lipidmaps.org/lmsd_search/113"
+  },
+  "FA1300": {
+    "code": "FA1300",
+    "label": "Other Fatty acyl glycosides",
+    "url": "https://www.lipidmaps.org/lmsd_search/11300"
+  },
+  "FA1301": {
+    "code": "FA1301",
+    "label": "Fatty acyl glycosides of mono- and disaccharides",
+    "url": "https://www.lipidmaps.org/lmsd_search/11301"
+  },
+  "FA1302": {
+    "code": "FA1302",
+    "label": "Sophorolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/11302"
+  },
+  "FA1303": {
+    "code": "FA1303",
+    "label": "Rhamnolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/11303"
+  },
+  "FA1304": {
+    "code": "FA1304",
+    "label": "Ascarosides",
+    "url": "https://www.lipidmaps.org/lmsd_search/11304"
+  },
+  "GL00": {
+    "code": "GL00",
+    "label": "Other Glycerolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/200"
+  },
+  "GL01": {
+    "code": "GL01",
+    "label": "Monoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/201"
+  },
+  "GL0101": {
+    "code": "GL0101",
+    "label": "Monoacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20101"
+  },
+  "GL0102": {
+    "code": "GL0102",
+    "label": "Monoalkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20102"
+  },
+  "GL0103": {
+    "code": "GL0103",
+    "label": "Mono-(1Z-alkenyl)-glycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20103"
+  },
+  "GL02": {
+    "code": "GL02",
+    "label": "Diradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/202"
+  },
+  "GL0201": {
+    "code": "GL0201",
+    "label": "Diacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20201"
+  },
+  "GL0202": {
+    "code": "GL0202",
+    "label": "1-alkyl,2-acylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20202"
+  },
+  "GL0203": {
+    "code": "GL0203",
+    "label": "Dialkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20203"
+  },
+  "GL0204": {
+    "code": "GL0204",
+    "label": "1Z-alkenylacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20204"
+  },
+  "GL0205": {
+    "code": "GL0205",
+    "label": "Di-glycerol tetraethers",
+    "url": "https://www.lipidmaps.org/lmsd_search/20205"
+  },
+  "GL0206": {
+    "code": "GL0206",
+    "label": "Di-glycerol tetraether glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/20206"
+  },
+  "GL0207": {
+    "code": "GL0207",
+    "label": "1-acyl,2-alkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20207"
+  },
+  "GL03": {
+    "code": "GL03",
+    "label": "Triradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/203"
+  },
+  "GL0301": {
+    "code": "GL0301",
+    "label": "Triacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20301"
+  },
+  "GL0302": {
+    "code": "GL0302",
+    "label": "Alkyldiacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20302"
+  },
+  "GL0303": {
+    "code": "GL0303",
+    "label": "Dialkylmonoacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20303"
+  },
+  "GL0304": {
+    "code": "GL0304",
+    "label": "1Z-alkenyldiacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20304"
+  },
+  "GL0305": {
+    "code": "GL0305",
+    "label": "Triacylglycerol estolides",
+    "url": "https://www.lipidmaps.org/lmsd_search/20305"
+  },
+  "GL04": {
+    "code": "GL04",
+    "label": "Glycosylmonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/204"
+  },
+  "GL0401": {
+    "code": "GL0401",
+    "label": "Glycosylmonoacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20401"
+  },
+  "GL0402": {
+    "code": "GL0402",
+    "label": "Glycosylmonoalkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20402"
+  },
+  "GL05": {
+    "code": "GL05",
+    "label": "Glycosyldiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/205"
+  },
+  "GL0501": {
+    "code": "GL0501",
+    "label": "Glycosyldiacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20501"
+  },
+  "GL0502": {
+    "code": "GL0502",
+    "label": "Glycosylalkylacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20502"
+  },
+  "GL0503": {
+    "code": "GL0503",
+    "label": "Glycosyldialkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20503"
+  },
+  "GL06": {
+    "code": "GL06",
+    "label": "Betaine monoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/206"
+  },
+  "GL0601": {
+    "code": "GL0601",
+    "label": "Betaine monoacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20601"
+  },
+  "GL0602": {
+    "code": "GL0602",
+    "label": "Betaine monoalkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20602"
+  },
+  "GL07": {
+    "code": "GL07",
+    "label": "Betaine diradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/207"
+  },
+  "GL0701": {
+    "code": "GL0701",
+    "label": "Betaine diacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20701"
+  },
+  "GL0702": {
+    "code": "GL0702",
+    "label": "Betaine alkylacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/20702"
+  },
+  "GP00": {
+    "code": "GP00",
+    "label": "Other Glycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/300"
+  },
+  "GP01": {
+    "code": "GP01",
+    "label": "Glycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/301"
+  },
+  "GP0101": {
+    "code": "GP0101",
+    "label": "Diacylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30101"
+  },
+  "GP0102": {
+    "code": "GP0102",
+    "label": "1-alkyl,2-acylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30102"
+  },
+  "GP0103": {
+    "code": "GP0103",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30103"
+  },
+  "GP0104": {
+    "code": "GP0104",
+    "label": "Dialkylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30104"
+  },
+  "GP0105": {
+    "code": "GP0105",
+    "label": "Monoacylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30105"
+  },
+  "GP0106": {
+    "code": "GP0106",
+    "label": "Monoalkylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30106"
+  },
+  "GP0107": {
+    "code": "GP0107",
+    "label": "1Z-alkenylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30107"
+  },
+  "GP0108": {
+    "code": "GP0108",
+    "label": "1-acyl,2-alkylglycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30108"
+  },
+  "GP02": {
+    "code": "GP02",
+    "label": "Glycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/302"
+  },
+  "GP0201": {
+    "code": "GP0201",
+    "label": "Diacylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30201"
+  },
+  "GP0202": {
+    "code": "GP0202",
+    "label": "1-alkyl,2-acylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30202"
+  },
+  "GP0203": {
+    "code": "GP0203",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30203"
+  },
+  "GP0204": {
+    "code": "GP0204",
+    "label": "Dialkylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30204"
+  },
+  "GP0205": {
+    "code": "GP0205",
+    "label": "Monoacylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30205"
+  },
+  "GP0206": {
+    "code": "GP0206",
+    "label": "Monoalkylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30206"
+  },
+  "GP0207": {
+    "code": "GP0207",
+    "label": "1Z-alkenylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30207"
+  },
+  "GP0208": {
+    "code": "GP0208",
+    "label": "1-acyl,2-alkylglycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30208"
+  },
+  "GP03": {
+    "code": "GP03",
+    "label": "Glycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/303"
+  },
+  "GP0301": {
+    "code": "GP0301",
+    "label": "Diacylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30301"
+  },
+  "GP0302": {
+    "code": "GP0302",
+    "label": "1-alkyl,2-acylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30302"
+  },
+  "GP0303": {
+    "code": "GP0303",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30303"
+  },
+  "GP0304": {
+    "code": "GP0304",
+    "label": "Dialkylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30304"
+  },
+  "GP0305": {
+    "code": "GP0305",
+    "label": "Monoacylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30305"
+  },
+  "GP0306": {
+    "code": "GP0306",
+    "label": "Monoalkylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30306"
+  },
+  "GP0307": {
+    "code": "GP0307",
+    "label": "1Z-alkenylglycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/30307"
+  },
+  "GP04": {
+    "code": "GP04",
+    "label": "Glycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/304"
+  },
+  "GP0401": {
+    "code": "GP0401",
+    "label": "Diacylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30401"
+  },
+  "GP0402": {
+    "code": "GP0402",
+    "label": "1-alkyl,2-acylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30402"
+  },
+  "GP0403": {
+    "code": "GP0403",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30403"
+  },
+  "GP0404": {
+    "code": "GP0404",
+    "label": "Dialkylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30404"
+  },
+  "GP0405": {
+    "code": "GP0405",
+    "label": "Monoacylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30405"
+  },
+  "GP0406": {
+    "code": "GP0406",
+    "label": "Monoalkylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30406"
+  },
+  "GP0407": {
+    "code": "GP0407",
+    "label": "1Z-alkenylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30407"
+  },
+  "GP0408": {
+    "code": "GP0408",
+    "label": "Diacylglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30408"
+  },
+  "GP0409": {
+    "code": "GP0409",
+    "label": "Diacylglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30409"
+  },
+  "GP0410": {
+    "code": "GP0410",
+    "label": "Monoacylglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30410"
+  },
+  "GP0411": {
+    "code": "GP0411",
+    "label": "1-acyl,2-alkylglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30411"
+  },
+  "GP05": {
+    "code": "GP05",
+    "label": "Glycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/305"
+  },
+  "GP0501": {
+    "code": "GP0501",
+    "label": "Diacylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30501"
+  },
+  "GP0502": {
+    "code": "GP0502",
+    "label": "1-alkyl,2-acylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30502"
+  },
+  "GP0503": {
+    "code": "GP0503",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30503"
+  },
+  "GP0504": {
+    "code": "GP0504",
+    "label": "Dialkylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30504"
+  },
+  "GP0505": {
+    "code": "GP0505",
+    "label": "Monoacylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30505"
+  },
+  "GP0506": {
+    "code": "GP0506",
+    "label": "Monoalkylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30506"
+  },
+  "GP0507": {
+    "code": "GP0507",
+    "label": "1Z-alkenylglycerophosphoglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30507"
+  },
+  "GP06": {
+    "code": "GP06",
+    "label": "Glycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/306"
+  },
+  "GP0601": {
+    "code": "GP0601",
+    "label": "Diacylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30601"
+  },
+  "GP0602": {
+    "code": "GP0602",
+    "label": "1-alkyl,2-acylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30602"
+  },
+  "GP0603": {
+    "code": "GP0603",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30603"
+  },
+  "GP0604": {
+    "code": "GP0604",
+    "label": "Dialkylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30604"
+  },
+  "GP0605": {
+    "code": "GP0605",
+    "label": "Monoacylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30605"
+  },
+  "GP0606": {
+    "code": "GP0606",
+    "label": "Monoalkylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30606"
+  },
+  "GP0607": {
+    "code": "GP0607",
+    "label": "1Z-alkenylglycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/30607"
+  },
+  "GP07": {
+    "code": "GP07",
+    "label": "Glycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/307"
+  },
+  "GP0701": {
+    "code": "GP0701",
+    "label": "Diacylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30701"
+  },
+  "GP0702": {
+    "code": "GP0702",
+    "label": "1-alkyl,2-acylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30702"
+  },
+  "GP0703": {
+    "code": "GP0703",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30703"
+  },
+  "GP0704": {
+    "code": "GP0704",
+    "label": "Dialkylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30704"
+  },
+  "GP0705": {
+    "code": "GP0705",
+    "label": "Monoacylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30705"
+  },
+  "GP0706": {
+    "code": "GP0706",
+    "label": "Monoalkylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30706"
+  },
+  "GP0707": {
+    "code": "GP0707",
+    "label": "1Z-alkenylglycerophosphoinositol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30707"
+  },
+  "GP08": {
+    "code": "GP08",
+    "label": "Glycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/308"
+  },
+  "GP0801": {
+    "code": "GP0801",
+    "label": "Diacylglycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30801"
+  },
+  "GP0802": {
+    "code": "GP0802",
+    "label": "1-alkyl,2-acylglycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30802"
+  },
+  "GP0803": {
+    "code": "GP0803",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30803"
+  },
+  "GP0804": {
+    "code": "GP0804",
+    "label": "Monoacylglycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30804"
+  },
+  "GP0805": {
+    "code": "GP0805",
+    "label": "Monoalkylglycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30805"
+  },
+  "GP0806": {
+    "code": "GP0806",
+    "label": "1Z-alkenylglycerophosphoinositol bisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30806"
+  },
+  "GP09": {
+    "code": "GP09",
+    "label": "Glycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/309"
+  },
+  "GP0901": {
+    "code": "GP0901",
+    "label": "Diacylglycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30901"
+  },
+  "GP0902": {
+    "code": "GP0902",
+    "label": "1-alkyl,2-acylglycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30902"
+  },
+  "GP0903": {
+    "code": "GP0903",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30903"
+  },
+  "GP0904": {
+    "code": "GP0904",
+    "label": "Monoacylglycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30904"
+  },
+  "GP0905": {
+    "code": "GP0905",
+    "label": "Monoalkylglycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30905"
+  },
+  "GP0906": {
+    "code": "GP0906",
+    "label": "1Z-alkenylglycerophosphoinositol trisphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/30906"
+  },
+  "GP10": {
+    "code": "GP10",
+    "label": "Glycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/310"
+  },
+  "GP1001": {
+    "code": "GP1001",
+    "label": "Diacylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31001"
+  },
+  "GP1002": {
+    "code": "GP1002",
+    "label": "1-alkyl,2-acylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31002"
+  },
+  "GP1003": {
+    "code": "GP1003",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31003"
+  },
+  "GP1004": {
+    "code": "GP1004",
+    "label": "Dialkylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31004"
+  },
+  "GP1005": {
+    "code": "GP1005",
+    "label": "Monoacylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31005"
+  },
+  "GP1006": {
+    "code": "GP1006",
+    "label": "Monoalkylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31006"
+  },
+  "GP1007": {
+    "code": "GP1007",
+    "label": "1Z-alkenylglycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31007"
+  },
+  "GP11": {
+    "code": "GP11",
+    "label": "Glyceropyrophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/311"
+  },
+  "GP1101": {
+    "code": "GP1101",
+    "label": "Diacylglyceropyrophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31101"
+  },
+  "GP1102": {
+    "code": "GP1102",
+    "label": "Monoacylglyceropyrophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/31102"
+  },
+  "GP12": {
+    "code": "GP12",
+    "label": "Glycerophosphoglycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/312"
+  },
+  "GP1201": {
+    "code": "GP1201",
+    "label": "Diacylglycerophosphoglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31201"
+  },
+  "GP1202": {
+    "code": "GP1202",
+    "label": "Diacylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31202"
+  },
+  "GP1203": {
+    "code": "GP1203",
+    "label": "1-alkyl,2-acylglycerophosphoglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31203"
+  },
+  "GP1204": {
+    "code": "GP1204",
+    "label": "1-alkyl,2-acylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31204"
+  },
+  "GP1205": {
+    "code": "GP1205",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31205"
+  },
+  "GP1206": {
+    "code": "GP1206",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31206"
+  },
+  "GP1207": {
+    "code": "GP1207",
+    "label": "Monoacylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31207"
+  },
+  "GP1208": {
+    "code": "GP1208",
+    "label": "Monoalkylglycerophosphoglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31208"
+  },
+  "GP1209": {
+    "code": "GP1209",
+    "label": "Monoalkylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31209"
+  },
+  "GP1210": {
+    "code": "GP1210",
+    "label": "1Z-alkenylglycerophosphoglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31210"
+  },
+  "GP1211": {
+    "code": "GP1211",
+    "label": "1Z-alkenylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31211"
+  },
+  "GP1212": {
+    "code": "GP1212",
+    "label": "Dialkylglycerophosphoglycerophosphodiradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31212"
+  },
+  "GP1213": {
+    "code": "GP1213",
+    "label": "Dialkylglycerophosphoglycerophosphomonoradylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31213"
+  },
+  "GP13": {
+    "code": "GP13",
+    "label": "CDP-Glycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/313"
+  },
+  "GP1301": {
+    "code": "GP1301",
+    "label": "CDP-diacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31301"
+  },
+  "GP1302": {
+    "code": "GP1302",
+    "label": "CDP-1-alkyl,2-acylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31302"
+  },
+  "GP1303": {
+    "code": "GP1303",
+    "label": "CDP-1-(1Z-alkenyl),2-acylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31303"
+  },
+  "GP1304": {
+    "code": "GP1304",
+    "label": "CDP-Dialkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31304"
+  },
+  "GP1305": {
+    "code": "GP1305",
+    "label": "CDP-Monoacylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31305"
+  },
+  "GP1306": {
+    "code": "GP1306",
+    "label": "CDP-Monoalkylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31306"
+  },
+  "GP1307": {
+    "code": "GP1307",
+    "label": "CDP-1Z-alkenylglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/31307"
+  },
+  "GP14": {
+    "code": "GP14",
+    "label": "Glycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/314"
+  },
+  "GP1401": {
+    "code": "GP1401",
+    "label": "Diacylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31401"
+  },
+  "GP1402": {
+    "code": "GP1402",
+    "label": "1-alkyl,2-acylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31402"
+  },
+  "GP1403": {
+    "code": "GP1403",
+    "label": "1-(1Z-alkenyl),2-acylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31403"
+  },
+  "GP1404": {
+    "code": "GP1404",
+    "label": "Monoacylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31404"
+  },
+  "GP1405": {
+    "code": "GP1405",
+    "label": "Monoalkylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31405"
+  },
+  "GP1406": {
+    "code": "GP1406",
+    "label": "1Z-alkenylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31406"
+  },
+  "GP1407": {
+    "code": "GP1407",
+    "label": "Dialkylglycosylglycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/31407"
+  },
+  "GP15": {
+    "code": "GP15",
+    "label": "Glycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/315"
+  },
+  "GP1501": {
+    "code": "GP1501",
+    "label": "Diacylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31501"
+  },
+  "GP1502": {
+    "code": "GP1502",
+    "label": "1-alkyl,2-acylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31502"
+  },
+  "GP1503": {
+    "code": "GP1503",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31503"
+  },
+  "GP1504": {
+    "code": "GP1504",
+    "label": "Monoacylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31504"
+  },
+  "GP1505": {
+    "code": "GP1505",
+    "label": "Monoalkylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31505"
+  },
+  "GP1506": {
+    "code": "GP1506",
+    "label": "1Z-alkenylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31506"
+  },
+  "GP1507": {
+    "code": "GP1507",
+    "label": "Dialkylglycerophosphoinositolglycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/31507"
+  },
+  "GP16": {
+    "code": "GP16",
+    "label": "Glycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/316"
+  },
+  "GP1601": {
+    "code": "GP1601",
+    "label": "Diacylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31601"
+  },
+  "GP1602": {
+    "code": "GP1602",
+    "label": "1-alkyl,2-acylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31602"
+  },
+  "GP1603": {
+    "code": "GP1603",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31603"
+  },
+  "GP1604": {
+    "code": "GP1604",
+    "label": "Dialkylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31604"
+  },
+  "GP1605": {
+    "code": "GP1605",
+    "label": "Monoacylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31605"
+  },
+  "GP1606": {
+    "code": "GP1606",
+    "label": "Monoalkylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31606"
+  },
+  "GP1607": {
+    "code": "GP1607",
+    "label": "1Z-alkenylglycerophosphonocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31607"
+  },
+  "GP17": {
+    "code": "GP17",
+    "label": "Glycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/317"
+  },
+  "GP1701": {
+    "code": "GP1701",
+    "label": "Diacylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31701"
+  },
+  "GP1702": {
+    "code": "GP1702",
+    "label": "1-alkyl,2-acylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31702"
+  },
+  "GP1703": {
+    "code": "GP1703",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31703"
+  },
+  "GP1704": {
+    "code": "GP1704",
+    "label": "Dialkylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31704"
+  },
+  "GP1705": {
+    "code": "GP1705",
+    "label": "Monoacylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31705"
+  },
+  "GP1706": {
+    "code": "GP1706",
+    "label": "Monoalkylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31706"
+  },
+  "GP1707": {
+    "code": "GP1707",
+    "label": "1Z-alkenylglycerophosphonoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/31707"
+  },
+  "GP18": {
+    "code": "GP18",
+    "label": "Di-glycerol tetraether phospholipids (caldarchaeols)",
+    "url": "https://www.lipidmaps.org/lmsd_search/318"
+  },
+  "GP19": {
+    "code": "GP19",
+    "label": "Glycerol-nonitol tetraether phospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/319"
+  },
+  "GP20": {
+    "code": "GP20",
+    "label": "Oxidized glycerophospholipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/320"
+  },
+  "GP2001": {
+    "code": "GP2001",
+    "label": "Oxidized glycerophosphocholines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32001"
+  },
+  "GP2002": {
+    "code": "GP2002",
+    "label": "Oxidized glycerophosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32002"
+  },
+  "GP2003": {
+    "code": "GP2003",
+    "label": "Oxidized Cardiolipins",
+    "url": "https://www.lipidmaps.org/lmsd_search/32003"
+  },
+  "GP2004": {
+    "code": "GP2004",
+    "label": "Oxidized glycerophosphoserines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32004"
+  },
+  "GP2005": {
+    "code": "GP2005",
+    "label": "Oxidized glycerophosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32005"
+  },
+  "GP2006": {
+    "code": "GP2006",
+    "label": "Oxidized glycerophosphoglycerols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32006"
+  },
+  "GP2007": {
+    "code": "GP2007",
+    "label": "Oxidized glycerophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/32007"
+  },
+  "GP21": {
+    "code": "GP21",
+    "label": "Glycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/321"
+  },
+  "GP2101": {
+    "code": "GP2101",
+    "label": "Diacylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32101"
+  },
+  "GP2102": {
+    "code": "GP2102",
+    "label": "1-alkyl,2-acylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32102"
+  },
+  "GP2103": {
+    "code": "GP2103",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32103"
+  },
+  "GP2104": {
+    "code": "GP2104",
+    "label": "Dialkylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32104"
+  },
+  "GP2105": {
+    "code": "GP2105",
+    "label": "Monoacylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32105"
+  },
+  "GP2106": {
+    "code": "GP2106",
+    "label": "Monoalkylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32106"
+  },
+  "GP2107": {
+    "code": "GP2107",
+    "label": "1Z-alkenylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32107"
+  },
+  "GP2108": {
+    "code": "GP2108",
+    "label": "1-acyl,2-alkylglycerophosphoethanolamine glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/32108"
+  },
+  "GP22": {
+    "code": "GP22",
+    "label": "Dihydroxyacetonephospates",
+    "url": "https://www.lipidmaps.org/lmsd_search/322"
+  },
+  "GP2201": {
+    "code": "GP2201",
+    "label": "Acyl-dihydroxyacetonephospates",
+    "url": "https://www.lipidmaps.org/lmsd_search/32201"
+  },
+  "GP2202": {
+    "code": "GP2202",
+    "label": "Alkyl-dihydroxyacetonephospates",
+    "url": "https://www.lipidmaps.org/lmsd_search/32202"
+  },
+  "GP23": {
+    "code": "GP23",
+    "label": "Glycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/323"
+  },
+  "GP2301": {
+    "code": "GP2301",
+    "label": "Diacylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32301"
+  },
+  "GP2302": {
+    "code": "GP2302",
+    "label": "1-alkyl,2-acylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32302"
+  },
+  "GP2303": {
+    "code": "GP2303",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32303"
+  },
+  "GP2304": {
+    "code": "GP2304",
+    "label": "Dialkylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32304"
+  },
+  "GP2305": {
+    "code": "GP2305",
+    "label": "Monoacylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32305"
+  },
+  "GP2306": {
+    "code": "GP2306",
+    "label": "Monoalkylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32306"
+  },
+  "GP2307": {
+    "code": "GP2307",
+    "label": "1Z-alkenylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32307"
+  },
+  "GP2308": {
+    "code": "GP2308",
+    "label": "1-acyl,2-alkylglycerophosphoethanols",
+    "url": "https://www.lipidmaps.org/lmsd_search/32308"
+  },
+  "GP24": {
+    "code": "GP24",
+    "label": "Glycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/324"
+  },
+  "GP2401": {
+    "code": "GP2401",
+    "label": "Diacylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32401"
+  },
+  "GP2402": {
+    "code": "GP2402",
+    "label": "1-alkyl,2-acylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32402"
+  },
+  "GP2403": {
+    "code": "GP2403",
+    "label": "1-(1Z-alkenyl),2-acylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32403"
+  },
+  "GP2404": {
+    "code": "GP2404",
+    "label": "Dialkylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32404"
+  },
+  "GP2405": {
+    "code": "GP2405",
+    "label": "Monoacylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32405"
+  },
+  "GP2406": {
+    "code": "GP2406",
+    "label": "Monoalkylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32406"
+  },
+  "GP2407": {
+    "code": "GP2407",
+    "label": "1Z-alkenylglycerophosphothreonines",
+    "url": "https://www.lipidmaps.org/lmsd_search/32407"
+  },
+  "GP25": {
+    "code": "GP25",
+    "label": "Cyclic glycerophosphatidic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/325"
+  },
+  "GP2501": {
+    "code": "GP2501",
+    "label": "Monoacyl cyclic glycerophosphatidic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/32501"
+  },
+  "GP2502": {
+    "code": "GP2502",
+    "label": "Monoalkyl cyclic glycerophosphatidic acids",
+    "url": "https://www.lipidmaps.org/lmsd_search/32502"
+  },
+  "PK00": {
+    "code": "PK00",
+    "label": "Other Polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/800"
+  },
+  "PK01": {
+    "code": "PK01",
+    "label": "Linear polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/801"
+  },
+  "PK02": {
+    "code": "PK02",
+    "label": "Halogenated acetogenins",
+    "url": "https://www.lipidmaps.org/lmsd_search/802"
+  },
+  "PK03": {
+    "code": "PK03",
+    "label": "Annonaceae acetogenins",
+    "url": "https://www.lipidmaps.org/lmsd_search/803"
+  },
+  "PK04": {
+    "code": "PK04",
+    "label": "Macrolides and lactone polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/804"
+  },
+  "PK05": {
+    "code": "PK05",
+    "label": "Ansamycins and related polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/805"
+  },
+  "PK06": {
+    "code": "PK06",
+    "label": "Polyenes",
+    "url": "https://www.lipidmaps.org/lmsd_search/806"
+  },
+  "PK07": {
+    "code": "PK07",
+    "label": "Linear tetracyclines",
+    "url": "https://www.lipidmaps.org/lmsd_search/807"
+  },
+  "PK08": {
+    "code": "PK08",
+    "label": "Angucyclines",
+    "url": "https://www.lipidmaps.org/lmsd_search/808"
+  },
+  "PK09": {
+    "code": "PK09",
+    "label": "Polyether antibiotics",
+    "url": "https://www.lipidmaps.org/lmsd_search/809"
+  },
+  "PK10": {
+    "code": "PK10",
+    "label": "Aflatoxins and related substances",
+    "url": "https://www.lipidmaps.org/lmsd_search/810"
+  },
+  "PK11": {
+    "code": "PK11",
+    "label": "Cytochalasins",
+    "url": "https://www.lipidmaps.org/lmsd_search/811"
+  },
+  "PK12": {
+    "code": "PK12",
+    "label": "Flavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/812"
+  },
+  "PK1201": {
+    "code": "PK1201",
+    "label": "Anthocyanidins",
+    "url": "https://www.lipidmaps.org/lmsd_search/81201"
+  },
+  "PK1202": {
+    "code": "PK1202",
+    "label": "Flavans, Flavanols and Leucoanthocyanidins",
+    "url": "https://www.lipidmaps.org/lmsd_search/81202"
+  },
+  "PK1203": {
+    "code": "PK1203",
+    "label": "Proanthocyanidins",
+    "url": "https://www.lipidmaps.org/lmsd_search/81203"
+  },
+  "PK1204": {
+    "code": "PK1204",
+    "label": "Biflavonoids and polyflavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81204"
+  },
+  "PK1205": {
+    "code": "PK1205",
+    "label": "Isoflavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81205"
+  },
+  "PK1206": {
+    "code": "PK1206",
+    "label": "Rotenoid flavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81206"
+  },
+  "PK1207": {
+    "code": "PK1207",
+    "label": "Pterocarpans",
+    "url": "https://www.lipidmaps.org/lmsd_search/81207"
+  },
+  "PK1208": {
+    "code": "PK1208",
+    "label": "Isoflavans",
+    "url": "https://www.lipidmaps.org/lmsd_search/81208"
+  },
+  "PK1209": {
+    "code": "PK1209",
+    "label": "Coumestan flavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81209"
+  },
+  "PK1210": {
+    "code": "PK1210",
+    "label": "Neoflavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81210"
+  },
+  "PK1211": {
+    "code": "PK1211",
+    "label": "Flavones and Flavonols",
+    "url": "https://www.lipidmaps.org/lmsd_search/81211"
+  },
+  "PK1212": {
+    "code": "PK1212",
+    "label": "Chalcones and dihydrochalcones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81212"
+  },
+  "PK1213": {
+    "code": "PK1213",
+    "label": "Aurone flavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81213"
+  },
+  "PK1214": {
+    "code": "PK1214",
+    "label": "Flavanones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81214"
+  },
+  "PK1215": {
+    "code": "PK1215",
+    "label": "Dihydroflavonols",
+    "url": "https://www.lipidmaps.org/lmsd_search/81215"
+  },
+  "PK1216": {
+    "code": "PK1216",
+    "label": "Other Flavonoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81216"
+  },
+  "PK13": {
+    "code": "PK13",
+    "label": "Aromatic polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/813"
+  },
+  "PK1301": {
+    "code": "PK1301",
+    "label": "Monocyclic aromatic polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/81301"
+  },
+  "PK1302": {
+    "code": "PK1302",
+    "label": "Naphthalenes and naphthoquinones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81302"
+  },
+  "PK1303": {
+    "code": "PK1303",
+    "label": "Benzoisochromanquinones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81303"
+  },
+  "PK1304": {
+    "code": "PK1304",
+    "label": "Anthracenes and phenanthrenes",
+    "url": "https://www.lipidmaps.org/lmsd_search/81304"
+  },
+  "PK1305": {
+    "code": "PK1305",
+    "label": "Anthracyclinones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81305"
+  },
+  "PK1306": {
+    "code": "PK1306",
+    "label": "Dibenzofurans, griseofulvins, dibenzopyrans and xanthones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81306"
+  },
+  "PK1307": {
+    "code": "PK1307",
+    "label": "Diphenylmethanes, acylphloroglucinols and benzophenones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81307"
+  },
+  "PK1308": {
+    "code": "PK1308",
+    "label": "Depsides and depsidones",
+    "url": "https://www.lipidmaps.org/lmsd_search/81308"
+  },
+  "PK1309": {
+    "code": "PK1309",
+    "label": "Diphenyl ethers, biphenyls, dibenzyls and stilbenes",
+    "url": "https://www.lipidmaps.org/lmsd_search/81309"
+  },
+  "PK1310": {
+    "code": "PK1310",
+    "label": "Benzofuranoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81310"
+  },
+  "PK1311": {
+    "code": "PK1311",
+    "label": "Benzopyranoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/81311"
+  },
+  "PK1312": {
+    "code": "PK1312",
+    "label": "Other aromatic polyketides",
+    "url": "https://www.lipidmaps.org/lmsd_search/81312"
+  },
+  "PK14": {
+    "code": "PK14",
+    "label": "Non-ribosomal peptide/polyketide hybrids",
+    "url": "https://www.lipidmaps.org/lmsd_search/814"
+  },
+  "PK15": {
+    "code": "PK15",
+    "label": "Phenolic lipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/815"
+  },
+  "PK1501": {
+    "code": "PK1501",
+    "label": "Alkyl phenols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/81501"
+  },
+  "PK1502": {
+    "code": "PK1502",
+    "label": "Alkyl catechols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/81502"
+  },
+  "PK1503": {
+    "code": "PK1503",
+    "label": "Alkyl resorcinols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/81503"
+  },
+  "PK1504": {
+    "code": "PK1504",
+    "label": "Anacardic acids and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/81504"
+  },
+  "PK1505": {
+    "code": "PK1505",
+    "label": "Alkyl hydroquinones and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/81505"
+  },
+  "PR00": {
+    "code": "PR00",
+    "label": "Other Prenol lipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/600"
+  },
+  "PR01": {
+    "code": "PR01",
+    "label": "Isoprenoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/601"
+  },
+  "PR0101": {
+    "code": "PR0101",
+    "label": "C5 isoprenoids (hemiterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60101"
+  },
+  "PR0102": {
+    "code": "PR0102",
+    "label": "C10 isoprenoids (monoterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60102"
+  },
+  "PR010201": {
+    "code": "PR010201",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010201"
+  },
+  "PR010202": {
+    "code": "PR010202",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010202"
+  },
+  "PR010203": {
+    "code": "PR010203",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010203"
+  },
+  "PR010204": {
+    "code": "PR010204",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010204"
+  },
+  "PR010205": {
+    "code": "PR010205",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010205"
+  },
+  "PR010206": {
+    "code": "PR010206",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010206"
+  },
+  "PR010207": {
+    "code": "PR010207",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010207"
+  },
+  "PR010208": {
+    "code": "PR010208",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010208"
+  },
+  "PR010209": {
+    "code": "PR010209",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010209"
+  },
+  "PR010210": {
+    "code": "PR010210",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010210"
+  },
+  "PR010211": {
+    "code": "PR010211",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010211"
+  },
+  "PR010212": {
+    "code": "PR010212",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010212"
+  },
+  "PR010213": {
+    "code": "PR010213",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010213"
+  },
+  "PR010214": {
+    "code": "PR010214",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010214"
+  },
+  "PR0103": {
+    "code": "PR0103",
+    "label": "C15 isoprenoids (sesquiterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60103"
+  },
+  "PR010301": {
+    "code": "PR010301",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010301"
+  },
+  "PR010302": {
+    "code": "PR010302",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010302"
+  },
+  "PR010303": {
+    "code": "PR010303",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010303"
+  },
+  "PR010304": {
+    "code": "PR010304",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010304"
+  },
+  "PR010305": {
+    "code": "PR010305",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010305"
+  },
+  "PR010306": {
+    "code": "PR010306",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010306"
+  },
+  "PR010307": {
+    "code": "PR010307",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010307"
+  },
+  "PR010308": {
+    "code": "PR010308",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010308"
+  },
+  "PR010309": {
+    "code": "PR010309",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010309"
+  },
+  "PR010310": {
+    "code": "PR010310",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010310"
+  },
+  "PR010311": {
+    "code": "PR010311",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010311"
+  },
+  "PR010312": {
+    "code": "PR010312",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010312"
+  },
+  "PR010313": {
+    "code": "PR010313",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010313"
+  },
+  "PR010314": {
+    "code": "PR010314",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010314"
+  },
+  "PR010315": {
+    "code": "PR010315",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010315"
+  },
+  "PR010316": {
+    "code": "PR010316",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010316"
+  },
+  "PR010317": {
+    "code": "PR010317",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010317"
+  },
+  "PR010318": {
+    "code": "PR010318",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010318"
+  },
+  "PR010319": {
+    "code": "PR010319",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010319"
+  },
+  "PR010320": {
+    "code": "PR010320",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010320"
+  },
+  "PR010321": {
+    "code": "PR010321",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010321"
+  },
+  "PR010322": {
+    "code": "PR010322",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010322"
+  },
+  "PR010323": {
+    "code": "PR010323",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010323"
+  },
+  "PR010324": {
+    "code": "PR010324",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010324"
+  },
+  "PR010325": {
+    "code": "PR010325",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010325"
+  },
+  "PR010326": {
+    "code": "PR010326",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010326"
+  },
+  "PR010327": {
+    "code": "PR010327",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010327"
+  },
+  "PR010328": {
+    "code": "PR010328",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010328"
+  },
+  "PR010329": {
+    "code": "PR010329",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010329"
+  },
+  "PR010330": {
+    "code": "PR010330",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010330"
+  },
+  "PR010331": {
+    "code": "PR010331",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010331"
+  },
+  "PR010332": {
+    "code": "PR010332",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010332"
+  },
+  "PR010333": {
+    "code": "PR010333",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010333"
+  },
+  "PR010334": {
+    "code": "PR010334",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010334"
+  },
+  "PR010335": {
+    "code": "PR010335",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010335"
+  },
+  "PR010336": {
+    "code": "PR010336",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010336"
+  },
+  "PR010337": {
+    "code": "PR010337",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010337"
+  },
+  "PR010338": {
+    "code": "PR010338",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010338"
+  },
+  "PR010339": {
+    "code": "PR010339",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010339"
+  },
+  "PR010340": {
+    "code": "PR010340",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010340"
+  },
+  "PR010341": {
+    "code": "PR010341",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010341"
+  },
+  "PR010342": {
+    "code": "PR010342",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010342"
+  },
+  "PR010343": {
+    "code": "PR010343",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010343"
+  },
+  "PR010344": {
+    "code": "PR010344",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010344"
+  },
+  "PR010345": {
+    "code": "PR010345",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010345"
+  },
+  "PR010346": {
+    "code": "PR010346",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010346"
+  },
+  "PR010347": {
+    "code": "PR010347",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010347"
+  },
+  "PR010348": {
+    "code": "PR010348",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010348"
+  },
+  "PR010349": {
+    "code": "PR010349",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010349"
+  },
+  "PR010350": {
+    "code": "PR010350",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010350"
+  },
+  "PR010351": {
+    "code": "PR010351",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010351"
+  },
+  "PR010352": {
+    "code": "PR010352",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010352"
+  },
+  "PR010353": {
+    "code": "PR010353",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010353"
+  },
+  "PR010354": {
+    "code": "PR010354",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010354"
+  },
+  "PR010355": {
+    "code": "PR010355",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010355"
+  },
+  "PR010356": {
+    "code": "PR010356",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010356"
+  },
+  "PR010357": {
+    "code": "PR010357",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010357"
+  },
+  "PR010358": {
+    "code": "PR010358",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010358"
+  },
+  "PR010359": {
+    "code": "PR010359",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010359"
+  },
+  "PR010360": {
+    "code": "PR010360",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010360"
+  },
+  "PR010361": {
+    "code": "PR010361",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010361"
+  },
+  "PR010362": {
+    "code": "PR010362",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010362"
+  },
+  "PR010363": {
+    "code": "PR010363",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010363"
+  },
+  "PR010364": {
+    "code": "PR010364",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010364"
+  },
+  "PR010365": {
+    "code": "PR010365",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010365"
+  },
+  "PR010366": {
+    "code": "PR010366",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010366"
+  },
+  "PR010367": {
+    "code": "PR010367",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010367"
+  },
+  "PR010368": {
+    "code": "PR010368",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010368"
+  },
+  "PR010369": {
+    "code": "PR010369",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010369"
+  },
+  "PR010370": {
+    "code": "PR010370",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010370"
+  },
+  "PR010371": {
+    "code": "PR010371",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010371"
+  },
+  "PR010372": {
+    "code": "PR010372",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010372"
+  },
+  "PR010373": {
+    "code": "PR010373",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010373"
+  },
+  "PR010374": {
+    "code": "PR010374",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010374"
+  },
+  "PR010375": {
+    "code": "PR010375",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010375"
+  },
+  "PR010376": {
+    "code": "PR010376",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010376"
+  },
+  "PR010377": {
+    "code": "PR010377",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010377"
+  },
+  "PR010378": {
+    "code": "PR010378",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010378"
+  },
+  "PR010379": {
+    "code": "PR010379",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010379"
+  },
+  "PR010380": {
+    "code": "PR010380",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010380"
+  },
+  "PR010381": {
+    "code": "PR010381",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010381"
+  },
+  "PR010382": {
+    "code": "PR010382",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010382"
+  },
+  "PR010383": {
+    "code": "PR010383",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010383"
+  },
+  "PR010384": {
+    "code": "PR010384",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010384"
+  },
+  "PR010385": {
+    "code": "PR010385",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010385"
+  },
+  "PR010386": {
+    "code": "PR010386",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010386"
+  },
+  "PR010387": {
+    "code": "PR010387",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010387"
+  },
+  "PR010388": {
+    "code": "PR010388",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010388"
+  },
+  "PR010389": {
+    "code": "PR010389",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010389"
+  },
+  "PR0104": {
+    "code": "PR0104",
+    "label": "C20 isoprenoids (diterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60104"
+  },
+  "PR010401": {
+    "code": "PR010401",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010401"
+  },
+  "PR010402": {
+    "code": "PR010402",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010402"
+  },
+  "PR010403": {
+    "code": "PR010403",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010403"
+  },
+  "PR010404": {
+    "code": "PR010404",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010404"
+  },
+  "PR010405": {
+    "code": "PR010405",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010405"
+  },
+  "PR010406": {
+    "code": "PR010406",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010406"
+  },
+  "PR010407": {
+    "code": "PR010407",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010407"
+  },
+  "PR010408": {
+    "code": "PR010408",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010408"
+  },
+  "PR010409": {
+    "code": "PR010409",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010409"
+  },
+  "PR010410": {
+    "code": "PR010410",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010410"
+  },
+  "PR010411": {
+    "code": "PR010411",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010411"
+  },
+  "PR010412": {
+    "code": "PR010412",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010412"
+  },
+  "PR010413": {
+    "code": "PR010413",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010413"
+  },
+  "PR010414": {
+    "code": "PR010414",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010414"
+  },
+  "PR010415": {
+    "code": "PR010415",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010415"
+  },
+  "PR010416": {
+    "code": "PR010416",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010416"
+  },
+  "PR010417": {
+    "code": "PR010417",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010417"
+  },
+  "PR010418": {
+    "code": "PR010418",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010418"
+  },
+  "PR010419": {
+    "code": "PR010419",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010419"
+  },
+  "PR010420": {
+    "code": "PR010420",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010420"
+  },
+  "PR010421": {
+    "code": "PR010421",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010421"
+  },
+  "PR010422": {
+    "code": "PR010422",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010422"
+  },
+  "PR010423": {
+    "code": "PR010423",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010423"
+  },
+  "PR010424": {
+    "code": "PR010424",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010424"
+  },
+  "PR010425": {
+    "code": "PR010425",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010425"
+  },
+  "PR010426": {
+    "code": "PR010426",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010426"
+  },
+  "PR010427": {
+    "code": "PR010427",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010427"
+  },
+  "PR010428": {
+    "code": "PR010428",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010428"
+  },
+  "PR010429": {
+    "code": "PR010429",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010429"
+  },
+  "PR010430": {
+    "code": "PR010430",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010430"
+  },
+  "PR010431": {
+    "code": "PR010431",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010431"
+  },
+  "PR010432": {
+    "code": "PR010432",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010432"
+  },
+  "PR010433": {
+    "code": "PR010433",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010433"
+  },
+  "PR010434": {
+    "code": "PR010434",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010434"
+  },
+  "PR010435": {
+    "code": "PR010435",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010435"
+  },
+  "PR010436": {
+    "code": "PR010436",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010436"
+  },
+  "PR010437": {
+    "code": "PR010437",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010437"
+  },
+  "PR010438": {
+    "code": "PR010438",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010438"
+  },
+  "PR010439": {
+    "code": "PR010439",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010439"
+  },
+  "PR010440": {
+    "code": "PR010440",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010440"
+  },
+  "PR010441": {
+    "code": "PR010441",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010441"
+  },
+  "PR010442": {
+    "code": "PR010442",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010442"
+  },
+  "PR010443": {
+    "code": "PR010443",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010443"
+  },
+  "PR010444": {
+    "code": "PR010444",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010444"
+  },
+  "PR010445": {
+    "code": "PR010445",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010445"
+  },
+  "PR010446": {
+    "code": "PR010446",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010446"
+  },
+  "PR010447": {
+    "code": "PR010447",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010447"
+  },
+  "PR010448": {
+    "code": "PR010448",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010448"
+  },
+  "PR010449": {
+    "code": "PR010449",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010449"
+  },
+  "PR010450": {
+    "code": "PR010450",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010450"
+  },
+  "PR010451": {
+    "code": "PR010451",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010451"
+  },
+  "PR010452": {
+    "code": "PR010452",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010452"
+  },
+  "PR010453": {
+    "code": "PR010453",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010453"
+  },
+  "PR010454": {
+    "code": "PR010454",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010454"
+  },
+  "PR010455": {
+    "code": "PR010455",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010455"
+  },
+  "PR0105": {
+    "code": "PR0105",
+    "label": "C25 isoprenoids (sesterterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60105"
+  },
+  "PR010501": {
+    "code": "PR010501",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010501"
+  },
+  "PR010502": {
+    "code": "PR010502",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010502"
+  },
+  "PR010503": {
+    "code": "PR010503",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010503"
+  },
+  "PR010504": {
+    "code": "PR010504",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010504"
+  },
+  "PR010505": {
+    "code": "PR010505",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010505"
+  },
+  "PR010506": {
+    "code": "PR010506",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010506"
+  },
+  "PR010507": {
+    "code": "PR010507",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010507"
+  },
+  "PR0106": {
+    "code": "PR0106",
+    "label": "C30 isoprenoids (triterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60106"
+  },
+  "PR010601": {
+    "code": "PR010601",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010601"
+  },
+  "PR010602": {
+    "code": "PR010602",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010602"
+  },
+  "PR010603": {
+    "code": "PR010603",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010603"
+  },
+  "PR010604": {
+    "code": "PR010604",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010604"
+  },
+  "PR010605": {
+    "code": "PR010605",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010605"
+  },
+  "PR010606": {
+    "code": "PR010606",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010606"
+  },
+  "PR010607": {
+    "code": "PR010607",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010607"
+  },
+  "PR010608": {
+    "code": "PR010608",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010608"
+  },
+  "PR010609": {
+    "code": "PR010609",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010609"
+  },
+  "PR010610": {
+    "code": "PR010610",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010610"
+  },
+  "PR010611": {
+    "code": "PR010611",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010611"
+  },
+  "PR010612": {
+    "code": "PR010612",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010612"
+  },
+  "PR010613": {
+    "code": "PR010613",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010613"
+  },
+  "PR010614": {
+    "code": "PR010614",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010614"
+  },
+  "PR010615": {
+    "code": "PR010615",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010615"
+  },
+  "PR010616": {
+    "code": "PR010616",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010616"
+  },
+  "PR010617": {
+    "code": "PR010617",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010617"
+  },
+  "PR010618": {
+    "code": "PR010618",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010618"
+  },
+  "PR010619": {
+    "code": "PR010619",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010619"
+  },
+  "PR010620": {
+    "code": "PR010620",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010620"
+  },
+  "PR010621": {
+    "code": "PR010621",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010621"
+  },
+  "PR010622": {
+    "code": "PR010622",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010622"
+  },
+  "PR010623": {
+    "code": "PR010623",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010623"
+  },
+  "PR010624": {
+    "code": "PR010624",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010624"
+  },
+  "PR010625": {
+    "code": "PR010625",
+    "label": "",
+    "url": "https://www.lipidmaps.org/lmsd_search/6010625"
+  },
+  "PR0107": {
+    "code": "PR0107",
+    "label": "C40 isoprenoids (tetraterpenes)",
+    "url": "https://www.lipidmaps.org/lmsd_search/60107"
+  },
+  "PR0108": {
+    "code": "PR0108",
+    "label": "Polyterpenes",
+    "url": "https://www.lipidmaps.org/lmsd_search/60108"
+  },
+  "PR0109": {
+    "code": "PR0109",
+    "label": "Retinoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/60109"
+  },
+  "PR02": {
+    "code": "PR02",
+    "label": "Quinones and hydroquinones",
+    "url": "https://www.lipidmaps.org/lmsd_search/602"
+  },
+  "PR0201": {
+    "code": "PR0201",
+    "label": "Ubiquinones",
+    "url": "https://www.lipidmaps.org/lmsd_search/60201"
+  },
+  "PR0202": {
+    "code": "PR0202",
+    "label": "Vitamin E",
+    "url": "https://www.lipidmaps.org/lmsd_search/60202"
+  },
+  "PR0203": {
+    "code": "PR0203",
+    "label": "Vitamin K",
+    "url": "https://www.lipidmaps.org/lmsd_search/60203"
+  },
+  "PR03": {
+    "code": "PR03",
+    "label": "Polyprenols",
+    "url": "https://www.lipidmaps.org/lmsd_search/603"
+  },
+  "PR0301": {
+    "code": "PR0301",
+    "label": "Bactoprenols",
+    "url": "https://www.lipidmaps.org/lmsd_search/60301"
+  },
+  "PR0302": {
+    "code": "PR0302",
+    "label": "Bactoprenol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/60302"
+  },
+  "PR0303": {
+    "code": "PR0303",
+    "label": "Bactoprenol diphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/60303"
+  },
+  "PR0304": {
+    "code": "PR0304",
+    "label": "Phytoprenols",
+    "url": "https://www.lipidmaps.org/lmsd_search/60304"
+  },
+  "PR0305": {
+    "code": "PR0305",
+    "label": "Phytoprenol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/60305"
+  },
+  "PR0306": {
+    "code": "PR0306",
+    "label": "Phytoprenol diphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/60306"
+  },
+  "PR0307": {
+    "code": "PR0307",
+    "label": "Dolichols",
+    "url": "https://www.lipidmaps.org/lmsd_search/60307"
+  },
+  "PR0308": {
+    "code": "PR0308",
+    "label": "Dolichol monophosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/60308"
+  },
+  "PR0309": {
+    "code": "PR0309",
+    "label": "Dolichol diphosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/60309"
+  },
+  "PR04": {
+    "code": "PR04",
+    "label": "Hopanoids",
+    "url": "https://www.lipidmaps.org/lmsd_search/604"
+  },
+  "SL00": {
+    "code": "SL00",
+    "label": "Other Saccharolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/700"
+  },
+  "SL01": {
+    "code": "SL01",
+    "label": "Acylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/701"
+  },
+  "SL0101": {
+    "code": "SL0101",
+    "label": "Monoacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70101"
+  },
+  "SL0102": {
+    "code": "SL0102",
+    "label": "Diacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70102"
+  },
+  "SL0103": {
+    "code": "SL0103",
+    "label": "Triacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70103"
+  },
+  "SL0104": {
+    "code": "SL0104",
+    "label": "Tetraacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70104"
+  },
+  "SL0105": {
+    "code": "SL0105",
+    "label": "Pentaacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70105"
+  },
+  "SL0106": {
+    "code": "SL0106",
+    "label": "Hexaacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70106"
+  },
+  "SL0107": {
+    "code": "SL0107",
+    "label": "Heptaacylaminosugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/70107"
+  },
+  "SL02": {
+    "code": "SL02",
+    "label": "Acylaminosugar glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/702"
+  },
+  "SL03": {
+    "code": "SL03",
+    "label": "Acyltrehaloses",
+    "url": "https://www.lipidmaps.org/lmsd_search/703"
+  },
+  "SL04": {
+    "code": "SL04",
+    "label": "Acyltrehalose glycans",
+    "url": "https://www.lipidmaps.org/lmsd_search/704"
+  },
+  "SL05": {
+    "code": "SL05",
+    "label": "Other acyl sugars",
+    "url": "https://www.lipidmaps.org/lmsd_search/705"
+  },
+  "SP00": {
+    "code": "SP00",
+    "label": "Other Sphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/400"
+  },
+  "SP01": {
+    "code": "SP01",
+    "label": "Sphingoid bases",
+    "url": "https://www.lipidmaps.org/lmsd_search/401"
+  },
+  "SP0101": {
+    "code": "SP0101",
+    "label": "Sphing-4-enines (Sphingosines)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40101"
+  },
+  "SP0102": {
+    "code": "SP0102",
+    "label": "Sphinganines",
+    "url": "https://www.lipidmaps.org/lmsd_search/40102"
+  },
+  "SP0103": {
+    "code": "SP0103",
+    "label": "4-Hydroxysphinganines (Phytosphingosines)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40103"
+  },
+  "SP0104": {
+    "code": "SP0104",
+    "label": "Sphingoid base homologs and variants",
+    "url": "https://www.lipidmaps.org/lmsd_search/40104"
+  },
+  "SP0105": {
+    "code": "SP0105",
+    "label": "Sphingoid base 1-phosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/40105"
+  },
+  "SP0106": {
+    "code": "SP0106",
+    "label": "Lysosphingomyelins and lysoglycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/40106"
+  },
+  "SP0107": {
+    "code": "SP0107",
+    "label": "N-methylated sphingoid bases",
+    "url": "https://www.lipidmaps.org/lmsd_search/40107"
+  },
+  "SP0108": {
+    "code": "SP0108",
+    "label": "Sphingoid base analogs",
+    "url": "https://www.lipidmaps.org/lmsd_search/40108"
+  },
+  "SP02": {
+    "code": "SP02",
+    "label": "Ceramides",
+    "url": "https://www.lipidmaps.org/lmsd_search/402"
+  },
+  "SP0201": {
+    "code": "SP0201",
+    "label": "N-acylsphingosines (ceramides)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40201"
+  },
+  "SP0202": {
+    "code": "SP0202",
+    "label": "N-acylsphinganines (dihydroceramides)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40202"
+  },
+  "SP0203": {
+    "code": "SP0203",
+    "label": "N-acyl-4-hydroxysphinganines (phytoceramides)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40203"
+  },
+  "SP0204": {
+    "code": "SP0204",
+    "label": "Acylceramides",
+    "url": "https://www.lipidmaps.org/lmsd_search/40204"
+  },
+  "SP0205": {
+    "code": "SP0205",
+    "label": "Ceramide 1-phosphates",
+    "url": "https://www.lipidmaps.org/lmsd_search/40205"
+  },
+  "SP0206": {
+    "code": "SP0206",
+    "label": "1-Deoxyceramides",
+    "url": "https://www.lipidmaps.org/lmsd_search/40206"
+  },
+  "SP0207": {
+    "code": "SP0207",
+    "label": "1-Deoxymethylceramides",
+    "url": "https://www.lipidmaps.org/lmsd_search/40207"
+  },
+  "SP0208": {
+    "code": "SP0208",
+    "label": "3-keto Ceramides",
+    "url": "https://www.lipidmaps.org/lmsd_search/40208"
+  },
+  "SP03": {
+    "code": "SP03",
+    "label": "Phosphosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/403"
+  },
+  "SP0301": {
+    "code": "SP0301",
+    "label": "Ceramide phosphocholines (sphingomyelins)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40301"
+  },
+  "SP0302": {
+    "code": "SP0302",
+    "label": "Ceramide phosphoethanolamines",
+    "url": "https://www.lipidmaps.org/lmsd_search/40302"
+  },
+  "SP0303": {
+    "code": "SP0303",
+    "label": "Ceramide phosphoinositols",
+    "url": "https://www.lipidmaps.org/lmsd_search/40303"
+  },
+  "SP04": {
+    "code": "SP04",
+    "label": "Phosphonosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/404"
+  },
+  "SP05": {
+    "code": "SP05",
+    "label": "Neutral glycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/405"
+  },
+  "SP0500": {
+    "code": "SP0500",
+    "label": "Other Neutral glycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/40500"
+  },
+  "SP0501": {
+    "code": "SP0501",
+    "label": "Simple Glc series",
+    "url": "https://www.lipidmaps.org/lmsd_search/40501"
+  },
+  "SP0502": {
+    "code": "SP0502",
+    "label": "Galalpha1-4Galbeta1-4Glc- (Globo series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40502"
+  },
+  "SP0503": {
+    "code": "SP0503",
+    "label": "GalNAcbeta1-4Galbeta1-4Glc- (Ganglio series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40503"
+  },
+  "SP0504": {
+    "code": "SP0504",
+    "label": "Galbeta1-3GlcNAcbeta1-3Galbeta1-4Glc- (Lacto series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40504"
+  },
+  "SP0505": {
+    "code": "SP0505",
+    "label": "Galbeta1-4GlcNAcbeta1-3Galbeta1-4Glc- (Neolacto series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40505"
+  },
+  "SP0506": {
+    "code": "SP0506",
+    "label": "Galalpha1-3Galbeta1-4Glc- (Isoglobo series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40506"
+  },
+  "SP0507": {
+    "code": "SP0507",
+    "label": "Manalpha1-3Manbeta1-4Glc- (Mollu series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40507"
+  },
+  "SP0508": {
+    "code": "SP0508",
+    "label": "GlcNAcbeta1-4Manbeta1-4Glc- (Arthro series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40508"
+  },
+  "SP0509": {
+    "code": "SP0509",
+    "label": "Gal- (Gala series)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40509"
+  },
+  "SP06": {
+    "code": "SP06",
+    "label": "Acidic glycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/406"
+  },
+  "SP0600": {
+    "code": "SP0600",
+    "label": "Other Acidic glycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/40600"
+  },
+  "SP0601": {
+    "code": "SP0601",
+    "label": "Gangliosides",
+    "url": "https://www.lipidmaps.org/lmsd_search/40601"
+  },
+  "SP0602": {
+    "code": "SP0602",
+    "label": "Sulfoglycosphingolipids (sulfatides)",
+    "url": "https://www.lipidmaps.org/lmsd_search/40602"
+  },
+  "SP0603": {
+    "code": "SP0603",
+    "label": "Glucuronosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/40603"
+  },
+  "SP0604": {
+    "code": "SP0604",
+    "label": "Phosphoglycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/40604"
+  },
+  "SP07": {
+    "code": "SP07",
+    "label": "Basic glycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/407"
+  },
+  "SP08": {
+    "code": "SP08",
+    "label": "Amphoteric glycosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/408"
+  },
+  "SP09": {
+    "code": "SP09",
+    "label": "Arsenosphingolipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/409"
+  },
+  "ST00": {
+    "code": "ST00",
+    "label": "Other Sterol lipids",
+    "url": "https://www.lipidmaps.org/lmsd_search/500"
+  },
+  "ST01": {
+    "code": "ST01",
+    "label": "Sterols",
+    "url": "https://www.lipidmaps.org/lmsd_search/501"
+  },
+  "ST0101": {
+    "code": "ST0101",
+    "label": "Cholesterol and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50101"
+  },
+  "ST0102": {
+    "code": "ST0102",
+    "label": "Steryl esters",
+    "url": "https://www.lipidmaps.org/lmsd_search/50102"
+  },
+  "ST0103": {
+    "code": "ST0103",
+    "label": "Ergosterols and C24-methyl derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50103"
+  },
+  "ST0104": {
+    "code": "ST0104",
+    "label": "Stigmasterols and C24-ethyl derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50104"
+  },
+  "ST0105": {
+    "code": "ST0105",
+    "label": "C24-propyl sterols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50105"
+  },
+  "ST0106": {
+    "code": "ST0106",
+    "label": "Gorgosterols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50106"
+  },
+  "ST0107": {
+    "code": "ST0107",
+    "label": "Furostanols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50107"
+  },
+  "ST0108": {
+    "code": "ST0108",
+    "label": "Spirostanols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50108"
+  },
+  "ST0109": {
+    "code": "ST0109",
+    "label": "Furospirostanols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50109"
+  },
+  "ST0110": {
+    "code": "ST0110",
+    "label": "Cycloartanols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50110"
+  },
+  "ST0111": {
+    "code": "ST0111",
+    "label": "Calysterols and cyclopropyl sidechain derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50111"
+  },
+  "ST0112": {
+    "code": "ST0112",
+    "label": "Cardanolides and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50112"
+  },
+  "ST0113": {
+    "code": "ST0113",
+    "label": "Bufanolides and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50113"
+  },
+  "ST0114": {
+    "code": "ST0114",
+    "label": "Brassinolides and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50114"
+  },
+  "ST0115": {
+    "code": "ST0115",
+    "label": "Solanidines and alkaloid derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50115"
+  },
+  "ST0116": {
+    "code": "ST0116",
+    "label": "Withanolides and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50116"
+  },
+  "ST0117": {
+    "code": "ST0117",
+    "label": "Homo-aro-cholesterols and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50117"
+  },
+  "ST02": {
+    "code": "ST02",
+    "label": "Steroids",
+    "url": "https://www.lipidmaps.org/lmsd_search/502"
+  },
+  "ST0201": {
+    "code": "ST0201",
+    "label": "C18 steroids (estrogens) and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50201"
+  },
+  "ST0202": {
+    "code": "ST0202",
+    "label": "C19 steroids (androgens) and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50202"
+  },
+  "ST0203": {
+    "code": "ST0203",
+    "label": "C21 steroids (gluco/mineralocorticoids, progestogins) and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50203"
+  },
+  "ST03": {
+    "code": "ST03",
+    "label": "Secosteroids",
+    "url": "https://www.lipidmaps.org/lmsd_search/503"
+  },
+  "ST0301": {
+    "code": "ST0301",
+    "label": "Vitamin D2 and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50301"
+  },
+  "ST0302": {
+    "code": "ST0302",
+    "label": "Vitamin D3 and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50302"
+  },
+  "ST0303": {
+    "code": "ST0303",
+    "label": "Vitamin D4 and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50303"
+  },
+  "ST0304": {
+    "code": "ST0304",
+    "label": "Vitamin D5 and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50304"
+  },
+  "ST0305": {
+    "code": "ST0305",
+    "label": "Vitamin D6 and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50305"
+  },
+  "ST0306": {
+    "code": "ST0306",
+    "label": "Vitamin D7 and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50306"
+  },
+  "ST04": {
+    "code": "ST04",
+    "label": "Bile acids and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/504"
+  },
+  "ST0401": {
+    "code": "ST0401",
+    "label": "C24 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50401"
+  },
+  "ST0402": {
+    "code": "ST0402",
+    "label": "C26 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50402"
+  },
+  "ST0403": {
+    "code": "ST0403",
+    "label": "C27 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50403"
+  },
+  "ST0404": {
+    "code": "ST0404",
+    "label": "C28 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50404"
+  },
+  "ST0405": {
+    "code": "ST0405",
+    "label": "C22 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50405"
+  },
+  "ST0406": {
+    "code": "ST0406",
+    "label": "C23 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50406"
+  },
+  "ST0407": {
+    "code": "ST0407",
+    "label": "C25 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50407"
+  },
+  "ST0408": {
+    "code": "ST0408",
+    "label": "C29 bile acids, alcohols, and derivatives",
+    "url": "https://www.lipidmaps.org/lmsd_search/50408"
+  },
+  "ST05": {
+    "code": "ST05",
+    "label": "Steroid conjugates",
+    "url": "https://www.lipidmaps.org/lmsd_search/505"
+  },
+  "ST0501": {
+    "code": "ST0501",
+    "label": "Glucuronides",
+    "url": "https://www.lipidmaps.org/lmsd_search/50501"
+  },
+  "ST0502": {
+    "code": "ST0502",
+    "label": "Sulfates",
+    "url": "https://www.lipidmaps.org/lmsd_search/50502"
+  },
+  "ST0503": {
+    "code": "ST0503",
+    "label": "Glycine conjugates",
+    "url": "https://www.lipidmaps.org/lmsd_search/50503"
+  },
+  "ST0504": {
+    "code": "ST0504",
+    "label": "Taurine conjugates",
+    "url": "https://www.lipidmaps.org/lmsd_search/50504"
+  },
+  "ST0505": {
+    "code": "ST0505",
+    "label": "Other Steroid conjugates",
+    "url": "https://www.lipidmaps.org/lmsd_search/50505"
+  },
+  "ST0506": {
+    "code": "ST0506",
+    "label": "Amino acid conjugates",
+    "url": "https://www.lipidmaps.org/lmsd_search/50506"
+  }
+}

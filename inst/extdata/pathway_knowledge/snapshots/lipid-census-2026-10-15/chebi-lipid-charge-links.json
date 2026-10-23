@@ -1,0 +1,11 @@
+{
+  "head" : {
+    "vars" : [
+      "neutral",
+      "charged"
+    ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}

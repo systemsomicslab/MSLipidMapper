@@ -48,6 +48,12 @@ mslipidmapper_rules_path <- function() {
 }
 
 .mslm_app_www_dir <- function() {
+  # Match .mslm_example_dir(): source-checkout assets take precedence so a
+  # development run cannot mix new R code with an older installed JS bundle.
+  checkout <- file.path(getwd(), "inst", "app", "www")
+  if (dir.exists(checkout)) {
+    return(normalizePath(checkout, winslash = "/", mustWork = FALSE))
+  }
   p <- system.file("app", "www", package = "MSLipidMapper")
   if (nzchar(p)) return(p)
 

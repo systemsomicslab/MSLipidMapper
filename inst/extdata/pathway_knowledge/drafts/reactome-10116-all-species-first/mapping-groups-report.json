@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 140,
+  "membership_counts": {
+    "ancestor": 2097,
+    "direct": 721
+  },
+  "pathway_count": 117,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Rattus norvegicus",
+  "source_files": {
+    "candidates.json": "11eb4189235bbb846fcafd741e2c605b2b4e8a596e65f17f265f31ddc39669e2",
+    "candidates.ttl": "556ed4b1348dcc1774f56d8053cf13012e9a5bf3f89d59ee48d2333d5feca5ff",
+    "pathway-membership.json": "071f399b529e4f4001f6327dd569855fecfa0f95848e99763c093ea0f42a5dd7",
+    "pathways.json": "09079621d1ad2020d2ec3c543d570f56ac46b9a50c2c412003df22594d13ce66",
+    "report.json": "cff604f71f05d84795000fe9fcd8d1e1170ead535fd83bdcddf1f45b99b9b400"
+  },
+  "source_reaction_count": 714,
+  "taxon_id": "10116"
+}

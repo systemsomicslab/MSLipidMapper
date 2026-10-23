@@ -1,0 +1,441 @@
+[
+  {
+    "@id": "http://purl.uniprot.org/uniprot/P0A8K1",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/Enzyme"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "Phosphatidylserine decarboxylase proenzyme"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/geneSymbol": [
+      {
+        "@value": "psd"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/organism": [
+      {
+        "@id": "http://purl.uniprot.org/taxonomy/83333"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Carbon_dioxide",
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "carbon dioxide"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylethanolamine",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/LipidEntity",
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/MSDialMappableLipidEntity"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "diacylglycerophosphoethanolamine"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/classLabel": [
+      {
+        "@value": "PE"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsCategoryCode": [
+      {
+        "@value": "GP"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsClassificationUrl": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://www.lipidmaps.org/data/classification/LM_classification.php?category=3"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsMainClassCode": [
+      {
+        "@value": "GP02"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsSubClassCode": [
+      {
+        "@value": "GP0201"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/msdialOntologyLabel": [
+      {
+        "@value": "PE"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/resolutionLevel": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/SubclassLevel"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylserine",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/LipidEntity",
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/MSDialMappableLipidEntity"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "diacylglycerophosphoserine"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/classLabel": [
+      {
+        "@value": "PS"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsCategoryCode": [
+      {
+        "@value": "GP"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsClassificationUrl": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://www.lipidmaps.org/data/classification/LM_classification.php?category=3"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsMainClassCode": [
+      {
+        "@value": "GP03"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/lipidMapsSubClassCode": [
+      {
+        "@value": "GP0301"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/msdialOntologyLabel": [
+      {
+        "@value": "PS"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/resolutionLevel": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/SubclassLevel"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/curation_ps_to_pe_v01",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/CurationRecord"
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/curationStatus": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Reviewed"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/reviewNote": [
+      {
+        "@value": "Reactome human event is based on rat evidence and limited human PISD data. Acyl-chain preservation is not asserted."
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/reviewedOn": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2026-08-30"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/organism/83333/release/0.2.0",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/OrganismPathwayDataset"
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@value": "Pilot: curated glycerophospholipid class conversions; not a complete lipid metabolism database"
+      }
+    ],
+    "http://purl.org/dc/terms/hasVersion": [
+      {
+        "@value": "0.2.0"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/hasOrganismAssertion": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/organism/83333/release/0.2.0/assertion/P0A8K1/reaction_ps_to_pe"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/hasPathway": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/organism/83333/release/0.2.0/pathway/glycerophospholipid-pilot"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/organism": [
+      {
+        "@id": "http://purl.uniprot.org/taxonomy/83333"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/organism/83333/release/0.2.0/assertion/P0A8K1/reaction_ps_to_pe",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/OrganismReactionAssertion"
+    ],
+    "http://www.w3.org/ns/prov#wasDerivedFrom": [
+      {
+        "@id": "http://purl.uniprot.org/uniprot/P0A8K1"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/annotationEvidence": [
+      {
+        "@value": "{\"ecNumber\": \"4.1.1.65\", \"evidences\": [{\"evidenceCode\": \"ECO:0000255\", \"id\": \"MF_00662\", \"source\": \"HAMAP-Rule\"}, {\"evidenceCode\": \"ECO:0000269\", \"id\": \"4598120\", \"source\": \"PubMed\"}], \"name\": \"a 1,2-diacyl-sn-glycero-3-phospho-L-serine + H(+) = a 1,2-diacyl-sn-glycero-3-phosphoethanolamine + CO2\", \"reactionCrossReferences\": [{\"database\": \"Rhea\", \"id\": \"RHEA:20828\"}, {\"database\": \"ChEBI\", \"id\": \"CHEBI:15378\"}, {\"database\": \"ChEBI\", \"id\": \"CHEBI:16526\"}, {\"database\": \"ChEBI\", \"id\": \"CHEBI:57262\"}, {\"database\": \"ChEBI\", \"id\": \"CHEBI:64612\"}]}"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/assertionMethod": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/DatabaseCurated"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/classReaction": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/enzymeProtein": [
+      {
+        "@id": "http://purl.uniprot.org/uniprot/P0A8K1"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/organism": [
+      {
+        "@id": "http://purl.uniprot.org/taxonomy/83333"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/rheaReaction": [
+      {
+        "@id": "http://rdf.rhea-db.org/20828"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceRelease": [
+      {
+        "@value": "2026_03"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/uniprotReviewed": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": true
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/organism/83333/release/0.2.0/pathway/glycerophospholipid-pilot",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/Pathway"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "Glycerophospholipid class conversions (pilot)"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/hasReaction": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/membershipMethod": [
+      {
+        "@value": "MSLipidMapper curated grouping; not an imported complete Reactome pathway"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/ClassReaction"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "reaction ps to pe"
+      }
+    ],
+    "http://www.w3.org/ns/prov#wasDerivedFrom": [
+      {
+        "@id": "http://rdf.rhea-db.org/20828"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/directionality": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Forward"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/hasCurationRecord": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/curation_ps_to_pe_v01"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/hasParticipant": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe/participant/0"
+      },
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe/participant/1"
+      },
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe/participant/2"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/hasSourceAssertion": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/source_reactome_R-HSA-1483212"
+      },
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/source_rhea_20828"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/resolutionLevel": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/ClassLevel"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/rheaReaction": [
+      {
+        "@id": "http://rdf.rhea-db.org/20828"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe/participant/0",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/ReactionParticipant"
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/participantEntity": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Carbon_dioxide"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/participantRole": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Product"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/stoichiometry": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "1.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe/participant/1",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/ReactionParticipant"
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/participantEntity": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylethanolamine"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/participantRole": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Product"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/stoichiometry": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "1.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/reaction_ps_to_pe/participant/2",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/ReactionParticipant"
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/participantEntity": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylserine"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/participantRole": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/Substrate"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/stoichiometry": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+        "@value": "1.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/source_reactome_R-HSA-1483212",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/SourceAssertion"
+    ],
+    "http://www.w3.org/ns/prov#wasDerivedFrom": [
+      {
+        "@id": "https://reactome.org/content/detail/R-HSA-1483212"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/assertionMethod": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/DatabaseCurated"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceDatabase": [
+      {
+        "@value": "Reactome"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceIdentifier": [
+      {
+        "@value": "R-HSA-1483212"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceUrl": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://reactome.org/content/detail/R-HSA-1483212"
+      }
+    ]
+  },
+  {
+    "@id": "https://systemomicslab.github.io/MSLipidMapper/resource/source_rhea_20828",
+    "@type": [
+      "https://systemomicslab.github.io/MSLipidMapper/ontology/SourceAssertion"
+    ],
+    "http://www.w3.org/ns/prov#wasDerivedFrom": [
+      {
+        "@id": "http://rdf.rhea-db.org/20828"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/assertionMethod": [
+      {
+        "@id": "https://systemomicslab.github.io/MSLipidMapper/ontology/DatabaseCurated"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceDatabase": [
+      {
+        "@value": "Rhea"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceIdentifier": [
+      {
+        "@value": "RHEA:20828"
+      }
+    ],
+    "https://systemomicslab.github.io/MSLipidMapper/ontology/sourceUrl": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://www.rhea-db.org/rhea/20828"
+      }
+    ]
+  }
+]

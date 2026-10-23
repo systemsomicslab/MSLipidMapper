@@ -1,0 +1,23 @@
+{
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "a4ac7d7aefc8006e-KIX",
+    "Connection": "close",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Date": "Thu, 15 Oct 2026 05:40:39 GMT",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CiiQO7xviEuIvxgFqExW3swe6%2Bu7We1BVa7aSZ7SNYDtczkUrCMSfTFE5Dh0n8PI2zZi3AyzFuuPhq66LFsruK9cQZP0%2FP9ujnjxHS50coRZqvwl5Mrs0SXNw7WBMHA%3D\"}]}",
+    "Server": "cloudflare",
+    "Transfer-Encoding": "chunked",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "method": "GET",
+  "request_body": null,
+  "request_body_sha256": null,
+  "retrieved_at": "2026-10-15T05:40:39.856946+00:00",
+  "sha256": "2c335b8abe7334b4e749777d80fc8ba29e0c6330ead378356fa969e59a44c2de",
+  "stored_content_encoding": "identity",
+  "url": "https://reactome.org/ContentService/data/species/main"
+}

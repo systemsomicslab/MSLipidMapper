@@ -340,7 +340,8 @@ mod_volcano_server <- function(
     assay_lipid_fixed   = "abundance",
     assay_gene_priority = c("logcounts", "abundance"),
 
-    ontology_col = "Ontology"   # <- NEW: prefer this column from rowData
+    ontology_col = "Ontology",   # preferred column name
+    adv_reactive = NULL
 ) {
   group_col_use <- default
   if (!is.null(default_group_col)) group_col_use <- default_group_col
@@ -359,7 +360,7 @@ mod_volcano_server <- function(
       has_transcriptome <- !is.null(tx) && methods::is(tx, "SummarizedExperiment")
 
       choices <- c("Lipid" = "lipid")
-      if (has_transcriptome) choices <- c(choices, "Other omics" = "gene")
+      if (has_transcriptome) choices <- c(choices, "multiomics data" = "gene")
 
       current <- isolate(input$dataset %||% "lipid")
       selected <- if (current %in% unname(choices)) current else "lipid"
@@ -465,8 +466,28 @@ mod_volcano_server <- function(
       }
     })
 
-    output$gg <- renderPlot({ req(rv$out); rv$out$plot })
-    output$ply <- plotly::renderPlotly({ req(rv$out); rv$out$plotly })
+    figure_font <- reactive({
+      size <- suppressWarnings(as.numeric(if (is.function(adv_reactive)) adv_reactive()$plot_font_size %||% 12 else 12))
+      if (length(size) != 1L || !is.finite(size) || size < 6) size <- 12
+      size
+    })
+    styled_plot <- reactive({
+      req(rv$out)
+      rv$out$plot + ggplot2::theme(
+        text = ggplot2::element_text(size = figure_font()),
+        axis.text = ggplot2::element_text(size = figure_font()),
+        axis.title = ggplot2::element_text(size = figure_font()),
+        legend.text = ggplot2::element_text(size = figure_font()),
+        legend.title = ggplot2::element_text(size = figure_font()),
+        plot.title = ggplot2::element_text(size = figure_font() + 2))
+    })
+    output$gg <- renderPlot({ styled_plot() })
+    output$ply <- plotly::renderPlotly({
+      req(rv$out, rv$out$plotly)
+      plotly::layout(rv$out$plotly, font = list(size = figure_font() * 96 / 72),
+        xaxis = list(automargin = TRUE), yaxis = list(automargin = TRUE),
+        title = list(font = list(size = (figure_font() + 2) * 96 / 72)))
+    })
 
     output$tbl <- DT::renderDT({
       req(rv$out)
@@ -487,7 +508,7 @@ mod_volcano_server <- function(
         devfun <- if (capabilities("cairo")) grDevices::cairo_pdf else grDevices::pdf
         ggplot2::ggsave(
           filename = file,
-          plot     = rv$out$plot,
+          plot     = styled_plot(),
           device   = devfun,
           width    = 6,
           height   = 6,

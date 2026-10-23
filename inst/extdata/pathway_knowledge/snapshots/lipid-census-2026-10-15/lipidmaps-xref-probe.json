@@ -1,0 +1,212 @@
+{
+  "head" : {
+    "vars" : [
+      "s",
+      "x"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102120021"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_7"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0103330006"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_8"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102120011"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_20"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102070011"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_25"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102070017"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_26"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102010013"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_28"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090024"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_41"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090022"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_53"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102010012"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_88"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPK12020003"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_90"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPK12070020"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_108"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPK13060002"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_122"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090031"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_149"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090032"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_152"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090033"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_154"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090037"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_155"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090040"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_158"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090036"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_166"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090039"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_168"
+        }
+      },
+      {
+        "x" : {
+          "type" : "literal",
+          "value" : "lipidmaps:LMPR0102090030"
+        },
+        "s" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_227"
+        }
+      }
+    ]
+  }
+}

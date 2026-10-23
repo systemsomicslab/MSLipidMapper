@@ -1,4 +1,4 @@
-# Pathway measurements as RDF / JSON-LD (schema v2.0.0)
+# Pathway measurements as RDF / JSON-LD (schema v4.0.0)
 
 `mztab_pathway_measurements()` uses cyjs only to read pathway connections and
 biological labels. Its output is JSON-LD with `@context` and `@graph`, not a
@@ -44,7 +44,12 @@ No chain-preserving reaction is inferred.
 
 No Cytoscape `elements`, `data`, `path`, `pathpng`, positions, styles, SUID, zoom,
 selection state or plot URLs are exported. Original graph IDs are only used to
-mint resource URIs. Dataset identifiers are URI-encoded to avoid slug collisions.
+look up short fixed accessions in a persistent ledger (`mslm-accession-v1`).
+Names and original sample/feature identifiers remain literal metadata,
+not readable URI components. Canonical class links use the committed ID registry;
+LIPID MAPS classification codes are recorded separately from structure LM_IDs.
+See [accession and source policy](pathway-accessions.md). Historical exports retain
+their original identifiers; regenerated v4 exports use the new scheme.
 
 ## Measurements
 
@@ -84,3 +89,27 @@ Upload a CSV or mzTab-M with YAML containing `output.format: jsonld` (or `both`)
 `measurements.include_subsets: false` exports whole-subclass aggregates only;
 `true` adds acyl subsets. Optional `measurements.acyl_chains` limits the subsets;
 if omitted, all parsed chains are used. See [REST API usage](rest-api.md).
+# Mapping from LIPID MAPS identifiers
+
+Generic CSV upload accepts a feature annotation table containing a feature key,
+a required display label, and a LIPID MAPS ID column; no Ontology column is required.
+Keys match assay column names. Labels are stored in `label` and `Metabolite name`
+for display and lipid-chain parsing; pathway classes still come from Ontology
+or LIPID MAPS IDs. The key and label may use the same input column. The upload form
+auto-selects recognized ID columns and also allows a custom column name to be
+selected manually. Imported IDs are retained as `rowData$LIPIDMAPS_ID`.
+
+Feature mapping prefers MS-DIAL `Ontology` / `opt_global_Ontology` labels.
+For rows without an ontology (including `Unknown`), `subclass` is used when
+available, then LIPID MAPS identifiers provide a fallback. Recognized columns
+include `LIPIDMAPS`, `lipidmaps_id`, `LM_ID`, `lipidmaps_class_id`, and mzTab-M
+`database_identifier`. Bare LM structure IDs, LMSD structure URLs and exact
+classification codes are supported. Structure IDs are mapped to their six-character
+classification code, not treated as pathway structure identities.
+
+Organism views resolve codes against the selected organism dataset. A code
+shared by multiple distinct pathway classes remains unmapped; no abundance is
+duplicated across those classes. Supplied ontology labels are retained even if
+they do not match the selected pathway. Measurements and pairwise subclass
+statistics share the same fallback resolver (statistics use the bundled mapping).
+

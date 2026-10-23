@@ -274,7 +274,7 @@ mod_oplsda_generic_server <- function(id,
       if (!is.null(se_tx)) {
         s2 <- try(se_tx(), silent = TRUE)
         if (!inherits(s2, "try-error") && !is.null(s2) && methods::is(s2, "SummarizedExperiment")) {
-          labs   <- c(labs,   "Other omics")
+          labs   <- c(labs,   "multiomics data")
           values <- c(values, "tx")
         }
       }
@@ -311,7 +311,7 @@ mod_oplsda_generic_server <- function(id,
 
     current_dataset_label <- reactive({
       ds <- input$dataset %||% "lipid"
-      if (identical(ds, "tx")) "transcriptome" else "lipid"
+      if (identical(ds, "tx")) "multiomics" else "lipid"
     })
 
     .available_groups <- reactive({

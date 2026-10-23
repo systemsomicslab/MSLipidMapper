@@ -4,6 +4,14 @@ This directory contains the machine-readable reaction knowledge used by
 MSLipidMapper. RDF/Turtle is the canonical representation. Cytoscape networks
 are views and must refer to canonical resources rather than redefine reactions.
 
+The `datasets/0.4.0/` release provides prebuilt organism-specific class pathways for
+human, mouse, rat, yeast and E. coli, using an archived UniProt annotation
+snapshot. This limited glycerophospholipid pilot supports local search and
+cyjs-free measurement JSON-LD. It uses short fixed accessions, direct reaction
+source metadata and explicit LIPID MAPS classification IDs; 0.2.0 and 0.3.0
+remain historical releases. See
+[coverage and update workflow](../../../docs/organism-pathway-datasets.md).
+
 The initial `0.1.0` pilot contains one manually reviewed human ceramide
 glucosylation reaction and four human glycerophospholipid headgroup reactions.
 It establishes the data contract before bulk imports from Rhea and Reactome are

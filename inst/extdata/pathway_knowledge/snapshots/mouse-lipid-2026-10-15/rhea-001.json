@@ -1,0 +1,19 @@
+{
+  "head" : {
+    "vars" : [
+      "annotated",
+      "reaction",
+      "equation",
+      "side",
+      "participant",
+      "compound",
+      "name",
+      "chebi",
+      "coefficient",
+      "transport"
+    ]
+  },
+  "results" : {
+    "bindings" : [ ]
+  }
+}

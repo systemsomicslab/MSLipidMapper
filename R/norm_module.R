@@ -188,13 +188,17 @@ mod_normalize_ui <- function(id) {
 mod_normalize_server <- function(id, se_in) {
   shiny::moduleServer(id, function(input, output, session) {
     
+    se_norm <- shiny::reactiveVal(NULL)
+    normalization_settings <- shiny::reactiveVal(NULL)
     input_version <- shiny::reactiveVal(0L)
     applied_input_version <- shiny::reactiveVal(NA_integer_)
     
     shiny::observeEvent(se_in(), {
       input_version(shiny::isolate(input_version()) + 1L)
       applied_input_version(NA_integer_)
-    }, ignoreInit = FALSE)
+      se_norm(NULL)
+      normalization_settings(NULL)
+    }, ignoreInit = FALSE, ignoreNULL = FALSE, priority = 100)
     
     # ---- Method explanations ----
     .method_explain <- function(m) {
@@ -219,7 +223,7 @@ mod_normalize_server <- function(id, se_in) {
     })
     
     # ---- Apply normalization (button-triggered) ----
-    se_norm <- shiny::eventReactive(input$apply, {
+    shiny::observeEvent(input$apply, {
       se <- se_in()
       shiny::req(se)
       
@@ -227,7 +231,9 @@ mod_normalize_server <- function(id, se_in) {
       if (identical(input$method, "none")) {
         applied_input_version(input_version())
         shiny::showNotification("Normalization applied: none (raw)", type = "message", duration = 2)
-        return(se)
+        normalization_settings(list(method = "none", offset = input$offset))
+        se_norm(se)
+        return(invisible(NULL))
       }
       
       ctl <- switch(input$method,
@@ -243,7 +249,8 @@ mod_normalize_server <- function(id, se_in) {
         type = "message", duration = 2
       )
       
-      se2
+      normalization_settings(list(method = input$method, offset = input$offset))
+      se_norm(se2)
     }, ignoreInit = TRUE)
     
     # ---- Helper: get matrix from SE safely ----
@@ -277,6 +284,24 @@ mod_normalize_server <- function(id, se_in) {
       n_feat <- nrow(mat)
       samp <- colnames(mat) %||% paste0("S", seq_len(ncol(mat)))
       
+      # Wrap long IDs without shortening or changing the underlying sample names.
+      sample_labels <- vapply(samp, function(label) {
+        starts <- seq.int(1L, max(1L, nchar(label)), by = 36L)
+        paste(substring(label, starts, starts + 35L), collapse = "\n")
+      }, character(1))
+      names(sample_labels) <- samp
+      x_angle <- suppressWarnings(as.numeric(x_angle %||% 45))
+      if (length(x_angle) != 1L || !is.finite(x_angle)) x_angle <- 45
+      # Rotated labels extend beyond the first/last tick. Reserve their actual
+      # text width in the device so screen and exported plots keep them inside.
+      label_width <- max(vapply(sample_labels, function(label) {
+        grob <- grid::textGrob(label, gp = grid::gpar(fontsize = 8))
+        w <- grid::convertWidth(grid::grobWidth(grob), "pt", valueOnly = TRUE)
+        h <- grid::convertHeight(grid::grobHeight(grob), "pt", valueOnly = TRUE)
+        abs(cos(x_angle * pi / 180)) * w + abs(sin(x_angle * pi / 180)) * h
+      }, numeric(1)))
+      side_margin <- label_width + 12
+
       df <- data.frame(
         sample = rep(samp, each = n_feat),
         value  = as.vector(mat),
@@ -290,6 +315,7 @@ mod_normalize_server <- function(id, se_in) {
       df$log10v <- log10(df$value + pseudo)
       
       ggplot2::ggplot(df, ggplot2::aes(x = .data$sample, y = .data$log10v, color = .data$sample)) +
+        ggplot2::scale_x_discrete(labels = function(x) unname(sample_labels[x])) +
         ggplot2::geom_point(
           position = ggplot2::position_jitter(width = 0.15, height = 0),
           size = 0.7, alpha = 0.6, show.legend = FALSE
@@ -320,7 +346,16 @@ mod_normalize_server <- function(id, se_in) {
                 )
               )
           }
-        }
+        } +
+        ggplot2::theme(
+          axis.text.x = ggplot2::element_text(
+            angle = x_angle, size = 8,
+            hjust = if (x_angle == 0) 0.5 else 1,
+            vjust = if (x_angle == 0) 0.5 else 1
+          ),
+          plot.margin = ggplot2::margin(t = 12, r = side_margin,
+                                        b = 16, l = side_margin, unit = "pt")
+        )
     }
     
     # ---- QC plot output ----
@@ -402,6 +437,22 @@ mod_normalize_server <- function(id, se_in) {
     )
     
     list(
+      project_export = function() {
+        ready <- !is.null(se_norm()) && identical(applied_input_version(), input_version())
+        list(se = if (ready) se_norm() else NULL, ready = ready,
+             settings = normalization_settings())
+      },
+      project_restore = function(state) {
+        se_norm(state$se)
+        normalization_settings(state$settings)
+        applied_input_version(if (isTRUE(state$ready)) input_version() else NA_integer_)
+        if (!is.null(state$settings)) {
+          shiny::updateSelectInput(session, "method", selected = state$settings$method,
+            choices = unique(c("none", "sum", "median", state$settings$method)))
+          if (!is.null(state$settings$offset))
+            shiny::updateNumericInput(session, "offset", value = state$settings$offset)
+        }
+      },
       se    = shiny::reactive(se_norm()),
       ready = shiny::reactive(!is.null(se_norm()) && identical(applied_input_version(), input_version()))
     )

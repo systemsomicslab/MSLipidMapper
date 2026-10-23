@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "Pilot: curated glycerophospholipid class conversions; not a complete lipid metabolism database",
+  "pathways": [
+    {
+      "id": "glycerophospholipid-pilot",
+      "label": "Glycerophospholipid class conversions (pilot)",
+      "membership_method": "MSLipidMapper curated grouping; not an imported complete Reactome pathway",
+      "reactions": ["reaction_pc_to_ps", "reaction_pe_to_ps", "reaction_ps_to_pe", "pemt_stage_1", "pemt_stage_2", "pemt_stage_3"]
+    }
+  ],
+  "class_labels": {
+    "Phosphatidylcholine": "PC",
+    "Phosphatidylethanolamine": "PE",
+    "Phosphatidylserine": "PS",
+    "Phosphatidylmonomethylethanolamine": "PMME",
+    "Phosphatidyldimethylethanolamine": "PDME"
+  },
+  "rules": {
+    "species_inclusion": "Exact taxon and exact Rhea catalytic-activity annotation on a reviewed UniProt protein. Reviewed does not imply experimental confirmation.",
+    "reaction_selection": "Only explicit curated class reactions and individual PEMT stages. The lumped PE-to-PC reaction is excluded.",
+    "unknown_direction": "Retain UnknownDirection; do not infer irreversibility from a traversal arrow.",
+    "unmeasured": "Class membership does not imply a measured value or zero."
+  }
+}

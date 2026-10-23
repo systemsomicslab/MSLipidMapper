@@ -23,20 +23,23 @@ test_that("JSON-LD contains topology, samples and subset values without display 
   expect_length(by_type(out, "PathwayJunction"), 1L)
   connections <- by_type(out, "PathwayConnection")
   expect_length(connections, 1L)
-  expect_match(connections[[1]]$sourceEntity[["@id"]], "/pe$")
-  expect_match(connections[[1]]$targetEntity[["@id"]], "/pc$")
+  lipid_nodes <- by_type(out, "PathwayLipidNode")
+  pe_node <- Filter(function(n) identical(n$label, "PE"), lipid_nodes)[[1]]
+  pc_node <- Filter(function(n) identical(n$label, "PC"), lipid_nodes)[[1]]
+  expect_equal(connections[[1]]$sourceEntity[["@id"]], pe_node[["@id"]])
+  expect_equal(connections[[1]]$targetEntity[["@id"]], pc_node[["@id"]])
   scopes <- by_type(out, "LipidMeasurementScope")
-  pc <- Filter(function(n) grepl("/pc/scope/whole$", n[["@id"]]), scopes)[[1]]
+  pc <- Filter(function(n) identical(n$onPathwayNode[["@id"]], pc_node[["@id"]]) && identical(n$scopeType, "subclass"), scopes)[[1]]
   measurements <- by_type(out, "SampleMeasurement")
   vals <- Filter(function(n) identical(n$measuredEntity[["@id"]], pc[["@id"]]), measurements)
   expect_equal(vapply(vals, function(n) n$value, numeric(1)), c(15, 20, NA))
   expect_equal(vals[[3]]$validFeatureCount, 0L)
   expect_match(vals[[3]]$valueStatus[["@id"]], "MissingValue$")
-  subset <- Filter(function(n) grepl("/pc/scope/acyl-18", n[["@id"]]), scopes)[[1]]
+  subset <- Filter(function(n) identical(n$onPathwayNode[["@id"]], pc_node[["@id"]]) && "18:0" %in% unlist(n$acylChainSignature), scopes)[[1]]
   expect_length(subset$memberFeature, 1L)
   subset_vals <- Filter(function(n) identical(n$measuredEntity[["@id"]], subset[["@id"]]), measurements)
   expect_equal(subset_vals[[2]]$value, 0)
-  absent <- Filter(function(n) grepl("/pc/scope/acyl-22", n[["@id"]]), scopes)[[1]]
+  absent <- Filter(function(n) identical(n$onPathwayNode[["@id"]], pc_node[["@id"]]) && "22:6" %in% unlist(n$acylChainSignature), scopes)[[1]]
   expect_match(absent$detectionStatus[["@id"]], "NotMeasured$")
   json <- jsonlite::fromJSON(path, simplifyVector = FALSE)
   expect_null(json$elements)

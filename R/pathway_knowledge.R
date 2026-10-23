@@ -9,18 +9,18 @@
 mslipidmapper_pathway_knowledge_path <- function(...) {
   parts <- as.character(list(...))
   root <- system.file("extdata", "pathway_knowledge", package = "MSLipidMapper")
-  if (!nzchar(root)) {
-    candidates <- c(
+  candidates <- c(
       file.path(getwd(), "inst", "extdata", "pathway_knowledge"),
-      file.path(getwd(), "..", "inst", "extdata", "pathway_knowledge")
-    )
-    hit <- candidates[dir.exists(candidates)][1]
-    root <- if (length(hit)) hit else ""
-  }
-  if (!nzchar(root) || !dir.exists(root)) {
-    stop("MSLipidMapper pathway knowledge directory was not found.", call. = FALSE)
-  }
-  path <- if (length(parts)) do.call(file.path, c(list(root), as.list(parts))) else root
+      file.path(getwd(), "..", "inst", "extdata", "pathway_knowledge"),
+      file.path(getwd(), "..", "..", "inst", "extdata", "pathway_knowledge"), root
+  )
+  candidates <- candidates[nzchar(candidates)]
+  paths <- vapply(candidates, function(candidate) {
+    if (length(parts)) do.call(file.path, c(list(candidate), as.list(parts))) else candidate
+  }, character(1))
+  hits <- paths[file.exists(paths)]
+  if (!length(hits)) stop("MSLipidMapper pathway knowledge asset was not found.", call. = FALSE)
+  path <- hits[1]
   normalizePath(path, winslash = "/", mustWork = TRUE)
 }
 
@@ -66,6 +66,7 @@ map_msdial_ontology_to_pathway <- function(ontology) {
     mslipidmapper_pathway_knowledge_path("mappings", "msdial-lipidmaps.csv"),
     stringsAsFactors = FALSE, na.strings = character(), colClasses = "character"
   )
+  mapping$canonical_uri <- .mslm_registered_uri(mapping$canonical_uri)
   index <- match(key, mapping$msdial_ontology)
   out <- mapping[index, , drop = FALSE]
   rownames(out) <- NULL
@@ -73,6 +74,42 @@ map_msdial_ontology_to_pathway <- function(ontology) {
   out$matched <- !is.na(index)
   out[, c("input_ontology", "matched", setdiff(names(mapping), "msdial_ontology"),
     "msdial_ontology"), drop = FALSE]
+}
+
+# Resolve feature classes once for measurements and statistics. Never override
+# a supplied ontology, even when its label is not in the selected pathway.
+.mslm_pathway_feature_classes <- function(rd, subclass_col = "subclass", mapping = NULL) {
+  missing <- function(x) is.na(x) | tolower(trimws(x)) %in% c("", "unknown", "na", "null", "n/a")
+  out <- rep(NA_character_, nrow(rd))
+  for (column in unique(c("Ontology", "opt_global_Ontology", "ontology", subclass_col))) {
+    if (!column %in% names(rd)) next
+    value <- trimws(as.character(rd[[column]]))
+    take <- missing(out) & !missing(value)
+    out[take] <- value[take]
+  }
+  if (is.null(mapping)) {
+    m <- utils::read.csv(mslipidmapper_pathway_knowledge_path("mappings", "msdial-lipidmaps.csv"),
+      colClasses = "character", na.strings = character())
+    mapping <- data.frame(label = m$msdial_ontology, lipidmaps_class_id = m$lipidmaps_subclass_code)
+  }
+  # A classification shared by distinct pathway entities cannot select one.
+  codes <- split(mapping$label, mapping$lipidmaps_class_id)
+  codes <- lapply(codes, unique)
+  codes <- codes[lengths(codes) == 1L & nzchar(names(codes))]
+  id_columns <- names(rd)[tolower(gsub("[^a-z0-9]", "", tolower(names(rd)))) %in%
+    c("lipidmaps", "lipidmapsid", "lmid", "lipidmapsclassid", "optgloballipidmaps",
+      "optgloballipidmapsid", "databaseidentifier")]
+  for (i in which(missing(out))) {
+    ids <- toupper(trimws(as.character(unlist(rd[i, id_columns, drop = FALSE], use.names = FALSE))))
+    # Accept bare classification codes, LM structure accessions and database URLs.
+    ids <- unlist(strsplit(ids, "[|;,[:space:]]+"))
+    ids <- sub("^.*[/#:](LM[A-Z]{2}[0-9]{8})$", "\\1", ids)
+    ids <- sub("^LM([A-Z]{2}[0-9]{4})[0-9]{4}$", "\\1", ids)
+    hits <- unique(unlist(codes[intersect(ids, names(codes))], use.names = FALSE))
+    if (length(hits) == 1L) out[i] <- hits
+  }
+  out[missing(out)] <- "Unknown"
+  out
 }
 
 #' List organisms configured for Rhea-UniProt graph materialization

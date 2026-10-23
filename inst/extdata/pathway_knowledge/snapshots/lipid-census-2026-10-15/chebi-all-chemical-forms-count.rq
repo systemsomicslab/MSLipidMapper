@@ -1,0 +1,15 @@
+PREFIX rh: <http://rdf.rhea-db.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX ch: <http://purl.obolibrary.org/obo/CHEBI_>
+PREFIX chebihash: <http://purl.obolibrary.org/obo/chebi#>
+PREFIX chemrof: <https://w3id.org/chemrof/>
+SELECT (COUNT(*) AS ?count) WHERE { { SELECT DISTINCT ?neutral ?charged WHERE {
+ GRAPH <http://sparql.rhea-db.org/chebi> {
+ { ?charged chemrof:conjugate_base_of ?neutral }
+ UNION { ?neutral chemrof:conjugate_acid_of ?charged }
+ UNION { ?charged chemrof:tautomer_of ?neutral }
+ UNION { ?charged rdfs:subClassOf ?restriction . ?restriction owl:onProperty <http://purl.obolibrary.org/obo/RO_0018036> ; owl:someValuesFrom ?neutral }
+ UNION { ?neutral rdfs:subClassOf ?restriction . ?restriction owl:onProperty chebihash:has_major_microspecies_at_pH_7_3 ; owl:someValuesFrom ?charged }
+ FILTER(isIRI(?neutral) && isIRI(?charged))
+ }}  } }

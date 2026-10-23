@@ -39,6 +39,7 @@ mslm:sampleMetadata a owl:DatatypeProperty ; rdfs:range rdf:JSON .
 mslm:identifier a owl:DatatypeProperty ; rdfs:range xsd:string .
 mslm:label a owl:DatatypeProperty ; rdfs:range xsd:string .
 mslm:schemaVersion a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:identifierScheme a owl:DatatypeProperty ; rdfs:range xsd:string .
 mslm:scopeType a owl:DatatypeProperty ; rdfs:range xsd:string .
 mslm:matchMode a owl:DatatypeProperty ; rdfs:range xsd:string .
 mslm:normalization a owl:DatatypeProperty ; rdfs:range xsd:string .

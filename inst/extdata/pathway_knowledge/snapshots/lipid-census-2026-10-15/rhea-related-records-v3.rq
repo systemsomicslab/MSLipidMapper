@@ -1,0 +1,13 @@
+PREFIX rh: <http://rdf.rhea-db.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX ch: <http://purl.obolibrary.org/obo/CHEBI_>
+PREFIX chebihash: <http://purl.obolibrary.org/obo/chebi#>
+PREFIX chemrof: <https://w3id.org/chemrof/>
+SELECT DISTINCT ?reaction ?predicate ?identifier WHERE {
+ GRAPH <https://sparql.rhea-db.org/rhea> {
+ ?reaction rdfs:subClassOf rh:Reaction ; rh:status rh:Approved .
+ ?reaction (rh:directionalReaction|rh:bidirectionalReaction)? ?variant .
+ VALUES ?predicate { rh:ec rh:citation rdfs:seeAlso }
+ ?variant ?predicate ?identifier
+ }} ORDER BY ?reaction ?predicate ?identifier

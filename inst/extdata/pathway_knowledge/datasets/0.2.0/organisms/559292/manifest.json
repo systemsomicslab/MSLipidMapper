@@ -1,0 +1,78 @@
+{
+  "counts": {
+    "classes": 5,
+    "reactions": 4
+  },
+  "files": {
+    "classes.csv": "d3d1870cd4ae7de9950a8b600e89a0f00fd0590631c396b4eb4cd0591d9c0716",
+    "participants.csv": "8c018143355b7799b846e2451a7f3eadc92cd674b58edca5d0f1c40dc7b767c3",
+    "pathways.jsonld": "2dcb92619f4ec3ccb50e7c4d96f408a379fe9f7ace6159e185eb9f2d0c764c6b",
+    "pathways.nt": "a46993c3d9568b636cd310fcf80c71de023c1e1c9a6ea8fc032e12b5bb98d66b",
+    "reactions.csv": "bcf794f50ed0844bef102326975b1afb769929acd97fa80bfac50584a9f4f5aa",
+    "search.sqlite": "ba8b8160df0863db45d706142a2a4c17460b16493428718f179b14ef3b828a0d"
+  },
+  "format": "mslipidmapper-organism-pathway/1",
+  "included_reactions": [
+    "pemt_stage_1",
+    "pemt_stage_2",
+    "pemt_stage_3",
+    "reaction_ps_to_pe"
+  ],
+  "input_sha256": {
+    "class-pathways.json": "416d5deda31536754c1c0c1a34930f9e965f61128a5905c8be00ff6f150a2150",
+    "mslm-organism-datasets.ttl": "3e1d0c01b7fafd261740c7a111e3a178e3227677fd2a4e68e072111bb8e6961d",
+    "organisms.csv": "f9eb4a90f6c72e7f997ea01143f894fdd3c78c303deef340545d06de38ac4611",
+    "pathway_knowledge.py": "4dfa44a7898b83da8c7e83a30dc50d188dc9a6681ea5206cc772a3dd32a0109b",
+    "pemt-stages.ttl": "35bf650e0b22ca6048bfa776b3aa104ea102ee5ae34b59ad6c6753c874d86f2a",
+    "phospholipid-pilot.ttl": "537abc6d22f026abe8f357a72a58f9214b5c144a9d523e2e4f07312c0e917beb",
+    "snapshot-manifest.json": "b44ada071e9984683f42eedd30db6ceb43b476a553a0dac0e899ed79c6f4499c",
+    "source-manifest.yml": "8d7678c6820c355a42bb013161b856a2d83b23203f444b596192f1501ce16fe8"
+  },
+  "release": "0.2.0",
+  "reviewed_only": "true",
+  "rules": {
+    "reaction_selection": "Only explicit curated class reactions and individual PEMT stages. The lumped PE-to-PC reaction is excluded.",
+    "species_inclusion": "Exact taxon and exact Rhea catalytic-activity annotation on a reviewed UniProt protein. Reviewed does not imply experimental confirmation.",
+    "unknown_direction": "Retain UnknownDirection; do not infer irreversibility from a traversal arrow.",
+    "unmeasured": "Class membership does not imply a measured value or zero."
+  },
+  "scientific_name": "Saccharomyces cerevisiae S288C",
+  "scope": "Pilot: curated glycerophospholipid class conversions; not a complete lipid metabolism database",
+  "short_name": "yeast",
+  "snapshot": {
+    "license": "CC BY 4.0",
+    "pages": [
+      {
+        "count": 17,
+        "file": "uniprot-001.json",
+        "release": "2026_03",
+        "sha256": "74b350bc15d7bdc9004db9cfe76b400d5898b4b716a9b19c3346cf9b050dc7c1",
+        "url": "https://rest.uniprot.org/uniprotkb/search?query=reviewed%3Atrue+AND+%28organism_id%3A9606+OR+organism_id%3A10090+OR+organism_id%3A10116+OR+organism_id%3A559292+OR+organism_id%3A83333%29+AND+%28cc_catalytic_activity%3A%22RHEA%3A11164%22+OR+cc_catalytic_activity%3A%22RHEA%3A20828%22+OR+cc_catalytic_activity%3A%22RHEA%3A27606%22+OR+cc_catalytic_activity%3A%22RHEA%3A32735%22+OR+cc_catalytic_activity%3A%22RHEA%3A32739%22+OR+cc_catalytic_activity%3A%22RHEA%3A45088%22%29&format=json&size=500"
+      }
+    ],
+    "query": "reviewed:true AND (organism_id:9606 OR organism_id:10090 OR organism_id:10116 OR organism_id:559292 OR organism_id:83333) AND (cc_catalytic_activity:\"RHEA:11164\" OR cc_catalytic_activity:\"RHEA:20828\" OR cc_catalytic_activity:\"RHEA:27606\" OR cc_catalytic_activity:\"RHEA:32735\" OR cc_catalytic_activity:\"RHEA:32739\" OR cc_catalytic_activity:\"RHEA:45088\")",
+    "retrieved_at": "2026-10-15T01:44:34.499086+00:00",
+    "rhea_ids": [
+      "RHEA:11164",
+      "RHEA:20828",
+      "RHEA:27606",
+      "RHEA:32735",
+      "RHEA:32739",
+      "RHEA:45088"
+    ],
+    "source": "UniProtKB",
+    "taxa": [
+      "9606",
+      "10090",
+      "10116",
+      "559292",
+      "83333"
+    ]
+  },
+  "status": "available",
+  "taxon_id": "559292",
+  "unsupported_reactions": [
+    "reaction_pc_to_ps",
+    "reaction_pe_to_ps"
+  ]
+}

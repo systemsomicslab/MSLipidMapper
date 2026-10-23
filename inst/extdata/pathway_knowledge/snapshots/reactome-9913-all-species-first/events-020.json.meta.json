@@ -1,0 +1,23 @@
+{
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "a4ac82cb5b8d2c48-KIX",
+    "Connection": "close",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Date": "Thu, 15 Oct 2026 05:44:16 GMT",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Ug9VUZtLHAdNA4G%2FfYTLuZ6h58nzuqE70K73LcU2%2FiNWQYXDpZGG3PPUZCiV7%2FVp%2BZ2H%2B9Usy%2BcG4bgJNudMsvm1TkYnAsqAVErjvQ3pK9xtmS8K0%2FMcen1tOlMYfi8%3D\"}]}",
+    "Server": "cloudflare",
+    "Transfer-Encoding": "chunked",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "method": "POST",
+  "request_body": "R-BTA-428231,R-BTA-428259,R-BTA-428260,R-BTA-428262,R-BTA-428273,R-BTA-428664,R-BTA-428681,R-BTA-428690,R-BTA-428696,R-BTA-429016,R-BTA-429698,R-BTA-429714,R-BTA-429730,R-BTA-429786,R-BTA-429798,R-BTA-444433,R-BTA-4546387,R-BTA-469659,R-BTA-5250531,R-BTA-5333678",
+  "request_body_sha256": "c0ea28d00af9bb535953a70286a267e84089a1bdba471ae7a641e290d207e135",
+  "retrieved_at": "2026-10-15T05:44:16.880722+00:00",
+  "sha256": "7d42e01a203eec2f015fa66ca5243e1ef74d43fa77cb19574fd83496f1926438",
+  "stored_content_encoding": "identity",
+  "url": "https://reactome.org/ContentService/data/query/ids?view=flatten"
+}

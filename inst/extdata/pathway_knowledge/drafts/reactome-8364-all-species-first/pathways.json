@@ -1,0 +1,1019 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482788",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482798",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482801",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482839",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482883",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482922",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1482925",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483101",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483115",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483166",
+    "totalEntity": 54,
+    "totalEntityAndInteractors": 55,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483191",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483206",
+    "totalEntity": 177,
+    "totalEntityAndInteractors": 197,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483213",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483226",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483248",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483255",
+    "totalEntity": 68,
+    "totalEntityAndInteractors": 77,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1483257",
+    "totalEntity": 231,
+    "totalEntityAndInteractors": 254,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-159418",
+    "totalEntity": 33,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-163560",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1655829",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1660499",
+    "totalEntity": 46,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1660514",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1660516",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1660517",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1660661",
+    "totalEntity": 58,
+    "totalEntityAndInteractors": 58,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-1660662",
+    "totalEntity": 102,
+    "totalEntityAndInteractors": 103,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-191273",
+    "totalEntity": 65,
+    "totalEntityAndInteractors": 69,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-192105",
+    "totalEntity": 74,
+    "totalEntityAndInteractors": 77,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-193048",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-193144",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-193368",
+    "totalEntity": 48,
+    "totalEntityAndInteractors": 51,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-193775",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-193807",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-193993",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-194002",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-194068",
+    "totalEntity": 88,
+    "totalEntityAndInteractors": 91,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-196071",
+    "totalEntity": 62,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-196108",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-196791",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-200425",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2046104",
+    "totalEntity": 49,
+    "totalEntityAndInteractors": 51,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2046105",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2046106",
+    "totalEntity": 40,
+    "totalEntityAndInteractors": 41,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142670",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 5-eicosatetraenoic acids",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142688",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142691",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 32,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142700",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 12-eicosatetraenoic acid derivatives",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142712",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142753",
+    "totalEntity": 97,
+    "totalEntityAndInteractors": 98,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 15-eicosatetraenoic acid derivatives",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142770",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2142816",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-2162123",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-389599",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-389887",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-390247",
+    "totalEntity": 37,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-390918",
+    "totalEntity": 76,
+    "totalEntityAndInteractors": 79,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-400206",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-428157",
+    "totalEntity": 174,
+    "totalEntityAndInteractors": 175,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-556833",
+    "totalEntity": 957,
+    "totalEntityAndInteractors": 986,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-6807047",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 29,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-6807062",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-6814848",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Propionyl-CoA catabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-71032",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-74182",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-75105",
+    "totalEntity": 59,
+    "totalEntityAndInteractors": 59,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-75109",
+    "totalEntity": 30,
+    "totalEntityAndInteractors": 30,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-75876",
+    "totalEntity": 40,
+    "totalEntityAndInteractors": 40,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77108",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77111",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77285",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77286",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 44,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77288",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77289",
+    "totalEntity": 86,
+    "totalEntityAndInteractors": 86,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77305",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77310",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77346",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77348",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77350",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-77352",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-8847453",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-8848584",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-8957322",
+    "totalEntity": 213,
+    "totalEntityAndInteractors": 217,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-8964572",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-8978868",
+    "totalEntity": 302,
+    "totalEntityAndInteractors": 305,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-8979227",
+    "totalEntity": 46,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018676",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018677",
+    "totalEntity": 62,
+    "totalEntityAndInteractors": 62,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018678",
+    "totalEntity": 107,
+    "totalEntityAndInteractors": 107,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018679",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018681",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018682",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DPA-derived SPMs",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018683",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9018896",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9020265",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9023661",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3 SPMs",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9025094",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived protectins and resolvins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9026286",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived maresins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9026290",
+    "totalEntity": 4,
+    "totalEntityAndInteractors": 4,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DHA-derived sulfido conjugates",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9026395",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived 13-series resolvins",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9026403",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin conjugates in tissue regeneration (MCTR)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9026762",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9026766",
+    "totalEntity": 4,
+    "totalEntityAndInteractors": 4,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin-like SPMs",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9027307",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9027604",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9640463",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9840309",
+    "totalEntity": 64,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9840310",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9845614",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9969896",
+    "totalEntity": 36,
+    "totalEntityAndInteractors": 36,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)",
+    "species": "Xenopus tropicalis",
+    "stId": "R-XTR-9969901",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  }
+]

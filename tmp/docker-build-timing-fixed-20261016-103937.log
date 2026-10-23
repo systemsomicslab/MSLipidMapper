@@ -1,0 +1,146 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.32kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/bioconductor/bioconductor_docker:RELEASE_3_19
+#2 DONE 1.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 722B done
+#3 DONE 0.0s
+
+#4 [ 1/10] FROM docker.io/bioconductor/bioconductor_docker:RELEASE_3_19@sha256:c74fd973f50818c4044225c8cfcf318fa11087d5df1b6a08a5a604abbe91195a
+#4 resolve docker.io/bioconductor/bioconductor_docker:RELEASE_3_19@sha256:c74fd973f50818c4044225c8cfcf318fa11087d5df1b6a08a5a604abbe91195a 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 54.76kB 0.2s done
+#5 DONE 0.3s
+
+#6 [ 2/10] RUN apt-get update && apt-get install -y --no-install-recommends     curl     git make g++ gfortran     libcurl4-openssl-dev libxml2-dev libssl-dev     libcairo2-dev libxt-dev     libfontconfig1-dev libfreetype6-dev     libharfbuzz-dev libfribidi-dev     libpng-dev libjpeg-dev libtiff5-dev     libglpk-dev     libglib2.0-0   && apt-get clean && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [ 3/10] RUN curl -fsSL -o /tmp/google-chrome.deb       https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb   && apt-get update   && apt-get install -y --no-install-recommends /tmp/google-chrome.deb   && rm -f /tmp/google-chrome.deb   && apt-get clean   && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [ 4/10] WORKDIR /srv/app
+#8 CACHED
+
+#9 [ 5/10] COPY DESCRIPTION /srv/app/
+#9 CACHED
+
+#10 [ 6/10] RUN R -q -e "options(repos = c(CRAN = 'https://cloud.r-project.org'));              install.packages(c('BiocManager', 'remotes'));              options(repos = BiocManager::repositories());              BiocManager::install(c('S4Vectors', 'SummarizedExperiment', 'clusterProfiler', 'ComplexHeatmap', 'ropls', 'rgoslin'), ask = FALSE, update = FALSE);              install.packages(c('UpSetR', 'patchwork', 'ggrepel', 'ggpmisc', 'ggprism', 'colourpicker'), repos = 'https://cloud.r-project.org');              remotes::install_deps('.', dependencies = c('Depends', 'Imports', 'LinkingTo'), upgrade = 'never')"
+#10 CACHED
+
+#11 [ 7/10] COPY . /srv/app
+#11 DONE 2.2s
+
+#12 [ 8/10] RUN R CMD INSTALL /srv/app
+#12 0.415 * installing to library ‘/usr/local/lib/R/site-library’
+#12 0.434 * installing *source* package ‘MSLipidMapper’ ...
+#12 0.435 ** using staged installation
+#12 0.456 ** R
+#12 0.533 ** inst
+#12 1.319 ** byte-compile and prepare package for lazy loading
+#12 18.16 ** help
+#12 18.16 Warning: replacing previous import ‘shiny::renderDataTable’ by ‘DT::renderDataTable’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘shiny::dataTableOutput’ by ‘DT::dataTableOutput’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::rename’ by ‘plotly::rename’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘ggplot2::last_plot’ by ‘plotly::last_plot’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘shiny::validate’ by ‘jsonlite::validate’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::first’ by ‘dplyr::first’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::setdiff’ by ‘dplyr::setdiff’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::intersect’ by ‘dplyr::intersect’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::union’ by ‘dplyr::union’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::setequal’ by ‘dplyr::setequal’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘S4Vectors::expand’ by ‘tidyr::expand’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘xml2::as_list’ by ‘rlang::as_list’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘jsonlite::flatten’ by ‘rlang::flatten’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘jsonlite::unbox’ by ‘rlang::unbox’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::flatten_dbl’ by ‘purrr::flatten_dbl’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::splice’ by ‘purrr::splice’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::flatten’ by ‘purrr::flatten’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::%@%’ by ‘purrr::%@%’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::flatten_chr’ by ‘purrr::flatten_chr’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::flatten_lgl’ by ‘purrr::flatten_lgl’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::flatten_raw’ by ‘purrr::flatten_raw’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::flatten_int’ by ‘purrr::flatten_int’ when loading ‘MSLipidMapper’
+#12 18.16 Warning: replacing previous import ‘rlang::invoke’ by ‘purrr::invoke’ when loading ‘MSLipidMapper’
+#12 18.16 No man pages found in package  ‘MSLipidMapper’ 
+#12 18.17 *** installing help indices
+#12 18.18 ** building package indices
+#12 18.35 ** testing if installed package can be loaded from temporary location
+#12 23.90 Warning: replacing previous import ‘shiny::renderDataTable’ by ‘DT::renderDataTable’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘shiny::dataTableOutput’ by ‘DT::dataTableOutput’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::rename’ by ‘plotly::rename’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘ggplot2::last_plot’ by ‘plotly::last_plot’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘shiny::validate’ by ‘jsonlite::validate’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::first’ by ‘dplyr::first’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::setdiff’ by ‘dplyr::setdiff’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::intersect’ by ‘dplyr::intersect’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::union’ by ‘dplyr::union’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::setequal’ by ‘dplyr::setequal’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘S4Vectors::expand’ by ‘tidyr::expand’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘xml2::as_list’ by ‘rlang::as_list’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘jsonlite::flatten’ by ‘rlang::flatten’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘jsonlite::unbox’ by ‘rlang::unbox’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::flatten_dbl’ by ‘purrr::flatten_dbl’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::splice’ by ‘purrr::splice’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::flatten’ by ‘purrr::flatten’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::%@%’ by ‘purrr::%@%’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::flatten_chr’ by ‘purrr::flatten_chr’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::flatten_lgl’ by ‘purrr::flatten_lgl’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::flatten_raw’ by ‘purrr::flatten_raw’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::flatten_int’ by ‘purrr::flatten_int’ when loading ‘MSLipidMapper’
+#12 23.90 Warning: replacing previous import ‘rlang::invoke’ by ‘purrr::invoke’ when loading ‘MSLipidMapper’
+#12 23.91 ** testing if installed package can be loaded from final location
+#12 30.10 Warning: replacing previous import ‘shiny::renderDataTable’ by ‘DT::renderDataTable’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘shiny::dataTableOutput’ by ‘DT::dataTableOutput’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::rename’ by ‘plotly::rename’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘ggplot2::last_plot’ by ‘plotly::last_plot’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘shiny::validate’ by ‘jsonlite::validate’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::first’ by ‘dplyr::first’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::setdiff’ by ‘dplyr::setdiff’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::intersect’ by ‘dplyr::intersect’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::union’ by ‘dplyr::union’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::setequal’ by ‘dplyr::setequal’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘S4Vectors::expand’ by ‘tidyr::expand’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘xml2::as_list’ by ‘rlang::as_list’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘jsonlite::flatten’ by ‘rlang::flatten’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘jsonlite::unbox’ by ‘rlang::unbox’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::flatten_dbl’ by ‘purrr::flatten_dbl’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::splice’ by ‘purrr::splice’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::flatten’ by ‘purrr::flatten’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::%@%’ by ‘purrr::%@%’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::flatten_chr’ by ‘purrr::flatten_chr’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::flatten_lgl’ by ‘purrr::flatten_lgl’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::flatten_raw’ by ‘purrr::flatten_raw’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::flatten_int’ by ‘purrr::flatten_int’ when loading ‘MSLipidMapper’
+#12 30.10 Warning: replacing previous import ‘rlang::invoke’ by ‘purrr::invoke’ when loading ‘MSLipidMapper’
+#12 30.10 ** testing if installed package keeps a record of temporary installation path
+#12 30.14 * DONE (MSLipidMapper)
+#12 DONE 30.3s
+
+#13 [ 9/10] COPY ./scripts/start.sh /usr/local/bin/start.sh
+#13 DONE 0.0s
+
+#14 [10/10] RUN chmod +x /usr/local/bin/start.sh     && sed -i 's/\r$//' /usr/local/bin/start.sh
+#14 DONE 0.2s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 5.5s done
+#15 exporting manifest sha256:00c08e2613f19d705d8b02a9dbe7f6108d24d1c7822ddf7b208f21d5b7cead02 0.0s done
+#15 exporting config sha256:8fc332df74ebe14172646e495e539406dfc538d94dc765b12e7e21fdf4de35d7 0.0s done
+#15 exporting attestation manifest sha256:c712c92368dc8ee73c4c227296cba37c78c022357356b9819082245d2d917f44 0.0s done
+#15 exporting manifest list sha256:f6adae071725f64fdc8dc4118888613bad8c70b023d16abff1131d0dbd908dd2 0.0s done
+#15 naming to docker.io/library/mslipidmapper:latest done
+#15 unpacking to docker.io/library/mslipidmapper:latest
+#15 unpacking to docker.io/library/mslipidmapper:latest 4.8s done
+#15 DONE 10.5s
+BUILD_EXIT=0 ELAPSED_SECONDS=45.97 LOG=C:\Users\takak\systemomicslab\MSLipidMapper\codex\MSLipidMapper\tmp\docker-build-timing-fixed-20261016-103937.log

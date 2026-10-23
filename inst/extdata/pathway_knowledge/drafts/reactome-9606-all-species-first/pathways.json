@@ -1,0 +1,1127 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482788",
+    "totalEntity": 40,
+    "totalEntityAndInteractors": 148,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482798",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482801",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 37,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482839",
+    "totalEntity": 42,
+    "totalEntityAndInteractors": 57,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482883",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 62,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482922",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1482925",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of CL",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483076",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PS",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483101",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483115",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483148",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 92,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPE",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483152",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483166",
+    "totalEntity": 65,
+    "totalEntityAndInteractors": 94,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of BMP",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483171",
+    "totalEntity": 2,
+    "totalEntityAndInteractors": 2,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483191",
+    "totalEntity": 55,
+    "totalEntityAndInteractors": 71,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PI and PC transport between ER and Golgi membranes",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483196",
+    "totalEntity": 3,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483206",
+    "totalEntity": 222,
+    "totalEntityAndInteractors": 525,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483213",
+    "totalEntity": 33,
+    "totalEntityAndInteractors": 33,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483226",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483248",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 79,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483255",
+    "totalEntity": 113,
+    "totalEntityAndInteractors": 348,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1483257",
+    "totalEntity": 315,
+    "totalEntityAndInteractors": 818,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-159418",
+    "totalEntity": 39,
+    "totalEntityAndInteractors": 175,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-163560",
+    "totalEntity": 43,
+    "totalEntityAndInteractors": 176,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of cholesterol biosynthesis by SREBP (SREBF)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1655829",
+    "totalEntity": 87,
+    "totalEntityAndInteractors": 363,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660499",
+    "totalEntity": 70,
+    "totalEntityAndInteractors": 177,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PIPs transport between early and late endosome membranes",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660502",
+    "totalEntity": 1,
+    "totalEntityAndInteractors": 1,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PIPs transport between late endosome and Golgi membranes",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660508",
+    "totalEntity": 1,
+    "totalEntityAndInteractors": 1,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PIPs transport between Golgi and plasma membranes",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660510",
+    "totalEntity": 1,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660514",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 94,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660516",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660517",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 45,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PIPs transport between plasma and early endosome membranes",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660524",
+    "totalEntity": 1,
+    "totalEntityAndInteractors": 3,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PIPs transport between early endosome and Golgi membranes",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660537",
+    "totalEntity": 1,
+    "totalEntityAndInteractors": 1,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660661",
+    "totalEntity": 68,
+    "totalEntityAndInteractors": 163,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1660662",
+    "totalEntity": 137,
+    "totalEntityAndInteractors": 279,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-191273",
+    "totalEntity": 86,
+    "totalEntityAndInteractors": 415,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-192105",
+    "totalEntity": 105,
+    "totalEntityAndInteractors": 244,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-193048",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 52,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-193144",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 82,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-193368",
+    "totalEntity": 74,
+    "totalEntityAndInteractors": 189,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-193775",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 125,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-193807",
+    "totalEntity": 33,
+    "totalEntityAndInteractors": 99,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Mineralocorticoid biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-193993",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-194002",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 51,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-194068",
+    "totalEntity": 117,
+    "totalEntityAndInteractors": 373,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-196071",
+    "totalEntity": 75,
+    "totalEntityAndInteractors": 184,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-196108",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 41,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Vitamin D (calciferol) metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-196791",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 203,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "PPARA activates gene expression",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-1989781",
+    "totalEntity": 173,
+    "totalEntityAndInteractors": 691,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-200425",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "alpha-linolenic (omega3) and linoleic (omega6) acid metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2046104",
+    "totalEntity": 55,
+    "totalEntityAndInteractors": 107,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Linoleic acid (LA) metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2046105",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 62,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "alpha-linolenic acid (ALA) metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2046106",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 96,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142670",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 5-eicosatetraenoic acids",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142688",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142691",
+    "totalEntity": 52,
+    "totalEntityAndInteractors": 64,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Hepoxilins (HX) and Trioxilins (TrX)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142696",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of Lipoxins (LX)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142700",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 12-eicosatetraenoic acid derivatives",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142712",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142753",
+    "totalEntity": 170,
+    "totalEntityAndInteractors": 229,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of 15-eicosatetraenoic acid derivatives",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142770",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2142816",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2162123",
+    "totalEntity": 58,
+    "totalEntityAndInteractors": 86,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Activation of gene expression by SREBF (SREBP)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-2426168",
+    "totalEntity": 71,
+    "totalEntityAndInteractors": 285,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-389599",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of pristanoyl-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-389887",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 45,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta-oxidation of very long chain fatty acids",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-390247",
+    "totalEntity": 44,
+    "totalEntityAndInteractors": 196,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-390918",
+    "totalEntity": 92,
+    "totalEntityAndInteractors": 273,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Regulation of lipid metabolism by PPARalpha",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-400206",
+    "totalEntity": 175,
+    "totalEntityAndInteractors": 728,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-428157",
+    "totalEntity": 220,
+    "totalEntityAndInteractors": 527,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-556833",
+    "totalEntity": 1502,
+    "totalEntityAndInteractors": 3690,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-6807047",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 290,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-6807062",
+    "totalEntity": 27,
+    "totalEntityAndInteractors": 84,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-6814848",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 74,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Propionyl-CoA catabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-71032",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-74182",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 31,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-75105",
+    "totalEntity": 78,
+    "totalEntityAndInteractors": 168,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-75109",
+    "totalEntity": 33,
+    "totalEntityAndInteractors": 34,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-75876",
+    "totalEntity": 51,
+    "totalEntityAndInteractors": 84,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Plasmalogen biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-75896",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77108",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 14,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77111",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of myristoyl-CoA to lauroyl-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77285",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77286",
+    "totalEntity": 53,
+    "totalEntityAndInteractors": 53,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of unsaturated fatty acids",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77288",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77289",
+    "totalEntity": 105,
+    "totalEntityAndInteractors": 239,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of palmitoyl-CoA to myristoyl-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77305",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77310",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77346",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of octanoyl-CoA to hexanoyl-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77348",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of hexanoyl-CoA to butanoyl-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77350",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of butanoyl-CoA to acetyl-CoA",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-77352",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-8847453",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 21,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-8848584",
+    "totalEntity": 25,
+    "totalEntityAndInteractors": 41,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-8957322",
+    "totalEntity": 339,
+    "totalEntityAndInteractors": 1262,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-8964572",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 148,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-8978868",
+    "totalEntity": 429,
+    "totalEntityAndInteractors": 903,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-8979227",
+    "totalEntity": 67,
+    "totalEntityAndInteractors": 201,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018676",
+    "totalEntity": 28,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018677",
+    "totalEntity": 89,
+    "totalEntityAndInteractors": 137,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018678",
+    "totalEntity": 161,
+    "totalEntityAndInteractors": 210,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018679",
+    "totalEntity": 35,
+    "totalEntityAndInteractors": 82,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018681",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018682",
+    "totalEntity": 29,
+    "totalEntityAndInteractors": 75,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DPA-derived SPMs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018683",
+    "totalEntity": 37,
+    "totalEntityAndInteractors": 84,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9018896",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 73,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9020265",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 67,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9023661",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 65,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3 SPMs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9025094",
+    "totalEntity": 33,
+    "totalEntityAndInteractors": 80,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-6 SPMs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9025106",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived protectins and resolvins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9026286",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 63,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived maresins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9026290",
+    "totalEntity": 14,
+    "totalEntityAndInteractors": 59,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DHA-derived sulfido conjugates",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9026395",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of DPAn-3-derived 13-series resolvins",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9026403",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 52,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin conjugates in tissue regeneration (MCTR)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9026762",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9026766",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 18,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of maresin-like SPMs",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9027307",
+    "totalEntity": 21,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9027604",
+    "totalEntity": 31,
+    "totalEntityAndInteractors": 76,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9640463",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 28,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9840309",
+    "totalEntity": 72,
+    "totalEntityAndInteractors": 140,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9840310",
+    "totalEntity": 78,
+    "totalEntityAndInteractors": 156,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9845614",
+    "totalEntity": 32,
+    "totalEntityAndInteractors": 124,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9969896",
+    "totalEntity": 42,
+    "totalEntityAndInteractors": 122,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)",
+    "species": "Homo sapiens",
+    "stId": "R-HSA-9969901",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 223,
+    "type": "Pathway"
+  }
+]

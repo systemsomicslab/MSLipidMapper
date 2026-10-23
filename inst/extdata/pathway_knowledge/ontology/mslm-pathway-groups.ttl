@@ -1,0 +1,14 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mslm:PathwayGroupMembership a owl:Class ;
+  rdfs:comment "Evidence-bearing pathway grouping, including explicitly marked candidates. Does not promote a candidate to source pathway membership."@en .
+mslm:memberReaction a owl:ObjectProperty .
+mslm:memberPathway a owl:ObjectProperty .
+mslm:membershipEvidence a owl:DatatypeProperty ; rdfs:range xsd:string ;
+  rdfs:comment "direct / ancestor / verified-derived / equation-candidate / reference-candidate / class-candidate"@en .
+mslm:mappingEligible a owl:DatatypeProperty ; rdfs:range xsd:boolean .
+mslm:sourceEventCategory a owl:DatatypeProperty ; rdfs:range xsd:string .
+mslm:mappingExclusionReasons a owl:DatatypeProperty ; rdfs:range xsd:string .

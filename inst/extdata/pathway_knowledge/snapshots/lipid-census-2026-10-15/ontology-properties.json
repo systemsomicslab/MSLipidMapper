@@ -1,0 +1,102 @@
+{
+  "head" : {
+    "vars" : [
+      "g",
+      "property"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/BFO_0000051"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0000087"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018038"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018040"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018034"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018033"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018039"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018037"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "property" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/RO_0018036"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      }
+    ]
+  }
+}

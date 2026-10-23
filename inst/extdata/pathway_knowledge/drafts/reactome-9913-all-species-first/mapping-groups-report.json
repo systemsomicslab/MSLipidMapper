@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 136,
+  "membership_counts": {
+    "ancestor": 2049,
+    "direct": 708
+  },
+  "pathway_count": 116,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Bos taurus",
+  "source_files": {
+    "candidates.json": "135d12e1e229548d816f1f80798aa3f3718a6df42af69283d861e16fc28bad03",
+    "candidates.ttl": "1d6e19c2041e44bff1815fcf41b1c0c5f7a4f6be433555df4dbe3189f5dec00f",
+    "pathway-membership.json": "b0b342a863a800d7e8a36368237266e26e49b4b07eda9cb1d58caea8883c244d",
+    "pathways.json": "023a23c0072136aae50889bd662b8a9c0b33b04586a9c4c28e955133b71247e7",
+    "report.json": "42253626b1f6b25020bf133d4a600c0e23a5ba0a17ec7818f59ca8d0e496d96c"
+  },
+  "source_reaction_count": 701,
+  "taxon_id": "9913"
+}

@@ -43,7 +43,8 @@ assert graph.value(subset_samples["S2"], MSLM.valueStatus) == MSLM.MissingValue
 assert float(graph.value(subset_samples["S3"], MSLM.value)) == 0
 assert graph.value(subset_samples["S3"], MSLM.valueStatus) == MSLM.AvailableValue
 assert len(set(graph.objects(subset, MSLM.memberFeature))) == 1
-assert (URIRef(str(subclass).replace("/subclass/PC", "/subclass/PE")), RDF.type, MSLM.MSDialMappableLipidEntity) in graph
+pe = next(graph.subjects(MSLM.msdialOntologyLabel, Literal("PE")))
+assert (pe, RDF.type, MSLM.MSDialMappableLipidEntity) in graph
 
 # Topology is retained, but display attributes never become RDF predicates.
 original = json.loads((ROOT / "inst/extdata/examples/remodeling_lipidonly.cyjs").read_text())
@@ -54,8 +55,8 @@ for predicate in ("path", "pathpng", "position", "style", "SUID", "effectSize", 
 
 # All locally minted referenced resources are described in the graph.
 subjects = set(graph.subjects())
-for _, _, obj in graph:
-    if isinstance(obj, URIRef) and "/dataset/synthetic_example/" in str(obj):
+for subject, predicate, obj in graph:
+    if isinstance(obj, URIRef) and "/resource/MSLM" in str(obj) and predicate != MSLM.canonicalEntity:
         assert obj in subjects, f"Undescribed local reference: {obj}"
 
 # Sample metadata survives as an RDF JSON literal; no remote context is needed.

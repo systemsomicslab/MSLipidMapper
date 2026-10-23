@@ -21,7 +21,7 @@ log2fc_pseudocount <- 1
 # This intentionally does not require installing MSLipidMapper as a package.
 required_packages <- c(
   "SummarizedExperiment", "S4Vectors", "stringr", "dplyr", "tidyr",
-  "yaml", "rlang", "purrr"
+  "yaml", "rlang", "purrr", "jsonlite", "DBI", "RSQLite"
 )
 missing_packages <- required_packages[!vapply(
   required_packages, requireNamespace, logical(1), quietly = TRUE
@@ -35,6 +35,7 @@ if (length(missing_packages)) {
 }
 
 source(file.path(getwd(), "R", "package_paths.R"), local = FALSE)
+source(file.path(getwd(), "R", "resource_ids.R"), local = FALSE)
 source(file.path(getwd(), "R", "mztab_m_import.R"), local = FALSE)
 source(file.path(getwd(), "R", "lipid_chain_parser_se.R"), local = FALSE)
 source(file.path(getwd(), "R", "pathway_knowledge.R"), local = FALSE)

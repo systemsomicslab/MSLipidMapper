@@ -1,0 +1,57 @@
+uri,id,label,lipidmaps_class_id,classification_url,reaction_count
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000008,MSLMC000008,Straight chain fatty acids,FA0101,https://www.lipidmaps.org/lmsd_search/10101,13
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000011,MSLMC000011,Prostaglandins,FA0301,https://www.lipidmaps.org/lmsd_search/10301,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000012,MSLMC000012,Hydroxy fatty acids,FA0105,https://www.lipidmaps.org/lmsd_search/10105,2
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000013,MSLMC000013,Fatty acyl CoAs,FA0705,https://www.lipidmaps.org/lmsd_search/10705,66
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000014,MSLMC000014,Oxo fatty acids,FA0106,https://www.lipidmaps.org/lmsd_search/10106,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000015,MSLMC000015,Diacylglycerols,GL0201,https://www.lipidmaps.org/lmsd_search/20201,11
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000016,MSLMC000016,Diacylglycerophosphates,GP1001,https://www.lipidmaps.org/lmsd_search/31001,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000017,MSLMC000017,Monoacylglycerophosphocholines,GP0105,https://www.lipidmaps.org/lmsd_search/30105,14
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000018,MSLMC000018,Diacylglycerophosphocholines,GP0101,https://www.lipidmaps.org/lmsd_search/30101,16
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000019,MSLMC000019,C15 isoprenoids (sesquiterpenes),PR0103,https://www.lipidmaps.org/lmsd_search/60103,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000022,MSLMC000022,C19 steroids (androgens) and derivatives,ST0202,https://www.lipidmaps.org/lmsd_search/50202,2
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000023,MSLMC000023,C5 isoprenoids (hemiterpenes),PR0101,https://www.lipidmaps.org/lmsd_search/60101,6
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000024,MSLMC000024,Unsaturated fatty acids,FA0103,https://www.lipidmaps.org/lmsd_search/10103,20
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000025,MSLMC000025,Hydroxy/hydroperoxyeicosatetraenoic acids,FA0306,https://www.lipidmaps.org/lmsd_search/10306,10
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000028,MSLMC000028,Triacylglycerols,GL0301,https://www.lipidmaps.org/lmsd_search/20301,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000032,MSLMC000032,Retinoids,PR0109,https://www.lipidmaps.org/lmsd_search/60109,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000033,MSLMC000033,Cholesterol and derivatives,ST0101,https://www.lipidmaps.org/lmsd_search/50101,15
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000036,MSLMC000036,CDP-diacylglycerols,GP1301,https://www.lipidmaps.org/lmsd_search/31301,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000037,MSLMC000037,Diacylglycerophosphoinositols,GP0601,https://www.lipidmaps.org/lmsd_search/30601,26
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000038,MSLMC000038,C10 isoprenoids (monoterpenes),PR0102,https://www.lipidmaps.org/lmsd_search/60102,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000040,MSLMC000040,"C27 bile acids, alcohols, and derivatives",ST0403,https://www.lipidmaps.org/lmsd_search/50403,9
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000041,MSLMC000041,Simple Glc series,SP0501,https://www.lipidmaps.org/lmsd_search/40501,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000042,MSLMC000042,Ceramides,SP02,https://www.lipidmaps.org/lmsd_search/402,6
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000043,MSLMC000043,Diacylglycerophosphoinositol bisphosphates,GP0801,https://www.lipidmaps.org/lmsd_search/30801,7
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000047,MSLMC000047,Branched fatty acids,FA0102,https://www.lipidmaps.org/lmsd_search/10102,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000050,MSLMC000050,Monoacylglycerophosphates,GP1005,https://www.lipidmaps.org/lmsd_search/31005,7
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000051,MSLMC000051,Diacylglycerophosphoinositol monophosphates,GP0701,https://www.lipidmaps.org/lmsd_search/30701,16
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000053,MSLMC000053,C30 isoprenoids (triterpenes),PR0106,https://www.lipidmaps.org/lmsd_search/60106,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000056,MSLMC000056,Monoacylglycerols,GL0101,https://www.lipidmaps.org/lmsd_search/20101,5
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000057,MSLMC000057,Dicarboxylic acids,FA0117,https://www.lipidmaps.org/lmsd_search/10117,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000058,MSLMC000058,Sphingoid base 1-phosphates,SP0105,https://www.lipidmaps.org/lmsd_search/40105,7
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000061,MSLMC000061,C18 steroids (estrogens) and derivatives,ST0201,https://www.lipidmaps.org/lmsd_search/50201,2
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000066,MSLMC000066,Leukotrienes,FA0302,https://www.lipidmaps.org/lmsd_search/10302,8
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000069,MSLMC000069,Monoacylglycerophosphoinositols,GP0605,https://www.lipidmaps.org/lmsd_search/30605,5
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000070,MSLMC000070,Ceramide phosphocholines (sphingomyelins),SP0301,https://www.lipidmaps.org/lmsd_search/40301,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000071,MSLMC000071,Vitamin D3 and derivatives,ST0302,https://www.lipidmaps.org/lmsd_search/50302,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000074,MSLMC000074,Diacylglycerophosphoserines,GP0301,https://www.lipidmaps.org/lmsd_search/30301,7
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000075,MSLMC000075,Sphing-4-enines (Sphingosines),SP0101,https://www.lipidmaps.org/lmsd_search/40101,2
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000080,MSLMC000080,Diacylglycerophosphoglycerols,GP0401,https://www.lipidmaps.org/lmsd_search/30401,7
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000081,MSLMC000081,Diacylglycerophosphoglycerophosphodiradylglycerols,GP1201,https://www.lipidmaps.org/lmsd_search/31201,6
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000082,MSLMC000082,Monoacylglycerophosphoserines,GP0305,https://www.lipidmaps.org/lmsd_search/30305,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000083,MSLMC000083,Diacylglycerophosphoethanolamines,GP0201,https://www.lipidmaps.org/lmsd_search/30201,11
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000084,MSLMC000084,N-acylsphinganines (dihydroceramides),SP0202,https://www.lipidmaps.org/lmsd_search/40202,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000085,MSLMC000085,4-Hydroxysphinganines (Phytosphingosines),SP0103,https://www.lipidmaps.org/lmsd_search/40103,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000086,MSLMC000086,Monoacylglycerophosphoglycerols,GP0405,https://www.lipidmaps.org/lmsd_search/30405,3
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000089,MSLMC000089,Fatty alcohols,FA05,https://www.lipidmaps.org/lmsd_search/105,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000090,MSLMC000090,Wax monoesters,FA0701,https://www.lipidmaps.org/lmsd_search/10701,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000098,MSLMC000098,Lipoxins,FA0304,https://www.lipidmaps.org/lmsd_search/10304,2
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000104,MSLMC000104,N-acyl-4-hydroxysphinganines (phytoceramides),SP0203,https://www.lipidmaps.org/lmsd_search/40203,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000107,MSLMC000107,Epoxyeicosatrienoic acids,FA0308,https://www.lipidmaps.org/lmsd_search/10308,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000109,MSLMC000109,Sphingoid bases,SP01,https://www.lipidmaps.org/lmsd_search/401,4
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000112,MSLMC000112,Hydroxy/hydroperoxyeicosapentaenoic acids,FA0307,https://www.lipidmaps.org/lmsd_search/10307,7
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000113,MSLMC000113,Other Docosanoids,FA0400,https://www.lipidmaps.org/lmsd_search/10400,15
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000115,MSLMC000115,Hepoxilins,FA0309,https://www.lipidmaps.org/lmsd_search/10309,1
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000124,MSLMC000124,Monoacylglycerophosphoethanolamines,GP0205,https://www.lipidmaps.org/lmsd_search/30205,10
+https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000126,MSLMC000126,Fatty aldehydes,FA06,https://www.lipidmaps.org/lmsd_search/106,3

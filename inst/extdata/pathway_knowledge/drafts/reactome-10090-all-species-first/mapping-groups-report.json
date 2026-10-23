@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 138,
+  "membership_counts": {
+    "ancestor": 2090,
+    "direct": 718
+  },
+  "pathway_count": 117,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Mus musculus",
+  "source_files": {
+    "candidates.json": "178c4d7d9affc509bd382028b79395d8e5fe3ae0a7ba1ce1715ceece28d9fe41",
+    "candidates.ttl": "3d23ed3442baca7daa00dabc6c3d95f183dfb71657d3f27265268bd5fcfd1d74",
+    "pathway-membership.json": "d836122a84ef1d06c6760c5c0b7df5120b2457ccbf0d934ff18777e8ec207b9f",
+    "pathways.json": "c69fc52c319e0b0d3aceb878826194bd0bb2c15b704a76c33ae95d91c28296f6",
+    "report.json": "308b24528974e514202242e099bb0c16ce57e22541ef96b3210fd9ef489acd6b"
+  },
+  "source_reaction_count": 711,
+  "taxon_id": "10090"
+}

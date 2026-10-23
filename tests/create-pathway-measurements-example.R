@@ -1,5 +1,7 @@
 # Synthetic example; no experimental or patient data.
+options(MSLipidMapper.id_registry = file.path("inst", "extdata", "pathway_knowledge", "source", "example-id-registry.sqlite"))
 source("R/package_paths.R")
+source("R/resource_ids.R")
 source("R/pathway_knowledge.R")
 source("R/pathway_measurements.R")
 mat <- rbind(c(10, 12, 20, 22), c(5, NA, 0, 8), c(7, 9, 11, 13))

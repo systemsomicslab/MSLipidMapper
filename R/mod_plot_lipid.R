@@ -117,6 +117,17 @@ mod_plot_lipid_server <- function(
       )
     }
     
+    .value_assay_name <- function(se) {
+      an <- SummarizedExperiment::assayNames(se)
+      if ("abundance" %in% an) "abundance" else an[1]
+    }
+
+    se_base <- reactive({
+      se <- se_in(); req(se)
+      se
+    })
+
+
     .pick_molecule_in_class <- function(se, class_col, class_name, preferred_id = NULL) {
       rd <- as.data.frame(SummarizedExperiment::rowData(se))
       in_class <- rownames(rd)[as.character(rd[[class_col]]) == class_name]
@@ -335,7 +346,7 @@ mod_plot_lipid_server <- function(
     # ==== Top-N molecules: sync adv -> UI ==============================
     observeEvent(adv_reactive(), {
       adv <- adv_reactive()
-      topN <- adv$hm_topN %||% 40L
+      topN <- adv$hm_topN %||% 10L
       if (!is.null(input$n_top_mol) && identical(as.integer(input$n_top_mol), as.integer(topN))) return()
       updateNumericInput(session, "n_top_mol", value = as.integer(topN))
     }, ignoreInit = TRUE)
@@ -378,6 +389,8 @@ mod_plot_lipid_server <- function(
           options = list(
             placeholder = "e.g., 18:0, 22:6;O2, SPB18:1;O2 ...",
             maxOptions  = 5000,
+            dropdownParent = "body",
+            dropdownClass = "selectize-dropdown mslm-molecule-dropdown",
             plugins     = list("remove_button")
           )
         ),
@@ -397,8 +410,8 @@ mod_plot_lipid_server <- function(
     })
     
     # ==== SE with chain filters ========================================
-    se_work <- reactive({
-      se <- se_in()
+    se_work_raw <- reactive({
+      se <- se_base()
       req(se)
       
       if (!methods::is(se, "SummarizedExperiment")) return(se)
@@ -420,24 +433,54 @@ mod_plot_lipid_server <- function(
       )
     })
 
+    # Molecule-level SE used by molecule plot / heatmap / bar plot.
+    se_work <- reactive({
+      se <- se_work_raw(); req(se)
+      se
+    })
+
     # ==== Class UI (based on filtered SE) ==============================
-    output$class_ui <- renderUI({
+    available_classes <- reactive({
       se <- se_work(); req(se)
-      rd <- as.data.frame(SummarizedExperiment::rowData(se))
-      class_col <- .resolve_class_col(se)
-      
-      classes <- sort(unique(as.character(rd[[class_col]])))
-      classes <- classes[!is.na(classes) & nzchar(classes)]
-      
+      cls <- as.character(SummarizedExperiment::rowData(se)[[.resolve_class_col(se)]])
+      cls <- sort(unique(cls))
+      cls[!is.na(cls) & nzchar(cls)]
+    })
+
+    # Map a (possibly stale) selection onto the current class list, e.g.
+    # "EtherPE (P-)" <-> "EtherPE" when the ether split is toggled.
+    .match_class <- function(cur, classes) {
+      if (is.null(cur) || !length(cur) || !nzchar(cur) || !length(classes)) return(NA_character_)
+      if (cur %in% classes) return(cur)
+      base <- sub(" \\([OP]-\\)$", "", cur)
+      if (base %in% classes) return(base)
+      split_hit <- classes[startsWith(classes, paste0(base, " ("))]
+      if (length(split_hit)) return(split_hit[1])
+      NA_character_
+    }
+
+    # Class used by all plots; waits (instead of erroring) while the select
+    # input still holds a class that no longer exists.
+    selected_class <- reactive({
+      cls <- .match_class(input$lipid_class, available_classes())
+      req(!is.na(cls), identical(cls, input$lipid_class))
+      cls
+    })
+
+    output$class_ui <- renderUI({
+      classes <- available_classes()
+
       if (!length(classes)) {
         return(tags$div(style = "color:#b91c1c; font-size:12px;",
                         "No lipid classes available after filtering."))
       }
+
+      sel <- .match_class(isolate(input$lipid_class), classes)
+      if (is.na(sel)) sel <- classes[1]
       
-      cur <- isolate(input$lipid_class)
-      sel <- if (!is.null(cur) && nzchar(cur) && cur %in% classes) cur else classes[1]
-      
-      selectInput(ns("lipid_class"), "Lipid class", classes, selected = sel)
+      selectizeInput(ns("lipid_class"), "Lipid class", classes, selected = sel,
+                     options = list(dropdownParent = "body",
+                                    dropdownClass = "selectize-dropdown mslm-molecule-dropdown"))
     })
     
     # ==== Molecule candidates (based on filtered SE) ====================
@@ -460,15 +503,24 @@ mod_plot_lipid_server <- function(
       updateSelectInput(session, "molecule_id", choices = mol_ids, selected = sel)
     }, ignoreInit = TRUE)
     
+    # Only settings used by the lower panels may invalidate those panels.
+    lower_adv <- reactiveVal(NULL)
+    observe({
+      adv <- adv_reactive(); req(adv)
+      keys <- c("facet_var", "manual_order", "order_by", "decreasing", "palette_map",
+                "hm_topN", "hm_row_z", "plot_font_size", "lipid_y_axis_label")
+      lower_adv(adv[intersect(keys, names(adv))])
+    })
+
     # ==================================================================
-    # Plot components (class / molecule / heatmap) shared reactive
+    # Upper class / molecule plots
     # ==================================================================
     plot_components <- reactive({
       se  <- se_work(); req(se)
       rd0 <- as.data.frame(SummarizedExperiment::rowData(se))
       req(nrow(rd0) > 0)
       
-      req(input$lipid_class, input$plot_type, input$agg_fun)
+      req(selected_class(), input$plot_type, input$agg_fun)
       adv <- adv_reactive(); req(adv)
       
       req(
@@ -492,7 +544,7 @@ mod_plot_lipid_server <- function(
       class_col <- .resolve_class_col(se)
       
       se_cls <- aggregate_to_class_se(se, class_col = class_col, fun = input$agg_fun)
-      picked_mol <- .pick_molecule_in_class(se, class_col, input$lipid_class, preferred_id = input$molecule_id)
+      picked_mol <- .pick_molecule_in_class(se, class_col, selected_class(), preferred_id = input$molecule_id)
       
       arg <- .build_comp_args(adv$comp_mode, adv$ref_group, adv$manual_pairs)
       plot_font <- .safe_font_size(adv$plot_font_size, default = 12)
@@ -501,8 +553,9 @@ mod_plot_lipid_server <- function(
       if (!is.finite(p_label_font) || p_label_font <= 0) p_label_font <- 3.5
       y_axis_label <- trimws(as.character(adv$lipid_y_axis_label %||% "Abundance"))
       if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
-      
-      dot_jw    <- .safe_jitter(adv$dot_jitter_width)
+      y_axis_label_class <- y_axis_label
+
+      dot_jw   <- .safe_jitter(adv$dot_jitter_width)
       box_jw    <- .safe_jitter(adv$box_jitter_width)
       violin_jw <- .safe_jitter(adv$violin_jitter_width)
       
@@ -521,6 +574,7 @@ mod_plot_lipid_server <- function(
         fun  <- get("plot_box_se", mode = "function")
         extra <- list(
           box_width    = adv$box_width,
+          box_linewidth = adv$box_linewidth %||% 1,
           box_alpha    = adv$box_alpha,
           show_points  = adv$box_show_points,
           point_size   = adv$box_point_size,
@@ -545,7 +599,7 @@ mod_plot_lipid_server <- function(
       
       p_class <- do.call(fun, c(list(
         se         = se_cls,
-        feature_id = input$lipid_class,
+        feature_id = selected_class(),
         x_var      = x_var,
         facet_var  = if (nzchar(facet_var)) facet_var else NULL,
         x_order    = if (length(x_order)) x_order else NULL,
@@ -561,14 +615,8 @@ mod_plot_lipid_server <- function(
       ), extra)) +
         theme_lipidomics(plot_font, 0, plot_font, plot_font, plot_font + 2, strip_font) +
         ggplot2::theme(legend.position = "none") +
-        ggplot2::labs(title = paste0("Class: ", input$lipid_class), y = y_axis_label)
+        ggplot2::labs(title = paste0("Class: ", selected_class()), y = y_axis_label_class)
       p_class <- .apply_p_label_size(p_class, p_label_font)
-      
-      x_levels_from_plot <- NULL
-      if (!is.null(p_class$data) && x_var %in% names(p_class$data)) {
-        x_col <- p_class$data[[x_var]]
-        x_levels_from_plot <- if (is.factor(x_col)) levels(x_col) else unique(as.character(x_col))
-      }
       
       if (is.na(picked_mol) || !nzchar(picked_mol)) {
         p_mol <- ggplot() +
@@ -597,17 +645,24 @@ mod_plot_lipid_server <- function(
         p_mol <- .apply_p_label_size(p_mol, p_label_font)
       }
       
-      x_order_hm <- NULL
-      if (!is.null(x_levels_from_plot) && length(x_levels_from_plot)) x_order_hm <- x_levels_from_plot
-      else if (length(x_order)) x_order_hm <- x_order
-      
-      order_by_hm   <- if (!is.null(x_order_hm) && length(x_order_hm)) "none" else order_by_eff
+      list(p_class = p_class, p_mol = p_mol, pal = pal, x_order = x_order)
+    })
+
+    heatmap_components <- reactive({
+      se <- se_work(); req(se, selected_class())
+      adv <- lower_adv(); req(adv)
+      class_col <- .resolve_class_col(se)
+      x_var <- "class"
+      x_order <- adv$manual_order
+      pal <- .make_palette(.get_x_groups(se, x_var = x_var), adv)
+      x_order_hm <- if (length(x_order)) x_order else NULL
+      order_by_hm <- if (length(x_order_hm)) "none" else adv$order_by %||% "none"
+      if (!order_by_hm %in% c("none", "alphabetical")) order_by_hm <- "none"
       decreasing_hm <- if (identical(order_by_hm, "none")) FALSE else isTRUE(adv$decreasing)
-      
       ht <- make_class_heatmap_CH(
         se         = se,
         class_col  = class_col,
-        class_name = input$lipid_class,
+        class_name = selected_class(),
         x_var      = x_var,
         x_order    = x_order_hm,
         order_by   = order_by_hm,
@@ -623,7 +678,7 @@ mod_plot_lipid_server <- function(
       ht_no_legend <- make_class_heatmap_CH(
         se         = se,
         class_col  = class_col,
-        class_name = input$lipid_class,
+        class_name = selected_class(),
         x_var      = x_var,
         x_order    = x_order_hm,
         order_by   = order_by_hm,
@@ -639,7 +694,7 @@ mod_plot_lipid_server <- function(
       ht_value_legend <- make_class_heatmap_CH(
         se         = se,
         class_col  = class_col,
-        class_name = input$lipid_class,
+        class_name = selected_class(),
         x_var      = x_var,
         x_order    = x_order_hm,
         order_by   = order_by_hm,
@@ -652,13 +707,11 @@ mod_plot_lipid_server <- function(
         show_annotation_legend = FALSE
       )
 
-      list(
-        p_class = p_class, p_mol = p_mol,
-        ht = ht, ht_no_legend = ht_no_legend, ht_value_legend = ht_value_legend,
-        pal = pal, x_order = x_order
-      )
+
+      list(ht = ht, ht_no_legend = ht_no_legend, ht_value_legend = ht_value_legend,
+           pal = pal, x_order = x_order)
     })
-    
+
     # ==== Outputs =======================================================
     output$plot_class <- renderPlot({
       pcs <- plot_components(); req(pcs$p_class)
@@ -694,8 +747,8 @@ mod_plot_lipid_server <- function(
     
     # ==== Bar plot helper (for the toggle) =============================
     .make_bar_plot <- function() {
-      se  <- se_work();      req(se, input$lipid_class)
-      adv <- adv_reactive(); req(adv)
+      se  <- se_work();      req(se, selected_class())
+      adv <- lower_adv(); req(adv)
       
       class_col <- .resolve_class_col(se)
       top_n     <- adv$hm_topN
@@ -712,8 +765,8 @@ mod_plot_lipid_server <- function(
       req(exists("plot_lipid_class_bar", mode = "function"))
       plot_lipid_class_bar(
         se,
-        lipid_class       = input$lipid_class,
-        assay_name        = "abundance",
+        lipid_class       = selected_class(),
+        assay_name        = .value_assay_name(se),
         lipid_class_col   = class_col,
         #feature_label_col = label_col,
         sample_class_col  = x_var,
@@ -726,6 +779,11 @@ mod_plot_lipid_server <- function(
         x_text_hjust      = 1,
         bottom_margin_pt  = 26
       ) +
+        ggplot2::scale_x_discrete(labels = function(labels) {
+          vapply(labels, function(label) {
+            paste(strwrap(gsub("|", "| ", label, fixed = TRUE), width = 28), collapse = "\n")
+          }, character(1))
+        }) +
         ggplot2::labs(y = y_axis_label) +
         ggplot2::theme_classic(base_size = plot_font) +
         ggplot2::theme(
@@ -734,13 +792,14 @@ mod_plot_lipid_server <- function(
           axis.title   = ggplot2::element_text(size = plot_font + 1),
           legend.text  = ggplot2::element_text(size = plot_font),
           legend.title = ggplot2::element_text(size = plot_font, face = "bold"),
-          plot.title   = ggplot2::element_text(size = plot_font + 2, face = "bold")
+          plot.title   = ggplot2::element_text(size = plot_font + 2, face = "bold"),
+          plot.margin  = ggplot2::margin(t = 10, r = 18, b = 20, l = 70, unit = "pt")
         )
     }
 
     .make_chain_composition_plot <- function() {
-      se  <- se_work();      req(se, input$lipid_class)
-      adv <- adv_reactive(); req(adv)
+      se  <- se_work_raw();  req(se, selected_class())
+      adv <- lower_adv(); req(adv)
 
       .fail_plot <- function(msg) {
         stop(as.character(msg), call. = FALSE)
@@ -754,7 +813,7 @@ mod_plot_lipid_server <- function(
       if (!nzchar(y_axis_label)) y_axis_label <- "Abundance"
 
       rd <- as.data.frame(SummarizedExperiment::rowData(se))
-      idx <- which(as.character(rd[[class_col]]) == as.character(input$lipid_class))
+      idx <- which(as.character(rd[[class_col]]) == as.character(selected_class()))
       if (!length(idx)) .fail_plot("No molecules are available in the selected lipid class.")
 
       chain_list_all <- .get_chain_list(se, chain_col = "acyl_chains")
@@ -878,7 +937,7 @@ mod_plot_lipid_server <- function(
         ) +
         ggplot2::scale_fill_manual(values = chain_pal, drop = FALSE) +
         ggplot2::labs(
-          title = paste0("Acyl chain composition: ", input$lipid_class),
+          title = paste0("Acyl chain composition: ", selected_class()),
           x = NULL,
           y = y_axis_label,
           fill = "Acyl chain"
@@ -901,15 +960,24 @@ mod_plot_lipid_server <- function(
     }
     
     # ==== Heatmap / Bar plot / chain composition output ================
-    observeEvent(plot_components(), {
-      pcs <- plot_components(); req(pcs)
+    observeEvent(heatmap_components(), {
+      pcs <- heatmap_components(); req(pcs)
       show_by_default <- !.is_dense_categorical_legend(pcs$pal)
       updateCheckboxInput(session, "show_heatmap_legend", value = show_by_default)
       updateCheckboxInput(session, "show_bar_legend", value = show_by_default)
     }, ignoreInit = FALSE)
 
+    output$heatmap_plot_ui <- shiny::renderUI({
+      pcs <- heatmap_components()
+      req(pcs$ht)
+      mat <- pcs$ht@matrix
+      body_height_mm <- max(60, min(320, nrow(mat) * 8))
+      height_px <- ceiling((body_height_mm + 35) * 96 / 25.4)
+      shiny::plotOutput(ns("plot_heatmap"), height = paste0(height_px, "px"))
+    })
+
     output$plot_heatmap <- renderPlot({
-      pcs  <- plot_components()
+      pcs  <- heatmap_components()
       ht <- if (isTRUE(input$show_heatmap_legend)) pcs$ht else pcs$ht_no_legend
       req(ht)
       if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
@@ -945,11 +1013,15 @@ mod_plot_lipid_server <- function(
     output$dl_heatmap <- downloadHandler(
       filename = function() paste0("heatmap_", input$lipid_class, ".pdf"),
       content  = function(file) {
-        pcs <- plot_components(); req(pcs$ht)
+        pcs <- heatmap_components(); req(pcs$ht)
         if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) stop("Please install ComplexHeatmap.")
         if (!requireNamespace("grid", quietly = TRUE)) stop("grid is required.")
         dense <- .is_dense_categorical_legend(pcs$pal)
-        grDevices::pdf(file, width = if (dense) 11 else 7, height = if (dense) 8.5 else 7,
+        mat <- pcs$ht@matrix
+        body_height_mm <- max(60, min(320, nrow(mat) * 8))
+        pdf_height <- max(5, (body_height_mm + 40) / 25.4)
+        pdf_width <- 12
+        grDevices::pdf(file, width = pdf_width, height = pdf_height,
                        onefile = TRUE, useDingbats = FALSE)
         on.exit(grDevices::dev.off(), add = TRUE)
         ComplexHeatmap::draw(
@@ -967,7 +1039,7 @@ mod_plot_lipid_server <- function(
       filename = function() paste0("barplot_", input$lipid_class, ".pdf"),
       content  = function(file) {
         p_bar <- .make_bar_plot()
-        pcs <- plot_components(); req(pcs$pal)
+        pcs <- heatmap_components(); req(pcs$pal)
         .export_ggplot_with_adaptive_legend(
           file = file,
           plot = p_bar,
@@ -1001,7 +1073,7 @@ mod_plot_lipid_server <- function(
         svglite::svglite(file, width = 12, height = 10)
         on.exit(grDevices::dev.off(), add = TRUE)
         
-        pcs <- plot_components()
+        pcs <- c(plot_components(), heatmap_components())
         req(pcs$p_class, pcs$p_mol, pcs$ht)
         
         p_top <- patchwork::wrap_plots(pcs$p_class, pcs$p_mol, ncol = 2, widths = c(1, 1))
@@ -1035,6 +1107,7 @@ mod_plot_lipid_server <- function(
       if (is.function(on_live_change)) on_live_change(list(agg_fun = input$agg_fun, dataset = "lipid"))
     }, ignoreInit = TRUE)
     
+
     observeEvent(input$lipid_class, {
       if (is.function(on_live_change)) on_live_change(list(lipid_class = input$lipid_class, dataset = "lipid"))
     }, ignoreInit = TRUE)
@@ -1154,6 +1227,15 @@ details.cy-acc[open] > summary:after { transform: rotate(90deg); }
 
 details.cy-acc > summary span { font-weight: 600; }
 details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
+.mslm-molecule-dropdown { z-index: 1100; }
+.mslm-molecule-dropdown .selectize-dropdown-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.mslm-molecule-dropdown .option {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 
 .cy-acc-body { padding: 10px; }
 .cy-acc-body .form-group { margin-bottom: 10px; }
@@ -1162,39 +1244,6 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
   
   shiny::tagList(
     shiny::tags$style(shiny::HTML(paste0(css_heatmap_toggle, css_details))),
-    
-    shiny::fluidRow(
-      shinydashboard::box(
-        title       = "Class-level plot",
-        width       = 6,
-        status      = "primary",
-        solidHeader = TRUE,
-        shiny::div(
-          class = "mslm-plot-frame",
-          shiny::div(
-            class = "mslm-plot-square",
-            shiny::plotOutput(ns("plot_class"), height = "100%")
-          )
-        ),
-        shiny::br(),
-        shiny::downloadButton(ns("dl_class_plot"), "Download SVG")
-      ),
-      shinydashboard::box(
-        title       = "Molecule-level plot",
-        width       = 6,
-        status      = "primary",
-        solidHeader = TRUE,
-        shiny::div(
-          class = "mslm-plot-frame",
-          shiny::div(
-            class = "mslm-plot-square",
-            shiny::plotOutput(ns("plot_molecule"), height = "100%")
-          )
-        ),
-        shiny::br(),
-        shiny::downloadButton(ns("dl_molecule_plot"), "Download SVG")
-      )
-    ),
     
     shiny::fluidRow(
       shinydashboard::box(
@@ -1215,8 +1264,17 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
           "Variable",
           open = TRUE,
           shiny::uiOutput(ns("class_ui")),
-          shiny::selectInput(ns("molecule_id"), "Molecule (in selected class)", choices = NULL),
-		  shiny::tags$div(style = "height: 100px;")
+          shiny::div(
+            class = "mslm-molecule-select",
+            shiny::selectizeInput(
+              ns("molecule_id"), "Molecule (in selected class)",
+              choices = NULL, width = "100%",
+              options = list(
+                dropdownParent = "body",
+                dropdownClass = "selectize-dropdown mslm-molecule-dropdown"
+              )
+            )
+          )
         ),
         
         .cy_details(
@@ -1231,7 +1289,7 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
           shiny::numericInput(
             ns("n_top_mol"),
             "Top-N molecules (heatmap / bar plot tabs)",
-            value = 40,
+            value = 10,
             min   = 5,
             step  = 5
           ),
@@ -1250,53 +1308,86 @@ details.cy-acc[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.10); }
           shiny::uiOutput(ns("chain_filter_ui"))
         )
       ),
-      
-      shinydashboard::box(
-        title       = "Top molecules in selected lipid class",
-        width       = 9,
-        status      = "primary",
-        solidHeader = TRUE,
-        shiny::tabsetPanel(
-          id = ns("heatmap_mode"),
-          type = "tabs",
-          shiny::tabPanel(
-            title = "Heatmap",
-            value = "heatmap",
+      shiny::column(
+        width = 9,
+        shiny::fluidRow(
+          shinydashboard::box(
+            title       = "Class-level plot",
+            width       = 6,
+            status      = "primary",
+            solidHeader = TRUE,
             shiny::div(
-              class = "mslm-plot-frame-lg",
-              shiny::plotOutput(ns("plot_heatmap"), height = "100%")
-            ),
-            shiny::div(
-              class = "mslm-legend-download-row",
-              shiny::checkboxInput(ns("show_heatmap_legend"), "Show legend", value = TRUE),
-              shiny::downloadButton(ns("dl_heatmap"), "Download PDF")
-            )
-          ),
-          shiny::tabPanel(
-            title = "Bar plot",
-            value = "bar",
-            shiny::div(
-              class = "mslm-plot-frame-lg",
-              shiny::plotOutput(ns("plot_bar"), height = "100%")
-            ),
-            shiny::div(
-              class = "mslm-legend-download-row",
-              shiny::checkboxInput(ns("show_bar_legend"), "Show legend", value = TRUE),
-              shiny::downloadButton(ns("dl_bar"), "Download PDF")
-            )
-          ),
-          shiny::tabPanel(
-            title = "Acyl chain composition",
-            value = "chain",
-            shiny::div(
-              class = "mslm-plot-frame-lg",
-              shiny::plotOutput(ns("plot_chain_comp"), height = "100%")
+              class = "mslm-plot-frame",
+              shiny::div(
+                class = "mslm-plot-square",
+                shiny::plotOutput(ns("plot_class"), height = "100%")
+              )
             ),
             shiny::br(),
-            shiny::downloadButton(ns("dl_chain_comp"), "Download SVG")
+            shiny::downloadButton(ns("dl_class_plot"), "Download SVG")
+          ),
+          shinydashboard::box(
+            title       = "Molecule-level plot",
+            width       = 6,
+            status      = "primary",
+            solidHeader = TRUE,
+            shiny::div(
+              class = "mslm-plot-frame",
+              shiny::div(
+                class = "mslm-plot-square",
+                shiny::plotOutput(ns("plot_molecule"), height = "100%")
+              )
+            ),
+            shiny::br(),
+            shiny::downloadButton(ns("dl_molecule_plot"), "Download SVG")
           )
         )
       )
+    ),
+    shiny::fluidRow(
+          shinydashboard::box(
+            title       = "Top molecules in selected lipid class",
+            width       = 12,
+            status      = "primary",
+            solidHeader = TRUE,
+            shiny::tabsetPanel(
+              id = ns("heatmap_mode"),
+              type = "tabs",
+              shiny::tabPanel(
+                title = "Bar plot",
+                value = "bar",
+                shiny::div(
+                  class = "mslm-plot-frame-lg",
+                  shiny::plotOutput(ns("plot_bar"), height = "100%")
+                ),
+                shiny::div(
+                  class = "mslm-legend-download-row",
+                  shiny::checkboxInput(ns("show_bar_legend"), "Show legend", value = TRUE),
+                  shiny::downloadButton(ns("dl_bar"), "Download PDF")
+                )
+              ),
+              shiny::tabPanel(
+                title = "Heatmap",
+                value = "heatmap",
+                shiny::uiOutput(ns("heatmap_plot_ui")),
+                shiny::div(
+                  class = "mslm-legend-download-row",
+                  shiny::checkboxInput(ns("show_heatmap_legend"), "Show legend", value = TRUE),
+                  shiny::downloadButton(ns("dl_heatmap"), "Download PDF")
+                )
+              ),
+              shiny::tabPanel(
+                title = "Acyl chain composition",
+                value = "chain",
+                shiny::div(
+                  class = "mslm-plot-frame-lg",
+                  shiny::plotOutput(ns("plot_chain_comp"), height = "100%")
+                ),
+                shiny::br(),
+                shiny::downloadButton(ns("dl_chain_comp"), "Download SVG")
+              )
+            )
+          )
     )
   )
 }

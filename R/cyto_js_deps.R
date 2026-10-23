@@ -25,15 +25,25 @@ suppressPackageStartupMessages({
 })
 
 cyto_js_deps <- function(container_id_css) {
-  vendor_dir <- system.file("app", "www", "vendor", package = "MSLipidMapper")
+  vendor_dir <- if (exists(".mslm_app_www_dir", mode = "function")) {
+    app_www <- .mslm_app_www_dir()
+    if (nzchar(app_www)) file.path(app_www, "vendor") else ""
+  } else system.file("app", "www", "vendor", package = "MSLipidMapper")
   if (!nzchar(vendor_dir) && dir.exists(file.path(getwd(), "www", "vendor"))) {
     vendor_dir <- normalizePath(file.path(getwd(), "www", "vendor"), winslash = "/", mustWork = FALSE)
+  }
+  vendor_src <- function(file) {
+    path <- file.path(vendor_dir, file)
+    version <- if (file.exists(path)) substr(unname(tools::md5sum(path)), 1, 12) else "missing"
+    paste0("/vendor/", file, "?v=", version)
   }
 
   shiny::tagList(
     shiny::tags$script(src = "https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"),
-    if (nzchar(vendor_dir)) shiny::tags$script(src = "/vendor/cytoscape-pdf-export.js"),
-    if (nzchar(vendor_dir)) shiny::tags$script(src = "/vendor/mslm-cytoscape-style.js"),
+    if (nzchar(vendor_dir)) shiny::tags$script(src = vendor_src("cytoscape-pdf-export.js")),
+    if (nzchar(vendor_dir)) shiny::tags$script(src = vendor_src("mslm-cytoscape-style.js")),
+    if (nzchar(vendor_dir)) shiny::tags$script(src = vendor_src("mslm-fc-panels.js")),
+    if (nzchar(vendor_dir)) shiny::tags$script(src = vendor_src("mslm-pathway-workspace.js")),
     shiny::tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"),
     shiny::tags$script(src = "https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"),
     shiny::tags$style(shiny::HTML(sprintf("
@@ -160,7 +170,7 @@ cyto_js_deps <- function(container_id_css) {
           "label": "data(label)",
           "background-color": "white",
           "shape": "round-rectangle",
-          "background-image": "data(path)",
+          "background-image": "none",
           "background-image-crossorigin": "anonymous",
           "background-fit": "cover cover",
           "height": "data(Height)",
@@ -169,6 +179,12 @@ cyto_js_deps <- function(container_id_css) {
           "text-valign": "top",
           "text-halign": "center",
           "text-margin-y": 22
+      }},
+      { selector: \'node[path][path != ""]\', style: {
+          "background-image": "data(path)"
+      }},
+      { selector: \'node[Color = "Blue"], node[Color = "blue"], node[Color = "#0000ff"], node[Color = "#0000FF"]\', style: {
+          "border-color": "#b8c1cb"
       }},
       { selector: "node[IsJunction = 1]", style: {
           "shape": "ellipse",
@@ -349,11 +365,13 @@ cyto_js_deps <- function(container_id_css) {
     const st = window.__cy_state[container_id] || {};
     const inId = st.changed_input;
     if (!inId || !window.Shiny) return;
+    payload.network_id = st.network_id || null;
     Shiny.setInputValue(inId, payload, {priority:"event"});
   }
 
   function deleteSelected(container_id, opts){
     opts = opts || {};
+    if (!window.__cy_state[container_id] || !window.__cy_state[container_id].allow_delete) return;
     const cy = window.__cy_instances[container_id];
     if (!cy) return;
 
@@ -367,6 +385,7 @@ cyto_js_deps <- function(container_id_css) {
 
     sendChanged(container_id, {
       action: "delete_selected",
+      cyjs: cy.json(),
       removed: { nodes: removedNodes, edges: removedEdges },
       counts: { nodes: cy.nodes().length, edges: cy.edges().length },
       ts: Date.now()
@@ -412,8 +431,11 @@ cyto_js_deps <- function(container_id_css) {
     const id = payload.container_id;
     const el = document.getElementById(id);
     if (!el) return null;
+    el.querySelectorAll(".cy-render-error").forEach(function(e){ e.remove(); });
+    if (!window.cytoscape) throw new Error("Cytoscape.js did not load. Check the network connection and reload the page.");
 
     window.__cy_state[id] = window.__cy_state[id] || {};
+    window.__cy_state[id].network_id = payload.network_id || null;
     window.__cy_state[id].selected_input = payload.selected_input || null;
     window.__cy_state[id].changed_input  = payload.changed_input  || null;
     window.__cy_state[id].allow_delete   = (payload.allow_delete !== false);
@@ -425,6 +447,7 @@ cyto_js_deps <- function(container_id_css) {
     });
 
     if (window.__cy_instances[id]) {
+      if (window.__cy_state[id].resize_observer) window.__cy_state[id].resize_observer.disconnect();
       try{ window.__cy_instances[id].destroy(); }catch(e){}
       delete window.__cy_instances[id];
     }
@@ -440,8 +463,29 @@ cyto_js_deps <- function(container_id_css) {
       maxZoom: 3
     });
     window.__cy_instances[id] = cy;
+    // Keep positions for inactive pathways when the user switches networks.
+    cy.on("dragfree layoutstop", function(){
+      if (cy.destroyed()) return;
+      sendChanged(id, {action: "cyjs", cyjs: cy.json(), ts: Date.now()});
+    });
+    // A dashboard can create the network while its tab has zero dimensions.
+    // Fit on its first actual display, even if that happens minutes later.
+    if (window.ResizeObserver) {
+      let firstVisible = true;
+      const observer = new ResizeObserver(function(){
+        if (el.clientWidth <= 0 || el.clientHeight <= 0 || cy.destroyed()) return;
+        requestAnimationFrame(function(){
+          if (cy.destroyed()) return;
+          cy.resize();
+          if (firstVisible) { cy.fit(); cy.center(); firstVisible = false; }
+        });
+      });
+      observer.observe(el);
+      window.__cy_state[id].resize_observer = observer;
+    }
+    if (window.MSLMFC) window.MSLMFC.mount(id, cy);
 
-    if (window.__cy_state[id].allow_delete) installDeleteHotkeys(id);
+    installDeleteHotkeys(id);
 
     (function(){
       const inId = window.__cy_state[id] && window.__cy_state[id].selected_input;
@@ -492,224 +536,12 @@ cyto_js_deps <- function(container_id_css) {
 
       cy.on("cxttap", "node,edge", function(evt){
         const oe = evt.originalEvent;
-        const st = window.__cy_state[id] || {};
-        const allowDelete = !!st.allow_delete;
-
-        if (allowDelete && oe && (oe.ctrlKey || oe.metaKey)){
-          if (oe.preventDefault) oe.preventDefault();
+        if (oe && oe.preventDefault) oe.preventDefault();
+        if (oe && (oe.ctrlKey || oe.metaKey)) {
+          // Delete the targeted element, rather than other selected elements.
+          cy.elements().unselect();
           evt.target.select();
           deleteSelected(id, {fit_after:false});
-          return;
-        }
-
-        if (!evt.target.isNode || !evt.target.isNode()) return;
-        if (oe && oe.preventDefault) oe.preventDefault();
-
-        const node = evt.target;
-        const pos  = node.renderedPosition();
-
-        const plotSrc    = node.data("path") || "";
-        const hmSrc      = node.data("heatmap_path") || node.data("hm_path") || "";
-        const enrichHtml = node.data("enrich_html") || "";
-        const hasPlot    = !!plotSrc;
-        const hasHm      = !!hmSrc;
-        const hasEn      = !!enrichHtml;
-
-        const label = node.data("label") || node.id();
-
-        const tabsHtml =
-          "<div class=\\"cy-popup-tabs\\">" +
-            "<button type=\\"button\\" class=\\"cy-tab-btn cy-tab-plot" + (hasPlot ? " active" : "") + "\\">Plot</button>" +
-            "<button type=\\"button\\" class=\\"cy-tab-btn cy-tab-hm\\"" + (hasHm ? ">" : " disabled>") + "Heatmap</button>" +
-            "<button type=\\"button\\" class=\\"cy-tab-btn cy-tab-en\\"" + (hasEn ? ">" : " disabled>") + "Enrichment</button>" +
-          "</div>";
-
-        const actionHtml =
-          "<div class=\\"cy-popup-actions\\">" +
-            "<button type=\\"button\\" class=\\"cy-dl-svg\\">Download SVG</button>" +
-            "<button type=\\"button\\" class=\\"cy-dl-pdf\\">Download PDF</button>" +
-          "</div>";
-
-        const imageWrapHtml = (
-          (hasPlot || hasHm)
-            ? ("<div class=\\"cy-popup-img-wrap cy-wrap-img\\">" +
-                "<img class=\\"cy-popup-img\\" src=\\"" + (hasPlot ? plotSrc : hmSrc) + "\\" />" +
-               "</div>")
-            : "<div class=\\"cy-popup-img-wrap cy-wrap-img\\">No image available for this node.</div>"
-        );
-
-        const enrichWrapHtml =
-          "<div class=\\"cy-popup-img-wrap cy-wrap-en cy-enrich\\" style=\\"display:none;\\">" +
-            (hasEn ? enrichHtml : "No enrichment data.") +
-          "</div>";
-
-        const pop = document.createElement("div");
-        pop.className = "cy-popup";
-        pop.innerHTML =
-          "<div class=\\"cy-popup-header\\">" +
-            "<span class=\\"cy-popup-title\\">" + label + "</span>" +
-            "<button type=\\"button\\" class=\\"cy-popup-close\\">&#x2715;</button>" +
-          "</div>" +
-          tabsHtml +
-          actionHtml +
-          imageWrapHtml +
-          enrichWrapHtml;
-
-        pop.style.width  = "380px";
-        pop.style.height = "300px";
-        pop.style.left   = (pos.x + 20) + "px";
-        pop.style.top    = (pos.y + 20) + "px";
-
-        bringToFront(pop);
-        containerEl.appendChild(pop);
-        stopAllEvents(pop);
-
-        const closeBtn = pop.querySelector(".cy-popup-close");
-        if (closeBtn){
-          closeBtn.onclick = function(e){
-            e.stopPropagation();
-            if (pop && pop.parentNode) pop.parentNode.removeChild(pop);
-          };
-        }
-
-        const imgWrap = pop.querySelector(".cy-wrap-img");
-        const enWrap  = pop.querySelector(".cy-wrap-en");
-        const imgEl   = pop.querySelector(".cy-popup-img");
-        const btnPlot = pop.querySelector(".cy-tab-plot");
-        const btnHm   = pop.querySelector(".cy-tab-hm");
-        const btnEn   = pop.querySelector(".cy-tab-en");
-        const btnDlSvg = pop.querySelector(".cy-dl-svg");
-        const btnDlPdf = pop.querySelector(".cy-dl-pdf");
-        let currentImageKind = hasPlot ? "plot" : (hasHm ? "heatmap" : "");
-
-        function currentImageSrc(){
-          if (currentImageKind === "plot") return plotSrc;
-          if (currentImageKind === "heatmap") return hmSrc;
-          return "";
-        }
-
-        function updateDownloadButtons(){
-          const hasImage = !!currentImageSrc();
-          if (btnDlSvg) btnDlSvg.disabled = !hasImage;
-          if (btnDlPdf) btnDlPdf.disabled = !hasImage;
-        }
-
-        function setActive(btn){
-          [btnPlot, btnHm, btnEn].forEach(function(b){
-            if (b) b.classList.remove("active");
-          });
-          if (btn) btn.classList.add("active");
-        }
-
-        function showImg(){
-          if (enWrap) enWrap.style.display = "none";
-          if (imgWrap) imgWrap.style.display = "block";
-        }
-
-        function showEn(){
-          if (imgWrap) imgWrap.style.display = "none";
-          if (enWrap) enWrap.style.display = "block";
-        }
-
-        if (btnPlot){
-          btnPlot.onclick = function(e){
-            e.stopPropagation();
-            if (!hasPlot) return;
-            showImg();
-            currentImageKind = "plot";
-            if (imgEl) imgEl.src = plotSrc;
-            setActive(btnPlot);
-            updateDownloadButtons();
-          };
-        }
-
-        if (btnHm){
-          btnHm.onclick = function(e){
-            e.stopPropagation();
-            if (!hasHm || btnHm.disabled) return;
-            showImg();
-            currentImageKind = "heatmap";
-            if (imgEl) imgEl.src = hmSrc;
-            setActive(btnHm);
-            updateDownloadButtons();
-          };
-        }
-
-        if (btnEn){
-          btnEn.onclick = function(e){
-            e.stopPropagation();
-            if (!hasEn || btnEn.disabled) return;
-            showEn();
-            currentImageKind = "";
-            setActive(btnEn);
-            updateDownloadButtons();
-          };
-        }
-
-        if (btnDlSvg){
-          btnDlSvg.onclick = async function(e){
-            e.stopPropagation();
-            const src = currentImageSrc();
-            if (!src) return;
-            try{
-              const kind = currentImageKind || "image";
-              const blob = await fetchBlobFromUrl(src);
-              triggerDownloadFromBlob(blob, safeFilenamePart(label) + "_" + kind + ".svg");
-            } catch(err){
-              alert("Image download failed: " + (err && err.message ? err.message : String(err)));
-            }
-          };
-        }
-
-        if (btnDlPdf){
-          btnDlPdf.onclick = async function(e){
-            e.stopPropagation();
-            const src = currentImageSrc();
-            if (!src) return;
-            try{
-              const kind = currentImageKind || "image";
-              await downloadCurrentImagePdf(src, safeFilenamePart(label) + "_" + kind);
-            } catch(err){
-              alert("PDF download failed: " + (err && err.message ? err.message : String(err)));
-            }
-          };
-        }
-
-        updateDownloadButtons();
-
-        const headerEl = pop.querySelector(".cy-popup-header");
-        if (headerEl){
-          let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
-          headerEl.addEventListener("mousedown", function(e){
-            dragging = true;
-            bringToFront(pop);
-            e.stopPropagation();
-            e.preventDefault();
-
-            const rect = pop.getBoundingClientRect();
-            const contRect2 = containerEl.getBoundingClientRect();
-            startX = e.clientX;
-            startY = e.clientY;
-            startLeft = rect.left - contRect2.left;
-            startTop  = rect.top  - contRect2.top;
-
-            function onMove(ev){
-              if (!dragging) return;
-              const dx = ev.clientX - startX;
-              const dy = ev.clientY - startY;
-              pop.style.left = (startLeft + dx) + "px";
-              pop.style.top  = (startTop  + dy) + "px";
-            }
-
-            function onUp(){
-              dragging = false;
-              document.removeEventListener("mousemove", onMove);
-              document.removeEventListener("mouseup", onUp);
-            }
-
-            document.addEventListener("mousemove", onMove);
-            document.addEventListener("mouseup", onUp);
-          });
         }
       });
     })();
@@ -743,7 +575,7 @@ cyto_js_deps <- function(container_id_css) {
       reset_ids.forEach(function(id){
         const n = cy.getElementById(id);
         if (!n.empty()){
-          try{ n.removeStyle("border-color"); }catch(e){ n.style("border-color", ""); }
+          try{ n.removeStyle("border-color border-width"); }catch(e){ n.style("border-color", ""); }
         }
       });
     }
@@ -756,6 +588,7 @@ cyto_js_deps <- function(container_id_css) {
       const n = cy.getElementById(it.id);
       if (n.empty()) return;
       n.style("border-color", it.color);
+      if (typeof it.width === "number" && isFinite(it.width)) n.style("border-width", it.width);
     });
   }
 
@@ -827,8 +660,37 @@ cyto_js_deps <- function(container_id_css) {
   }
 
   function registerHandlers(){
+    Shiny.addCustomMessageHandler("cy_reset_projection", function(p){
+      const cy = window.__cy_instances[p.container_id];
+      const el = document.getElementById(p.container_id);
+      if (el) el.querySelectorAll(".cy-popup").forEach(pop => pop.remove());
+      if (!cy) return;
+      cy.nodes().unselect();
+      cy.nodes().forEach(function(n){
+        ["path", "heatmap_path", "hm_path", "pathpng", "enrich_html"].forEach(key => n.data(key, ""));
+        n.style("background-image", "none");
+        n.removeStyle("border-color border-width border-style");
+      });
+    });
+    Shiny.addCustomMessageHandler("cy_edit_mode", function(p){
+      if (window.__cy_state[p.container_id]) window.__cy_state[p.container_id].allow_delete = !!p.enabled;
+    });
     Shiny.addCustomMessageHandler("cy_init", function(p){
-      ensureCy(p);
+      try { ensureCy(p); }
+      catch (error) {
+        console.error("[MSLipidMapper] Cytoscape initialization failed", error);
+        const el = document.getElementById(p.container_id);
+        if (el) {
+          el.querySelectorAll(".cy-render-error").forEach(e => e.remove());
+          const message = document.createElement("div");
+          message.className = "cy-render-error";
+          message.setAttribute("role", "alert");
+          message.style.cssText = "position:absolute;inset:12px;z-index:31000;padding:18px;background:#fff5f5;color:#8d2635;border:1px solid #e7a8ad;border-radius:8px;white-space:pre-wrap;";
+          message.textContent = "Network could not be drawn: " + (error.message || String(error)) + String.fromCharCode(10) + "Restart R and reload the page. If this persists, report this message.";
+          el.append(message);
+        }
+        if (p.error_input) Shiny.setInputValue(p.error_input, {message:error.message || String(error),time:Date.now()}, {priority:"event"});
+      }
     });
 
     Shiny.addCustomMessageHandler("cy_fit", function(p){

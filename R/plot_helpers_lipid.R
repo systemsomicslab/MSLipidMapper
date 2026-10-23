@@ -519,7 +519,8 @@ plot_box_se <- function(se, feature_id,
                         show_points  = TRUE,
                         point_size   = 1.6,
                         jitter_width = 0.12,
-                        point_alpha  = 0.8) {
+                        point_alpha  = 0.8,
+                        box_linewidth = 1) {
   
   tidy <- .tidy_from_se_global(se)
   tidy <- tidy[tidy$feature_id %in% feature_id, , drop = FALSE]
@@ -540,7 +541,7 @@ plot_box_se <- function(se, feature_id,
       width         = box_width,
       alpha         = box_alpha,
       outlier.shape = NA,
-      linewidth     = 2
+      linewidth     = box_linewidth
     )
   
   if (isTRUE(show_points)) {
@@ -674,7 +675,8 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
                                   row_total_fun = c("mean", "sum"),
                                   palette = NULL,
                                   show_heatmap_legend = TRUE,
-                                  show_annotation_legend = TRUE) {
+                                  show_annotation_legend = TRUE,
+                                  show_column_names = FALSE) {
   
   order_by      <- match.arg(order_by)
   row_total_fun <- match.arg(row_total_fun)
@@ -725,8 +727,14 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   if (!length(x_levels)) return(NULL)
   
   # ---- Mean abundance: molecule ﾗ class ----
+  sample_info <- unique(tidy[, c("sample_id", x_var), drop = FALSE])
+  sample_info <- sample_info[
+    order(match(as.character(sample_info[[x_var]]), x_levels),
+          match(sample_info$sample_id, colnames(se))), , drop = FALSE
+  ]
+  sample_ids <- as.character(sample_info$sample_id)
   M <- tidy |>
-    dplyr::group_by(.data$feature_id, .data[[x_var]]) |>
+    dplyr::group_by(.data$feature_id, .data$sample_id) |>
     dplyr::summarise(mu = mean(.data$abundance, na.rm = TRUE), .groups = "drop")
   
   if (!nrow(M)) return(NULL)
@@ -752,17 +760,16 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   if (!nrow(M)) return(NULL)
   
   # ---- wide matrix (feature ﾗ class) ----
-  x_sym <- rlang::sym(x_var)
-  M_wide <- tidyr::pivot_wider(M, names_from = !!x_sym, values_from = "mu")
+  M_wide <- tidyr::pivot_wider(M, names_from = "sample_id", values_from = "mu")
   rn <- M_wide$feature_id
   M_wide$feature_id <- NULL
   
-  # align columns to x_levels (missing classes become NA columns)
-  missing_cols <- setdiff(x_levels, colnames(M_wide))
+  # Retain individual samples in group order, including missing measurements.
+  missing_cols <- setdiff(sample_ids, colnames(M_wide))
   if (length(missing_cols)) {
     for (mc in missing_cols) M_wide[[mc]] <- NA_real_
   }
-  M_wide <- M_wide[, x_levels, drop = FALSE]
+  M_wide <- M_wide[, sample_ids, drop = FALSE]
   
   mat <- as.matrix(M_wide)
   storage.mode(mat) <- "numeric"
@@ -781,6 +788,16 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   # ---- row_z: z-score per molecule ----
   if (isTRUE(row_z)) {
     mat <- t(scale(t(mat)))
+    # Constant molecules have zero deviation in every observed sample.
+    constant_rows <- apply(mat, 1, function(x) !any(is.finite(x)))
+    original <- as.matrix(M_wide)[ord, , drop = FALSE]
+    constant_rows <- constant_rows & apply(original, 1, function(x) {
+      x <- x[is.finite(x)]
+      length(x) > 1L && length(unique(x)) == 1L
+    })
+    if (any(constant_rows)) {
+      mat[constant_rows, ] <- ifelse(is.finite(original[constant_rows, , drop = FALSE]), 0, NA_real_)
+    }
   }
 
   # ComplexHeatmap cannot construct a useful color mapping for an empty or
@@ -813,13 +830,18 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
   names(pal_use) <- x_levels
   
   # ---- column annotation (class colors) ----
-  sample_class <- factor(colnames(mat), levels = x_levels)
+  sample_class <- factor(as.character(sample_info[[x_var]]), levels = x_levels)
   ha_top <- ComplexHeatmap::HeatmapAnnotation(
     class = sample_class,
     col   = list(class = pal_use),
     show_legend = isTRUE(show_annotation_legend),
     show_annotation_name = FALSE,
-    simple_anno_size = grid::unit(3, "mm")
+    simple_anno_size = grid::unit(3, "mm"),
+    annotation_legend_param = list(class = list(
+      direction = "horizontal", nrow = 1,
+      title_gp = grid::gpar(fontsize = 10),
+      labels_gp = grid::gpar(fontsize = 9)
+    ))
   )
   
   # ---- row annotation (total bar) ----
@@ -843,23 +865,40 @@ make_class_heatmap_CH <- function(se, class_col, class_name,
     mid <- mean(rng)
   }
   brks <- c(rng[1], mid, rng[2])
-  col_fun <- circlize::colorRamp2(brks, c("#2C7BB6", "white", "#D7191C"))
+  if (isTRUE(row_z)) {
+    z_lim <- max(abs(rng))
+    brks <- c(-z_lim, 0, z_lim)
+  }
+  col_fun <- circlize::colorRamp2(brks, c("blue4", "#f7f7f7", "#c30010"))
+
+  # Fill the available width; give each molecule enough vertical space.
+  body_height_mm <- max(60, min(320, nrow(mat) * 8))
   
   # ---- heatmap body ----
   ht <- ComplexHeatmap::Heatmap(
     mat,
-    name = if (row_z) "z-score" else "mean",
+    name = if (row_z) "z-score" else "Abundance",
     col  = col_fun,
+    height = grid::unit(body_height_mm, "mm"),
     show_heatmap_legend = isTRUE(show_heatmap_legend),
     top_annotation   = ha_top,
     right_annotation = ra_right,
     cluster_rows      = FALSE,
     cluster_columns   = FALSE,
     show_row_names    = TRUE,
-    show_column_names = TRUE,
-    column_title      = x_var,
+    show_column_names = isTRUE(show_column_names),
+    column_title      = "Samples",
     row_title         = "Molecule",
-    rect_gp           = grid::gpar(col = "grey80", lwd = 0.5)
+    row_names_gp      = grid::gpar(fontsize = 9),
+    column_names_gp   = grid::gpar(fontsize = 9),
+    column_names_rot  = 90,
+    column_names_max_height = grid::unit(20, "mm"),
+    rect_gp           = grid::gpar(col = "gray45", lwd = 0.5),
+    heatmap_legend_param = list(
+      border = TRUE, direction = "horizontal",
+      title_gp = grid::gpar(fontsize = 10),
+      labels_gp = grid::gpar(fontsize = 9)
+    )
   )
   
   ht

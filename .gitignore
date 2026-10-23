@@ -5,3 +5,6 @@
 .positai
 mslipidmapper-jobs/
 .api-validation/
+.knowledge-build-deps/
+__pycache__/
+*.pyc

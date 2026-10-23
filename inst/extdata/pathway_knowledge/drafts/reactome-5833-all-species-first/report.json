@@ -1,0 +1,36 @@
+{
+  "biochemical_class_node_count": 35,
+  "candidate_count": 112,
+  "class_dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMB000015",
+  "classification_manifest_sha256": "d2de1c11a86774694e6eb5851a1cc859166d3099fcb15e16b446dd9bbb391c43",
+  "classification_rules_sha256": "e7bf1d7c56dc8eafdbd18710be85b5d42d12c0d087c3d1dea87946b9c5d501a6",
+  "classification_snapshot": "lipid-census-2026-10-15",
+  "dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMB000014",
+  "events_with_class_mapping": 89,
+  "inferred_event_count": 112,
+  "license": "CC0-1.0",
+  "license_source": "https://reactome.org/license",
+  "limitations": [
+    "Scope is the Reactome Plasmodium falciparum Metabolism of lipids hierarchy, including binding and regulatory events; not all lipid biology.",
+    "Inferred status is source evidence, not experimental confirmation in the selected organism. Missing flags remain unknown.",
+    "Only direct SimpleEntity ChEBI identities are projected. Sets, complexes and unspecified entities remain source participants and in the review queue.",
+    "SBML direction is the source model direction, not a claim about physiological flux.",
+    "Reactome and Rhea datasets are separate; counts must not be added as unique biochemical reactions."
+  ],
+  "mapped_lipidmaps_classification_count": 35,
+  "mapping_status_counts": {
+    "complete": 65,
+    "no-direct-lipid-class": 8,
+    "partial": 39
+  },
+  "not_inferred_event_count": 0,
+  "pathway_count": 58,
+  "review_queue_count": 61,
+  "scientific_name": "Plasmodium falciparum",
+  "snapshot_manifest_sha256": "51816f2370c69d48e67d3dc8a15177025901a0d8184bb8729af27abf46243afe",
+  "source_database": "Reactome",
+  "source_release": "97",
+  "status": "source-catalog-with-explicit-class-mapping-status",
+  "taxon_id": "5833",
+  "unknown_inference_event_count": 0
+}

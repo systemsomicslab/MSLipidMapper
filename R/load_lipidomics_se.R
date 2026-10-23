@@ -45,6 +45,16 @@ load_lipidomics_se <- function(csv_path,
   row_data <- df[, annotation_cols, drop = FALSE]
   assay_data <- df[, -(annotation_cols), drop = FALSE]
 
+  # MS-DIAL may prefix molecular names with a sum composition separated by |.
+  # Keep the molecular annotation in both rowData and feature IDs.
+  name_cols <- intersect(c("Metabolite name", "Metabolite.name", "Name", "Title"), names(row_data))
+  for (name_col in name_cols) {
+    lipid_names <- as.character(row_data[[name_col]])
+    has_separator <- !is.na(lipid_names) & grepl("|", lipid_names, fixed = TRUE)
+    lipid_names[has_separator] <- trimws(sub("^[^|]*\\|", "", lipid_names[has_separator]))
+    row_data[[name_col]] <- lipid_names
+  }
+
   # Step 4: coerce assay to numeric matrix
   assay_matrix <- as.matrix(data.frame(lapply(assay_data, function(x) suppressWarnings(as.numeric(x)))))
   sample_names <- colnames(df)[(max(annotation_cols) + 1):ncol(df)]

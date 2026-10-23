@@ -1,0 +1,8 @@
+.libPaths(c('C:/Users/takak/AppData/Local/R/win-library/4.5', .libPaths()))
+suppressPackageStartupMessages(suppressWarnings(library(MSLipidMapper)))
+ns <- asNamespace('MSLipidMapper')
+for (name in ls(ns, all.names = TRUE)) get(name, ns)
+stopifnot(is.function(get('mod_plot_gene_server', ns)))
+cat('Fresh R session: all namespace objects and gene module loaded successfully.\n')
+setwd(tempdir())
+MSLipidMapper::run_mslipidmapper(launch.browser = FALSE, port = 3869L, api_enable = FALSE)

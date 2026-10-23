@@ -42,6 +42,8 @@ Imports:
     stringr,
     yaml,
     jsonlite,
+    DBI,
+    RSQLite,
     processx,
     later,
     filelock,

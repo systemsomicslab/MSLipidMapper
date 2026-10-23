@@ -1,0 +1,235 @@
+{
+  "head" : {
+    "vars" : [
+      "annotated",
+      "reaction",
+      "equation",
+      "side",
+      "participant",
+      "compound",
+      "name",
+      "chebi",
+      "coefficient",
+      "transport"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_84639_compound_10474"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_10474"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-lipoyl]-L-lysyl-[protein]"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-lipoyl]-L-lysyl-[protein] + 4-methyl-2-oxopentanoate + H(+) = N(6)-[(R)-S(8)-3-methylbutanoyldihydrolipoyl]-L-lysyl-[protein] + CO2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_83099"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_84639_compound_3249"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_3249"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "H(+)"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-lipoyl]-L-lysyl-[protein] + 4-methyl-2-oxopentanoate + H(+) = N(6)-[(R)-S(8)-3-methylbutanoyldihydrolipoyl]-L-lysyl-[protein] + CO2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_15378"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639_L"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_84639_compound_5331"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_5331"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "4-methyl-2-oxopentanoate"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-lipoyl]-L-lysyl-[protein] + 4-methyl-2-oxopentanoate + H(+) = N(6)-[(R)-S(8)-3-methylbutanoyldihydrolipoyl]-L-lysyl-[protein] + CO2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_17865"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_84639_compound_20408"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_20408"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-S(8)-3-methylbutanoyldihydrolipoyl]-L-lysyl-[protein]"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-lipoyl]-L-lysyl-[protein] + 4-methyl-2-oxopentanoate + H(+) = N(6)-[(R)-S(8)-3-methylbutanoyldihydrolipoyl]-L-lysyl-[protein] + CO2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_233973"
+        }
+      },
+      {
+        "reaction" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "side" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639_R"
+        },
+        "participant" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Participant_84639_compound_4391"
+        },
+        "annotated" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/84639"
+        },
+        "coefficient" : {
+          "type" : "literal",
+          "value" : "1"
+        },
+        "compound" : {
+          "type" : "uri",
+          "value" : "http://rdf.rhea-db.org/Compound_4391"
+        },
+        "name" : {
+          "type" : "literal",
+          "value" : "CO2"
+        },
+        "equation" : {
+          "type" : "literal",
+          "value" : "N(6)-[(R)-lipoyl]-L-lysyl-[protein] + 4-methyl-2-oxopentanoate + H(+) = N(6)-[(R)-S(8)-3-methylbutanoyldihydrolipoyl]-L-lysyl-[protein] + CO2"
+        },
+        "transport" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#boolean",
+          "type" : "literal",
+          "value" : "false"
+        },
+        "chebi" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_16526"
+        }
+      }
+    ]
+  }
+}

@@ -33,7 +33,7 @@ Reactions with incomplete class mapping remain searchable. See the
 
 - Import an MS-DIAL Alignment Table CSV
 - Import an MS-DIAL mzTab-M file directly
-- Import generic sample-by-lipid data with a separate lipid-to-Ontology table
+- Import generic sample-by-lipid data with a separate LIPID MAPS ID / Ontology annotation table
 - Edit sample metadata and include or exclude samples from analysis
 - Normalize abundances and export normalized data
 - Visualize lipidomics data interactively
@@ -147,7 +147,7 @@ Upload an MS-DIAL mzTab-M file (`.mztab` or `.mzTab`) directly. MSLipidMapper
 reads the abundance data, sample information, and lipid annotations and builds
 the same analysis-ready structure used by the other input formats.
 
-### Generic CSV with Ontology table
+### Generic CSV with feature annotations
 
 Generic import uses two files.
 
@@ -155,7 +155,7 @@ Generic import uses two files.
 
 The assay table is arranged as samples by lipids:
 
-| sample_id | class | PC 34:1 | PE 36:2 |
+| sample_id | class | lipid_001 | lipid_002 |
 |---|---|---:|---:|
 | Sample_1 | Control | 1200 | 820 |
 | Sample_2 | Treatment | 950 | 1100 |
@@ -165,16 +165,27 @@ The assay table is arranged as samples by lipids:
 - an optional `class` column
 - all remaining selected columns are numeric lipid abundances
 
-#### Feature/Ontology CSV
+#### Feature annotation CSV
 
-The feature table maps assay column names to lipid Ontology values:
+The feature table maps assay column names to LIPID MAPS IDs (recommended):
 
-| lipid | Ontology |
-|---|---|
-| PC 34:1 | PC |
-| PE 36:2 | PE |
+| feature_id | label | LIPIDMAPS_ID |
+|---|---|---|
+| lipid_001 | PC 34:1 | LMGP01010001 |
+| lipid_002 | PS 36:2 | LMGP03010001 |
 
-Lipid names must match the abundance-column names in the assay CSV.
+Feature keys must match the abundance-column names in the assay CSV and must
+be unique. Every assay feature requires a non-empty display label. Select the
+key and label columns separately in the upload form; the same column can serve
+both purposes when assay columns already contain suitable lipid names.
+Labels are stored as `label` and `Metabolite name` for feature plots and tables.
+Internal row identifiers retain the assay keys, so duplicate display labels do
+not merge distinct features. Labels do not determine the pathway class.
+The identifiers above illustrate the input format; use the actual IDs of your
+annotated lipids. Select the ID column in the upload form. An `Ontology` column
+is optional and takes priority over IDs when both are supplied. Ontology-only
+tables remain supported. IDs are retained even if the bundled pathway mapping
+does not resolve their class; ambiguous or unsupported classes remain unmapped.
 
 
 ## Command-line pathway mapping
@@ -284,6 +295,14 @@ Mouse Rhea and Reactome catalogs can also be searched together using the
 [source-preserving integrated catalog](docs/integrated-pathway-catalog.md).
 Select organism-specific pathways and measured lipid classes with
 [mapping views and filtered RDF exports](docs/pathway-mapping-views.md).
+
+## Project files
+
+Use **Project file → Prepare project file → Download prepared project** to save
+input data, applied normalization, shared Advanced settings and pathway networks
+as one `.mslm.rds` file. Restore it in another connection with the Project file
+upload control. Individual analysis-panel controls and Utility editor state are
+not included in this initial version. See [saved scope and usage](docs/project-files.md).
 
 ## License
 

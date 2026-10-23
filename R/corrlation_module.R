@@ -237,6 +237,7 @@ mod_plot_cor_ui <- function(id) {
     ),
     
     shinydashboard::tabBox(
+      id = ns("correlation_tabs"),
       width = 12,
       
       # -------------------- Single --------------------
@@ -257,12 +258,7 @@ mod_plot_cor_ui <- function(id) {
                 shiny::selectInput(
                   ns("single_mode"),
                   label   = "Mode",
-                  choices = c(
-                    "Lipid vs gene"       = "lipid_gene",
-                    "Lipid ratio vs gene" = "lipid_ratio_gene",
-                    "Lipid vs lipid"      = "lipid_lipid",
-                    "Gene vs gene"        = "gene_gene"
-                  ),
+                  choices = c("Lipid vs lipid" = "lipid_lipid"),
                   selected  = "lipid_lipid",
                   selectize = FALSE
                 ),
@@ -270,14 +266,7 @@ mod_plot_cor_ui <- function(id) {
                 shiny::conditionalPanel(
                   condition = sprintf("input['%s'] == 'lipid_gene'", ns("single_mode")),
                   shiny::selectInput(ns("single_lipid_lg"), "Lipid (X)", choices = NULL),
-                  shiny::selectInput(ns("single_gene_lg"),  "Gene (Y)",  choices = NULL)
-                ),
-                shiny::conditionalPanel(
-                  condition = sprintf("input['%s'] == 'lipid_ratio_gene'", ns("single_mode")),
-                  shiny::selectInput(ns("single_lipid_ratio_num"), "Lipid numerator (A)", choices = NULL),
-                  shiny::selectInput(ns("single_lipid_ratio_den"), "Lipid denominator (B)", choices = NULL),
-                  shiny::selectInput(ns("single_gene_rg"), "Gene (Y)", choices = NULL),
-                  shiny::helpText("If Transform=Log2: X = log2(A)-log2(B) / If None: X = A/B")
+                  shiny::selectInput(ns("single_gene_lg"),  "Multiomics feature (Y)",  choices = NULL)
                 ),
                 shiny::conditionalPanel(
                   condition = sprintf("input['%s'] == 'lipid_lipid'", ns("single_mode")),
@@ -286,8 +275,8 @@ mod_plot_cor_ui <- function(id) {
                 ),
                 shiny::conditionalPanel(
                   condition = sprintf("input['%s'] == 'gene_gene'", ns("single_mode")),
-                  shiny::selectInput(ns("single_gene_gg_x"), "Gene (X)", choices = NULL),
-                  shiny::selectInput(ns("single_gene_gg_y"), "Gene (Y)", choices = NULL)
+                  shiny::selectInput(ns("single_gene_gg_x"), "Multiomics feature (X)", choices = NULL),
+                  shiny::selectInput(ns("single_gene_gg_y"), "Multiomics feature (Y)", choices = NULL)
                 ),
                 
                 shiny::hr(),
@@ -345,6 +334,7 @@ mod_plot_cor_ui <- function(id) {
       shiny::tabPanel(
         title = "Focus",
         shinydashboard::tabBox(
+          id = ns("focus_tabs"),
           width = 12,
           
           shiny::tabPanel(
@@ -475,12 +465,45 @@ mod_plot_cor_server <- function(
       shiny::reactive(NULL)
     }
     
+    has_multiomics <- shiny::reactive({
+      se <- se_tx_reactive()
+      !is.null(se) && methods::is(se, "SummarizedExperiment") && nrow(se) > 0L && ncol(se) > 0L
+    })
+    shiny::observe({
+      available <- has_multiomics()
+      choices <- c("Lipid vs lipid" = "lipid_lipid")
+      if (available) choices <- c(choices,
+        "Lipid vs multiomics feature" = "lipid_gene",
+        "Multiomics feature vs feature" = "gene_gene")
+      current <- shiny::isolate(input$single_mode) %||% "lipid_lipid"
+      selected <- if (current %in% unname(choices)) current else "lipid_lipid"
+      shiny::updateSelectInput(session, "single_mode", choices = choices, selected = selected)
+      if (available) {
+        shiny::showTab("focus_tabs", "Lipid to genes", session = session)
+        shiny::showTab("focus_tabs", "Gene to lipids", session = session)
+        shiny::showTab("correlation_tabs", "All pair", session = session)
+      } else {
+        shiny::updateTabsetPanel(session, "focus_tabs", selected = "Lipid to lipids")
+        if (identical(shiny::isolate(input$correlation_tabs), "All pair"))
+          shiny::updateTabsetPanel(session, "correlation_tabs", selected = "Single")
+        shiny::hideTab("focus_tabs", "Lipid to genes", session = session)
+        shiny::hideTab("focus_tabs", "Gene to lipids", session = session)
+        shiny::hideTab("correlation_tabs", "All pair", session = session)
+      }
+    })
+
     adv_get <- function() {
       if (is.null(adv_reactive)) return(NULL)
       if (shiny::is.reactive(adv_reactive)) return(adv_reactive())
       NULL
     }
     
+    correlation_font_size <- shiny::reactive({
+      adv <- adv_get()
+      size <- suppressWarnings(as.numeric(adv$plot_font_size %||% 12))
+      if (length(size) != 1L || !is.finite(size) || size < 6) size <- 12
+      size
+    })
     # --- group colors from adv$palette_map (fallback if missing) ---
     get_group_colors <- function(groups_chr) {
       g <- as.character(groups_chr)
@@ -489,6 +512,8 @@ mod_plot_cor_server <- function(
       lev <- sort(unique(g))
       
       adv <- adv_get()
+      manual <- trimws(as.character(adv$manual_order %||% character(0)))
+      ordered_lev <- unique(c(intersect(manual, lev), setdiff(lev, manual)))
       pal_adv <- if (!is.null(adv) && !is.null(adv$palette_map) && length(adv$palette_map)) adv$palette_map else NULL
       
       if (!is.null(pal_adv) && length(pal_adv)) {
@@ -502,12 +527,12 @@ mod_plot_cor_server <- function(
         }
         cols <- pal[lev]
         names(cols) <- lev
-        return(cols)
+        return(cols[ordered_lev])
       }
       
       cols <- grDevices::hcl.colors(length(lev), "Dark 3")
       names(cols) <- lev
-      cols
+      cols[ordered_lev]
     }
     
     # All-pair cache
@@ -545,8 +570,6 @@ mod_plot_cor_server <- function(
       gene_rows <- if (!is.null(se_tx_)) rownames(se_tx_) else NULL
       
       shiny::updateSelectInput(session, "single_lipid_lg", choices = lipid_rows, selected = lipid_rows[1])
-      shiny::updateSelectInput(session, "single_lipid_ratio_num", choices = lipid_rows, selected = lipid_rows[1])
-      shiny::updateSelectInput(session, "single_lipid_ratio_den", choices = lipid_rows, selected = lipid_rows[min(2, length(lipid_rows))])
       shiny::updateSelectInput(session, "single_lipid_ll_x", choices = lipid_rows, selected = lipid_rows[1])
       shiny::updateSelectInput(session, "single_lipid_ll_y", choices = lipid_rows, selected = lipid_rows[min(2, length(lipid_rows))])
       
@@ -555,13 +578,11 @@ mod_plot_cor_server <- function(
       
       if (!is.null(gene_rows) && length(gene_rows) > 0) {
         shiny::updateSelectInput(session, "single_gene_lg", choices = gene_rows, selected = gene_rows[1])
-        shiny::updateSelectInput(session, "single_gene_rg", choices = gene_rows, selected = gene_rows[1])
         shiny::updateSelectInput(session, "single_gene_gg_x", choices = gene_rows, selected = gene_rows[1])
         shiny::updateSelectInput(session, "single_gene_gg_y", choices = gene_rows, selected = gene_rows[min(2, length(gene_rows))])
         shiny::updateSelectInput(session, "focus_gene", choices = gene_rows, selected = gene_rows[1])
       } else {
         shiny::updateSelectInput(session, "single_gene_lg", choices = character(0))
-        shiny::updateSelectInput(session, "single_gene_rg", choices = character(0))
         shiny::updateSelectInput(session, "single_gene_gg_x", choices = character(0))
         shiny::updateSelectInput(session, "single_gene_gg_y", choices = character(0))
         shiny::updateSelectInput(session, "focus_gene", choices = character(0))
@@ -577,6 +598,8 @@ mod_plot_cor_server <- function(
       shiny::req(se_lip)
       
       mode      <- input$single_mode %||% "lipid_lipid"
+      shiny::req(mode %in% c("lipid_lipid", "lipid_gene", "gene_gene"))
+      if (mode != "lipid_lipid") shiny::req(has_multiomics())
       method    <- input$corr_method_single %||% "pearson"
       transform <- input$single_transform %||% "log2"
       
@@ -599,11 +622,11 @@ mod_plot_cor_server <- function(
       do_tr  <- identical(transform, "log2")
       tr_fun <- function(v) if (do_tr) .log2_with_pseudo(v) else as.numeric(v)
       
-      if (mode %in% c("lipid_gene", "lipid_ratio_gene", "gene_gene") && is.null(se_tx_)) {
+      if (mode %in% c("lipid_gene", "gene_gene") && is.null(se_tx_)) {
         shiny::validate(shiny::need(FALSE, "Transcript SummarizedExperiment is not provided, so this mode is not available."))
       }
       
-      if (mode %in% c("lipid_gene", "lipid_ratio_gene")) {
+      if (mode == "lipid_gene") {
         common_ids <- intersect(key_lip, key_tx)
         shiny::validate(shiny::need(length(common_ids) >= 3, "Fewer than 3 shared samples. Correlation cannot be computed."))
         
@@ -614,7 +637,7 @@ mod_plot_cor_server <- function(
           as.character(cd_lip[[group_col]])[idx_lip]
         } else rep("all", length(idx_lip))
         
-        if (mode == "lipid_gene") {
+
           lipid_id <- input$single_lipid_lg
           gene_id  <- input$single_gene_lg
           shiny::req(lipid_id, gene_id)
@@ -630,34 +653,7 @@ mod_plot_cor_server <- function(
           x_label <- lipid_id
           y_label <- gene_id
           
-        } else {
-          lipid_A <- input$single_lipid_ratio_num
-          lipid_B <- input$single_lipid_ratio_den
-          gene_id <- input$single_gene_rg
-          shiny::req(lipid_A, lipid_B, gene_id)
-          
-          shiny::validate(
-            shiny::need(lipid_A %in% rownames(mat_lip), sprintf("Lipid '%s' is not found in the lipid SE.", lipid_A)),
-            shiny::need(lipid_B %in% rownames(mat_lip), sprintf("Lipid '%s' is not found in the lipid SE.", lipid_B)),
-            shiny::need(gene_id  %in% rownames(mat_tx),  sprintf("Gene '%s' is not found in the transcript SE.", gene_id))
-          )
-          
-          if (do_tr) {
-            a <- .log2_with_pseudo(mat_lip[lipid_A, idx_lip])
-            b <- .log2_with_pseudo(mat_lip[lipid_B, idx_lip])
-            x <- a - b
-            x_label <- sprintf("%s / %s (log2)", lipid_A, lipid_B)
-          } else {
-            a <- as.numeric(mat_lip[lipid_A, idx_lip])
-            b <- as.numeric(mat_lip[lipid_B, idx_lip])
-            x <- a / b
-            x_label <- sprintf("%s / %s", lipid_A, lipid_B)
-          }
-          
-          y <- tr_fun(mat_tx[gene_id, idx_tx])
-          y_label <- gene_id
-        }
-        
+
       } else if (mode == "lipid_lipid") {
         common_ids <- key_lip
         idx_lip <- seq_along(common_ids)
@@ -756,12 +752,16 @@ mod_plot_cor_server <- function(
       ggplot(data, aes(x = X, y = Y)) +
         geom_point(aes(fill = Group), size = 3, shape = 21, alpha = 0.85, colour = "#000000") +
         geom_smooth(data = filtered, method = "lm", formula = y ~ x, level = 0.95, colour = "blue", se = TRUE) +
-        annotate("text", x = Inf, y = Inf, hjust = 1.1, vjust = 1.2, label = label_txt, size = 3.5) +
-        scale_fill_manual(values = cols_fill, drop = FALSE) +
+        annotate("text", x = Inf, y = Inf, hjust = 1.1, vjust = 1.2, label = label_txt, size = correlation_font_size() / (72.27 / 25.4)) +
+        scale_fill_manual(values = cols_fill, breaks = names(cols_fill), limits = names(cols_fill), drop = FALSE) +
         labs(x = xlab, y = ylab, fill = res$group_col) +
         guides(fill = guide_legend(override.aes = list(fill = unname(cols_fill), colour = "#000000", shape = 21, alpha = 1))) +
-        theme_classic(base_size = 10) +
-        theme(legend.position = "bottom", aspect.ratio = 1)
+        theme_classic(base_size = correlation_font_size()) +
+        theme(legend.position = "bottom", aspect.ratio = 1,
+              axis.text = element_text(size = correlation_font_size()),
+              axis.title = element_text(size = correlation_font_size()),
+              legend.text = element_text(size = correlation_font_size()),
+              legend.title = element_text(size = correlation_font_size()))
     })
     
     shiny::observeEvent(cor_res_single(), {
@@ -824,11 +824,13 @@ mod_plot_cor_server <- function(
         add_ribbons(data = df_line, x = ~X, ymin = ~lwr, ymax = ~upr, inherit = FALSE,
                     showlegend = FALSE, hoverinfo = "skip", opacity = 0.2) |>
         layout(
-          xaxis = list(title = xlab),
-          yaxis = list(title = ylab),
+          font = list(size = correlation_font_size() * 96 / 72),
+          xaxis = list(title = xlab, automargin = TRUE),
+          yaxis = list(title = ylab, automargin = TRUE),
           annotations = list(list(
             x = 1, y = 1, xref = "paper", yref = "paper",
             text = ann_txt, showarrow = FALSE,
+            font = list(size = correlation_font_size() * 96 / 72),
             xanchor = "right", yanchor = "top"
           )),
           showlegend = isTRUE(input$show_scatter_legend),
@@ -956,6 +958,11 @@ mod_plot_cor_server <- function(
       ht <- ComplexHeatmap::Heatmap(
         mat,
         name = "r",
+        row_names_gp = grid::gpar(fontsize = correlation_font_size()),
+        column_names_gp = grid::gpar(fontsize = correlation_font_size()),
+        heatmap_legend_param = list(
+          title_gp = grid::gpar(fontsize = correlation_font_size()),
+          labels_gp = grid::gpar(fontsize = correlation_font_size())),
         col  = col_fun,
         cluster_rows    = nrow(mat) > 1,
         cluster_columns = ncol(mat) > 1,

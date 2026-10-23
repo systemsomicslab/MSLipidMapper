@@ -1,0 +1,16 @@
+PREFIX rh: <http://rdf.rhea-db.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?annotated ?reaction ?equation ?side ?participant ?compound ?name ?chebi ?coefficient ?transport
+WHERE {
+ VALUES ?annotated { rh:45544 rh:45552 rh:45556 rh:45584 rh:45592 rh:45596 rh:45608 rh:45612 rh:45616 rh:45620 rh:45632 rh:45636 rh:45640 rh:45644 rh:45648 rh:45652 rh:45656 rh:45660 rh:45664 rh:45668 rh:45672 rh:45676 rh:45720 rh:45736 rh:45748 rh:45752 rh:45812 rh:45832 rh:45836 rh:45900 rh:45912 rh:45948 rh:45960 rh:45992 rh:46044 rh:46056 rh:46060 rh:46064 rh:46068 rh:46084 }
+ GRAPH <https://sparql.rhea-db.org/rhea> {
+  ?reaction (rh:directionalReaction|rh:bidirectionalReaction)? ?annotated ;
+    rdfs:subClassOf rh:Reaction ; rh:status rh:Approved ; rh:equation ?equation ; rh:side ?side .
+  OPTIONAL { ?reaction rh:isTransport ?transport }
+  ?side ?contains ?participant .
+  ?contains rdfs:subPropertyOf rh:contains ; rh:coefficient ?coefficient .
+  ?participant rh:compound ?compound .
+  ?compound rh:name ?name .
+  OPTIONAL { ?compound (rh:chebi|rh:underlyingChebi|rh:reactivePart/rh:chebi) ?chebi }
+ }
+} ORDER BY ?reaction ?side ?participant

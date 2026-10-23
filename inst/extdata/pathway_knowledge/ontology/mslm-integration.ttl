@@ -1,0 +1,14 @@
+@prefix mslm: <https://systemomicslab.github.io/MSLipidMapper/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mslm:CrossSourceReactionMatch a owl:Class ;
+  rdfs:comment "Evidence-bearing cross-source relation, not an identity assertion."@en .
+mslm:VerifiedReactionGroup a owl:Class ;
+  rdfs:comment "Same-organism source records with an explicit source cross-reference and matching complete ChEBI/stoichiometry equations. Original source records remain separate."@en .
+mslm:matchLeft a owl:ObjectProperty .
+mslm:matchRight a owl:ObjectProperty .
+mslm:matchKind a owl:DatatypeProperty ; rdfs:range xsd:string ;
+  rdfs:comment "verified-equivalence, exact-chemical-equation, source-cross-reference, or class-signature. Only verified-equivalence creates a verified group; no owl:sameAs is asserted."@en .
+mslm:matchEvidenceJson a owl:DatatypeProperty ; rdfs:range xsd:string .

@@ -1,0 +1,23 @@
+{
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "a4ac80bf4d998316-KIX",
+    "Connection": "close",
+    "Content-Encoding": "gzip",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Date": "Thu, 15 Oct 2026 05:42:52 GMT",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=C2D%2BoYJL7LMzx1BuJzBb8b6TKVsovXmqV17Qcd8cAARhkzRtAqtbBzWKPYN%2FIVmXuDMnHQWyDW1yvpXYm%2BUevCLiJEfPIRxes0K7ZLbQcxRdIKDpNli78cT%2F%2FunN6r4%3D\"}]}",
+    "Server": "cloudflare",
+    "Transfer-Encoding": "chunked",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "method": "POST",
+  "request_body": "R-HSA-9695917,R-HSA-9695949,R-HSA-9705584,R-HSA-9705713,R-HSA-9705714,R-HSA-9705794,R-HSA-9707186,R-HSA-9707353,R-HSA-9716836,R-HSA-9716838,R-HSA-9717830,R-HSA-9717834,R-HSA-9717841,R-HSA-9733545,R-HSA-9733960,R-HSA-9733964,R-HSA-9733969,R-HSA-9733973,R-HSA-9734475,R-HSA-9734535",
+  "request_body_sha256": "d4829a85ca8dde4132890615b1c6c9adc0b81d8ec607f9ad41036e18894e6898",
+  "retrieved_at": "2026-10-15T05:42:53.956279+00:00",
+  "sha256": "d74e954d420171b1192258538cb28f73a649f07301ce9815acb9e5774e301432",
+  "stored_content_encoding": "identity",
+  "url": "https://reactome.org/ContentService/data/query/ids?view=flatten"
+}

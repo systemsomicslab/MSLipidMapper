@@ -1,0 +1,25 @@
+{
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "CF-RAY": "a4ac8285c881d3ed-KIX",
+    "Cache-Control": "max-age=86400",
+    "Connection": "close",
+    "Content-Disposition": "attachment; filename=\"R-BTA-556833.sbml\"",
+    "Content-Type": "application/sbml+xml;charset=UTF-8",
+    "Date": "Thu, 15 Oct 2026 05:44:05 GMT",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H%2B9VjmcJRS9oaLmUZ3MfjWgo9f70QansZZYVX3jSG5JMBmauRIX4I2TnTHRrP0ee%2FY144tEY0TwsEhpn5%2BjQhdKdAXhmIZK7sPznmSKftRJw0VUEo8HAHVX35YGcAi0%3D\"}]}",
+    "Server": "cloudflare",
+    "Transfer-Encoding": "chunked",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "MISS",
+    "last-modified": "Thu, 15 Oct 2026 05:44:05 GMT"
+  },
+  "method": "GET",
+  "request_body": null,
+  "request_body_sha256": null,
+  "retrieved_at": "2026-10-15T05:44:08.473353+00:00",
+  "sha256": "8bfd7c41ceef3b054a036cda13f1524eb8d3e978c7c1927ae95760b0a211f58b",
+  "stored_content_encoding": "identity",
+  "url": "https://reactome.org/ContentService/exporter/event/R-BTA-556833.sbml"
+}

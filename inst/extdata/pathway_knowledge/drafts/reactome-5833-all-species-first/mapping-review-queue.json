@@ -1,0 +1,404 @@
+[
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_62747",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1482539",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1482777",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1482811",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-PFA-1524150",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483087",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1524122",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483087",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483121",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483165",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483203",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-PFA-1524122",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483211",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1524110",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483211",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1524110",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483219",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1524117",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483219",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1524117",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483229",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1524150",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1483229",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675773",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57836",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675773",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675776",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675810",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675939",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57836",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675949",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675949",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1675961",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676024",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676114",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676134",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57923",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676134",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_58088",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676145",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_16152",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676145",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-PFA-1806258",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676152",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-1806287",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-1676152",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-193416",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-193362",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-193479",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-193362",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_84411",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-428123",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_35785",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-428123",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_35785",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-428185",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-5690540",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-5690066",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-5690519",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-5690066",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-6786650",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-6786650",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57795",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-6811522",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-75885",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-PFA-8848239",
+    "entity_type": "CandidateSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8848246",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-8848288",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8848246",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-8848291",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8848246",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-8848271",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8848250",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8848338",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8848339",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-ALL-8849959",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8849969",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-8849958",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8849969",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_64567",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8865637",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_64567",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8865637",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8869241",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57739",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8869241",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-PFA-199971-3",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8870499",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-8870493",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8870499",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_60479",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8952251",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_57560",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-8952251",
+    "status": "unmapped"
+  },
+  {
+    "chebi": "http://purl.obolibrary.org/obo/CHEBI_195403",
+    "codes": [],
+    "method": "none",
+    "reaction": "https://reactome.org/content/detail/R-PFA-9020273",
+    "status": "unmapped"
+  },
+  {
+    "entity": "R-PFA-981570",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-9717841",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-ALL-9717840",
+    "entity_type": "DefinedSet",
+    "reaction": "https://reactome.org/content/detail/R-PFA-9717841",
+    "reason": "container-or-unspecified-entity"
+  },
+  {
+    "entity": "R-PFA-9717836",
+    "entity_type": "Complex",
+    "reaction": "https://reactome.org/content/detail/R-PFA-9717841",
+    "reason": "container-or-unspecified-entity"
+  }
+]

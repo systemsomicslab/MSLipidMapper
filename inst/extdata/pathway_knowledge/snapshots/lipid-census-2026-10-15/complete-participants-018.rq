@@ -1,0 +1,16 @@
+PREFIX rh: <http://rdf.rhea-db.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX ch: <http://purl.obolibrary.org/obo/CHEBI_>
+PREFIX chebihash: <http://purl.obolibrary.org/obo/chebi#>
+PREFIX chemrof: <https://w3id.org/chemrof/>
+SELECT DISTINCT ?reaction ?equation ?side ?participant ?compound ?name ?chebi ?coefficient ?transport ?annotated WHERE {
+ VALUES ?reaction { rh:36219 rh:36223 rh:36227 rh:36231 rh:36235 rh:36239 rh:36255 rh:36259 rh:36303 rh:36315 rh:36319 rh:36323 rh:36327 rh:36331 rh:36363 rh:36367 rh:36371 rh:36379 rh:36391 rh:36395 rh:36399 rh:36403 rh:36411 rh:36435 rh:36475 rh:36479 rh:36483 rh:36491 rh:36503 rh:36507 rh:36511 rh:36515 rh:36519 rh:36523 rh:36527 rh:36531 rh:36535 rh:36539 rh:36547 rh:36555 rh:36571 rh:36575 rh:36615 rh:36619 rh:36627 rh:36639 rh:36647 rh:36667 rh:36671 rh:36675 rh:36683 rh:36687 rh:36691 rh:36715 rh:36719 rh:36739 rh:36743 rh:36747 rh:36751 rh:36755 rh:36759 rh:36763 rh:36767 rh:36771 rh:36775 rh:36787 rh:36807 rh:36819 rh:36823 rh:36827 rh:36835 rh:36839 rh:36843 rh:36851 rh:36859 rh:36863 rh:36867 rh:36871 rh:36875 rh:36879 rh:36883 rh:36887 rh:36891 rh:36895 rh:36907 rh:36911 rh:36915 rh:36919 rh:36923 rh:36927 rh:36931 rh:36935 rh:36939 rh:36943 rh:36947 rh:36951 rh:36955 rh:36963 rh:36967 rh:36979 }
+ GRAPH <https://sparql.rhea-db.org/rhea> {
+ ?reaction rh:equation ?equation ; rh:side ?side .
+ OPTIONAL { ?reaction rh:isTransport ?transport }
+ BIND(?reaction AS ?annotated)
+ ?side ?contains ?participant . ?contains rdfs:subPropertyOf rh:contains ; rh:coefficient ?coefficient .
+ ?participant rh:compound ?compound . ?compound rh:name ?name .
+ OPTIONAL { ?compound (rh:chebi|rh:reactivePart/rh:chebi|rh:underlyingChebi) ?chebi }
+ }} ORDER BY ?reaction ?side ?participant ?annotated

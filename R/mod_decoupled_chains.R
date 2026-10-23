@@ -46,8 +46,6 @@ mod_decoupled_chains_ui <- function(id, title = "Acyl chain analysis") {
             shiny::numericInput(ns("heatmap_min_species_total"), "min_species_total", value = 1, min = 1, step = 1),
             shiny::numericInput(ns("heatmap_min_species_chain"), "min_species_chain", value = 1, min = 1, step = 1),
             shiny::numericInput(ns("heatmap_min_chain_frac_med"), "min_chain_fraction_median", value = 0.01, min = 0, step = 0.001),
-            shiny::numericInput(ns("heatmap_base_font_size"), "Base font size", value = 12, min = 6, step = 1),
-            shiny::numericInput(ns("heatmap_value_font_size"), "Value label size", value = 3, min = 1, step = 0.2),
             shiny::helpText("Total: subset vs class total. Rest: subset vs class total minus subset."),
             shiny::downloadButton(ns("download_heatmap_pdf"), "Export PDF")
           ),
@@ -137,6 +135,7 @@ mod_decoupled_chains_ui <- function(id, title = "Acyl chain analysis") {
         selected = "total"
       ),
       shiny::helpText("Total: x=C, y=S.  Rest: x=R=T−S, y=S (reduces coupling)."),
+
 
       shiny::numericInput(ns("point_size"), "Point size", value = 3, min = 0.5, step = 0.5),
       shiny::numericInput(ns("point_alpha"), "Point alpha", min = 0.1, max = 1.0, value = 0.8, step = 0.05),
@@ -277,6 +276,22 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       unique(chains)
     }
 
+    .apply_panel_fonts <- function(p) {
+      size <- suppressWarnings(as.numeric(.get_adv()$plot_font_size %||% 12))
+      if (length(size) != 1L || !is.finite(size) || size < 6) size <- 12
+      for (i in seq_along(p$layers)) {
+        if (inherits(p$layers[[i]]$geom, c("GeomText", "GeomLabel"))) {
+          p$layers[[i]]$aes_params$size <- size / (72.27 / 25.4)
+        }
+      }
+      p + ggplot2::theme(
+        text = ggplot2::element_text(size = size),
+        axis.text = ggplot2::element_text(size = size),
+        axis.title = ggplot2::element_text(size = size),
+        legend.text = ggplot2::element_text(size = size),
+        legend.title = ggplot2::element_text(size = size),
+        plot.title = ggplot2::element_text(size = size + 2))
+    }
     .placeholder_plot <- function(title, msg) {
       ggplot2::ggplot() +
         ggplot2::theme_void() +
@@ -350,10 +365,10 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
       hm_min_frac <- suppressWarnings(as.numeric(input$heatmap_min_chain_frac_med %||% 0.01))
       if (!is.finite(hm_min_frac) || hm_min_frac < 0) hm_min_frac <- 0.01
 
-      hm_base_font_size <- suppressWarnings(as.numeric(input$heatmap_base_font_size %||% 12))
+      hm_base_font_size <- suppressWarnings(as.numeric(.get_adv()$chain_heatmap_font_size %||% 12))
       if (!is.finite(hm_base_font_size) || hm_base_font_size <= 0) hm_base_font_size <- 12
 
-      hm_value_font_size <- suppressWarnings(as.numeric(input$heatmap_value_font_size %||% 3))
+      hm_value_font_size <- suppressWarnings(as.numeric(.get_adv()$chain_heatmap_value_size %||% 3))
       if (!is.finite(hm_value_font_size) || hm_value_font_size <= 0) hm_value_font_size <- 3
 
       heatmap_compare_to <- .sanitize_compare_to(input$heatmap_compare_to)
@@ -723,7 +738,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
             msg = "No data for this pair\n(or filtered out by thresholds)."
           )
         } else {
-          .apply_palette_snapshot(p, pal)
+          .apply_panel_fonts(.apply_palette_snapshot(p, pal))
         }
       })
 
@@ -793,7 +808,7 @@ mod_decoupled_chains_server <- function(id, se_lipid, assay = "abundance", adv_r
               msg = "No data for this pair\n(or filtered out by thresholds)."
             )
           } else {
-            .apply_palette_snapshot(p, pal)
+            .apply_panel_fonts(.apply_palette_snapshot(p, pal))
           }
         })
 

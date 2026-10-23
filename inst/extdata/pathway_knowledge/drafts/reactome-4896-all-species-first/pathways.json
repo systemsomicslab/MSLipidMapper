@@ -1,0 +1,686 @@
+[
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PC",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482788",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of CL",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482798",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PS",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482801",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 26,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PE",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482839",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodeling of DAG and TAG",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482883",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PI",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482922",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Acyl chain remodelling of PG",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1482925",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of CL",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483076",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPC",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483115",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PG",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483148",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Hydrolysis of LPE",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483152",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PA",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483166",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PC",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483191",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Glycerophospholipid biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483206",
+    "totalEntity": 105,
+    "totalEntityAndInteractors": 113,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PE",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483213",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PI",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483226",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the ER membrane",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483248",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "PI Metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483255",
+    "totalEntity": 37,
+    "totalEntityAndInteractors": 46,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Phospholipid metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1483257",
+    "totalEntity": 132,
+    "totalEntityAndInteractors": 143,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Recycling of bile acids and salts",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-159418",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride catabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-163560",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the plasma membrane",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1660499",
+    "totalEntity": 18,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the Golgi membrane",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1660514",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the early endosome membrane",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1660516",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 25,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs at the late endosome membrane",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1660517",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid de novo biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1660661",
+    "totalEntity": 22,
+    "totalEntityAndInteractors": 22,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-1660662",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Cholesterol biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-191273",
+    "totalEntity": 63,
+    "totalEntityAndInteractors": 67,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-192105",
+    "totalEntity": 45,
+    "totalEntityAndInteractors": 54,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Androgen biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-193048",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Estrogen biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-193144",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-193368",
+    "totalEntity": 24,
+    "totalEntityAndInteractors": 24,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 24-hydroxycholesterol",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-193775",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-193807",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glucocorticoid biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-194002",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Bile acid and bile salt metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-194068",
+    "totalEntity": 48,
+    "totalEntityAndInteractors": 57,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroid hormones",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-196071",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Pregnenolone biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-196108",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Carnitine shuttle",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-200425",
+    "totalEntity": 13,
+    "totalEntityAndInteractors": 13,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Leukotrienes (LT) and Eoxins (EX)",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-2142691",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Arachidonate metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-2142753",
+    "totalEntity": 47,
+    "totalEntityAndInteractors": 47,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Synthesis of Prostaglandins (PG) and Thromboxanes (TX)",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-2162123",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Alpha-oxidation of phytanate",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-389599",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Peroxisomal lipid metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-390918",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Sphingolipid metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-428157",
+    "totalEntity": 38,
+    "totalEntityAndInteractors": 38,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of lipids",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-556833",
+    "totalEntity": 350,
+    "totalEntityAndInteractors": 365,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Cholesterol biosynthesis via desmosterol (Bloch pathway)",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-6807047",
+    "totalEntity": 26,
+    "totalEntityAndInteractors": 27,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-6807062",
+    "totalEntity": 12,
+    "totalEntityAndInteractors": 12,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycerophospholipid catabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-6814848",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Ketone body metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-74182",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acyl-CoA biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-75105",
+    "totalEntity": 34,
+    "totalEntityAndInteractors": 34,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Triglyceride biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-75109",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of very long-chain fatty acyl-CoAs",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-75876",
+    "totalEntity": 20,
+    "totalEntityAndInteractors": 20,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Utilization of Ketone Bodies",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-77108",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of Ketone Bodies",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-77111",
+    "totalEntity": 11,
+    "totalEntityAndInteractors": 11,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "mitochondrial fatty acid beta-oxidation of saturated fatty acids",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-77286",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Mitochondrial Fatty Acid Beta-Oxidation",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-77289",
+    "totalEntity": 17,
+    "totalEntityAndInteractors": 17,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-77346",
+    "totalEntity": 6,
+    "totalEntityAndInteractors": 6,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Synthesis of PIPs in the nucleus",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-8847453",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Wax and plasmalogen biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-8848584",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Metabolism of steroids",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-8957322",
+    "totalEntity": 117,
+    "totalEntityAndInteractors": 127,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Lipid particle organization",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-8964572",
+    "totalEntity": 2,
+    "totalEntityAndInteractors": 2,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Fatty acid metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-8978868",
+    "totalEntity": 97,
+    "totalEntityAndInteractors": 97,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Triglyceride metabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-8979227",
+    "totalEntity": 16,
+    "totalEntityAndInteractors": 16,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of D-series resolvins",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9018676",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of DHA-derived SPMs",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9018677",
+    "totalEntity": 19,
+    "totalEntityAndInteractors": 19,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of specialized proresolving mediators (SPMs)",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9018678",
+    "totalEntity": 23,
+    "totalEntityAndInteractors": 23,
+    "type": "Pathway"
+  },
+  {
+    "diagram": true,
+    "name": "Biosynthesis of EPA-derived SPMs",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9018679",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of protectins",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9018681",
+    "totalEntity": 7,
+    "totalEntityAndInteractors": 7,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(S)-resolvins",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9018896",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of aspirin-triggered D-series resolvins",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9020265",
+    "totalEntity": 9,
+    "totalEntityAndInteractors": 9,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Biosynthesis of E-series 18(R)-resolvins",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9023661",
+    "totalEntity": 5,
+    "totalEntityAndInteractors": 5,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Wax biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9640463",
+    "totalEntity": 10,
+    "totalEntityAndInteractors": 10,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Glycosphingolipid catabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9840310",
+    "totalEntity": 15,
+    "totalEntityAndInteractors": 15,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Sphingolipid catabolism",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9845614",
+    "totalEntity": 8,
+    "totalEntityAndInteractors": 8,
+    "type": "Pathway"
+  },
+  {
+    "diagram": false,
+    "name": "Lanosterol biosynthesis",
+    "species": "Schizosaccharomyces pombe",
+    "stId": "R-SPO-9969896",
+    "totalEntity": 35,
+    "totalEntityAndInteractors": 35,
+    "type": "Pathway"
+  }
+]

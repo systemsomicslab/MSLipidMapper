@@ -1,0 +1,58 @@
+{
+  "biochemical_class_node_count": 119,
+  "candidate_count": 3661,
+  "class_dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMB000039",
+  "dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMB000038",
+  "input_hashes": {
+    "mouse-lipid-census-2026-10-15": {
+      "candidates.json": "10dcab49d2d5987751a8508f123ff5ef45b351331aaf66e204e1f575671f0c1a",
+      "candidates.ttl": "e0d4dd54084376b626fb5f6d0de07594c1649916ad62baa4cd137e06caf0c525",
+      "class-mappings.json": "dbedacbe48fd5de460ce926a691a5bcc7e8a0958f30fe34cbb3aff4270ddb7b1",
+      "class-pathways.ttl": "2e7aa169914bbd70d75156447f208948d179c7ee9a691a4bbc360fde3d1caf20",
+      "classes.csv": "0b8b832e36449094c009a2c146e9b3a85beee356e0d458ec68017a5e56285565",
+      "report.json": "2bba2017c2ad49f9093ff9959098cc615ff6bf5d5267060bc1b996bc090a5d82"
+    },
+    "reactome-10090-all-species-first": {
+      "candidates.json": "178c4d7d9affc509bd382028b79395d8e5fe3ae0a7ba1ce1715ceece28d9fe41",
+      "candidates.ttl": "3d23ed3442baca7daa00dabc6c3d95f183dfb71657d3f27265268bd5fcfd1d74",
+      "class-mappings.json": "f1535e4de6d876f1f342fc36a24d539d0cdd08231c8eea34ff84c2a55149d414",
+      "class-pathways.ttl": "f559999a36fa4835c31d74fbcb1a4587c75f7d6006d78c0c898809225128c5d6",
+      "classes.csv": "2cc14fb5d87aa5373f60bc27cc2b7aa4fb32b8452370af8dcc663912990433b8",
+      "report.json": "308b24528974e514202242e099bb0c16ce57e22541ef96b3210fd9ef489acd6b"
+    }
+  },
+  "limitations": [
+    "Source reaction counts are not deduplicated biochemical transformations.",
+    "Class signatures and chemical equation agreement alone do not establish reaction identity.",
+    "Human Reactome cross-references are never rewritten to mouse IDs.",
+    "Source organism evidence, inferred flags, licenses and participants remain unchanged."
+  ],
+  "mapped_lipidmaps_classification_count": 117,
+  "match_counts": {
+    "class-signature": 864,
+    "exact-chemical-equation": 185,
+    "source-cross-reference": 0,
+    "verified-equivalence": 0
+  },
+  "pathway_count": 117,
+  "scientific_name": "Mus musculus",
+  "source_catalogs": [
+    {
+      "dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMB000006",
+      "folder": "mouse-lipid-census-2026-10-15",
+      "source_release": "2026_03"
+    },
+    {
+      "dataset_uri": "https://systemomicslab.github.io/MSLipidMapper/resource/MSLMB000032",
+      "folder": "reactome-10090-all-species-first",
+      "source_release": "97"
+    }
+  ],
+  "source_counts": {
+    "Reactome": 711,
+    "Rhea": 2950
+  },
+  "source_database": "Rhea + Reactome",
+  "status": "integrated-source-catalog",
+  "taxon_id": "10090"
+}

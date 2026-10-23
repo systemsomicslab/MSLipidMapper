@@ -1,0 +1,224 @@
+{
+  "head" : {
+    "vars" : [
+      "g",
+      "p",
+      "o"
+    ]
+  },
+  "results" : {
+    "bindings" : [
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        },
+        "o" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/2002/07/owl#Class"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "1,2-diacyl-sn-glycerol 3-phosphate(2-)"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        },
+        "o" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_57739"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        },
+        "o" : {
+          "type" : "bnode",
+          "value" : "genid-d19aded49a0f4320aff5d88f0ed7b1545-bn58608t7f29089"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
+        },
+        "o" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_76530"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/IAO_0000115"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "The conjugate base of a 1,2-diacyl-sn-glycerol 3-phosphate compound."
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.geneontology.org/formats/oboInOwl#id"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "58608"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "https://w3id.org/chemrof/charge"
+        },
+        "o" : {
+          "datatype" : "http://www.w3.org/2001/XMLSchema#int",
+          "type" : "literal",
+          "value" : "-2"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "https://w3id.org/chemrof/generalized_empirical_formula"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "C5H5O8PR2"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "https://w3id.org/chemrof/smiles_string"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "[O-]P([O-])(=O)OC[C@@H](COC([*])=O)OC([*])=O"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.geneontology.org/formats/oboInOwl#inSubset"
+        },
+        "o" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/chebi/3_STAR"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.geneontology.org/formats/oboInOwl#hasSynonym"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "a 1,2-diacyl-sn-glycero-3-phosphate"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://www.geneontology.org/formats/oboInOwl#hasSynonym"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "(2R)-2,3-bis(acyloxy)propyl phosphate"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "http://purl.uniprot.org/core/name"
+        },
+        "o" : {
+          "type" : "literal",
+          "value" : "a 1,2-diacyl-sn-glycero-3-phosphate"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      },
+      {
+        "p" : {
+          "type" : "uri",
+          "value" : "https://w3id.org/chemrof/conjugate_base_of"
+        },
+        "o" : {
+          "type" : "uri",
+          "value" : "http://purl.obolibrary.org/obo/CHEBI_29089"
+        },
+        "g" : {
+          "type" : "uri",
+          "value" : "http://sparql.rhea-db.org/chebi"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "mapping_eligible_count": 32,
+  "membership_counts": {
+    "ancestor": 318,
+    "direct": 115
+  },
+  "pathway_count": 58,
+  "policy": "mapping/1: distinct two-sided classes, complete mapping, biochemical event, no transport; inferred allowed",
+  "scientific_name": "Plasmodium falciparum",
+  "source_files": {
+    "candidates.json": "4322227a5989bf6571b2477ad5d016f55d36089cffcf3fac868c0856c8ee0e9f",
+    "candidates.ttl": "9d8f1b448e95e7da3efdf0c145000146ace86a7824ffa1ec4aba33a130cab16d",
+    "pathway-membership.json": "98ba3b3eae508f2efedae76d90c374bc00d698c08dc885753863e82bf01cb5bd",
+    "pathways.json": "061f6ee420563fcf2baccd7bd3cc52e5597df24e686b124163f5f5335b9101c5",
+    "report.json": "10bfaf4fa6237dd89f175b8467c790498cf4e59e83bc693f31403e168af52bac"
+  },
+  "source_reaction_count": 112,
+  "taxon_id": "5833"
+}
