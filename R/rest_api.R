@@ -79,6 +79,9 @@
       !all(fmt %in% c("pdf", "jsonld", "llm", "both")) || (length(fmt) > 1L && "both" %in% fmt)) {
     bad("output.format must be pdf, jsonld, llm, both, or a list such as [pdf, jsonld, llm].")
   }
+  if (any(fmt %in% c("jsonld", "both")) && !exists("mztab_pathway_measurements", mode = "function")) {
+    bad("Requested output format is not available in this distribution.")
+  }
   if (!is.null(cfg$output$llm_features) && (!is.logical(cfg$output$llm_features) ||
       length(cfg$output$llm_features) != 1L || is.na(cfg$output$llm_features))) {
     bad("output.llm_features must be true or false.")

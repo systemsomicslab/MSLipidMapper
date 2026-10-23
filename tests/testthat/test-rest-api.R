@@ -22,6 +22,7 @@ test_that("API configuration cannot select server paths or executables", {
 })
 
 test_that("JSON-LD output and subset options are validated", {
+  skip_if_not(exists("mztab_pathway_measurements", mode = "function"))
   parse <- function(x) .mslm_api_config(charToRaw(x), "mztab")
   expect_identical(parse("{}")$output$format, "pdf")
   expect_false(parse("output:\n  format: jsonld")$measurements$include_subsets)
@@ -36,6 +37,7 @@ test_that("JSON-LD output and subset options are validated", {
 })
 
 test_that("JSON-LD workers export whole subclasses and optional subsets without a browser", {
+  skip_if_not(exists("mztab_pathway_measurements", mode = "function"))
   root <- tempfile("jsonld-job-")
   dir.create(root)
   on.exit(unlink(root, recursive = TRUE), add = TRUE)

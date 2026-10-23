@@ -1,8 +1,0 @@
-const {chromium}=require('C:/Users/takak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
-(async()=>{const b=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
-for(const fail of [false,true]){const p=await b.newPage({viewport:{width:1550,height:1100}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
-await p.route('**/vendor/mslm-cytoscape-style.js*',async route=>{const url=new URL(route.request().url());if(fail)await route.fulfill({contentType:'application/javascript',body:"window.MSLipidMapperCyDefaultStyle=function(){throw new Error('injected render failure')};"});else if(!url.searchParams.has('v'))throw Error('Unversioned vendor asset requested');else await route.continue()});
-await p.goto('http://127.0.0.1:3868');
-if(fail){await p.waitForSelector('.cy-render-error');const message=await p.locator('.cy-render-error').innerText();if(!message.includes('injected render failure'))throw Error(message);await p.waitForSelector('.shiny-notification-error');console.log('PASS: forced JS initialization failure appears in canvas and Shiny notification.');}
-else{await p.waitForFunction(()=>window.__cy_instances?.['path-cy']?.nodes().length===37);const scripts=await p.locator('script[src*="/vendor/"]').evaluateAll(es=>es.map(e=>e.src));if(scripts.some(s=>!s.includes('?v=')))throw Error('Missing cache version');console.log('PASS: versioned assets bypass legacy URLs; 37 nodes rendered.');}
-if(errors.length)throw Error(errors.join(';'));await p.close();}await b.close()})().catch(e=>{console.error(e);process.exit(1)});

@@ -1,6 +1,0 @@
-uri,id,lipidmaps_class_id,lipidmaps_mapping_relation,label,ontology
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000003,MSLMC000003,GP0101,https://systemomicslab.github.io/MSLipidMapper/ontology/EquivalentClassification,PC,PC
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000004,MSLMC000004,GP0201,https://systemomicslab.github.io/MSLipidMapper/ontology/BroaderClassification,PDME,
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000005,MSLMC000005,GP0201,https://systemomicslab.github.io/MSLipidMapper/ontology/BroaderClassification,PE,PE
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000006,MSLMC000006,GP0201,https://systemomicslab.github.io/MSLipidMapper/ontology/BroaderClassification,PMME,
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000007,MSLMC000007,GP0301,https://systemomicslab.github.io/MSLipidMapper/ontology/EquivalentClassification,PS,PS

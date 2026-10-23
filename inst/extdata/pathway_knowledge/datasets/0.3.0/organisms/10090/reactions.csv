@@ -1,7 +1,0 @@
-uri,rhea,direction,label
-https://systemomicslab.github.io/MSLipidMapper/resource/id/2fdedd5f3bb496d340ea15f7a0e7f3ea7b4af43f09629a73e77e39ac0da43ce5,http://rdf.rhea-db.org/20828,https://systemomicslab.github.io/MSLipidMapper/ontology/Forward,reaction ps to pe
-https://systemomicslab.github.io/MSLipidMapper/resource/id/69e0fd9c7af47545015b9e5afadb42aef9669731176a28fdc26f401f712b06ac,http://rdf.rhea-db.org/32735,https://systemomicslab.github.io/MSLipidMapper/ontology/UnknownDirection,pemt stage 2
-https://systemomicslab.github.io/MSLipidMapper/resource/id/814f3810e64b7d6449f93e8d7b108782ec2cb2551eba0cfe5ff3148292c9c74c,http://rdf.rhea-db.org/11164,https://systemomicslab.github.io/MSLipidMapper/ontology/UnknownDirection,pemt stage 1
-https://systemomicslab.github.io/MSLipidMapper/resource/id/94f3e20e0f15c969a2b8aafcb81bf7fa664c61487e064b9b1ec6c3aa5b5c615d,http://rdf.rhea-db.org/32739,https://systemomicslab.github.io/MSLipidMapper/ontology/UnknownDirection,pemt stage 3
-https://systemomicslab.github.io/MSLipidMapper/resource/id/cb067e2b5d6b22b5f5e8929b54ade892a671e881c9f4c4c0ae146751f8589584,http://rdf.rhea-db.org/27606,https://systemomicslab.github.io/MSLipidMapper/ontology/Forward,reaction pe to ps
-https://systemomicslab.github.io/MSLipidMapper/resource/id/e5f7125a58ee39953a02825b64baec05a998afafe0f34c4023225a95ede79ecc,http://rdf.rhea-db.org/45088,https://systemomicslab.github.io/MSLipidMapper/ontology/Forward,reaction pc to ps

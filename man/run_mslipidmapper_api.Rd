@@ -21,8 +21,7 @@ run_mslipidmapper_api(
 \value{Invisibly, the Plumber run result.}
 \description{
 Accepts multipart POST requests containing input and config files and exports
-the three bundled pathways as PDF, RDF/JSON-LD, or both using a separate R worker.
-JSON-LD settings can enable or disable sample-level acyl-subset aggregates.
+the three bundled pathways as PDF or compact JSON summaries using a separate R worker.
 No Shiny session is needed.
 An empty token disables authentication for lab-network operation. When a token
 is configured, all endpoints except /healthz require it.

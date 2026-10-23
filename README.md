@@ -13,22 +13,6 @@ Cytoscape.js-based pathway visualization.
 MSLipidMapper accepts processed abundance tables. It does not process raw mass
 spectrometry files.
 
-The bundled pathway database also has a standalone browser:
-
-```r
-MSLipidMapper::run_pathway_database_app()
-```
-
-Select an organism and release or draft, search lipid classes, LIPID MAPS
-classification codes and reaction IDs, inspect participants and sources, and
-download CSV results or dataset RDF. It runs locally without measurement uploads
-or external services. Draft candidates are explicitly marked as unreviewed.
-
-The mouse source catalog currently contains 2,950 reactions and 118 biochemical
-class nodes linked to 116 LIPID MAPS classification codes (Rhea/UniProt 2026_03).
-Reactions with incomplete class mapping remain searchable. See the
-[coverage definition and rebuild workflow](docs/lipid-reaction-catalog.md).
-
 ## Main features
 
 - Import an MS-DIAL Alignment Table CSV
@@ -112,8 +96,7 @@ must be running before the launcher is used.
 The analysis REST service is separate from Shiny and the existing port-7310
 plot/static API. It accepts multipart POST uploads of an MS-DIAL CSV or mzTab-M
 file plus YAML settings, runs a background analysis job, and provides status and
-PDF or RDF/JSON-LD downloads. Set `output.format: jsonld` and
-`measurements.include_subsets: true|false` to control sample-level subset exports.
+PDF or compact JSON summary downloads.
 The default Compose configuration supports direct lab-network
 access without a token.
 
@@ -226,26 +209,6 @@ Useful options:
 
 The CLI accepts both MS-DIAL Alignment Table CSV and MS-DIAL mzTab-M input.
 
-### RIKEN Lipidomics Excel to mzTab-M
-
-The RIKEN workbooks have variable annotation widths (including ion-mobility
-columns) and two abundance blocks separated by `Lipid IS` (or the legacy
-`standard class` label). The converter finds
-the header and section boundaries by label, preserves the workbook sample
-metadata as assay custom fields, and writes one mzTab-M file per worksheet.
-
-```powershell
-python scripts/riken_xlsx_to_mztab.py `
-  "../RIKEN Lipidomics/RIKEN_LIPIDOMICS_dataset/dataset" `
-  "results/riken_mztab"
-```
-
-Normalized abundance and samples marked `Public` are selected by default. Use
-`--abundance raw`, `--privacy all`, `--sheet NAME`, or
-`--group-by "Category,Tissue/Species,Genotype/Background"` when needed. Invalid
-workbooks are reported and skipped in batch mode; add `--strict` to stop on the
-first error. The script requires Python 3.10+ and `openpyxl`.
-
 When no custom network is specified, the bundled remodeling, ceramide, and
 global pathway networks are rendered. The YAML file controls normalization,
 group inclusion or exclusion, plot type (`dot`, `box`, or `violin`), colors,
@@ -259,18 +222,6 @@ normalization and lipid-class aggregation. Only explicitly parsed acyl chains
 are matched: total-composition names such as `PC 34:1` are not guessed, and
 sphingoid bases are not treated as acyl chains.
 
-## Pathway structure with sample-level measurements
-
-Prebuilt organism-specific class pathway datasets are also available for human,
-mouse, rat, yeast and E. coli. This initial glycerophospholipid pilot supports
-local search and `organism_pathway_measurements()` JSON-LD export without cyjs.
-See [organism dataset coverage, usage and update workflow](docs/organism-pathway-datasets.md).
-
-`mztab_pathway_measurements()` reads an existing cyjs pathway and exports RDF as
-JSON-LD with sample metadata, molecular abundances and whole-subclass/acyl-subset
-measurements. Display attributes are excluded; no FC or p-values are computed.
-See [the data contract and usage](docs/pathway-measurements.md).
-
 ## Example data
 
 Examples are available in `inst/extdata/examples/` and can be located from an
@@ -283,18 +234,6 @@ list.files(example_dir, recursive = TRUE)
 
 Bundled examples include MS-DIAL-style lipidomics data, sample metadata,
 Cytoscape networks, a pathway CLI configuration, and example pathway PDFs.
-
-## Reactome pathway catalog
-
-The standalone pathway database browser also includes a mouse Reactome release 97
-catalog (117 pathways, 711 source events), with inference flags and deterministic
-LIPID MAPS class projections. See [Reactome coverage and rebuild instructions](docs/reactome-pathway-catalog.md).
-To build datasets for other species, run `python scripts/reactome_pathways.py --taxon 9606 10116`.
-See [species selection, offline builds and update commands](docs/reactome-multispecies-command.md).
-Mouse Rhea and Reactome catalogs can also be searched together using the
-[source-preserving integrated catalog](docs/integrated-pathway-catalog.md).
-Select organism-specific pathways and measured lipid classes with
-[mapping views and filtered RDF exports](docs/pathway-mapping-views.md).
 
 ## Project files
 

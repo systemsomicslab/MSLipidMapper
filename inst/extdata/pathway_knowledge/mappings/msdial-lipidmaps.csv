@@ -1,4 +1,0 @@
-msdial_ontology,canonical_uri,canonical_label,lipidmaps_category_code,lipidmaps_main_class_code,lipidmaps_subclass_code,lipidmaps_id,resolution,rdf_source
-PC,https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylcholine,diacylglycerophosphocholine,GP,GP01,GP0101,,subclass,curated/phospholipid-pilot.ttl
-PE,https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylethanolamine,diacylglycerophosphoethanolamine,GP,GP02,GP0201,,subclass,curated/phospholipid-pilot.ttl
-PS,https://systemomicslab.github.io/MSLipidMapper/resource/Phosphatidylserine,diacylglycerophosphoserine,GP,GP03,GP0301,,subclass,curated/phospholipid-pilot.ttl

@@ -1,4 +1,0 @@
-reaction,entity,role,stoichiometry,is_lipid_class
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR000008,https://systemomicslab.github.io/MSLipidMapper/resource/MSLME000001,https://systemomicslab.github.io/MSLipidMapper/ontology/Product,1.0,0
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR000008,https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000005,https://systemomicslab.github.io/MSLipidMapper/ontology/Product,1.0,1
-https://systemomicslab.github.io/MSLipidMapper/resource/MSLMR000008,https://systemomicslab.github.io/MSLipidMapper/resource/MSLMC000007,https://systemomicslab.github.io/MSLipidMapper/ontology/Substrate,1.0,1

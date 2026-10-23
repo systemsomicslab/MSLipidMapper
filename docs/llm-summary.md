@@ -60,7 +60,7 @@ reaction, and chained junctions are merged; a direct edge between two entities
 is a single-step reaction. A conversion drawn more than once is listed once.
 
 Reactions currently carry no enzyme information. Reaction metadata can be
-added later in `inst/extdata/pathway_knowledge/reaction-annotations.csv`, which
+added later in `inst/extdata/reaction-annotations.csv`, which
 ships with only its header row. A row annotates every reaction whose substrates
 include `substrate` and whose products include `product`, using the MS-DIAL
 class names shown on the maps, and adds `enzymes` (name, genes, compartment),

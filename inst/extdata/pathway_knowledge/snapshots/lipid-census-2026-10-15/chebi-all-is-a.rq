@@ -1,9 +1,0 @@
-PREFIX rh: <http://rdf.rhea-db.org/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX ch: <http://purl.obolibrary.org/obo/CHEBI_>
-PREFIX chebihash: <http://purl.obolibrary.org/obo/chebi#>
-PREFIX chemrof: <https://w3id.org/chemrof/>
-SELECT ?chebi ?parent WHERE {
- GRAPH <http://sparql.rhea-db.org/chebi> { ?chebi rdfs:subClassOf ?parent . FILTER(isIRI(?chebi) && isIRI(?parent)) }
- }

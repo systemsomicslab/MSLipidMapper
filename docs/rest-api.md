@@ -2,7 +2,7 @@
 
 The REST service accepts an MS-DIAL Alignment CSV or mzTab-M file and a YAML
 configuration, then exports the bundled remodeling, ceramide and global pathways
-as PDFs, JSON-LD measurements, or both. It runs independently of Shiny. Generic CSV, custom networks and other
+as PDFs or compact JSON summaries. It runs independently of Shiny. Generic CSV, custom networks and other
 Shiny analysis outputs are not exposed by this first API version.
 
 ## Start with Docker Compose
@@ -81,7 +81,7 @@ to change the resource limits.
 Open `http://SERVER_LAN_IP:8000/` in a browser for a GUI that talks to the API.
 It lets you choose the input file, load and edit the YAML parameters as text
 (with a preview of the server's validation rules), submit the job, follow its
-status, and preview or download the results (PDF and/or JSON-LD). The editor starts from a default
+status, and preview or download the results (PDF or JSON summaries). The editor starts from a default
 mzTab-M configuration with `output.format: [pdf, llm]`. For each action it also shows the equivalent `curl`
 command (bash or PowerShell) with the current URL, file names and job ID filled
 in. If you edit the parameters, use "Save YAML" so the saved `config.yml`
@@ -156,59 +156,6 @@ and SVG dimensions to 0.5–20 inches.
 
 ## Check progress and download
 
-### JSON-LD output and optional acyl subsets
-
-Set `output.format: llm` (alone or in a list such as `[pdf, jsonld, llm]`) for
-one `<pathway>-llm-summary.json` per pathway, a compact export with reaction
-nodes intended as LLM input;
-see [llm-summary.md](llm-summary.md). `output.llm_features: true` adds every
-molecular feature's values to it.
-Set `output.format: jsonld` for RDF/JSON-LD only, `both` for PDF plus JSON-LD,
-or `pdf` (default) for the existing PDF behavior. JSON-LD-only jobs require no
-Chrome/Chromium and no Cytoscape CDN access.
-
-```yaml
-input:
-  format: mztab-m
-analysis:
-  normalization: none
-  aggregation: sum
-  group_column: class
-output:
-  format: jsonld
-measurements:
-  include_subsets: true
-  acyl_chains: ["18:0", "24:1"]
-  unit: arbitrary
-```
-
-`measurements.include_subsets` defaults to `false`: only whole-subclass sample
-aggregates are produced. `true` adds independent acyl-chain subset aggregates.
-When `acyl_chains` is omitted, all parsed chains are selected; when supplied,
-only those chains are used. Supplying chains with subsets disabled is rejected.
-This option controls sample-level aggregation, not p-values or FC. Whole-subclass
-values for matched lipid nodes and all original molecular sample values are
-retained in JSON-LD. A pathway with no matching lipid node has no node aggregates.
-
-Analysis normalization, aggregation and group/feature filters apply to both
-PDF and JSON-LD exports. `analysis.acyl_chain_filter` removes molecules before
-export, whereas `measurements.acyl_chains` defines additional subsets without
-removing molecules from the whole-subclass values.
-
-The artifacts are `remodeling-measurements.json`, `ceramide-measurements.json`
-and `global-measurements.json`, served as `application/ld+json`. Download using
-the existing artifact route, for example:
-
-```bash
-curl --fail-with-body "$MSLM_URL/v1/jobs/$JOB_ID/artifacts/remodeling-measurements.json" \
-  -o remodeling-measurements.json
-```
-
-The completed job's `result.measurements` reports sample/feature counts,
-normalization, aggregation, mapped-node counts and the selected subset chains.
-See [the JSON-LD schema](pathway-measurements.md) and
-`inst/extdata/examples/pathway-api-jsonld.yml`.
-
 ```bash
 JOB_ID=job_0123456789abcdef0123456789abcdef
 curl --fail-with-body \
@@ -224,7 +171,7 @@ curl --fail-with-body \
 Job status is `queued`, `running`, `succeeded` or `failed`. Successful job status
 includes a result summary, mapping counts and artifact filenames. The artifact
 listing includes sizes and download URLs. All returned URLs are relative to the
-API origin. The download endpoint returns `application/pdf` or `application/ld+json` bytes.
+API origin. The download endpoint returns `application/pdf` or `application/json` bytes.
 
 | Response | Meaning |
 |---|---|

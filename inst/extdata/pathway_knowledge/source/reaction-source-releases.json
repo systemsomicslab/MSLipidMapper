@@ -1,4 +1,0 @@
-{
-  "Rhea": {"release": "current-at-curation", "version_known": false, "retrieved_on": "2026-08-30", "note": "Inherited from source-manifest.yml. An exact historical Rhea release was not recorded; do not substitute the UniProt release."},
-  "Reactome": {"release": "current-at-curation", "version_known": false, "retrieved_on": "2026-08-30", "note": "Inherited from source-manifest.yml. An exact historical Reactome release was not recorded."}
-}

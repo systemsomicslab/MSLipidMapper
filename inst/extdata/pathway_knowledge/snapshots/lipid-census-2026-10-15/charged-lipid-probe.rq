@@ -1,6 +1,0 @@
-PREFIX rh: <http://rdf.rhea-db.org/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX ch: <http://purl.obolibrary.org/obo/CHEBI_>
-PREFIX chebihash: <http://purl.obolibrary.org/obo/chebi#>
-SELECT DISTINCT ?g ?p ?o WHERE { GRAPH ?g { ch:58608 ?p ?o } }

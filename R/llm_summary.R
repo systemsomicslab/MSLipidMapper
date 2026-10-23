@@ -41,7 +41,14 @@
 }
 
 # Reaction metadata maintained as a CSV; multi-valued cells use ";".
-.mslm_reaction_annotations <- function(path = mslipidmapper_pathway_knowledge_path("reaction-annotations.csv")) {
+.mslm_reaction_annotations <- function(path = NULL) {
+  if (is.null(path)) {
+    candidates <- c(system.file("extdata", "reaction-annotations.csv", package = "MSLipidMapper"),
+                    file.path(getwd(), "inst", "extdata", "reaction-annotations.csv"))
+    candidates <- candidates[nzchar(candidates) & file.exists(candidates)]
+    if (!length(candidates)) return(data.frame())
+    path <- candidates[1]
+  }
   if (!nzchar(path) || !file.exists(path)) return(data.frame())
   utils::read.csv(path, stringsAsFactors = FALSE, colClasses = "character",
                   na.strings = character(), check.names = FALSE)
